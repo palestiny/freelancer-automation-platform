@@ -397,3 +397,20 @@ The Measurement & Learning domain now has a normalized business-level history vi
 The normalized model preserves source identity and business ownership, supports optional expectations, derives variance without inventing missing expectations, and provides chronological and metric-scoped access.
 
 It remains independent of providers and does not mutate source domains.
+### Business Performance History & Aggregation — Current Foundation
+
+Owns the normalized evidence view used to organize business performance across bounded source domains.
+
+Flow:
+
+**Source Observation → BusinessPerformanceObservation → PerformanceWindow → PerformanceAggregate → Analysis / Learning**
+
+Responsibilities:
+- business-scoped performance observations
+- provenance preservation
+- expected/actual separation
+- deterministic variance
+- explicit time-window selection
+- traceable historical aggregation
+
+Aggregation remains derived data. It does not replace raw observations, mutate source domains, or make policy decisions.
