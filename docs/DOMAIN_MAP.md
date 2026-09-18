@@ -66,6 +66,28 @@ Responsibilities:
 - risk-adjusted economics
 - economic assumptions/provenance
 
+### Economic Health
+
+Answers:
+
+> How economically healthy, stable, safe, and scalable is this opportunity or business across the dimensions that matter?
+
+Responsibilities:
+
+- profitability score
+- profit potential score
+- profit stability score
+- demand stability score
+- safety score
+- recurring revenue score
+- automation score
+- capital efficiency score
+- scalability score
+- evidence quality score
+- preservation of supporting evidence/metrics
+
+The Economic Profile is intentionally a vector rather than a universal master score. Scoring formulas and thresholds remain changeable policy.
+
 ### Venture Intelligence
 
 Answers:
