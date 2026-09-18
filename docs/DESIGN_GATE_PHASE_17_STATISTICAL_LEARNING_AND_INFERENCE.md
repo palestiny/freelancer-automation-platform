@@ -1,6 +1,6 @@
 # Design Gate — Phase 17 Statistical Learning & Inference
 
-**Status:** PROPOSED — design boundary only; no statistical implementation is authorized by this gate.
+**Status:** APPROVED — V1 first statistical use case implemented; this gate records the Phase 17 boundary and remains closed for additional methods until a dedicated use case is approved.
 
 ## Purpose
 
@@ -63,7 +63,7 @@ This gate does not authorize:
 
 ## Decision Gate
 
-No implementation should begin until one concrete statistical use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
+For additional statistical methods, no implementation should begin until a concrete statistical use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
 
 Phase 16 remains closed and unchanged while this gate is open.
 
@@ -130,7 +130,7 @@ The statistical result is an evidence artifact. It may later be composed with pe
 
 ### Implementation gate
 
-Runtime implementation remains blocked until this proposal is reviewed against the repository's existing aggregate/window contracts and RED tests define every invalid/insufficient-data path above. The confidence level, method name, and policy ownership must be explicit in code rather than hidden constants.
+This gate's first use case has been implemented and reviewed against the repository's window/context contracts. The confidence level, method name, and policy ownership remain explicit in code rather than hidden constants.
 
 
 ## Runtime Status
