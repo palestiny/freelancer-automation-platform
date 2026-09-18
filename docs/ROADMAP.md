@@ -227,3 +227,14 @@ Build controlled optimization around measured campaign performance:
 - explicit authorization boundaries
 
 **Status:** Provider-independent recommendation foundation implemented. External execution and automatic spend remain future work.
+
+
+## Phase 16 — Business Operations & Multi-Business Execution
+
+- Business identity and lifecycle
+- Operational cycles
+- Work item lifecycle
+- Explicit business ownership/isolation
+- Provider-independent execution meaning
+
+**Status:** Domain foundation implemented. Scheduling, workers, external execution, and cross-business optimization remain future work.
