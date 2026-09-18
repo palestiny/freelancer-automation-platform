@@ -4,12 +4,11 @@
 
 Define product boundaries, domain model, economics, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
 
-**Status:** Economic Opportunity OS expansion approved; economic health and resource/capacity foundations established; domain foundations in progress.
+**Status:** Economic Opportunity OS direction approved; modular-monolith and provider-independent domain boundaries established.
 
 ## Phase 1 — Opportunity Intelligence
 
 Build:
-
 - marketplace-independent opportunity contracts
 - opportunity types
 - normalization
@@ -19,12 +18,11 @@ Build:
 - persistence
 - API/dashboard exposure
 
-**Status:** Domain TDD in progress.
+**Status:** Domain foundations and TDD coverage implemented. Persistence/API/UI remain future slices.
 
 ## Phase 2 — Business Economics & Resource Economics
 
 Build:
-
 - economic estimates
 - actual-vs-expected economics
 - resource cost model
@@ -34,23 +32,23 @@ Build:
 - opportunity cost
 - economic health metrics and history
 
-**Status:** Economic estimate, Economic Profile, resource usage, and human-time capacity foundations implemented; actual-vs-expected, opportunity cost, and historical economics remain future slices.
+**Status:** EconomicEstimate, EconomicProfile, ResourceUsage, ResourceKind, and human-time CapacitySnapshot foundations implemented. Actual-vs-expected history, opportunity cost, and historical economics remain future slices.
 
 ## Phase 3 — Market Intelligence & Demand Discovery
 
 Build:
-
-- market observation model
+- market observations
 - demand signals
 - competitor/trend observations
 - source provenance
 - evidence quality
 - demand-to-opportunity transformation
 
+**Status:** Initial provider-independent MarketObservation and DemandSignal foundation implemented. Source normalization, trend detection, competitor analysis, and persistence remain future slices.
+
 ## Phase 4 — Business Model & Venture Discovery
 
 Build:
-
 - business-model hypotheses
 - multiple models per demand signal
 - venture thesis
@@ -63,7 +61,6 @@ Build:
 ## Phase 5 — Venture Validation & Experimentation
 
 Build:
-
 - validation experiment model
 - cheapest credible validation path
 - measurable hypotheses
@@ -71,12 +68,11 @@ Build:
 - experiment outcomes
 - explicit promotion/rejection
 
-**Status:** Provider-independent validation experiment foundation implemented. External execution, statistical methodology, and automated promotion remain future work.
+**Status:** Provider-independent validation experiment foundation implemented. External execution, statistical methodology, scheduling, and automated promotion remain future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
 
 Build:
-
 - economic posture rules
 - opportunity prioritization
 - capacity-aware allocation
@@ -87,12 +83,13 @@ Build:
 - human approval controls
 - protection of stable profitable assets
 
+**Status:** Design direction exists; portfolio allocation and capital execution are intentionally not implemented.
+
 No automatic capital movement until explicit policy and safety design are approved.
 
 ## Phase 7 — Revenue Engine
 
 Build:
-
 - demand acquisition
 - offer design
 - pricing
@@ -102,10 +99,11 @@ Build:
 - expansion
 - recurring revenue
 
+**Status:** Provider-independent RevenueContract and RevenueEvent foundation implemented. Payment execution, reconciliation, invoicing, and automatic pricing remain future work.
+
 ## Phase 8 — Capability & Project Execution
 
 Build:
-
 - capability registry
 - capability selection
 - execution planning
@@ -114,12 +112,11 @@ Build:
 - delivery preparation
 - execution monitoring
 
-Capabilities may include AI models, software tools, external APIs, and human review.
+**Status:** Planned. Core capability/execution orchestration is not yet implemented.
 
 ## Phase 9 — Client Communication & Service Operations
 
 Build:
-
 - communication state machine
 - requirement clarification
 - negotiation support
@@ -128,24 +125,26 @@ Build:
 - redelivery
 - client success
 
+**Status:** Provider-independent SocialPresence, IncomingMessage, ResponseDraft, authorization, escalation, and SentMessage foundation implemented. External delivery remains future work.
+
 ## Phase 10 — Measurement, Business Memory & Learning
 
 Build:
-
 - expected vs actual metrics
+- variance analysis
 - revenue/cost/margin tracking
 - delivery time
 - acceptance and revision metrics
 - capability performance
 - venture/business performance
-- marketplace performance
 - business memory
 - learning signals
+
+**Status:** Architectural direction established, but the dedicated outcome/measurement/learning domain is not yet implemented.
 
 ## Phase 11 — Progressive Autonomy
 
 Build:
-
 - policy versioning
 - autonomy levels
 - approval workflows
@@ -153,10 +152,11 @@ Build:
 - safe automation boundaries
 - auditability
 
+**Status:** Autonomy boundaries and approval principles are established. Full policy/versioning/approval infrastructure remains future work.
+
 ## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
 
 Add:
-
 - multiple marketplace adapters
 - productized/managed services
 - SaaS/API businesses
@@ -165,17 +165,13 @@ Add:
 - investment research
 - web/Windows/mobile interfaces
 
+**Status:** Strategic direction approved. Adapters and interfaces remain future work.
+
 Interfaces must not duplicate business logic.
-
-## Guiding Rule
-
-The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
-
 
 ## Phase 13 — Marketing & Growth Automation
 
-Build the growth operating loop for validated businesses:
-
+Build:
 - positioning and offer definition
 - campaign domain and policy
 - organic/paid channel planning
@@ -189,36 +185,23 @@ Build the growth operating loop for validated businesses:
 - controlled campaign experiments
 - campaign-to-business economic learning
 
-**Status:** Provider-independent campaign domain foundation implemented. External advertising/social integrations remain future work.
+**Status:** Campaign, communication, and campaign-optimization foundations implemented. External advertising/social integrations and real spend remain future work.
 
 ## Phase 14 — Business Operations & Multi-Business Execution
 
-Extend the platform from campaign automation into repeatable business operations across multiple validated businesses while preserving:
-
-- business-specific policy
-- resource/capacity constraints
-- economic health monitoring
-- stable-profit protection
-- progressive autonomy
-- auditability and learning.
-
-## Phase 3 — Market Intelligence & Demand Discovery
-
 Build:
+- business identity and lifecycle
+- operational cycles
+- work item lifecycle
+- explicit business ownership/isolation
+- provider-independent execution meaning
+- operational outcome evidence
 
-- market observation model
-- demand signals
-- competitor/trend observations
-- source provenance
-- evidence quality
-- demand-to-opportunity transformation
-
-**Status:** Initial provider-independent MarketObservation and DemandSignal foundation implemented. Source normalization, trend detection, competitor analysis, and demand persistence remain future slices.
+**Status:** Business, OperationalCycle, and WorkItem foundations implemented. Scheduling, workers, external execution, and cross-business optimization remain future work.
 
 ## Phase 15 — Campaign Optimization & Budget Policy
 
 Build controlled optimization around measured campaign performance:
-
 - optimization policy
 - evidence sufficiency
 - budget adjustment recommendations
@@ -228,13 +211,21 @@ Build controlled optimization around measured campaign performance:
 
 **Status:** Provider-independent recommendation foundation implemented. External execution and automatic spend remain future work.
 
+## Phase 16 — Operational Measurement & Learning Integration
 
-## Phase 16 — Business Operations & Multi-Business Execution
+Build the missing bridge between operating businesses and the learning loop:
+- work-item outcome observations
+- expected-vs-actual operational measurements
+- business performance history
+- variance analysis
+- learning signals
+- evidence-linked improvement recommendations
+- explicit policy/experiment handoff
 
-- Business identity and lifecycle
-- Operational cycles
-- Work item lifecycle
-- Explicit business ownership/isolation
-- Provider-independent execution meaning
+**Status:** Next implementation phase.
 
-**Status:** Domain foundation implemented. Scheduling, workers, external execution, and cross-business optimization remain future work.
+## Guiding Rule
+
+The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
+
+Each increment is complete only when applicable design, RED/GREEN TDD, review/refactoring, documentation, tests, commit/push, and project-state update are completed and verified.
