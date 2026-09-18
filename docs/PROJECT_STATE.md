@@ -2,16 +2,16 @@
 
 ## Current Phase
 
-**Phase 17 — Statistical Learning & Inference (Design Gate)
+**Phase 17 — Statistical Learning & Inference (First Statistical Use Case Implemented)
 
-Phase 16 deterministic measurement and learning scope is closed. Phase 17 is currently design-only; no statistical runtime implementation is authorized until a concrete statistical use case and its applicability, insufficient-data, provenance, and consumer semantics are defined.
+Phase 16 deterministic measurement and learning scope is closed. Phase 17 now has its first narrow statistical runtime use case implemented and verified. Further statistical methods remain gated by explicit design.
 
 The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The operational outcomes → measurement → learning bridge is now implemented as a provider-independent domain foundation.
 
 ## Verified Test / CI State
 
 - The repository contains one canonical GitHub Actions CI workflow: `.github/workflows/ci.yml`.
-- CI run **245** for commit `b342928c79a5abfdc2376f0d8b28eaca448fbaf9` completed successfully after the evidence-aware operational-learning change. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
+- CI run **277** for commit `b342928c79a5abfdc2376f0d8b28eaca448fbaf9` completed successfully after the evidence-aware operational-learning change. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
 - CI is intentionally dependency-minimal at this stage: it installs pytest directly because the repository currently has no `requirements.txt` or `pyproject.toml`.
 
 ## Implemented Domain Foundations
