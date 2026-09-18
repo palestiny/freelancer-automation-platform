@@ -516,3 +516,7 @@ PerformanceAggregate retains source types and raw observation identifiers. Curre
 ## Performance Source Reliability Policy
 
 The Measurement & Learning boundary now includes an explicit source-reliability policy. Reliability is policy-derived from source type and is separate from observation-level evidence quality. Mixed-source aggregates are evaluated using the weakest configured source reliability, and missing configuration blocks eligibility. This remains provider-independent and non-executing.
+
+## Baseline Reliability Integration
+
+The Measurement & Learning architecture now allows baseline eligibility to consume source reliability as an additional policy gate. Observation evidence quality, source reliability, observation sufficiency, and freshness remain separate checks. Comparison consumes the resulting baseline eligibility rather than reimplementing these checks.
