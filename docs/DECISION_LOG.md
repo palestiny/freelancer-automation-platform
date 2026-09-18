@@ -152,12 +152,46 @@ Automatic capital movement is not part of the current domain implementation.
 
 The system may study successful business/game patterns and derive differentiated hypotheses, but it is not designed around literal copying of another product.
 
+## D-025 — Economic Quality Is Multi-Dimensional
+
+**Status:** COMMITTED
+
+Profitability, profit potential, profit stability, demand stability, safety, recurring revenue, automation, capital efficiency, scalability, and evidence quality are separate measurable economic dimensions.
+
+The platform must not assume that maximum theoretical profit is the only objective.
+
+## D-026 — Stable Profitability Must Be Protectable
+
+**Status:** COMMITTED
+
+A small, stable, profitable business or recurring-revenue asset is economically valuable even when growth upside is limited. Future portfolio policy must be able to protect and monitor such assets rather than sacrificing them automatically for higher theoretical upside.
+
+## D-027 — No Universal Economic Master Score
+
+**Status:** COMMITTED
+
+Economic dimensions remain a vector rather than one permanent weighted score. Different policies may emphasize different dimensions for protection, maintenance, growth, validation, turnaround, harvesting, or exit decisions.
+
+## D-028 — Economic Scores Are Derived and Evidence-Aware
+
+**Status:** COMMITTED
+
+Economic scores are derived assessments, not raw facts. The system must preserve supporting evidence/metrics and their quality. Scoring formulas, thresholds, baselines, and time windows remain changeable policy.
+
+## D-029 — Portfolio Posture Is Policy-Derived
+
+**Status:** COMMITTED
+
+PROTECT, MAINTAIN, OPTIMIZE_CAREFULLY, GROW, HARVEST, TURNAROUND, and EXIT are future policy-derived actions, not intrinsic business states and not part of the core Economic Profile score vector.
+
 ## Open Decisions
 
 - Exact V1 resource/capacity model.
+- Economic score calculation policies and evidence requirements by opportunity/business type.
+- Historical stability metric windows and baselines.
 - Market Intelligence and demand-source boundaries.
 - Venture validation experiment model.
-- Portfolio optimization objective and constraints.
+- Portfolio posture rules and optimization constraints.
 - Capital allocation policy and approval controls.
 - Exact experiment statistics/decision methodology.
 - First marketplace adapter.
