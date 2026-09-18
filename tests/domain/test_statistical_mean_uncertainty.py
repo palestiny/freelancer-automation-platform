@@ -5,7 +5,7 @@ import pytest
 
 from app.domain.business_performance import BusinessPerformanceObservation, PerformanceSourceType
 from app.domain.performance_history import PerformanceWindow
-from app.domain.statistical_mean_uncertainty import MeanUncertaintyStatus, calculate_mean_uncertainty
+from app.domain.statistical_mean_uncertainty import MeanUncertaintyResult, MeanUncertaintyStatus, calculate_mean_uncertainty
 
 START = datetime(2026, 1, 1)
 
