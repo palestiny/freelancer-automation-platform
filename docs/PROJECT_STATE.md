@@ -479,7 +479,7 @@ BusinessPerformanceHistory enforces single-business isolation and provides deter
 
 This is a normalized evidence view, not a replacement for source domains and not a policy or execution mechanism.
 
-The next engineering work remains evidence/provenance enrichment, historical aggregation, and statistical learning before persistence/API/external execution.
+The next engineering work remains evidence/provenance enrichment, baseline eligibility, historical comparison policy, and statistical learning before persistence/API/external execution.
 
 ## Current Implementation Addition — Evidence-Aware Measurement Learning
 
@@ -508,7 +508,7 @@ Missing expectations are not converted to zero, and zero expectations do not cre
 
 ## Immediate Next Slice
 
-The next logical measurement slice is trend/baseline analysis over these normalized observations and aggregates, with explicit policy and evidence requirements. It should remain deterministic first and avoid premature statistical inference.
+Trend comparison and evidence-aware baseline eligibility are now implemented. The next measurement slice is a bounded comparison/learning policy over eligible baselines, still deterministic and without premature statistical inference.
 
 ## Current Measurement Addition — Performance Trend & Baseline
 
