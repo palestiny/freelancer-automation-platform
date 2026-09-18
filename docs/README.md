@@ -104,3 +104,6 @@ External ad/social execution remains outside the current domain-only boundary.
 - Provider-independent optimization recommendation foundation implemented.
 - Budget limits and evidence sufficiency are explicit.
 - Automatic ad spend remains outside the domain.
+
+
+21. DESIGN_GATE_BUSINESS_OPERATIONS_AND_MULTI_BUSINESS_EXECUTION.md — business lifecycle, operational cycles, work items, and multi-business isolation.
