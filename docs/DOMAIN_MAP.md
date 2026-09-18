@@ -424,3 +424,12 @@ Flow:
 **Performance History → Window Aggregates → Baseline Comparison → Trend Evidence**
 
 The trend result preserves provenance and evidence quality. It does not forecast, score business health, or mutate policy.
+
+
+### Evidence & Baseline Policy — Current Foundation
+
+The Measurement & Learning area now evaluates whether a supplied historical aggregate is suitable for baseline use:
+
+**PerformanceAggregate → Evidence/Recency Policy → Baseline Eligibility → Trend Analysis**
+
+The policy checks observation sufficiency, average evidence quality, explicit freshness, and temporal ordering. It returns an explainable eligibility reason and does not choose baselines or mutate business policy.
