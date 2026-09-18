@@ -281,3 +281,7 @@ Build:
 ### Phase 16 — Performance Source Reliability Policy
 
 The Measurement & Learning foundation now includes a provider-independent source-reliability policy. Reliability is explicitly policy-derived and remains separate from observation-level evidence quality. Mixed-source aggregates use the weakest configured source reliability, and missing source configuration blocks eligibility. No provider ranking, causal inference, automatic action, or policy mutation is introduced.
+
+### Phase 16 — Baseline Reliability Integration
+
+Baseline eligibility can now optionally incorporate the explicit source-reliability policy. Source reliability is an additional evidence gate alongside observation count, observation-level evidence quality, and freshness; failures remain explainable.
