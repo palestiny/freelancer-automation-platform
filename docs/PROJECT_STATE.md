@@ -2,7 +2,9 @@
 
 ## Current Phase
 
-**Phase 16 — Operational Measurement & Learning Integration**
+**Phase 17 — Statistical Learning & Inference (Design Gate)
+
+Phase 16 deterministic measurement and learning scope is closed. Phase 17 is currently design-only; no statistical runtime implementation is authorized until a concrete statistical use case and its applicability, insufficient-data, provenance, and consumer semantics are defined.
 
 The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The operational outcomes → measurement → learning bridge is now implemented as a provider-independent domain foundation.
 
@@ -305,10 +307,9 @@ Still outside the current slice:
 
 ## Next Design Gates
 
-1. Phase 16 closure / semantic consistency review.
-2. Statistical learning or inference under a dedicated design gate.
-3. Persistence/API when required by a concrete application boundary.
-4. Portfolio posture and allocation policy as a future strategic domain.
+1. Phase 17 statistical learning/inference use-case definition and design closure.
+2. Persistence/API when required by a concrete application boundary.
+3. Portfolio posture and allocation policy as a future strategic domain.
 
 ## Learning Loop
 
@@ -346,10 +347,9 @@ No real ad spend, social credentials, account creation, provider APIs, or automa
 
 ## Current Next Design Gates
 
-1. Phase 16 closure / semantic consistency review.
-2. Statistical learning or inference only after an explicit design gate.
-3. Persistence / API only when a concrete product boundary requires it.
-4. Portfolio posture and allocation policy remains a future strategic domain.
+1. Phase 17 statistical learning/inference use-case definition and design closure.
+2. Persistence / API only when a concrete product boundary requires it.
+3. Portfolio posture and allocation policy remains a future strategic domain.
 
 ## Current Implementation Addition
 
@@ -548,7 +548,7 @@ Phase 16 now has an explicit `PerformanceSourceReliabilityPolicy` and `SourceRel
 
 This remains a provider-independent eligibility input. It does not rank providers, infer causality, forecast, mutate policy, or execute external actions.
 
-The latest branch changes are awaiting CI verification before any green-test claim is recorded.
+The latest Phase 16 reliability changes were verified through the merged pull-request CI lineage; no unexposed post-merge workflow is assumed green.
 
 ## Current Measurement Addition — Baseline Reliability Integration
 
