@@ -52,8 +52,10 @@ def test_operational_measurement_derives_variance():
         expected_value=10,
         actual_value=12,
         measured_at=NOW,
+        evidence_quality=85,
     )
 
+    assert measurement.evidence_quality == 85
     assert measurement.variance == 2
     assert measurement.relative_variance == 0.2
 
@@ -120,7 +122,7 @@ def test_learning_signal_is_derived_evidence():
     signal = LearningSignal(
         id="learning-1",
         business_id="business-1",
-        source_measurement_ids=("measurement-1",)
+        source_measurement_ids=("measurement-1",),
         statement="Delivery consistently takes longer than expected.",
         evidence_quality=90,
     )
