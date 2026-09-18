@@ -83,6 +83,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.STATISTICAL_RESULT_NOT_APPLICABLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICAL_RESULT_NOT_APPLICABLE,
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     if (
@@ -94,6 +98,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_EVIDENCE_QUALITY,
             interpretation=_interpretation(comparison),
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     if not current_source_reliability.eligible or not baseline_source_reliability.eligible:
@@ -109,6 +117,10 @@ def compose_statistical_evidence(
         eligible=True,
         reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
         interpretation=_interpretation(comparison),
+        current_evidence_quality=current_evidence_quality,
+        baseline_evidence_quality=baseline_evidence_quality,
+        current_source_reliability=current_source_reliability,
+        baseline_source_reliability=baseline_source_reliability,
     )
 
 
@@ -124,6 +136,10 @@ def _compose(
     eligible: bool,
     reason: StatisticalEvidenceEligibilityReason,
     interpretation: StatisticalEvidenceInterpretation,
+    current_evidence_quality: float,
+    baseline_evidence_quality: float,
+    current_source_reliability: SourceReliabilityAssessment,
+    baseline_source_reliability: SourceReliabilityAssessment,
 ) -> StatisticalEvidenceComposition:
     return StatisticalEvidenceComposition(
         business_id=comparison.business_id,
