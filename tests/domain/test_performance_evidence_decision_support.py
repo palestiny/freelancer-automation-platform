@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from app.domain.performance_history import PerformanceWindow
 from app.domain.performance_trend import PerformanceTrend
+from app.domain.performance_reliability import SourceReliabilityAssessment, SourceReliabilityReason
 from app.domain.statistical_evidence_composition import (
     StatisticalEvidenceComposition,
     StatisticalEvidenceEligibilityReason,
@@ -48,6 +49,10 @@ def _stat(*, interpretation, eligible=True):
         alpha=0.05,
         first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
         second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
+        current_evidence_quality=80,
+        baseline_evidence_quality=75,
+        current_source_reliability=SourceReliabilityAssessment(eligible=True, reason=SourceReliabilityReason.ELIGIBLE, minimum_reliability=80),
+        baseline_source_reliability=SourceReliabilityAssessment(eligible=True, reason=SourceReliabilityReason.ELIGIBLE, minimum_reliability=80),
     )
 
 
