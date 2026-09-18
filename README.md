@@ -243,3 +243,12 @@ Experiments support:
 Validation results become evidence. They do not silently change venture state, policy, economics, or portfolio posture.
 
 External execution, real spending, customer communication, statistical inference, persistence, and scheduling remain outside the current domain-only slice.
+
+
+## Revenue & Recurring Economics
+
+The platform now has a provider-independent revenue foundation:
+
+**Business Model → Revenue Contract → Realized Revenue Event → Economic Measurement → Learning**
+
+Recurring revenue is explicit and period-bound. Actual revenue is represented separately from expected revenue. Payment execution remains outside the domain.
