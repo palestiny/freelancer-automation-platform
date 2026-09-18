@@ -180,3 +180,52 @@ def test_comparison_rejects_incompatible_provenance():
     )
 
     assert result.rejection_reason is ComparisonRejectionReason.INCOMPATIBLE_CONTEXT
+
+
+def test_comparison_can_require_current_source_reliability():
+    from app.domain.performance_reliability import PerformanceSourceReliabilityPolicy
+
+    baseline = aggregate(start_day=0, value=10)
+    current = aggregate(start_day=1, value=15)
+
+    result = assess_performance_comparison(
+        current=current,
+        baseline=baseline,
+        baseline_policy=PerformanceBaselinePolicy(),
+        comparison_policy=PerformanceComparisonPolicy(
+            source_reliability_policy=PerformanceSourceReliabilityPolicy(
+                minimum_reliability=70,
+                reliability_by_source_type=(
+                    (PerformanceSourceType.OPERATIONAL, 60),
+                ),
+            )
+        ),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.trend is None
+    assert result.rejection_reason is ComparisonRejectionReason.INSUFFICIENT_CURRENT_SOURCE_RELIABILITY
+
+
+def test_comparison_rejects_unconfigured_current_source_when_reliability_is_required():
+    from app.domain.performance_reliability import PerformanceSourceReliabilityPolicy
+
+    baseline = aggregate(start_day=0, value=10)
+    current = aggregate(start_day=1, value=15)
+
+    result = assess_performance_comparison(
+        current=current,
+        baseline=baseline,
+        baseline_policy=PerformanceBaselinePolicy(),
+        comparison_policy=PerformanceComparisonPolicy(
+            source_reliability_policy=PerformanceSourceReliabilityPolicy(
+                reliability_by_source_type=(
+                    (PerformanceSourceType.REVENUE, 90),
+                ),
+            )
+        ),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.trend is None
+    assert result.rejection_reason is ComparisonRejectionReason.MISSING_CURRENT_SOURCE_RELIABILITY_POLICY
