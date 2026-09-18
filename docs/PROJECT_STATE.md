@@ -305,3 +305,18 @@ ExperimentResult preserves:
 An experiment result is evidence and does not silently mutate venture lifecycle, economics, policy, or portfolio posture.
 
 External execution, statistical inference, spending, scheduling, and persistence remain outside this slice.
+
+
+## Revenue Engine / Recurring Revenue
+
+The V1 revenue foundation now separates expected business-model economics from realized revenue observations.
+
+Implemented:
+
+- RevenueContract
+- explicit ONE_TIME / RECURRING revenue type
+- explicit recurring periods
+- RevenueEvent for realized revenue
+- provider-independent currency and amount representation
+
+Payment execution, refunds, reconciliation, invoicing, and automatic pricing remain outside the current domain slice.
