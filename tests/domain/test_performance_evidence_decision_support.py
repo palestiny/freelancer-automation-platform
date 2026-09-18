@@ -126,6 +126,8 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x", "x"),
+            current_observation_ids=("c",),
+            baseline_observation_ids=("b",),
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
