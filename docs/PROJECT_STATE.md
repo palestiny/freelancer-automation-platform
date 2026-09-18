@@ -4,7 +4,7 @@
 
 **Phase 16 — Operational Measurement & Learning Integration**
 
-The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The next missing domain bridge is operational outcomes → measurement → learning.
+The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The operational outcomes → measurement → learning bridge is now implemented as a provider-independent domain foundation.
 
 ## Verified Test / CI State
 
@@ -134,7 +134,7 @@ Scheduling, workers, provider APIs, credentials, payment execution, automatic ca
 
 ## Next Implementation Slice
 
-The next Design Gate should define **Operational Measurement & Learning Integration**.
+The next Design Gate is **Operational Measurement & Learning Integration**; its V1 foundation is now implemented.
 
 It should connect actual work outcomes to the existing economic/revenue/campaign/venture evidence model without:
 - silently changing policy
@@ -444,3 +444,24 @@ Implemented the provider-independent communication foundation:
 - SentMessage
 
 External account creation, credentials, publishing, and message delivery remain outside the domain.
+
+
+## Operational Measurement & Learning
+
+The first operational learning foundation is now implemented:
+
+**Work Item → Outcome Observation → Operational Measurement → Variance → Learning Signal → Improvement Recommendation**
+
+Implemented domain objects:
+
+- WorkItemOutcomeObservation
+- OperationalMeasurement
+- BusinessPerformanceSnapshot
+- LearningSignal
+- ImprovementRecommendation
+
+The domain preserves expected and actual values separately, derives variance, enforces business ownership, and requires an explicit policy-review or experiment handoff for improvement recommendations.
+
+Learning remains evidence/recommendation, not silent policy mutation.
+
+Historical persistence, aggregation, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
