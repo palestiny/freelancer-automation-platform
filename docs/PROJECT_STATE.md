@@ -2,89 +2,67 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Gate Approved; Domain TDD in progress**
+**Phase 0 — Product & Architecture — Business Economics & Growth approved; Domain TDD in progress**
+
+## Product Direction
+
+The platform is now explicitly a **Business Automation OS**, initially validated through the freelance-work market.
+
+Freelancing remains the first concrete market, not the permanent architectural boundary.
 
 ## Completed
 
-- Repository created and verified through GitHub integration.
-- Initial README committed.
+- Repository created and verified.
 - Shared engineering working rules established.
-- Product direction established: a controlled autonomous freelancer lifecycle platform.
-- Opportunity Intelligence Design Gate drafted.
-- Proposed Opportunity Evaluation Policy documented without converting open product decisions into commitments.
+- Modular-monolith direction established.
+- Marketplace-independent architecture established.
+- Opportunity Intelligence gate approved.
+- Six Opportunity Evaluation dimensions committed.
+- Economic/growth direction approved.
+- Business Economics domain foundation implemented.
 
-## Approved Design Gate
+## Committed Opportunity Evaluation Dimensions
 
-### Concept
+1. Eligibility
+2. Requirement Fit
+3. Estimated Effort
+4. Economic Fit
+5. Client / Project Risk
+6. Success Confidence
 
-**Opportunity Intelligence**: collect freelance opportunities, normalize their external data, evaluate them against configurable criteria, and expose explainable results.
+Criterion-level evidence and uncertainty remain mandatory.
 
-### Responsibility
+Overall outcomes:
 
-Opportunity Intelligence owns opportunity qualification and analysis representation.
+- QUALIFIED
+- NOT_QUALIFIED
+- REVIEW_REQUIRED
 
-### Non-Responsibility
+Numeric scoring is not required for the first domain slice.
 
-- Platform-specific transport/API behavior
-- Proposal generation or submission
-- Client negotiation
-- Project execution
-- Revision handling
-- Irreversible business actions outside configured policy
+## Committed Economic Model
 
-### Committed Decisions
+The first economic slice models:
 
-- Start as a modular monolith.
-- AI capabilities are replaceable components, not the system's core domain owner.
-- External freelance platforms are isolated behind adapters/ports.
-- Opportunity evaluation must be explainable.
-- External observations and derived analysis are distinct concepts.
-- Windows/mobile clients will consume backend capabilities rather than duplicate business logic.
-- The platform is marketplace-independent and supports multiple marketplaces.
-- Marketplace selection is runtime configuration; no single marketplace is a core architectural dependency.
-- Marketplace integrations are replaceable, independently evolvable capabilities.
-- Integration improvement may use measured reports, user feedback, comments, AI-assisted recommendations, and user input without turning recommendations into automatic decisions.
+- expected revenue
+- expected effort
+- platform fee
+- capability cost
+- operating cost
+- revision allowance
+- success confidence
+- expected cost
+- expected profit
+- expected margin
+- expected profit per hour
+- risk-adjusted profit
 
-### Committed Opportunity Evaluation Policy
-
-The first domain slice uses:
-- Eligibility
-- Requirement Fit
-- Estimated Effort
-- Economic Fit
-- Client/Project Risk
-- Success Confidence
-- criterion-level evidence and uncertainty
-- QUALIFIED / NOT_QUALIFIED / REVIEW_REQUIRED
-- no required numeric score in the first slice
-- configurable V1 constraints for project type, capabilities/skills, budget, client/location, and project size where applicable
-
-See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md and docs/PROPOSED_OPPORTUNITY_INTELLIGENCE_GATE_RESOLUTION.md.
-
-### Assumptions
-
-- Initial development can proceed without committing the domain model to one marketplace.
-- Official platform APIs/integrations should be preferred where available and permitted.
-- An opportunity may be evaluated more than once as data or policy changes.
-- Evaluation evidence should remain inspectable after evaluation.
-
-### Open Questions
-
-- Which marketplace integration should be implemented first.
-- Marketplace-specific API/data constraints.
-- Whether/when advanced numeric ranking should be introduced.
-- Initial persistence technology.
-- Initial API technology.
-- Initial UI technology.
-- Opportunity identity when a marketplace changes/reuses identifiers.
-- Whether Client should be a separate domain entity in the first slice.
-- Initial persistence technology.
-- Initial API technology.
-- Initial UI technology.
+Economic estimates are derived data and do not mutate Opportunity identity.
 
 ## Current Implementation Progress
 
-The first Opportunity Intelligence domain slice now contains:
+Opportunity Intelligence contains:
+
 - Opportunity identity representation
 - Evaluation policy representation
 - Eligibility criterion evaluation
@@ -93,17 +71,59 @@ The first Opportunity Intelligence domain slice now contains:
 - Criterion-level evidence
 - Evaluation without mutating Opportunity identity
 - Re-evaluation of the same Opportunity under different policies
+- Budget eligibility boundaries
 
-The implementation remains marketplace-independent and infrastructure-free.
+Business Economics now contains:
 
-## Next Step
-
-Continue the approved TDD sequence with the remaining evaluation criteria and boundary behaviors.
-
-Do not introduce a marketplace SDK, persistence, HTTP/API, UI, or AI dependency into the first domain slice.
+- immutable EconomicEstimate
+- explicit cost components
+- expected cost calculation
+- expected profit calculation
+- expected margin calculation
+- expected profit/hour calculation
+- risk-adjusted profit calculation
+- validation of invalid economic inputs
 
 ## Current Boundary
 
-The Opportunity Intelligence design gate is closed.
+The active implementation boundary is domain behavior only.
 
-The current implementation boundary is the domain model and domain behavior only. Marketplace adapters, persistence, API, UI, and AI integrations remain outside the first TDD slice until their own design gates/decisions are reached.
+Allowed now:
+
+- domain models
+- domain services
+- domain value objects
+- domain tests
+
+Still outside the current slice:
+
+- marketplace SDKs
+- real marketplace credentials
+- persistence
+- HTTP/API
+- UI
+- AI provider dependencies
+
+## Next Step
+
+Complete the remaining Opportunity Intelligence domain behaviors, then continue Business Economics with a dedicated Resource Economics / Capacity Design Gate.
+
+The next economic gate should define:
+
+- resource identity
+- resource cost
+- capacity
+- availability
+- opportunity cost
+- actual-vs-expected economics
+- portfolio constraints
+
+## Long-Term Learning Loop
+
+**Expected → Actual → Variance → Learning Signal → Controlled Policy/Experiment Improvement**
+
+Learning must not silently rewrite policy.
+
+## Project Health Rule
+
+A meaningful increment is done only after applicable design, RED/GREEN TDD, review, refactoring, documentation, passing tests, commit/push, and project-state update.
