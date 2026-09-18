@@ -46,7 +46,7 @@ def derive_learning_signal(
     if abs(average_relative_variance) < policy.minimum_average_relative_variance:
         return None
 
-    # Measurement-level evidence quality is not yet modeled, so the learning\n    # signal uses the current neutral evidence baseline. This remains a policy\n    # seam for the future measurement/provenance model.\n    evidence_quality = 50
+    evidence_quality = round(sum(m.evidence_quality for m in measurements) / len(measurements))
 
     return LearningSignal(
         id=signal_id,
