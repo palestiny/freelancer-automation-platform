@@ -51,8 +51,13 @@ class MeanUncertaintyResult:
                 raise ValueError("applicable result requires sample statistics")
             if self.interval_lower is None or self.interval_upper is None:
                 raise ValueError("applicable result requires an interval")
-        elif self.interval_lower is not None or self.interval_upper is not None:
-            raise ValueError("non-applicable result cannot contain an interval")
+        else:
+            if self.interval_lower is not None or self.interval_upper is not None:
+                raise ValueError("non-applicable result cannot contain an interval")
+            if self.status is not MeanUncertaintyStatus.INSUFFICIENT_OBSERVATIONS and (
+                self.sample_mean is not None or self.sample_standard_deviation is not None
+            ):
+                raise ValueError("non-applicable result cannot contain sample statistics")
 
 
 def calculate_mean_uncertainty(
