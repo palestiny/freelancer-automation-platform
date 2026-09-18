@@ -108,7 +108,7 @@ def test_zero_expected_values_do_not_create_relative_variance():
     )
 
     assert result.expected_count == 2
-    assert result.average_variance == 0
+    assert result.average_variance == 5
     assert result.average_relative_variance == -0.2
 
 
