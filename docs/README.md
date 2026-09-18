@@ -78,3 +78,11 @@ External ad/social execution remains outside the current domain-only boundary.
 - Provider-independent ValidationExperiment and ExperimentResult implemented.
 - Controlled variants and explicit experiment decisions implemented.
 - External execution and statistical methodology remain future work.
+
+
+## Revenue Engine / Recurring Revenue
+
+- Approved design gate.
+- Provider-independent RevenueContract and RevenueEvent implemented.
+- Recurring revenue requires an explicit period.
+- Payment execution and reconciliation remain outside the domain.
