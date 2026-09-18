@@ -488,3 +488,7 @@ Operational measurements now carry bounded evidence quality. Repeated-variance l
 The implementation therefore no longer relies on the previous neutral evidence baseline. Rich provenance and more advanced evidence aggregation remain future policy/design work.
 
 The latest implementation slice is still domain-only. CI completion for the newest main-branch push has not been independently verified through the available repository workflow interface, so no new green-test claim is recorded here.
+
+## Current Implementation Addition — Performance Windows
+
+Phase 16 now has deterministic time-window primitives for business performance history. Window selection is explicit and does not infer trends, aggregate across businesses, or mutate policy.
