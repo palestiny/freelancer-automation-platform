@@ -474,3 +474,13 @@ The aggregate is a derived, provider-independent view. It preserves business ide
 V1 provides count, average, minimum, maximum, and expected-derived variance summaries. Missing expected values are not treated as zero, and zero expected values do not produce relative variance.
 
 Universal summation, statistical inference, persistence, attribution, automatic policy mutation, and external execution remain outside this slice.
+
+## Performance Trend & Baseline Boundary
+
+Measurement & Learning now includes a deterministic comparison layer:
+
+**PerformanceAggregate(current) + PerformanceAggregate(baseline) → PerformanceTrend**
+
+The comparison requires compatible business/metric/unit context and explicit windows. It reports average-level absolute and relative change while preserving source observation identifiers and evidence quality.
+
+Trend output is descriptive evidence only. Forecasting, statistical significance, seasonality, anomaly detection, and automatic policy mutation remain outside this boundary.
