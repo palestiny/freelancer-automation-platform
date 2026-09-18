@@ -463,3 +463,14 @@ It derives variance only when an expected value exists. The history enforces one
 The history model does not replace operational, revenue, campaign, or economic source models and does not mutate them. Source-specific mapping belongs outside this core model.
 
 Persistence, statistical inference, attribution, and automatic policy changes remain outside the current slice.
+## Business Performance Aggregation Boundary
+
+The Measurement & Learning area now includes a deterministic historical aggregation layer:
+
+**BusinessPerformanceObservation → PerformanceWindow → PerformanceAggregate → Trend / Learning**
+
+The aggregate is a derived, provider-independent view. It preserves business identity, metric/unit, explicit window, evidence quality, and source observation identifiers.
+
+V1 provides count, average, minimum, maximum, and expected-derived variance summaries. Missing expected values are not treated as zero, and zero expected values do not produce relative variance.
+
+Universal summation, statistical inference, persistence, attribution, automatic policy mutation, and external execution remain outside this slice.
