@@ -390,3 +390,20 @@ It does not own:
 **Business Model → Revenue Contract → Payment Capability Boundary → Revenue Event → Economic/Learning Loop**
 
 Actual revenue remains distinct from expected revenue.
+
+
+## Social Presence & Customer Communication Boundary
+
+The domain owns communication meaning:
+
+- SocialPresence
+- IncomingMessage
+- MessageClassification
+- ResponseDraft
+- ResponseAuthorization
+- SentMessage
+- escalation state
+
+Adapters/capabilities own provider-specific operations such as account access, publishing, sending, and webhook/API handling.
+
+Credentials are not part of the domain model. AI is a replaceable drafting/classification capability.
