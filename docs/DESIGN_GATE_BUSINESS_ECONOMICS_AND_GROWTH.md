@@ -44,6 +44,16 @@ Expected Profit adjusted by a configured success-confidence probability.
 
 This is a derived planning metric, not a guarantee.
 
+## Economic Health and Stability
+
+Economic quality is broader than expected profit alone. The platform must measure and preserve separate dimensions for profitability, profit potential, profit stability, demand stability, safety, recurring revenue, automation, capital efficiency, scalability, and evidence quality.
+
+A stable profitable business is not automatically inferior to a higher-upside but less stable business. Future policy may protect, maintain, or carefully optimize stable economic assets.
+
+The V1 Economic Profile is a changeable 0–100 score vector. It does not define a universal master score. Scoring formulas, thresholds, evidence requirements, comparison baselines, and time windows remain policy concerns.
+
+See `DESIGN_GATE_ECONOMIC_HEALTH_AND_PORTFOLIO_POLICY.md` for the dedicated gate.
+
 ## Resource Economics
 
 The platform will eventually model constrained resources such as:
