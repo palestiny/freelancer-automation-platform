@@ -346,3 +346,18 @@ Responsibilities:
 - hard budget-limit enforcement
 
 Recommendations are not external execution. Paid spend remains an authorized capability boundary.
+
+
+### Business Operations
+
+Answers:
+
+> How does an active business represent repeatable operational work without coupling itself to execution infrastructure?
+
+Responsibilities:
+- business identity and lifecycle
+- operational cycles
+- work item lifecycle
+- explicit business ownership of operations
+
+Operations produce evidence for Measurement & Learning and do not silently change business policy or economics.
