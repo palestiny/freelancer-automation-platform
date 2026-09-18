@@ -58,9 +58,9 @@ def test_mean_uncertainty_rejects_mixed_context():
         source_id="source-o2", metric_name="delivery_hours", unit="hours",
         expected_value=None, actual_value=12, observed_at=START + timedelta(hours=1),
     )
-    with pytest.raises(ValueError, match="same business, metric, and unit"):
-        calculate_mean_uncertainty((item("o1", 10), other), window=window())
+    result = calculate_mean_uncertainty((item("o1", 10), other), window=window())
+    assert result.status is MeanUncertaintyStatus.INVALID_CONTEXT
 
 def test_mean_uncertainty_rejects_non_finite_values():
-    with pytest.raises(ValueError, match="finite"):
-        calculate_mean_uncertainty((item("o1", float("nan")), item("o2", 10)), window=window())
+    result = calculate_mean_uncertainty((item("o1", float("nan")), item("o2", 10)), window=window())
+    assert result.status is MeanUncertaintyStatus.INVALID_VALUE
