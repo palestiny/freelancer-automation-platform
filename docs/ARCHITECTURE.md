@@ -520,3 +520,7 @@ The Measurement & Learning boundary now includes an explicit source-reliability 
 ## Baseline Reliability Integration
 
 The Measurement & Learning architecture now allows baseline eligibility to consume source reliability as an additional policy gate. Observation evidence quality, source reliability, observation sufficiency, and freshness remain separate checks. Comparison consumes the resulting baseline eligibility rather than reimplementing these checks.
+
+## Current Evidence Reliability
+
+Performance comparison now supports an optional source-reliability policy for current evidence. Baseline and current reliability checks remain owned by their respective policies, keeping the comparison layer compositional rather than duplicating evidence rules.

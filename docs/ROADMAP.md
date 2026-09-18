@@ -285,3 +285,7 @@ The Measurement & Learning foundation now includes a provider-independent source
 ### Phase 16 — Baseline Reliability Integration
 
 Baseline eligibility can now optionally incorporate the explicit source-reliability policy. Source reliability is an additional evidence gate alongside observation count, observation-level evidence quality, and freshness; failures remain explainable.
+
+### Phase 16 — Current Evidence Source Reliability
+
+Comparison policy can now optionally require explicit source reliability for current evidence. This complements baseline reliability without duplicating its logic; current observation sufficiency and evidence quality remain separate requirements.
