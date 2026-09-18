@@ -2,9 +2,9 @@
 
 ## Vision
 
-Build a **Business Automation OS** that can operate digital work as a controlled business system.
+Build an **Economic Opportunity OS / Business Automation OS** that can discover, evaluate, validate, operate, and learn from digital businesses and income opportunities.
 
-The first market is freelancing because it provides a concrete environment in which the platform can discover opportunities, evaluate them, pursue profitable work, execute it, measure outcomes, and learn.
+Freelancing is the first laboratory because it provides a concrete environment where demand, sale, delivery, revenue, cost, quality, and actual outcomes can be measured.
 
 The long-term product boundary is broader than freelancing.
 
@@ -16,52 +16,61 @@ The platform should optimize business outcomes under explicit constraints, inclu
 - profit
 - margin
 - profit per hour
-- delivery time
-- quality
-- reliability
-- resource capacity
+- time to revenue
+- recurring revenue
+- automation intensity
+- human dependency
+- scalability
+- capital requirement
+- liquidity
 - risk
-- automation cost
+- evidence quality
+- strategic fit
+- opportunity cost
 
-Automation is a means. Economic value is a first-class outcome.
+Automation is a means. Economic value and learning are first-class outcomes.
 
-## Core Lifecycle
+## Core Economic Loop
 
-Opportunity Discovery
-→ Qualification
-→ Economic Assessment
-→ Decision
-→ Proposal
-→ Client Communication
-→ Project Setup
-→ Planning & Estimation
-→ Capability Selection
-→ Execution
-→ Quality Gate
-→ Delivery
-→ Revision
-→ Completion
-→ Measurement
-→ Learning
-→ Experimentation
+**Market Signals → Opportunity Discovery → Business Model Discovery → Venture Thesis → Economic Evaluation → Validation → Revenue → Measurement → Learning → Controlled Experimentation → Scale / Kill → Capital Allocation**
 
-## Product Principles
+## Opportunity Types
 
-1. Automation is the product capability; AI is one replaceable means of implementation.
-2. Profitability and resource economics are domain concerns, not after-the-fact analytics.
-3. Important automated decisions must be explainable and auditable.
-4. External platform integrations are replaceable and independently evolvable.
-5. Marketplace choice is configuration, not a core architectural dependency.
-6. Irreversible or high-risk actions require explicit policy and, where appropriate, human approval.
-7. Actual outcomes must be compared with estimates so the system can improve.
-8. Learning generates evidence and recommendations; policy changes remain explicit and versioned.
-9. Experiments must have measurable hypotheses and controlled comparison.
-10. Business memory should accumulate useful evidence without turning assumptions into facts.
-11. Autonomy should increase progressively within explicit policy boundaries.
+The domain supports:
+
+- Freelance Opportunity
+- Service Opportunity
+- Product Opportunity
+- SaaS Opportunity
+- Game Opportunity
+- Digital Asset Opportunity
+- Recurring Revenue Opportunity
+- Partnership Opportunity
+- Investment Opportunity
+- Acquisition Opportunity
+
+Different opportunity types may use different evaluation models.
+
+## Business Model Discovery
+
+The same demand signal may produce multiple business-model hypotheses:
+
+- freelance service
+- productized service
+- managed service
+- SaaS
+- API
+- digital product
+- game
+- white-label
+- subscription
+- partnership
+
+The system evaluates hypotheses instead of assuming that the first model discovered is the correct one.
 
 ## Opportunity Intelligence
 
-The first evaluation model uses six dimensions:
+The first evaluation model uses six dimensions for its applicable context:
 
 - Eligibility
 - Requirement Fit
@@ -72,33 +81,79 @@ The first evaluation model uses six dimensions:
 
 Each criterion retains evidence and uncertainty.
 
-## Business Economics
+## Venture Intelligence
 
-The platform explicitly models:
+Broader venture evaluation uses:
 
-- expected revenue
-- expected cost
-- expected profit
-- expected margin
-- expected profit per hour
-- risk-adjusted profit
+- Market Demand
+- Market Size
+- Competition
+- Capital Requirement
+- Time to Revenue
+- Recurring Revenue Potential
+- Automation Potential
+- Scalability
+- Risk
+- Evidence Quality
+- Strategic Fit
+- Exit / Expansion Potential
 
-Future resource economics will model human time, AI/tool usage, infrastructure, review effort, communication effort, and marketplace costs.
+No universal numeric master score is required for the first venture domain slice.
 
-## Learning Loop
+## Evidence Model
+
+The platform distinguishes:
+
+**FACT → OBSERVATION → ESTIMATE → ASSUMPTION → HYPOTHESIS → FORECAST → EXPERIMENT_RESULT**
+
+This is an epistemic classification, not a ranking.
+
+## Low-Touch Recurring Revenue
+
+The system should actively identify businesses with recurring revenue, high automation potential, low human dependency, and acceptable maintenance/support economics.
+
+"Passive income" is therefore modeled as **low-touch recurring economics**, not as a promise of literal passivity.
+
+## Investment and Capital
+
+Investment opportunities begin as research and decision support.
+
+The system may analyze markets, model scenarios, compare evidence, and produce recommendations. Automatic financial execution is outside the current domain boundary.
+
+Future capital allocation should consider return, risk, liquidity, capital requirement, time to revenue, recurring revenue, automation, human dependency, scalability, strategic fit, evidence quality, exit/expansion potential, and opportunity cost.
+
+## Learning
 
 **Expected → Actual → Variance → Learning Signal → Controlled Improvement**
 
-The system should become more accurate and economically effective through evidence from its own operation.
+Learning generates evidence and recommendations. It does not silently rewrite policy.
 
-## Product Expansion
+## Progressive Autonomy
 
-The architecture should support later expansion into:
+- L0 Observe
+- L1 Recommend
+- L2 Prepare
+- L3 Execute with Approval
+- L4 Execute Automatically within Policy
+- L5 Optimize within Policy
 
-- multiple freelance marketplaces
-- agencies and productized services
-- other digital-work opportunity sources
-- capability marketplaces
-- automated business workflows
+AI cannot bypass policy boundaries.
 
-The initial implementation remains deliberately small and domain-first.
+## Product Principles
+
+1. Business value before activity.
+2. Evidence before confidence.
+3. AI is replaceable.
+4. Business models remain explicit hypotheses until validated.
+5. Important decisions are explainable and auditable.
+6. External integrations are replaceable.
+7. High-risk or irreversible actions require explicit policy and appropriate approval.
+8. Actual outcomes must feed the learning loop.
+9. Experiments require measurable hypotheses and controlled comparison.
+10. Capital allocation is a constrained decision problem, not a simple ROI ranking.
+
+## Expansion Path
+
+**Freelance Service → Productized Service → Managed Service → SaaS / API → Multi-business Portfolio → Business Infrastructure**
+
+Games, digital products, partnerships, acquisitions, and investment analysis are valid opportunity categories without forcing them into the freelance execution model.
