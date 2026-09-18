@@ -159,4 +159,8 @@ def _compose(
         alpha=comparison.alpha,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
+        current_evidence_quality=current_evidence_quality,
+        baseline_evidence_quality=baseline_evidence_quality,
+        current_source_reliability=current_source_reliability,
+        baseline_source_reliability=baseline_source_reliability,
     )
