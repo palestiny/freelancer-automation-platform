@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; domain foundations in progress**
+**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; economic health model established**
 
 ## Product Direction
 
@@ -26,6 +26,8 @@ Its first laboratory is freelance work, but the permanent product boundary is br
 - Venture evaluation foundation implemented.
 - Venture lifecycle foundation implemented.
 - Business Economics domain foundation implemented.
+- Economic Health & Portfolio Policy design gate approved.
+- Changeable Economic Profile score-vector foundation implemented.
 
 ## Opportunity Evaluation Model
 
@@ -46,7 +48,42 @@ Overall outcomes:
 - NOT_QUALIFIED
 - REVIEW_REQUIRED
 
-Numeric scoring is not required for the first domain slice.
+Numeric scoring is not required for the first Opportunity Intelligence slice.
+
+## Economic Health Model
+
+Economic quality is represented separately from the six-dimensional Opportunity Evaluation model.
+
+The V1 Economic Profile contains bounded 0–100 scores for:
+
+1. Profitability
+2. Profit Potential
+3. Profit Stability
+4. Demand Stability
+5. Safety
+6. Recurring Revenue
+7. Automation
+8. Capital Efficiency
+9. Scalability
+10. Evidence Quality
+
+The platform deliberately does **not** collapse these into a universal master score.
+
+Scores are derived assessments. Future scoring policies may change formulas, thresholds, evidence requirements, time windows, and baselines without changing business or opportunity identity.
+
+A stable profitable business must be representable as an economically valuable asset even when its theoretical growth upside is modest.
+
+Future portfolio postures may include:
+
+- PROTECT
+- MAINTAIN
+- OPTIMIZE_CAREFULLY
+- GROW
+- HARVEST
+- TURNAROUND
+- EXIT
+
+These are policy-derived actions, not intrinsic business properties.
 
 ## Broader Opportunity Model
 
@@ -129,7 +166,7 @@ Still outside the current slice:
 1. Resource Economics / Capacity.
 2. Market Intelligence / Demand Discovery.
 3. Venture Validation / Experimentation.
-4. Portfolio / Capital Allocation.
+4. Portfolio posture and allocation policy.
 5. Revenue Engine / Recurring Revenue.
 
 ## Learning Loop
