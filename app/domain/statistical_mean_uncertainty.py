@@ -33,7 +33,10 @@ class MeanUncertaintyResult:
     status: MeanUncertaintyStatus
 
     def __post_init__(self) -> None:
-        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
+        if self.status is MeanUncertaintyStatus.INSUFFICIENT_OBSERVATIONS and self.sample_size == 0:
+            if self.observation_ids:
+                raise ValueError("empty result cannot contain observation_ids")
+        elif not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
             raise ValueError("business_id, metric_name, and unit cannot be empty")
         if not 0 < self.confidence_level < 1:
             raise ValueError("confidence_level must be between zero and one")

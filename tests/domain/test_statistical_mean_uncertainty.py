@@ -81,3 +81,13 @@ def test_mean_uncertainty_rejects_invalid_confidence_level():
             window=window(),
             confidence_level=1.0,
         )
+
+
+def test_mean_uncertainty_empty_window_has_explicit_unknown_context():
+    result = calculate_mean_uncertainty((), window=window())
+    assert result.status is MeanUncertaintyStatus.INSUFFICIENT_OBSERVATIONS
+    assert result.sample_size == 0
+    assert result.observation_ids == ()
+    assert result.business_id == "unknown"
+    assert result.metric_name == "unknown"
+    assert result.unit == "unknown"
