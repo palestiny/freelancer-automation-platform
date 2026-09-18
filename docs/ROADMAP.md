@@ -168,3 +168,34 @@ Interfaces must not duplicate business logic.
 ## Guiding Rule
 
 The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
+
+
+## Phase 13 — Marketing & Growth Automation
+
+Build the growth operating loop for validated businesses:
+
+- positioning and offer definition
+- campaign domain and policy
+- organic/paid channel planning
+- content/post planning
+- authorized social presence
+- lead acquisition
+- customer/comment monitoring
+- policy-bound response handling
+- campaign measurement
+- CAC, conversion, revenue, and ROAS analysis
+- controlled campaign experiments
+- campaign-to-business economic learning
+
+**Status:** Provider-independent campaign domain foundation implemented. External advertising/social integrations remain future work.
+
+## Phase 14 — Business Operations & Multi-Business Execution
+
+Extend the platform from campaign automation into repeatable business operations across multiple validated businesses while preserving:
+
+- business-specific policy
+- resource/capacity constraints
+- economic health monitoring
+- stable-profit protection
+- progressive autonomy
+- auditability and learning.
