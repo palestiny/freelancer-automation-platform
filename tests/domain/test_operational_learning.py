@@ -135,3 +135,59 @@ def test_learning_signal_carries_average_measurement_evidence_quality():
 
     assert signal is not None
     assert signal.evidence_quality == 80
+
+
+def test_learning_requires_minimum_average_evidence_quality():
+    measurements = (
+        OperationalMeasurement(
+            id="m1",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=12,
+            measured_at=NOW,
+            evidence_quality=40,
+        ),
+        OperationalMeasurement(
+            id="m2",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=13,
+            measured_at=NOW,
+            evidence_quality=50,
+        ),
+        OperationalMeasurement(
+            id="m3",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=12,
+            measured_at=NOW,
+            evidence_quality=50,
+        ),
+    )
+
+    signal = derive_learning_signal(
+        measurements,
+        policy=OperationalLearningPolicy(minimum_average_evidence_quality=60),
+        signal_id="l1",
+        statement="Delivery variance is repeatedly material.",
+    )
+
+    assert signal is None
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"minimum_average_evidence_quality": -1},
+        {"minimum_average_evidence_quality": 101},
+    ],
+)
+def test_learning_policy_rejects_invalid_evidence_quality(kwargs):
+    with pytest.raises(ValueError):
+        OperationalLearningPolicy(**kwargs)

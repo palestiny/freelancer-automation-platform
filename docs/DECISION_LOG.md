@@ -653,3 +653,28 @@ Insufficient current reliability and missing current source configuration are di
 **Status:** COMMITTED
 
 Baseline reliability belongs to `PerformanceBaselinePolicy`; current reliability belongs to `PerformanceComparisonPolicy`. The comparison service composes these boundaries.
+
+
+## D-105 — Learning Requires Evidence Sufficiency
+
+**Status:** COMMITTED
+
+Repeated variance is necessary but not sufficient for an operational learning signal. Contributing measurements must meet an explicit average evidence-quality threshold.
+
+## D-106 — Evidence Quality Is Policy, Not Rewritten Evidence
+
+**Status:** COMMITTED
+
+The learning policy determines signal eligibility and does not mutate measurement evidence quality.
+
+## D-107 — Existing Variance Rules Remain Unchanged
+
+**Status:** COMMITTED
+
+Minimum observations and minimum average relative variance remain independent learning requirements.
+
+## D-108 — Learning Remains Non-Executing
+
+**Status:** COMMITTED
+
+A learning signal remains evidence for explicit improvement handling and does not silently change policy, economics, lifecycle, or execution.

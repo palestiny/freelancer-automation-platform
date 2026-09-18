@@ -460,3 +460,7 @@ Performance evidence now has a bounded source-reliability policy layer between p
 ## Current Evidence Reliability
 
 `PerformanceComparisonPolicy` may require source reliability for current aggregates. The resulting comparison rejection reasons distinguish insufficient reliability from missing source configuration.
+
+## Evidence-Aware Operational Learning
+
+`OperationalLearningPolicy` controls minimum observations, variance threshold, and minimum average evidence quality before a `LearningSignal` can be derived.

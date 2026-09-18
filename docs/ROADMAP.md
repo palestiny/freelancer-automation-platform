@@ -289,3 +289,7 @@ Baseline eligibility can now optionally incorporate the explicit source-reliabil
 ### Phase 16 — Current Evidence Source Reliability
 
 Comparison policy can now optionally require explicit source reliability for current evidence. This complements baseline reliability without duplicating its logic; current observation sufficiency and evidence quality remain separate requirements.
+
+### Phase 16 — Evidence-Aware Operational Learning
+
+Operational learning now requires an explicit minimum average evidence-quality threshold in addition to repeated observations and material variance. Learning remains a non-executing evidence signal.

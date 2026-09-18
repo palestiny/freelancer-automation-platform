@@ -524,3 +524,7 @@ The Measurement & Learning architecture now allows baseline eligibility to consu
 ## Current Evidence Reliability
 
 Performance comparison now supports an optional source-reliability policy for current evidence. Baseline and current reliability checks remain owned by their respective policies, keeping the comparison layer compositional rather than duplicating evidence rules.
+
+## Evidence-Aware Operational Learning
+
+The operational learning boundary now checks evidence quality before deriving learning signals. This prevents large variance alone from becoming a learning signal when the supporting measurements are weak.

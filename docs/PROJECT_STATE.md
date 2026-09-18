@@ -565,3 +565,7 @@ The comparison layer continues to consume `BaselineEligibility` without duplicat
 ## Current Measurement Addition — Current Evidence Source Reliability
 
 `PerformanceComparisonPolicy` now optionally requires source reliability for current aggregates. Current reliability is an additional gate beside observation sufficiency and evidence quality, with explicit missing/insufficient rejection reasons. Baseline reliability remains owned by `PerformanceBaselinePolicy`.
+
+## Current Measurement Addition — Evidence-Aware Operational Learning
+
+`OperationalLearningPolicy` now includes `minimum_average_evidence_quality`. Learning signals require sufficient evidence quality as well as minimum observations and material average relative variance. The policy does not mutate source measurements or execute actions.
