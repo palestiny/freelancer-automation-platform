@@ -4,15 +4,16 @@
 
 Define product boundaries, domain model, economics, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
 
-**Status:** Opportunity Intelligence approved; Business Economics & Growth approved; domain TDD in progress.
+**Status:** Economic Opportunity OS expansion approved; domain foundations in progress.
 
 ## Phase 1 — Opportunity Intelligence
 
 Build:
 
 - marketplace-independent opportunity contracts
+- opportunity types
 - normalization
-- six-dimensional evaluation
+- six-dimensional evaluation where applicable
 - configurable policy
 - evidence and uncertainty
 - persistence
@@ -30,30 +31,73 @@ Build:
 - capacity representation
 - profit and margin reporting
 - risk-adjusted economics
+- opportunity cost
 
 **Status:** Economic estimate foundation implemented; resource/capacity design is next.
 
-## Phase 3 — Opportunity Portfolio & Decision Planning
+## Phase 3 — Market Intelligence & Demand Discovery
+
+Build:
+
+- market observation model
+- demand signals
+- competitor/trend observations
+- source provenance
+- evidence quality
+- demand-to-opportunity transformation
+
+## Phase 4 — Business Model & Venture Discovery
+
+Build:
+
+- business-model hypotheses
+- multiple models per demand signal
+- venture thesis
+- venture evaluation
+- venture lifecycle
+- low-touch recurring-revenue attributes
+
+**Status:** Domain foundations implemented.
+
+## Phase 5 — Venture Validation & Experimentation
+
+Build:
+
+- validation experiment model
+- cheapest credible validation path
+- measurable hypotheses
+- controlled variants
+- experiment outcomes
+- explicit promotion/rejection
+
+## Phase 6 — Decision, Portfolio & Capital Allocation
 
 Build:
 
 - opportunity prioritization
 - capacity-aware allocation
+- capital constraints
 - opportunity cost
-- configurable business objectives
-- portfolio-level decision support
+- portfolio objectives
+- evidence-adjusted capital allocation
+- human approval controls
 
-## Phase 4 — Proposal System
+No automatic capital movement until explicit policy and safety design are approved.
+
+## Phase 7 — Revenue Engine
 
 Build:
 
-- proposal preparation
+- demand acquisition
+- offer design
 - pricing
-- estimation
-- approval policy
-- submission through platform adapters
+- conversion
+- delivery
+- retention
+- expansion
+- recurring revenue
 
-## Phase 5 — Capability & Project Execution
+## Phase 8 — Capability & Project Execution
 
 Build:
 
@@ -67,19 +111,19 @@ Build:
 
 Capabilities may include AI models, software tools, external APIs, and human review.
 
-## Phase 6 — Client Communication & Revision
+## Phase 9 — Client Communication & Service Operations
 
 Build:
 
 - communication state machine
 - requirement clarification
 - negotiation support
-- delivery communication
 - feedback interpretation
 - revision planning
 - redelivery
+- client success
 
-## Phase 7 — Measurement, Business Memory & Learning
+## Phase 10 — Measurement, Business Memory & Learning
 
 Build:
 
@@ -88,31 +132,36 @@ Build:
 - delivery time
 - acceptance and revision metrics
 - capability performance
-- marketplace integration performance
+- venture/business performance
+- marketplace performance
 - business memory
 - learning signals
 
-## Phase 8 — Experimentation & Progressive Autonomy
+## Phase 11 — Progressive Autonomy
 
 Build:
 
 - policy versioning
-- controlled experiments
-- proposal/pricing experiments
-- execution-strategy experiments
 - autonomy levels
-- promotion/rejection workflows
+- approval workflows
+- controlled optimization
+- safe automation boundaries
+- auditability
 
-## Phase 9 — Multi-Marketplace & Broader Work Models
+## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
 
-Add multiple marketplace adapters and validate the platform against additional digital-work business models.
+Add:
 
-Marketplace choice remains runtime configuration.
+- multiple marketplace adapters
+- productized/managed services
+- SaaS/API businesses
+- games and digital products
+- partnerships/acquisitions
+- investment research
+- web/Windows/mobile interfaces
 
-## Phase 10 — Interfaces
-
-Provide web, Windows, and mobile interfaces over backend capabilities without duplicating business logic.
+Interfaces must not duplicate business logic.
 
 ## Guiding Rule
 
-The roadmap expands the platform's economic and learning loop without prematurely implementing every future module.
+The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
