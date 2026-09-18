@@ -75,6 +75,8 @@ def compare_historical_means(
         raise ValueError("alpha must be between zero and one")
     if not isinstance(assumptions_satisfied, bool):
         raise ValueError("assumptions_satisfied must be a boolean")
+    if first_window.end <= first_window.start or second_window.end <= second_window.start:
+        return _empty_context_result(first_window, second_window, alpha, MeanComparisonStatus.INVALID_CONTEXT)
     if first_window.end > second_window.start and second_window.end > first_window.start:
         return _empty_context_result(first_window, second_window, alpha, MeanComparisonStatus.INVALID_CONTEXT)
 

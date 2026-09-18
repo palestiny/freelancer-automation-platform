@@ -6,6 +6,7 @@ import pytest
 from app.domain.business_performance import BusinessPerformanceObservation, PerformanceSourceType
 from app.domain.performance_history import PerformanceWindow
 from app.domain.statistical_mean_comparison import (
+    MeanComparisonResult,
     MeanComparisonStatus,
     compare_historical_means,
 )
@@ -141,3 +142,4 @@ def test_welch_comparison_preserves_fractional_degrees_of_freedom():
     assert result.degrees_of_freedom != int(result.degrees_of_freedom)
     assert result.p_value is not None
     assert 0.0 <= result.p_value <= 1.0
+
