@@ -8,6 +8,8 @@ Give downstream consumers one explicit evidence artifact that keeps deterministi
 
 ## V1
 
+The composition is intentionally non-directional at the inferential layer: statistical detection indicates evidence of a difference under the committed test contract, not alignment with the descriptive direction. Direction remains descriptive evidence.
+
 Inputs:
 - an existing PerformanceTrend
 - an existing StatisticalEvidenceComposition
@@ -42,6 +44,7 @@ Combined posture:
 2. No universal score, ranking, recommendation, policy mutation, learning mutation, portfolio action, or execution.
 3. Descriptive direction is derived only from the supplied trend absolute change.
 4. Inferential status is copied from the existing statistical evidence artifact; p-values are not reinterpreted.
+5. Statistical detection does not establish directional alignment with the descriptive trend.
 5. Statistical evidence eligibility remains distinct from statistical interpretation.
 6. Context must match on business, metric, and unit.
 7. Source observation lineage is preserved from the statistical evidence artifact.
