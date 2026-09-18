@@ -228,7 +228,7 @@ Build the missing bridge between operating businesses and the learning loop:
 
 Build statistical evidence capabilities only through concrete, independently gated use cases.
 
-**Status:** First use case implemented and hardened: Student's t confidence interval for an observed historical mean. Additional statistical methods require a dedicated design gate.
+**Status:** CLOSED for the current V1 statistical-method boundary. Student's t mean uncertainty and Welch's two-sample historical mean comparison are implemented and hardened. Further methods require a concrete downstream consumer and dedicated design gate.
 
 ### Phase 17 — Statistical Learning & Inference
 
@@ -327,6 +327,6 @@ Current foundation is complete for the deterministic evidence/measurement slice.
 
 ## Phase 17 — Statistical Learning & Inference
 
-**Status:** Two narrow statistical use cases implemented and verified: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Further statistical methods remain gated by dedicated design.
+**Status:** CLOSED for the current V1 statistical-method boundary. Two narrow statistical use cases are implemented and verified: Student's t mean uncertainty and Welch's two-sample historical mean comparison.
 
-Next boundary: review the Phase 17 statistical surface and identify the next concrete consumer before adding another method.
+Next boundary: identify a concrete downstream consumer for statistical evidence before adding another method or automatic integration.
