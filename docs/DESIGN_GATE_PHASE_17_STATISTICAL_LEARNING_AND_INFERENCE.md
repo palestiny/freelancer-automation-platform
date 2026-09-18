@@ -66,3 +66,68 @@ This gate does not authorize:
 No implementation should begin until one concrete statistical use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
 
 Phase 16 remains closed and unchanged while this gate is open.
+
+
+## Statistical Contract Proposal — V1 Mean Uncertainty
+
+### Method boundary
+
+The first statistical implementation should use a **Student's t confidence interval for the population mean** when its applicability conditions are satisfied. This is a bounded descriptive-inference tool for uncertainty around a sample mean; it is not a forecast and does not establish causality.
+
+### Proposed assumptions
+
+V1 requires:
+
+- observations belong to one business, metric, unit, and explicit window
+- each contributing observation has a finite numeric actual value
+- observations are treated as approximately independent for the interval's interpretation
+- the population distribution is treated as approximately normal when the sample is small; for larger samples, the method relies on the usual robustness of the sample mean under appropriate conditions
+- confidence level is explicit and fixed by policy; proposed V1 default is **95%**
+- sample standard deviation is defined only when at least two observations are available
+
+The implementation must not silently remove invalid observations. Invalid or insufficient input must produce an explicit non-applicable result.
+
+### Minimum sample size
+
+The proposed minimum is **2 observations** because the t interval cannot estimate sample variance from one observation. This is a mathematical applicability floor, not a claim that two observations provide strong evidence.
+
+Evidence-quality and source-reliability policies remain separate gates. A sample can be mathematically applicable while still being weak evidence for downstream decisions.
+
+### Output contract
+
+A statistical result should preserve:
+
+- business_id
+- metric_name
+- unit
+- observation window
+- observation_ids
+- sample_size
+- sample_mean
+- sample_standard_deviation
+- confidence_level
+- interval_lower
+- interval_upper
+- method identifier
+- explicit applicability/result status
+
+The result must be reproducible from the identified observations and explicit method parameters.
+
+### Insufficient / invalid data
+
+The result must explicitly distinguish at least:
+
+- INSUFFICIENT_OBSERVATIONS — fewer than 2 valid observations
+- INVALID_CONTEXT — mixed business, metric, unit, or incompatible context
+- INVALID_VALUE — non-finite numeric input
+- INAPPLICABLE — method assumptions or required conditions are not satisfied
+
+No fallback method is selected automatically in V1.
+
+### Consumer boundary
+
+The statistical result is an evidence artifact. It may later be composed with performance comparison or learning, but V1 must not mutate `PerformanceTrend`, `LearningSignal`, policy, business state, or execution state automatically.
+
+### Implementation gate
+
+Runtime implementation remains blocked until this proposal is reviewed against the repository's existing aggregate/window contracts and RED tests define every invalid/insufficient-data path above. The confidence level, method name, and policy ownership must be explicit in code rather than hidden constants.
