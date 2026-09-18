@@ -1,14 +1,15 @@
 from dataclasses import dataclass
 
 from .performance_aggregation import PerformanceAggregate
+from .performance_history import PerformanceWindow
 
 
 @dataclass(frozen=True)
 class PerformanceTrend:
     metric_name: str
     unit: str
-    current_window: object
-    baseline_window: object
+    current_window: PerformanceWindow
+    baseline_window: PerformanceWindow
     current_average: float
     baseline_average: float
     absolute_change: float

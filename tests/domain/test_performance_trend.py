@@ -76,3 +76,24 @@ def test_compare_performance_rejects_incompatible_aggregates():
 
     with pytest.raises(ValueError):
         compare_performance(current=current, baseline=other_business)
+
+
+
+def test_performance_trend_exposes_explicit_windows():
+    baseline_window = PerformanceWindow(START, START + timedelta(days=1))
+    current_window = PerformanceWindow(START + timedelta(days=1), START + timedelta(days=2))
+    baseline = aggregate_performance(
+        (item("b1", 10),),
+        window=baseline_window,
+    )
+    current = aggregate_performance(
+        (item("c1", 15, at=START + timedelta(days=1, hours=1)),),
+        window=current_window,
+    )
+
+    result = compare_performance(current=current, baseline=baseline)
+
+    assert result.current_window == current_window
+    assert result.baseline_window == baseline_window
+    assert isinstance(result.current_window, PerformanceWindow)
+    assert isinstance(result.baseline_window, PerformanceWindow)
