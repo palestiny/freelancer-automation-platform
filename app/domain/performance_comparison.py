@@ -4,6 +4,11 @@ from enum import Enum
 
 from .performance_aggregation import PerformanceAggregate
 from .performance_baseline import PerformanceBaselinePolicy, assess_baseline
+from .performance_reliability import (
+    PerformanceSourceReliabilityPolicy,
+    SourceReliabilityReason,
+    assess_source_reliability,
+)
 from .performance_trend import PerformanceTrend, compare_performance
 
 
@@ -13,12 +18,15 @@ class ComparisonRejectionReason(str, Enum):
     INSUFFICIENT_CURRENT_EVIDENCE_QUALITY = "insufficient_current_evidence_quality"
     INCOMPATIBLE_CONTEXT = "incompatible_context"
     OVERLAPPING_WINDOWS = "overlapping_windows"
+    INSUFFICIENT_CURRENT_SOURCE_RELIABILITY = "insufficient_current_source_reliability"
+    MISSING_CURRENT_SOURCE_RELIABILITY_POLICY = "missing_current_source_reliability_policy"
 
 
 @dataclass(frozen=True)
 class PerformanceComparisonPolicy:
     minimum_current_observations: int = 3
     minimum_current_evidence_quality: float = 60
+    source_reliability_policy: PerformanceSourceReliabilityPolicy | None = None
 
     def __post_init__(self) -> None:
         if self.minimum_current_observations <= 0:
@@ -75,6 +83,22 @@ def assess_performance_comparison(
             trend=None,
             rejection_reason=ComparisonRejectionReason.INSUFFICIENT_CURRENT_EVIDENCE_QUALITY,
         )
+
+    if comparison_policy.source_reliability_policy is not None:
+        reliability = assess_source_reliability(
+            aggregate=current,
+            policy=comparison_policy.source_reliability_policy,
+        )
+        if reliability.reason is SourceReliabilityReason.INSUFFICIENT_RELIABILITY:
+            return PerformanceComparisonResult(
+                trend=None,
+                rejection_reason=ComparisonRejectionReason.INSUFFICIENT_CURRENT_SOURCE_RELIABILITY,
+            )
+        if reliability.reason is SourceReliabilityReason.MISSING_SOURCE_POLICY:
+            return PerformanceComparisonResult(
+                trend=None,
+                rejection_reason=ComparisonRejectionReason.MISSING_CURRENT_SOURCE_RELIABILITY_POLICY,
+            )
 
     if (
         current.business_id != baseline.business_id
