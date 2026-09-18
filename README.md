@@ -281,3 +281,14 @@ The platform now models businesses as first-class managed entities with provider
 **Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
 
 This creates the foundation for operating multiple businesses without coupling core business meaning to schedulers, workers, marketplaces, payment providers, or AI.
+
+
+## Operational Measurement & Learning
+
+The first operational learning bridge is now implemented:
+
+**Work Item → Outcome Observation → Operational Measurement → Variance → Learning Signal → Improvement Recommendation**
+
+The foundation preserves expected and actual values separately, derives variance, keeps measurement explicitly owned by a business, and requires improvement recommendations to hand off explicitly to policy review or experimentation.
+
+Learning is evidence and recommendation, not silent policy mutation. Historical aggregation, persistence, statistical inference, and external execution remain future work.
