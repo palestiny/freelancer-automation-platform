@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 17 — Statistical Learning & Inference (First Statistical Use Case Implemented)
+**Phase 17 — Statistical Learning & Inference (First Statistical Use Case Implemented and Hardened)
 
 Phase 16 deterministic measurement and learning scope is closed. Phase 17 now has its first narrow statistical runtime use case implemented and verified. Further statistical methods remain gated by explicit design.
 
@@ -139,7 +139,7 @@ Phase 16 — Operational Measurement & Learning Integration is implemented throu
 
 The current boundary remains domain-only. Statistical inference, persistence, provider integration, automatic experiment execution, automatic policy mutation, and financial execution remain outside the implementation.
 
-The next architectural decision should therefore be a deliberate Phase 16 closure review: identify any remaining semantic gaps or duplicated policy logic before opening a new statistical-learning or infrastructure slice.
+Phase 17's first statistical slice is implemented and hardened through explicit applicability, validation precedence, lineage uniqueness, confidence-level validation, and standard-library numerical regression coverage. Additional statistical methods remain gated by dedicated use cases. No forecasting, causal inference, persistence, provider integration, policy mutation, or external execution was introduced.
 
 
 ## Opportunity Evaluation Model
@@ -307,7 +307,7 @@ Still outside the current slice:
 
 ## Next Design Gates
 
-1. Phase 17 statistical learning/inference use-case definition and design closure.
+1. Phase 17 closure review and selection of the next concrete statistical use case.
 2. Persistence/API when required by a concrete application boundary.
 3. Portfolio posture and allocation policy as a future strategic domain.
 
@@ -577,3 +577,8 @@ Phase 16 deterministic measurement and evidence scope has completed its semantic
 ## Next Design Gate — Phase 17 Statistical Learning & Inference
 
 Phase 16 deterministic measurement/evidence scope is closed. The next candidate capability is statistical learning and inference, but implementation is intentionally blocked until a concrete statistical use case, assumptions, insufficient-data behavior, and evidence/provenance semantics are defined in `docs/DESIGN_GATE_PHASE_17_STATISTICAL_LEARNING_AND_INFERENCE.md`.
+
+
+## Current Implementation Addition — Phase 17 Statistical Mean Uncertainty Hardening
+
+The first Phase 17 statistical use case is now hardened. Applicability is explicitly consumer-declared; invalid context and invalid values take precedence over applicability failure; observation IDs must be unique; confidence levels are validated; and Student's t numerical evaluation has standard-library regression coverage.
