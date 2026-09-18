@@ -126,7 +126,7 @@ def compare_historical_means(
             + (variance_second / len(second_values)) ** 2 / (len(second_values) - 1)
         )
         degrees_of_freedom = numerator / denominator
-        p_value = 2.0 * (1.0 - _student_t_cdf(abs(t_statistic), int(degrees_of_freedom) if degrees_of_freedom.is_integer() else max(1, int(degrees_of_freedom))))
+        p_value = 2.0 * (1.0 - _student_t_cdf(abs(t_statistic), degrees_of_freedom))
         p_value = max(0.0, min(1.0, p_value))
 
     return _result(
