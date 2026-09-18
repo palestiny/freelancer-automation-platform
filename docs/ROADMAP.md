@@ -233,7 +233,7 @@ Each increment is complete only when applicable design, RED/GREEN TDD, review/re
 
 ### Phase 16 — Business Performance History Foundation
 
-The Phase 16 implementation now includes a normalized `BusinessPerformanceObservation` and business-scoped `BusinessPerformanceHistory`. The history preserves source identity, business isolation, optional expected values, deterministic variance, chronological ordering, and metric/unit filtering. Rich historical aggregation, persistence, and statistical inference remain future work.
+Phase 16 includes normalized business performance history, deterministic windows, historical aggregation, descriptive trend comparison, baseline eligibility, provenance compatibility, source reliability, and evidence-aware operational learning. Persistence and statistical inference remain future work.
 
 ### Phase 16 — Deterministic Performance Windows
 
@@ -292,4 +292,8 @@ Comparison policy can now optionally require explicit source reliability for cur
 
 ### Phase 16 — Evidence-Aware Operational Learning
 
-Operational learning now requires an explicit minimum average evidence-quality threshold in addition to repeated observations and material variance. Learning remains a non-executing evidence signal.
+Operational learning now requires an explicit minimum average evidence-quality threshold in addition to repeated observations and material variance. The default preserves the existing evidence baseline, and learning remains a non-executing evidence signal.
+
+### Phase 16 — Closure Review
+
+Current foundation is complete for the deterministic evidence/measurement slice. Before introducing statistical inference, persistence, or external execution, review semantic duplication, policy composition, provenance invariants, and test coverage as a dedicated design gate.
