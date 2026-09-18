@@ -4,69 +4,106 @@
 
 **Status:** COMMITTED
 
-**Decision:** Start the platform as a modular monolith.
-
-**Reason:** The product is at an early domain-discovery stage. A modular monolith gives clear boundaries without premature distributed-system complexity.
-
-**Consequence:** Module boundaries must be designed deliberately so later extraction remains possible where justified.
+Start the platform as a modular monolith.
 
 ## D-002 — AI Is Replaceable
 
 **Status:** COMMITTED
 
-**Decision:** AI models/providers are capabilities used by the platform, not the owner of business architecture.
-
-**Reason:** The product must remain operable and evolvable as models, tools, and providers change.
+AI models/providers are capabilities used by the platform, not owners of business architecture.
 
 ## D-003 — Explainable Opportunity Evaluation
 
 **Status:** COMMITTED
 
-**Decision:** Opportunity qualification must retain reasons/evidence behind its derived result.
-
-**Reason:** Automated business decisions need auditability and later analysis.
+Opportunity qualification must retain reasons/evidence behind derived results.
 
 ## D-004 — External Observation vs Analysis
 
 **Status:** COMMITTED
 
-**Decision:** Provider-supplied facts, normalized data, quality assessment, derived analysis, and business decisions are separate concepts.
-
-**Reason:** A suspicious provider value should not silently become a business-domain truth.
-
-## Open Decisions
-
-- First marketplace adapter.
-- Evaluation criteria and policy configuration.
-- Initial persistence technology.
-- Initial API technology.
-- Initial UI technology.
-
+Provider-supplied facts, normalized data, quality assessment, derived analysis, and business decisions remain separate concepts.
 
 ## D-005 — Marketplace-Independent Multi-Marketplace Strategy
 
 **Status:** COMMITTED
 
-**Decision:** The platform will support multiple freelance marketplaces through replaceable adapters. The user can enable one, several, or none through configuration/dashboard controls.
-
-**Reason:** Marketplace selection is a runtime/product configuration, not a foundation-level architectural dependency. The core domain must remain portable across marketplaces.
-
-**Consequence:** Marketplace-specific behavior belongs behind adapter/integration boundaries. The first marketplace implementation may be selected later based on product priorities and evidence without redesigning the core opportunity domain.
+The platform supports multiple freelance marketplaces through replaceable adapters.
 
 ## D-006 — Marketplace Integrations Are Independently Evolvable Capabilities
 
 **Status:** COMMITTED
 
-**Decision:** A marketplace integration is treated as an independently evolvable project/capability with its own compatibility, quality, operational, and performance evidence.
-
-**Reason:** Integrations can differ substantially in APIs, data quality, rate limits, authentication, coverage, reliability, and business value.
-
-**Consequence:** Integration selection and improvement can be informed by reports, metrics, user feedback, comments, AI-assisted recommendations, and user input. Derived recommendations do not automatically become product or architecture decisions.
+Each marketplace integration has its own compatibility, quality, operational, and business-value evidence.
 
 ## D-007 — Marketplace Choice Is Runtime Configuration
 
 **Status:** COMMITTED
 
-**Decision:** Marketplace enablement belongs to configuration/policy, not to the core Opportunity domain identity or architecture.
+Marketplace enablement belongs to configuration/policy, not core Opportunity identity.
 
-**Reason:** The system must be able to operate across multiple enabled marketplaces and remain extensible without rebuilding the domain around one provider.
+## D-008 — Business Automation OS Direction
+
+**Status:** COMMITTED
+
+The platform's long-term product boundary is Business Automation OS. Freelancing is the first market used to validate the platform.
+
+**Reason:** This preserves the valuable freelance automation use case while allowing the same business-automation core to support other digital-work models later.
+
+## D-009 — Profitability Is a First-Class Domain Concern
+
+**Status:** COMMITTED
+
+Expected revenue, expected cost, expected profit, margin, profit per hour, and risk-adjusted economics are part of business-domain reasoning.
+
+**Reason:** Automation without measurable economic value can optimize activity rather than business outcome.
+
+## D-010 — Resource Economics
+
+**Status:** COMMITTED
+
+The platform will treat constrained resources such as human time, AI/tool usage, infrastructure, review effort, communication effort, and marketplace fees as economic inputs.
+
+**Consequence:** Future planning can optimize a portfolio under explicit capacity constraints.
+
+## D-011 — Expected vs Actual Measurement Loop
+
+**Status:** COMMITTED
+
+The platform will preserve the distinction between estimates and actual outcomes and use variance as a learning signal.
+
+**Flow:** Expected → Actual → Variance → Learning Signal.
+
+## D-012 — Learning Does Not Silently Rewrite Policy
+
+**Status:** COMMITTED
+
+Learning and AI-assisted analysis can produce recommendations, but policy changes require an explicit decision and versioned change.
+
+## D-013 — Controlled Experimentation
+
+**Status:** COMMITTED
+
+The platform will support measurable experiments for policies, pricing, proposals, capability selection, and execution strategies.
+
+## D-014 — Progressive Autonomy
+
+**Status:** COMMITTED
+
+Automation capability will be represented through explicit autonomy levels from observation through controlled optimization.
+
+## D-015 — Economic Estimate as Derived Domain Data
+
+**Status:** COMMITTED
+
+Economic estimates are separate derived data and do not mutate Opportunity identity.
+
+## Open Decisions
+
+- First marketplace adapter.
+- Initial persistence technology.
+- Initial API technology.
+- Initial UI technology.
+- Exact V1 resource/capacity model.
+- Portfolio optimization objective and constraints.
+- Exact experiment statistics/decision methodology.
