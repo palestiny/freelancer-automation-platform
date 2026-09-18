@@ -211,3 +211,40 @@ Learning must not silently rewrite policy.
 ## Project Health Rule
 
 A meaningful increment is done only after applicable design, RED/GREEN TDD, review, refactoring, documentation, passing tests, commit/push, and project-state update.
+
+
+## Marketing & Growth Direction
+
+The platform now explicitly supports the thesis that existing competitive markets can contain valid opportunities. Competition is an evaluation input, not an automatic rejection rule.
+
+A validated Service, Game, SaaS, Product, Digital Asset, or other business can move into a growth loop:
+
+**Build → Market → Sell → Operate → Measure → Learn → Experiment**
+
+The first provider-independent marketing campaign foundation is implemented:
+
+- campaign objectives
+- controlled channels
+- lifecycle state
+- budget limit
+- authorization state
+- performance snapshot
+- CTR
+- conversion rate
+- CAC
+- ROAS
+
+No real ad spend, social credentials, account creation, provider APIs, or automatic public communication are implemented in the current domain-only slice.
+
+## Current Next Design Gates
+
+1. Market Intelligence / Demand Discovery.
+2. Venture Validation / Experimentation.
+3. Revenue Engine / Recurring Revenue.
+4. Social Presence & Customer Communication.
+5. Campaign Optimization & Budget Policy.
+6. Portfolio posture and allocation policy.
+
+## Current Implementation Addition
+
+`app/domain/marketing_campaign.py` is the provider-independent foundation for campaign lifecycle and measurable campaign performance.
