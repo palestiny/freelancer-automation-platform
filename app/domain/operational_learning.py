@@ -27,6 +27,10 @@ def derive_learning_signal(
     if not measurements:
         return None
 
+    measurement_ids = tuple(m.id for m in measurements)
+    if len(set(measurement_ids)) != len(measurement_ids):
+        raise ValueError("measurements must have unique ids")
+
     business_id = measurements[0].business_id
     if any(m.business_id != business_id for m in measurements):
         raise ValueError("all measurements must belong to the same business")
@@ -56,7 +60,7 @@ def derive_learning_signal(
     return LearningSignal(
         id=signal_id,
         business_id=business_id,
-        source_measurement_ids=tuple(m.id for m in measurements),
+        source_measurement_ids=measurement_ids,
         statement=statement,
         evidence_quality=evidence_quality,
     )
