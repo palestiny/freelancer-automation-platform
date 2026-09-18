@@ -484,3 +484,12 @@ Organizing performance evidence does not mutate operational state, revenue, camp
 **Status:** COMMITTED
 
 Ordering, filtering, time windows, baselines, thresholds, and future statistical methods remain changeable policy rather than hard-coded business identity rules.
+## D-074 — Historical Aggregates Preserve Raw Evidence
+
+**Status:** COMMITTED
+
+Historical aggregation produces a derived summary over normalized performance observations. It must preserve source observation identifiers, business/metric/unit context, and the explicit time window so aggregate values remain traceable to raw evidence.
+
+V1 uses deterministic count, minimum, maximum, and average-style summaries. It does not introduce a universal sum operation because summation semantics depend on metric meaning.
+
+Missing expected values are excluded from expected-derived aggregates rather than treated as zero. Aggregation does not mutate source observations or policy.
