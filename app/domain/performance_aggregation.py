@@ -1,7 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
-
-from .business_performance import BusinessPerformanceObservation
+from .business_performance import BusinessPerformanceHistory, BusinessPerformanceObservation
 from .performance_history import PerformanceWindow, observations_in_window
 
 
@@ -115,7 +113,7 @@ def aggregate_performance(
 
 
 def aggregate_history_metric(
-    history,
+    history: BusinessPerformanceHistory,
     *,
     metric_name: str,
     unit: str,
