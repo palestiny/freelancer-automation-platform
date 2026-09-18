@@ -407,3 +407,14 @@ The domain owns communication meaning:
 Adapters/capabilities own provider-specific operations such as account access, publishing, sending, and webhook/API handling.
 
 Credentials are not part of the domain model. AI is a replaceable drafting/classification capability.
+
+
+## Campaign Optimization & Budget Policy
+
+The campaign domain separates performance observation from optimization policy and recommendation.
+
+**Performance Observation → Optimization Policy → Recommendation → Authorization → External Execution → New Observation**
+
+The V1 optimization foundation owns changeable thresholds and non-executing recommendations. Budget limits are hard safety constraints. Insufficient evidence cannot produce a budget-changing recommendation.
+
+It does not own ad-provider APIs, credentials, payment execution, statistical attribution, or automatic spend.
