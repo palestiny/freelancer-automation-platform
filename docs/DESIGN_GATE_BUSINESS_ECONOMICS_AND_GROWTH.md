@@ -56,17 +56,34 @@ See `DESIGN_GATE_ECONOMIC_HEALTH_AND_PORTFOLIO_POLICY.md` for the dedicated gate
 
 ## Resource Economics
 
-The platform will eventually model constrained resources such as:
+Resource economics is now an approved V1 domain foundation.
 
-- human execution time
-- AI/model usage
-- tool/API usage
-- infrastructure cost
-- review time
-- communication time
-- marketplace fees
+The platform models explicit resource consumption using:
 
-Resource capacity is a business constraint, not merely an infrastructure concern.
+- resource kind
+- quantity
+- monetary unit cost
+- derived total cost
+
+V1 resource kinds are:
+
+- HUMAN_TIME
+- CAPABILITY_USAGE
+- INFRASTRUCTURE
+- COMMUNICATION
+- MARKETPLACE_FEE
+- REVIEW_TIME
+
+Human time is the first constrained capacity model. Capacity snapshots represent a defined planning period with total, committed, reserved, remaining, and utilization hours.
+
+Resource cost and capacity are separate concepts:
+
+- resource usage answers what was consumed and what it cost
+- capacity answers what constrained availability remains
+
+Neither is itself an Economic Health score.
+
+See `DESIGN_GATE_RESOURCE_ECONOMICS_AND_CAPACITY.md` for the dedicated boundary and trade-offs.
 
 ## Portfolio Direction
 
@@ -142,7 +159,7 @@ This gate does not decide:
 
 ## First TDD Slice
 
-The first implementation slice is intentionally small:
+Completed domain foundation:
 
 1. Represent an economic estimate explicitly.
 2. Calculate expected cost from explicit cost components.
@@ -153,4 +170,14 @@ The first implementation slice is intentionally small:
 7. Preserve the estimate as derived data without mutating Opportunity.
 8. Reject invalid economic inputs instead of silently producing misleading values.
 
-After this slice, resource capacity and portfolio allocation get their own design gate.
+Resource/capacity foundation completed in its dedicated gate:
+
+1. Represent explicit resource usage.
+2. Calculate total resource cost.
+3. Represent controlled resource kinds.
+4. Represent human-time capacity for a planning period.
+5. Calculate remaining capacity.
+6. Calculate utilization.
+7. Reject over-allocation.
+
+Future slices include actual-vs-expected economics, opportunity cost, historical economics, and capacity-aware planning.
