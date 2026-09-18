@@ -308,3 +308,14 @@ The validation model is provider-independent. External execution belongs to capa
 **Validation Flow:** Venture Thesis → Hypothesis → Experiment → Result → Evidence → Explicit Decision → Learning
 
 Experiment results do not silently rewrite policy or venture state.
+
+
+## Revenue & Recurring Economics
+
+The revenue domain represents the commercial outcome of a business model without coupling the core domain to a payment provider.
+
+**Business Model → Revenue Contract → Realized Revenue Event → Economic Measurement → Learning**
+
+Revenue contracts explicitly distinguish one-time and recurring revenue. Recurring contracts require a period.
+
+Revenue events represent realized revenue observations. Payment execution remains a capability boundary.
