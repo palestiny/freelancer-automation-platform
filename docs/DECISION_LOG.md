@@ -572,3 +572,34 @@ A descriptive performance comparison requires matching source-type provenance be
 **Status:** COMMITTED
 
 Aggregates remain derived evidence views. Raw observation identifiers and source observations remain the authoritative lineage for audit and interpretation.
+
+
+## D-092 — Source Reliability Is Policy-Derived
+
+**Status:** COMMITTED
+
+Source reliability is not an immutable observation fact. An explicit policy assigns reliability values to known source types and evaluates whether an evidence context satisfies a required minimum.
+
+## D-093 — Observation Evidence Quality Remains Separate
+
+**Status:** COMMITTED
+
+Observation-level `evidence_quality` and source-type reliability are distinct concepts. Reliability policy must not silently replace observation evidence quality.
+
+## D-094 — Mixed-Source Evidence Uses the Weakest Configured Source
+
+**Status:** COMMITTED
+
+When an aggregate contains multiple source types, V1 uses the minimum configured reliability among represented sources. This conservative rule avoids inventing weights between heterogeneous evidence domains.
+
+## D-095 — Missing Reliability Configuration Blocks Eligibility
+
+**Status:** COMMITTED
+
+A source type without explicit reliability configuration cannot be assumed reliable. The assessment returns an explainable missing-policy result.
+
+## D-096 — Reliability Does Not Rank or Execute
+
+**Status:** COMMITTED
+
+V1 source reliability is an eligibility input only. It does not rank providers, infer causal correctness, mutate evidence, execute actions, or change business policy.
