@@ -495,3 +495,11 @@ Measurement & Learning now has an explicit policy boundary between historical ev
 The policy evaluates minimum observation count, minimum evidence quality, and maximum age against an explicit `as_of` timestamp. Future baselines are rejected. Eligibility is a derived policy result and does not mutate aggregates, business state, or policy.
 
 Baseline selection, forecasting, statistical inference, anomaly detection, and automatic actions remain outside this slice.
+
+## Bounded Performance Comparison Boundary
+
+The Measurement & Learning comparison layer separates evidence eligibility from descriptive trend generation:
+
+**Current Aggregate + Eligible Baseline → PerformanceComparisonPolicy → PerformanceTrend / Rejection**
+
+The comparison policy requires sufficient current evidence and non-overlapping, temporally ordered windows. It preserves the existing provider-independent trend model and does not introduce forecasting, statistical inference, scoring, ranking, or execution.
