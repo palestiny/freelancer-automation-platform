@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import FrozenSet
 
+from app.domain.opportunity_type import OpportunityType
+
 
 @dataclass(frozen=True)
 class Opportunity:
@@ -12,3 +14,4 @@ class Opportunity:
     required_capabilities: FrozenSet[str] = frozenset()
     budget_min: float | None = None
     budget_max: float | None = None
+    opportunity_type: OpportunityType = OpportunityType.FREELANCE
