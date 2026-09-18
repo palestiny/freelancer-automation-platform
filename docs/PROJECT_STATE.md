@@ -541,3 +541,9 @@ Phase 16 now includes an explicit comparison-policy foundation. A comparison fir
 A successful result is the existing descriptive PerformanceTrend. Rejected comparisons return an explicit reason. No forecasting, statistical inference, ranking, scoring, policy mutation, or external execution was introduced.
 
 The next measurement slice is evidence/provenance enrichment or carefully bounded statistical learning, with statistical inference still deliberately deferred until its own design gate.
+
+## Current Measurement Addition — Performance Evidence Provenance
+
+Phase 16 now preserves source-type provenance in PerformanceAggregate alongside raw observation identifiers. A comparison rejects current/baseline aggregates with incompatible source provenance, preventing identical metric/unit labels from silently crossing evidence domains.
+
+Raw observations remain authoritative. This slice does not introduce source-reliability scoring, causal attribution, statistical inference, persistence, provider integration, or automatic policy mutation.
