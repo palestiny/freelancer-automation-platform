@@ -433,3 +433,11 @@ The Measurement & Learning area now evaluates whether a supplied historical aggr
 **PerformanceAggregate → Evidence/Recency Policy → Baseline Eligibility → Trend Analysis**
 
 The policy checks observation sufficiency, average evidence quality, explicit freshness, and temporal ordering. It returns an explainable eligibility reason and does not choose baselines or mutate business policy.
+
+### Bounded Performance Comparison — Current Foundation
+
+The Measurement & Learning domain now applies an explicit comparison policy after baseline eligibility:
+
+**Current Evidence + Eligible Baseline → Comparison Policy → Performance Trend / Explicit Rejection**
+
+The policy checks current observation sufficiency, current evidence quality, context compatibility, and temporal ordering. It remains descriptive and does not forecast or mutate policy.
