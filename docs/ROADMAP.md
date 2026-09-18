@@ -214,3 +214,16 @@ Build:
 - demand-to-opportunity transformation
 
 **Status:** Initial provider-independent MarketObservation and DemandSignal foundation implemented. Source normalization, trend detection, competitor analysis, and demand persistence remain future slices.
+
+## Phase 15 — Campaign Optimization & Budget Policy
+
+Build controlled optimization around measured campaign performance:
+
+- optimization policy
+- evidence sufficiency
+- budget adjustment recommendations
+- pause/continue recommendations
+- hard budget limits
+- explicit authorization boundaries
+
+**Status:** Provider-independent recommendation foundation implemented. External execution and automatic spend remain future work.
