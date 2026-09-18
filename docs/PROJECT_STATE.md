@@ -9,8 +9,7 @@ The project has completed the provider-independent foundations for opportunity i
 ## Verified Test / CI State
 
 - The repository contains one canonical GitHub Actions CI workflow: `.github/workflows/ci.yml`.
-- A previous verified run on commit `7bf259b68bc24bcf3ab8b40ba1752c27e4427b8c` completed successfully with **119 passed** tests.
-- The latest CI run for commit `b0d5e6659ae1067cd775fa747c84cb68e8320185` reached the test step successfully; final workflow completion should be verified before calling the latest run green.
+- CI run **245** for commit `b342928c79a5abfdc2376f0d8b28eaca448fbaf9` completed successfully after the evidence-aware operational-learning change. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
 - CI is intentionally dependency-minimal at this stage: it installs pytest directly because the repository currently has no `requirements.txt` or `pyproject.toml`.
 
 ## Implemented Domain Foundations
@@ -568,4 +567,8 @@ The comparison layer continues to consume `BaselineEligibility` without duplicat
 
 ## Current Measurement Addition — Evidence-Aware Operational Learning
 
-`OperationalLearningPolicy` now includes `minimum_average_evidence_quality`. Learning signals require sufficient evidence quality as well as minimum observations and material average relative variance. The policy does not mutate source measurements or execute actions.
+`OperationalLearningPolicy` now includes `minimum_average_evidence_quality`. Learning signals require sufficient evidence quality as well as minimum observations and material average relative variance. The default threshold remains 50 to preserve the existing measurement evidence baseline. The policy does not mutate source measurements or execute actions.
+
+## Current Measurement Addition — Provenance Compatibility Hardening
+
+Performance comparison now treats source-type provenance as an unordered set of evidence domains rather than an ordered tuple. Compatibility still requires exact source-domain membership. Reliability assessment state is also validated so the eligibility flag cannot contradict its reason.
