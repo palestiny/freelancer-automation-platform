@@ -364,3 +364,29 @@ The domain does not own:
 - automatic venture lifecycle mutation
 
 External execution remains behind capabilities/adapters and authorization policy. Experiment results become evidence; learning cannot silently rewrite policy.
+
+
+## Revenue Engine Boundary
+
+The revenue domain is provider-independent.
+
+It owns:
+
+- RevenueContract
+- RevenueType
+- RecurringPeriod
+- RevenueEvent
+
+It does not own:
+
+- payment processor integration
+- money movement
+- refunds
+- invoicing
+- tax accounting
+- provider reconciliation
+- automatic pricing
+
+**Business Model → Revenue Contract → Payment Capability Boundary → Revenue Event → Economic/Learning Loop**
+
+Actual revenue remains distinct from expected revenue.
