@@ -526,3 +526,10 @@ The comparison:
 A missing window produces no comparison. The result is descriptive evidence, not a forecast, recommendation, or policy decision.
 
 Statistical inference remains deliberately deferred.
+
+
+## Current Measurement Addition — Evidence & Baseline Policy
+
+The Measurement & Learning domain now includes an explicit evidence-aware baseline eligibility policy. A supplied historical aggregate can be assessed against minimum observation count, minimum average evidence quality, and explicit maximum age. Future baselines are rejected, and every ineligible result has a deterministic reason. The policy does not select baselines, forecast, mutate policy, or execute actions.
+
+Next measurement slice: use eligible historical evidence in a bounded, explicit comparison policy before introducing statistical inference.
