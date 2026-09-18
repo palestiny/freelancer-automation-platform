@@ -348,3 +348,34 @@ A communication requiring escalation cannot simultaneously be approved for autom
 **Status:** COMMITTED
 
 External account credentials and provider authentication remain adapter/infrastructure concerns and are not represented by the communication domain.
+
+
+## D-052 — Optimization Produces Recommendations, Not Silent Spend Changes
+
+**Status:** COMMITTED
+
+Campaign optimization recommendations do not execute provider actions or mutate external spend.
+
+## D-053 — Budget Limits Are Hard Safety Constraints
+
+**Status:** COMMITTED
+
+Optimization recommendations cannot exceed the explicit campaign budget limit.
+
+## D-054 — Optimization Requires Sufficient Evidence
+
+**Status:** COMMITTED
+
+Insufficient observations produce a non-executable recommendation state rather than invented certainty.
+
+## D-055 — Optimization Policy Is Changeable
+
+**Status:** COMMITTED
+
+Optimization thresholds and adjustment rules remain policy and may evolve independently of business identity.
+
+## D-056 — Financial Spend Remains Explicitly Authorized
+
+**Status:** COMMITTED
+
+Paid spend remains an external financial action. V1 does not introduce automatic ad spending.
