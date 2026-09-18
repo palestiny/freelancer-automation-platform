@@ -109,3 +109,10 @@ V1 does not implement:
 6. History can filter by metric and unit.
 7. Source domains remain independent from the history model.
 8. Tests cover the safety and evidence boundaries.
+
+
+## Time-Window Foundation
+
+V1 now includes a deterministic `PerformanceWindow` with start-inclusive/end-exclusive semantics, plus helpers for selecting observations inside a window and constructing a rolling window from an explicit end time and duration.
+
+Time windows are selection primitives only. They do not imply business-period aggregation, trend inference, or policy decisions.
