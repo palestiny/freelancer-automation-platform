@@ -37,6 +37,30 @@ Economic scores are derived assessments supported by evidence/metrics. Scoring f
 
 Future portfolio postures such as PROTECT, MAINTAIN, GROW, and TURNAROUND are policy decisions, not intrinsic business states.
 
+## Resource Economics & Capacity
+
+Resource economics is now a first-class domain foundation.
+
+Resource usage explicitly captures:
+
+- resource kind
+- quantity
+- monetary unit cost
+- derived total cost
+
+V1 resource kinds are:
+
+- HUMAN_TIME
+- CAPABILITY_USAGE
+- INFRASTRUCTURE
+- COMMUNICATION
+- MARKETPLACE_FEE
+- REVIEW_TIME
+
+Human time is the first constrained capacity model. Capacity snapshots track total, committed, reserved, remaining, and utilization hours for a defined planning period.
+
+Resource cost answers **what was consumed and what it cost**. Capacity answers **what constrained availability remains**. They are operational/economic inputs, not Economic Health scores.
+
 ## Opportunity Types
 
 - Freelance
@@ -141,6 +165,9 @@ Implemented:
 - Venture lifecycle
 - EconomicEstimate
 - EconomicProfile
+- ResourceUsage
+- ResourceKind
+- CapacitySnapshot
 - Opportunity Intelligence foundations
 
 Still outside the current slice:
@@ -153,6 +180,8 @@ Still outside the current slice:
 - AI provider dependencies
 - financial execution
 - automatic capital movement
+- scheduling/calendar integration
+- actual-vs-expected historical measurement
 
 ## Engineering Process
 
