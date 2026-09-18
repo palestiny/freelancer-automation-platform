@@ -1,22 +1,37 @@
-# Freelancer Automation Platform
+# Economic Opportunity OS
 
 ## Product Direction
 
-This project is evolving into a **Business Automation OS**, initially validated through the freelance-work market.
+This repository is evolving from a freelancer automation platform into an **Economic Opportunity OS / Business Automation OS**.
 
-The platform is designed to discover opportunities, understand and evaluate them, assess their economics, decide what is worth pursuing, plan and execute work through replaceable capabilities, verify quality, measure actual outcomes, and continuously improve its policies and strategies.
+Freelancing remains the first laboratory because it gives us a concrete, measurable path from demand to sale to delivery to revenue and actual economics.
 
-Freelancing is the first market. It is not the permanent architectural boundary.
+It is not the permanent architectural boundary.
 
-## Core Business Loop
+The long-term system discovers opportunities across multiple markets, proposes multiple business models, evaluates economics and evidence, validates the cheapest credible hypotheses, operates proven businesses, learns from outcomes, and eventually supports portfolio and capital-allocation decisions under explicit policy.
 
-**Opportunity → Evaluation → Economics → Decision → Planning → Execution → Quality → Delivery → Measurement → Learning → Experimentation**
+## Core Economic Loop
 
-The goal is not maximum automation for its own sake. The goal is **controlled, measurable, economically valuable automation**.
+**Market Signals → Opportunity Discovery → Business Model Discovery → Venture Thesis → Economic Evaluation → Validation → Revenue → Measurement → Learning → Experimentation → Scale / Kill → Portfolio / Capital Allocation**
 
-## Opportunity Evaluation
+## Opportunity Types
 
-The first Opportunity Intelligence slice evaluates six dimensions:
+- Freelance
+- Service
+- Product
+- SaaS
+- Game
+- Digital Asset
+- Recurring Revenue
+- Partnership
+- Investment
+- Acquisition
+
+These types are explicit domain categories. They are not forced into one universal evaluation algorithm.
+
+## Opportunity Intelligence
+
+The original six dimensions remain committed for their applicable opportunity context:
 
 1. Eligibility
 2. Requirement Fit
@@ -27,81 +42,97 @@ The first Opportunity Intelligence slice evaluates six dimensions:
 
 Evaluation remains explainable and preserves criterion-level evidence and uncertainty.
 
-Overall outcomes:
+## Venture Intelligence
 
-- QUALIFIED
-- NOT_QUALIFIED
-- REVIEW_REQUIRED
+Broader ventures use a separate evaluation model covering:
 
-Numeric opportunity scoring is intentionally not required in the first domain slice.
+- Market Demand
+- Market Size
+- Competition
+- Capital Requirement
+- Time to Revenue
+- Recurring Revenue Potential
+- Automation Potential
+- Scalability
+- Risk
+- Evidence Quality
+- Strategic Fit
+- Exit / Expansion Potential
 
-## Business Economics
+No universal numeric master score is required for the first venture slice.
 
-Profitability is a first-class domain concern.
+## Evidence
 
-The platform now models:
+The domain distinguishes:
 
-- expected revenue
-- expected cost
-- expected profit
-- expected margin
-- expected profit per hour
-- risk-adjusted profit
+**FACT → OBSERVATION → ESTIMATE → ASSUMPTION → HYPOTHESIS → FORECAST → EXPERIMENT_RESULT**
 
-Cost can explicitly include:
+This prevents estimates and hypotheses from silently becoming facts.
 
-- marketplace/platform fees
-- capability/tool costs
-- operating costs
-- revision allowance
+## Business Model Discovery
 
-Economic estimates remain derived data and never mutate Opportunity identity.
+The same demand can produce multiple hypotheses:
 
-## Long-Term Platform Direction
+- freelance service
+- productized service
+- managed service
+- SaaS
+- API
+- digital product
+- game
+- white-label
+- subscription
+- partnership
 
-The platform is intended to grow toward:
+Recurring revenue and automation intensity are explicit.
 
-- resource and capacity economics
-- opportunity portfolio optimization
-- capability selection based on cost, quality, speed, and reliability
-- expected-vs-actual measurement
-- business memory
-- policy versioning
-- controlled experimentation
-- progressive autonomy levels
-- multi-marketplace integrations
-- proposal, project, communication, revision, quality, and delivery automation
-- AI-assisted analysis and recommendations without making AI the owner of business architecture
+## Low-Touch Recurring Revenue
+
+The system should search for businesses with recurring revenue, high automation potential, low human dependency, and acceptable maintenance/support economics.
+
+"Passive income" is modeled as low-touch recurring economics, not assumed literal passivity.
+
+## Investment Boundary
+
+Investment opportunities are initially research and decision support.
+
+Automatic financial execution and automatic capital movement are outside the current domain implementation boundary.
 
 ## Architecture
 
 - Modular monolith initially.
-- Domain logic is independent from HTTP, persistence, marketplace SDKs, UI, and AI providers.
-- External platforms are isolated behind replaceable adapters/ports.
+- Domain logic is independent from HTTP, persistence, marketplace SDKs, UI, AI providers, and financial execution providers.
+- External platforms are isolated behind replaceable adapters.
 - AI and tools are replaceable capabilities.
 - Business decisions are explainable and auditable.
 - Learning produces evidence and recommendations; it does not silently rewrite policy.
-- Irreversible or high-risk actions require explicit policy and appropriate approval.
+- High-risk or irreversible actions require explicit policy and appropriate approval.
 
-See `docs/DOMAIN_MAP.md` and `docs/DESIGN_GATE_BUSINESS_ECONOMICS_AND_GROWTH.md`.
+## Current Domain Foundations
 
-## Current Phase
+Implemented:
 
-**Phase 0 — Product & Architecture → Business Economics & Growth Gate Approved → Domain TDD in progress**
+- OpportunityType
+- Evidence taxonomy
+- BusinessModelHypothesis
+- Venture evaluation
+- Venture lifecycle
+- EconomicEstimate
+- Opportunity Intelligence foundations
 
-The first economic domain slice is implemented alongside the approved Opportunity Intelligence domain slice.
+Still outside the current slice:
 
-The current implementation remains domain-only:
-
-- no marketplace SDK
-- no real marketplace credentials
-- no persistence
-- no HTTP/API
-- no UI
-- no AI provider dependency
+- marketplace SDKs
+- real credentials
+- persistence
+- HTTP/API
+- UI
+- AI provider dependencies
+- financial execution
+- automatic capital movement
 
 ## Engineering Process
 
 **UNDERSTAND → MAP → DESIGN → DISCUSS TRADE-OFFS → DECIDE → TEST → IMPLEMENT → REVIEW → REFACTOR → DOCUMENT → LEARN → UPDATE THE MAP**
 
-See `KHALED_ENGINEERING_WORKING_RULES.md` and `docs/README.md`.
+See KHALED_ENGINEERING_WORKING_RULES.md and docs/README.md.
