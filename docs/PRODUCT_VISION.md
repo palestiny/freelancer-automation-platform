@@ -2,25 +2,103 @@
 
 ## Vision
 
-Build a professional automation platform that can operate the freelancer lifecycle as a controlled business system rather than as a single AI agent.
+Build a **Business Automation OS** that can operate digital work as a controlled business system.
 
-The platform should discover suitable freelance opportunities, evaluate them against user-defined rules, support proposal and client communication, plan and execute work through replaceable capabilities, verify quality, handle revisions, deliver results, capture client feedback, and learn from business outcomes.
+The first market is freelancing because it provides a concrete environment in which the platform can discover opportunities, evaluate them, pursue profitable work, execute it, measure outcomes, and learn.
+
+The long-term product boundary is broader than freelancing.
+
+## What the Platform Must Optimize
+
+The platform should optimize business outcomes under explicit constraints, including:
+
+- revenue
+- profit
+- margin
+- profit per hour
+- delivery time
+- quality
+- reliability
+- resource capacity
+- risk
+- automation cost
+
+Automation is a means. Economic value is a first-class outcome.
+
+## Core Lifecycle
+
+Opportunity Discovery
+→ Qualification
+→ Economic Assessment
+→ Decision
+→ Proposal
+→ Client Communication
+→ Project Setup
+→ Planning & Estimation
+→ Capability Selection
+→ Execution
+→ Quality Gate
+→ Delivery
+→ Revision
+→ Completion
+→ Measurement
+→ Learning
+→ Experimentation
 
 ## Product Principles
 
 1. Automation is the product capability; AI is one replaceable means of implementation.
-2. Human-like behavior means explicit requirements understanding, estimation, pricing, communication, quality control, and revision handling—not unrestricted autonomous behavior.
-3. Important automated decisions should be explainable and auditable.
-4. External platform integrations must be replaceable and independently evolvable.
+2. Profitability and resource economics are domain concerns, not after-the-fact analytics.
+3. Important automated decisions must be explainable and auditable.
+4. External platform integrations are replaceable and independently evolvable.
 5. Marketplace choice is configuration, not a core architectural dependency.
 6. Irreversible or high-risk actions require explicit policy and, where appropriate, human approval.
-7. Business outcomes must be measurable: revenue, costs, acceptance, revisions, delivery time, reliability, and automation success.
-8. Platform and integration improvement should be evidence-driven: reports, metrics, user feedback, comments, AI-assisted recommendations, and user-provided ideas can inform future changes.
+7. Actual outcomes must be compared with estimates so the system can improve.
+8. Learning generates evidence and recommendations; policy changes remain explicit and versioned.
+9. Experiments must have measurable hypotheses and controlled comparison.
+10. Business memory should accumulate useful evidence without turning assumptions into facts.
+11. Autonomy should increase progressively within explicit policy boundaries.
 
-## Lifecycle
+## Opportunity Intelligence
 
-Opportunity Discovery → Qualification → Proposal → Client Communication → Project Setup → Planning & Estimation → Execution → Quality Gate → Delivery → Revision → Completion → Feedback → Analytics → Learning.
+The first evaluation model uses six dimensions:
 
-## Initial Scope
+- Eligibility
+- Requirement Fit
+- Estimated Effort
+- Economic Fit
+- Client / Project Risk
+- Success Confidence
 
-The first vertical slice focuses only on marketplace-independent Opportunity Intelligence. Marketplace adapters are implementation capabilities that can be added independently. Later phases expand the lifecycle without prematurely coupling all domains together.
+Each criterion retains evidence and uncertainty.
+
+## Business Economics
+
+The platform explicitly models:
+
+- expected revenue
+- expected cost
+- expected profit
+- expected margin
+- expected profit per hour
+- risk-adjusted profit
+
+Future resource economics will model human time, AI/tool usage, infrastructure, review effort, communication effort, and marketplace costs.
+
+## Learning Loop
+
+**Expected → Actual → Variance → Learning Signal → Controlled Improvement**
+
+The system should become more accurate and economically effective through evidence from its own operation.
+
+## Product Expansion
+
+The architecture should support later expansion into:
+
+- multiple freelance marketplaces
+- agencies and productized services
+- other digital-work opportunity sources
+- capability marketplaces
+- automated business workflows
+
+The initial implementation remains deliberately small and domain-first.
