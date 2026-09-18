@@ -692,3 +692,10 @@ A performance comparison requires the current aggregate window to end at or befo
 **Status:** COMMITTED
 
 Statistical inference is not an implicit extension of deterministic Phase 16 measurement. Any statistical method must have an explicit use case, assumptions, applicability rules, insufficient-data behavior, provenance semantics, and a defined consumer before implementation.
+
+
+## D-112 — Phase 17 Uses an Explicit t-Interval Contract
+
+**Status:** PROPOSED
+
+The first statistical method candidate is a Student's t confidence interval for an observed mean. V1 proposes a 95% confidence level and a mathematical applicability floor of two valid observations. Invalid, insufficient, or inapplicable data must produce explicit outcomes; no fallback statistical method is selected automatically. This proposal does not authorize runtime implementation until the design gate and RED tests are closed.
