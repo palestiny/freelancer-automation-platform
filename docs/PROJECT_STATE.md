@@ -11,7 +11,7 @@ The project has completed the provider-independent foundations for opportunity i
 ## Verified Test / CI State
 
 - The repository contains one canonical GitHub Actions CI workflow: `.github/workflows/ci.yml`.
-- CI run **277** for commit `b342928c79a5abfdc2376f0d8b28eaca448fbaf9` completed successfully after the evidence-aware operational-learning change. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
+- CI run **277** for PR #17 completed successfully with the full test suite: 206 passed. PR #18 documentation reconciliation was then verified by CI run **279**, which also completed successfully. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
 - CI is intentionally dependency-minimal at this stage: it installs pytest directly because the repository currently has no `requirements.txt` or `pyproject.toml`.
 
 ## Implemented Domain Foundations
