@@ -547,3 +547,11 @@ The next measurement slice is evidence/provenance enrichment or carefully bounde
 Phase 16 now preserves source-type provenance in PerformanceAggregate alongside raw observation identifiers. A comparison rejects current/baseline aggregates with incompatible source provenance, preventing identical metric/unit labels from silently crossing evidence domains.
 
 Raw observations remain authoritative. This slice does not introduce source-reliability scoring, causal attribution, statistical inference, persistence, provider integration, or automatic policy mutation.
+
+## Current Measurement Addition — Performance Source Reliability Policy
+
+Phase 16 now has an explicit `PerformanceSourceReliabilityPolicy` and `SourceReliabilityAssessment` foundation. Source reliability is policy-derived and separate from observation-level evidence quality. Mixed-source aggregates are assessed conservatively using the weakest configured source reliability, while missing source configuration blocks eligibility with an explicit reason.
+
+This remains a provider-independent eligibility input. It does not rank providers, infer causality, forecast, mutate policy, or execute external actions.
+
+The latest branch changes are awaiting CI verification before any green-test claim is recorded.
