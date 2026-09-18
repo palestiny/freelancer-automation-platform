@@ -533,3 +533,11 @@ Statistical inference remains deliberately deferred.
 The Measurement & Learning domain now includes an explicit evidence-aware baseline eligibility policy. A supplied historical aggregate can be assessed against minimum observation count, minimum average evidence quality, and explicit maximum age. Future baselines are rejected, and every ineligible result has a deterministic reason. The policy does not select baselines, forecast, mutate policy, or execute actions.
 
 Next measurement slice: use eligible historical evidence in a bounded, explicit comparison policy before introducing statistical inference.
+
+## Current Measurement Addition — Bounded Performance Comparison
+
+Phase 16 now includes an explicit comparison-policy foundation. A comparison first requires an eligible baseline, then checks current observation count and evidence quality, business/metric/unit compatibility, and non-overlapping temporal windows.
+
+A successful result is the existing descriptive PerformanceTrend. Rejected comparisons return an explicit reason. No forecasting, statistical inference, ranking, scoring, policy mutation, or external execution was introduced.
+
+The next measurement slice is evidence/provenance enrichment or carefully bounded statistical learning, with statistical inference still deliberately deferred until its own design gate.
