@@ -180,3 +180,48 @@ AI cannot bypass policy boundaries.
 **Freelance Service → Productized Service → Managed Service → SaaS / API → Multi-business Portfolio → Business Infrastructure**
 
 Games, digital products, partnerships, acquisitions, and investment analysis are valid opportunity categories without forcing them into the freelance execution model.
+
+
+## Existing Markets Are Valid Opportunities
+
+The platform is not a market-gap detector only.
+
+A business may be worth building even when many comparable businesses already exist. Competition is evidence about the market and an input to evaluation; it is not an automatic rejection condition.
+
+Valid opportunity theses may come from:
+
+- better positioning
+- narrower niche selection
+- better customer experience
+- lower delivery cost
+- stronger automation
+- better distribution
+- better recurring economics
+- better execution
+- differentiated offer design
+- underserved customer segments
+
+The platform must evaluate the thesis rather than assume novelty is required.
+
+## Marketing & Growth Automation
+
+Once a business is validated, the platform must be able to operate a measurable growth loop:
+
+**Business Thesis → Positioning → Audience → Offer → Campaign → Content → Distribution → Leads/Customers → Measurement → Learning → Experimentation**
+
+Future capabilities include:
+
+- campaign planning
+- organic and paid channel planning
+- content/post planning
+- authorized social presence management
+- lead acquisition
+- comment and customer-feedback monitoring
+- policy-bound response handling
+- campaign analytics
+- CAC, conversion, revenue, and ROAS analysis
+- controlled campaign experiments
+
+Marketing is an economic capability, not an AI-owned domain. External advertising/social platforms and AI providers remain replaceable adapters/capabilities.
+
+Campaign performance feeds the existing economic and learning loops, while business-level health remains distinct from campaign-level metrics.
