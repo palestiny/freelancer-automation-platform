@@ -561,3 +561,7 @@ The latest branch changes are awaiting CI verification before any green-test cla
 Baseline eligibility now optionally consumes `PerformanceSourceReliabilityPolicy`. This preserves the distinction between source reliability and observation-level evidence quality while making reliability a real eligibility gate. Existing baseline policies without source reliability retain their prior behavior.
 
 The comparison layer continues to consume `BaselineEligibility` without duplicating reliability logic.
+
+## Current Measurement Addition — Current Evidence Source Reliability
+
+`PerformanceComparisonPolicy` now optionally requires source reliability for current aggregates. Current reliability is an additional gate beside observation sufficiency and evidence quality, with explicit missing/insufficient rejection reasons. Baseline reliability remains owned by `PerformanceBaselinePolicy`.
