@@ -228,3 +228,42 @@ Capacity availability is an operational constraint, not an economic-quality scor
 - Initial persistence technology.
 - Initial API technology.
 - Initial UI technology.
+
+
+## D-034 — Existing Markets Are Valid Opportunities
+
+**Status:** COMMITTED
+
+An existing competitive market is not automatically rejected.
+
+A Service, Game, SaaS, Product, Digital Asset, or other business can be a valid opportunity when its thesis is economically credible, evidence-backed, and testable. Competition is an evaluation input rather than a hard rejection condition.
+
+## D-035 — Marketing & Growth Are First-Class Capabilities
+
+**Status:** COMMITTED
+
+After validation/build, the platform must be able to operate a measurable growth loop including positioning, campaigns, content/distribution, lead acquisition, customer feedback, measurement, and learning.
+
+Marketing is part of the business operating loop rather than a side feature.
+
+## D-036 — Campaigns Are Measurable Experiments
+
+**Status:** COMMITTED
+
+A campaign is represented as a provider-independent business experiment with an explicit objective, channels, lifecycle, budget constraint when applicable, authorization state, and measurable performance observations.
+
+Campaign success is not guaranteed; actual outcomes become evidence for learning.
+
+## D-037 — Marketing Providers Are Replaceable
+
+**Status:** COMMITTED
+
+Advertising networks, social networks, communication providers, content tools, and AI providers are external capabilities/adapters. They must not own core business meaning.
+
+## D-038 — Marketing Automation Has Explicit Safety Boundaries
+
+**Status:** COMMITTED
+
+Real ad spend, account creation, credentials, public publishing, and customer communication are external actions governed by policy and authorization.
+
+Automatic financial spend is not introduced by the marketing domain foundation. High-impact or irreversible actions may require human approval under the existing progressive-autonomy model.
