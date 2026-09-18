@@ -456,3 +456,7 @@ Performance evidence now has a bounded source-reliability policy layer between p
 ## Baseline Reliability Integration
 
 `PerformanceBaselinePolicy` may optionally include `PerformanceSourceReliabilityPolicy`. The resulting `BaselineEligibility` reports explicit reliability-related rejection reasons while preserving existing count, evidence-quality, and freshness boundaries.
+
+## Current Evidence Reliability
+
+`PerformanceComparisonPolicy` may require source reliability for current aggregates. The resulting comparison rejection reasons distinguish insufficient reliability from missing source configuration.
