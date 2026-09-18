@@ -261,3 +261,14 @@ The platform now models the communication loop independently of external provide
 **Presence → Incoming Message → Classification → Response Draft → Authorization → Sent Message → Learning**
 
 External account access and message delivery remain capability boundaries, and AI cannot bypass authorization.
+
+
+## Campaign Optimization & Budget Policy
+
+Campaign performance now feeds a provider-independent optimization recommendation layer:
+
+**Performance Observation → Optimization Policy → Recommendation → Authorization → External Execution**
+
+V1 supports CONTINUE, INCREASE_BUDGET, DECREASE_BUDGET, and PAUSE recommendations. Recommendations are bounded by campaign budget limits and require sufficient observations before optimization. They do not execute external actions.
+
+Paid advertising remains an explicitly authorized financial action. Ad-provider APIs, credentials, payment execution, statistical attribution, and automatic spend remain outside the current domain-only boundary.
