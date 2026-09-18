@@ -6,12 +6,15 @@ from .operational_measurement import LearningSignal, OperationalMeasurement
 class OperationalLearningPolicy:
     minimum_observations: int = 3
     minimum_average_relative_variance: float = 0.10
+    minimum_average_evidence_quality: float = 60
 
     def __post_init__(self) -> None:
         if self.minimum_observations <= 0:
             raise ValueError("minimum_observations must be greater than zero")
         if self.minimum_average_relative_variance < 0:
             raise ValueError("minimum_average_relative_variance cannot be negative")
+        if not 0 <= self.minimum_average_evidence_quality <= 100:
+            raise ValueError("minimum_average_evidence_quality must be between 0 and 100")
 
 
 def derive_learning_signal(
@@ -47,6 +50,8 @@ def derive_learning_signal(
         return None
 
     evidence_quality = round(sum(m.evidence_quality for m in measurements) / len(measurements))
+    if evidence_quality < policy.minimum_average_evidence_quality:
+        return None
 
     return LearningSignal(
         id=signal_id,
