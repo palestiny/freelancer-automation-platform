@@ -685,3 +685,10 @@ A learning signal remains evidence for explicit improvement handling and does no
 **Status:** COMMITTED
 
 A performance comparison requires the current aggregate window to end at or before the explicit `as_of` timestamp. This keeps both baseline and current evidence bounded by known observation time and prevents a descriptive comparison from consuming future evidence. The rule is enforced by the comparison policy and remains separate from baseline freshness policy.
+
+
+## D-110 — Statistical Learning Requires Its Own Design Gate
+
+**Status:** COMMITTED
+
+Statistical inference is not an implicit extension of deterministic Phase 16 measurement. Any statistical method must have an explicit use case, assumptions, applicability rules, insufficient-data behavior, provenance semantics, and a defined consumer before implementation.

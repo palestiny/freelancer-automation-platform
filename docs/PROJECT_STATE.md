@@ -572,3 +572,8 @@ Performance comparison now treats source-type provenance as an unordered set of 
 ## Phase 16 Closure Review — Closed
 
 Phase 16 deterministic measurement and evidence scope has completed its semantic closure review. Policy ownership, provenance compatibility, temporal boundaries, evidence lineage, and test coverage were reviewed without introducing a premature generic evidence abstraction. The deterministic domain boundary is now considered closed. Statistical inference, persistence, provider integration, and external execution require separate future design gates.
+
+
+## Next Design Gate — Phase 17 Statistical Learning & Inference
+
+Phase 16 deterministic measurement/evidence scope is closed. The next candidate capability is statistical learning and inference, but implementation is intentionally blocked until a concrete statistical use case, assumptions, insufficient-data behavior, and evidence/provenance semantics are defined in `docs/DESIGN_GATE_PHASE_17_STATISTICAL_LEARNING_AND_INFERENCE.md`.

@@ -302,3 +302,8 @@ Current foundation is complete for the deterministic evidence/measurement slice.
 ### Phase 16 — Closure Review Completed
 
 **Status:** CLOSED for the deterministic domain slice. Semantic policy composition, provenance, temporal boundaries, evidence lineage, and test coverage were reviewed. No additional cross-domain abstraction was justified. Statistical inference, persistence, and external execution remain future capabilities requiring dedicated design gates.
+
+
+## Phase 17 — Statistical Learning & Inference
+
+**Status:** Design gate proposed; implementation intentionally not started. Phase 17 must select a concrete statistical use case and define assumptions, applicability, insufficient-data behavior, method provenance, and explicit handoff before RED/GREEN implementation begins.
