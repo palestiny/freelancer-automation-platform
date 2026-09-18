@@ -464,4 +464,4 @@ The domain preserves expected and actual values separately, derives variance, en
 
 Learning remains evidence/recommendation, not silent policy mutation.
 
-Historical persistence, aggregation, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
+Repeated-variance learning policy and multi-source evidence are now implemented. Historical persistence, richer measurement provenance, aggregation, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
