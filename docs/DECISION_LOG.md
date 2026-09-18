@@ -692,3 +692,10 @@ A performance comparison requires the current aggregate window to end at or befo
 **Status:** COMMITTED
 
 Statistical inference is not an implicit extension of deterministic Phase 16 measurement. Any statistical method must have an explicit use case, assumptions, applicability rules, insufficient-data behavior, provenance semantics, and a defined consumer before implementation.
+
+
+## D-111 — Phase 17 First Use Case Is Mean Performance Uncertainty
+
+**Status:** PROPOSED
+
+The first candidate statistical use case is to quantify uncertainty around an observed historical mean for one business, metric, unit, and explicit window. This is intended to prevent deterministic averages from being interpreted without regard to sample information. It does not authorize forecasting, causal inference, statistical significance claims, policy mutation, or execution.
