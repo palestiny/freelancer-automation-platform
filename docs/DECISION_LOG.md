@@ -170,7 +170,7 @@ A small, stable, profitable business or recurring-revenue asset is economically 
 
 **Status:** COMMITTED
 
-Economic dimensions remain a vector rather than one permanent weighted score. Different policies may emphasize different dimensions for protection, maintenance, growth, validation, turnaround, harvesting, or exit decisions.
+Economic dimensions remain a vector rather than one permanent weighted score. Different policies may emphasize different dimensions for protection, maintenance, controlled optimization, growth, harvesting, turnaround, or exit decisions.
 
 ## D-028 — Economic Scores Are Derived and Evidence-Aware
 
@@ -184,9 +184,39 @@ Economic scores are derived assessments, not raw facts. The system must preserve
 
 PROTECT, MAINTAIN, OPTIMIZE_CAREFULLY, GROW, HARVEST, TURNAROUND, and EXIT are future policy-derived actions, not intrinsic business states and not part of the core Economic Profile score vector.
 
+## D-030 — Resource Usage Is Explicit
+
+**Status:** COMMITTED
+
+A resource consumption record explicitly identifies its resource kind, quantity, and monetary unit cost. Total resource cost is derived as quantity × unit cost.
+
+## D-031 — Resource Kinds Are Explicit
+
+**Status:** COMMITTED
+
+V1 recognizes HUMAN_TIME, CAPABILITY_USAGE, INFRASTRUCTURE, COMMUNICATION, MARKETPLACE_FEE, and REVIEW_TIME as controlled resource categories.
+
+## D-032 — Human Time Is the First Capacity Model
+
+**Status:** COMMITTED
+
+V1 capacity is modeled as human-time hours for a defined period, distinguishing total, committed, reserved, remaining capacity, and utilization.
+
+## D-033 — Capacity Is Not Profit
+
+**Status:** COMMITTED
+
+Capacity availability is an operational constraint, not an economic-quality score. Business Economics may consume capacity information, while Economic Health remains a separate derived assessment.
+
 ## Open Decisions
 
-- Exact V1 resource/capacity model.
+- How capacity periods are generated from actual availability.
+- Whether capacity should support multiple currencies.
+- How resource costs are normalized across currencies.
+- How actual resource usage is captured.
+- How capacity reservations interact with execution lifecycle.
+- How opportunity cost is calculated from scarce capacity.
+- How capacity feeds future portfolio posture policies.
 - Economic score calculation policies and evidence requirements by opportunity/business type.
 - Historical stability metric windows and baselines.
 - Market Intelligence and demand-source boundaries.
