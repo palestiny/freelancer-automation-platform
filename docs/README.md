@@ -62,3 +62,11 @@ The growth path is now explicitly:
 **Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
 
 External ad/social execution remains outside the current domain-only boundary.
+
+17. DESIGN_GATE_MARKETING_AND_GROWTH_AUTOMATION.md — marketing, existing-market opportunity, campaign, and growth-automation gate.
+18. DESIGN_GATE_MARKET_INTELLIGENCE_AND_DEMAND_DISCOVERY.md — market observations, demand signals, provenance, and demand-discovery boundaries.
+
+## Current Gate Status
+
+- Market Intelligence / Demand Discovery: approved; provider-independent observation and demand-signal foundation implemented.
+- Marketing & Growth Automation: approved; provider-independent campaign foundation implemented.
