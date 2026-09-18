@@ -89,9 +89,6 @@ def calculate_mean_uncertainty(
         )
 
     first = selected[0]
-    if not assumptions_satisfied:
-        return _result(first, selected, window, confidence_level, MeanUncertaintyStatus.INAPPLICABLE)
-
     if any(
         observation.business_id != first.business_id
         or observation.metric_name != first.metric_name
@@ -102,6 +99,9 @@ def calculate_mean_uncertainty(
 
     if any(not isfinite(observation.actual_value) for observation in selected):
         return _result(first, selected, window, confidence_level, MeanUncertaintyStatus.INVALID_VALUE)
+
+    if not assumptions_satisfied:
+        return _result(first, selected, window, confidence_level, MeanUncertaintyStatus.INAPPLICABLE)
 
     values = tuple(float(observation.actual_value) for observation in selected)
     n = len(values)
