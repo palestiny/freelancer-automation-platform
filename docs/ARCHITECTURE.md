@@ -484,3 +484,14 @@ Measurement & Learning now includes a deterministic comparison layer:
 The comparison requires compatible business/metric/unit context and explicit windows. It reports average-level absolute and relative change while preserving source observation identifiers and evidence quality.
 
 Trend output is descriptive evidence only. Forecasting, statistical significance, seasonality, anomaly detection, and automatic policy mutation remain outside this boundary.
+
+
+## Evidence & Baseline Policy Boundary
+
+Measurement & Learning now has an explicit policy boundary between historical evidence and baseline usability:
+
+**PerformanceAggregate → PerformanceBaselinePolicy → BaselineEligibility → Trend Analysis**
+
+The policy evaluates minimum observation count, minimum evidence quality, and maximum age against an explicit `as_of` timestamp. Future baselines are rejected. Eligibility is a derived policy result and does not mutate aggregates, business state, or policy.
+
+Baseline selection, forecasting, statistical inference, anomaly detection, and automatic actions remain outside this slice.
