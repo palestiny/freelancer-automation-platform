@@ -196,3 +196,28 @@ def test_aggregate_preserves_distinct_source_types():
         PerformanceSourceType.OPERATIONAL,
         PerformanceSourceType.REVENUE,
     )
+
+
+
+def test_performance_aggregate_rejects_duplicate_source_types():
+    with pytest.raises(ValueError):
+        PerformanceAggregate(
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            window=window(),
+            observation_ids=("o1", "o2"),
+            source_types=(
+                PerformanceSourceType.OPERATIONAL,
+                PerformanceSourceType.OPERATIONAL,
+            ),
+            actual_count=2,
+            actual_average=10,
+            actual_min=8,
+            actual_max=12,
+            expected_count=0,
+            expected_average=None,
+            average_variance=None,
+            average_relative_variance=None,
+            average_evidence_quality=70,
+        )
