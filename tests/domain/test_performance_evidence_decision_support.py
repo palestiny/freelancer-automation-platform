@@ -142,3 +142,22 @@ def test_zero_change_with_statistical_detection_is_not_called_alignment():
     assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
     assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
 
+
+
+def test_result_requires_nonempty_context_fields():
+    import pytest
+
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(
+            business_id="",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("s1",),
+            current_observation_ids=("c1",),
+            baseline_observation_ids=("b1",),
+        )
