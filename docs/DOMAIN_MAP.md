@@ -381,3 +381,8 @@ Responsibilities now include:
 Learning remains derived evidence. It does not silently rewrite policy or business state.
 
 Historical aggregation, persistence, statistical inference, automated experiments, and external execution remain future capabilities.
+
+
+### Operational Learning — Current Foundation
+
+Repeated operational measurements can now produce an evidence-linked learning signal when a configurable minimum observation count and material average relative variance threshold are met. Cross-business and mixed-metric evidence is rejected. Learning retains all contributing measurement identifiers and remains a non-executing recommendation input.
