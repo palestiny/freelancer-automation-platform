@@ -330,3 +330,10 @@ Current foundation is complete for the deterministic evidence/measurement slice.
 **Status:** CLOSED for the current V1 statistical-method boundary. Two narrow statistical use cases are implemented and verified: Student's t mean uncertainty and Welch's two-sample historical mean comparison.
 
 Next boundary: identify a concrete downstream consumer for statistical evidence before adding another method or automatic integration.
+
+
+### Phase 17 — Statistical Evidence Composition Consumer
+
+**Status:** V1 downstream consumer implemented and verified. Existing Welch statistical evidence can now be composed with explicit evidence-quality and source-reliability gates without universal scoring or automatic action.
+
+Next extension remains consumer-driven and requires a dedicated design gate if it changes the statistical surface or introduces a new decision-support semantic.
