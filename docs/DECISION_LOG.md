@@ -48,23 +48,17 @@ Marketplace enablement belongs to configuration/policy, not core Opportunity ide
 
 The platform's long-term product boundary is Business Automation OS. Freelancing is the first market used to validate the platform.
 
-**Reason:** This preserves the valuable freelance automation use case while allowing the same business-automation core to support other digital-work models later.
-
 ## D-009 — Profitability Is a First-Class Domain Concern
 
 **Status:** COMMITTED
 
 Expected revenue, expected cost, expected profit, margin, profit per hour, and risk-adjusted economics are part of business-domain reasoning.
 
-**Reason:** Automation without measurable economic value can optimize activity rather than business outcome.
-
 ## D-010 — Resource Economics
 
 **Status:** COMMITTED
 
 The platform will treat constrained resources such as human time, AI/tool usage, infrastructure, review effort, communication effort, and marketplace fees as economic inputs.
-
-**Consequence:** Future planning can optimize a portfolio under explicit capacity constraints.
 
 ## D-011 — Expected vs Actual Measurement Loop
 
@@ -98,12 +92,75 @@ Automation capability will be represented through explicit autonomy levels from 
 
 Economic estimates are separate derived data and do not mutate Opportunity identity.
 
+## D-016 — Economic Opportunity OS
+
+**Status:** COMMITTED
+
+The long-term product expands from a freelancer automation system into an Economic Opportunity OS / Business Automation OS capable of discovering and evaluating multiple business and income opportunities.
+
+Freelancing remains the first laboratory, not the permanent architectural boundary.
+
+## D-017 — Opportunity Types Are Explicit
+
+**Status:** COMMITTED
+
+The domain recognizes multiple opportunity types: freelance, service, product, SaaS, game, digital asset, recurring revenue, partnership, investment, and acquisition.
+
+Different opportunity types may require different evaluation models.
+
+## D-018 — Business Model Discovery
+
+**Status:** COMMITTED
+
+Demand may be converted into multiple business-model hypotheses rather than assuming one implementation path.
+
+## D-019 — Separate Venture Evaluation
+
+**Status:** COMMITTED
+
+Broader ventures use a dedicated evaluation model instead of forcing SaaS, games, services, investments, and acquisitions into the six-dimensional Opportunity Intelligence model.
+
+## D-020 — Evidence Taxonomy
+
+**Status:** COMMITTED
+
+The domain distinguishes FACT, OBSERVATION, ESTIMATE, ASSUMPTION, HYPOTHESIS, FORECAST, and EXPERIMENT_RESULT.
+
+## D-021 — Low-Touch Recurring Revenue
+
+**Status:** COMMITTED
+
+The system should explicitly identify recurring-revenue and high-automation opportunities. "Passive income" is represented as low-touch recurring economics rather than assumed literal passivity.
+
+## D-022 — Investment Execution Boundary
+
+**Status:** COMMITTED
+
+Investment opportunities are initially research and decision-support concerns. Automatic financial execution requires a separate explicit policy and approval design.
+
+## D-023 — Capital Allocation Is a Future Gate
+
+**Status:** COMMITTED
+
+Future capital allocation will consider return, risk, liquidity, capital requirement, time to revenue, recurring revenue, automation, human dependency, scalability, strategic fit, evidence quality, exit/expansion potential, and opportunity cost.
+
+Automatic capital movement is not part of the current domain implementation.
+
+## D-024 — Business Model Pattern Mining, Not Literal Copying
+
+**Status:** COMMITTED
+
+The system may study successful business/game patterns and derive differentiated hypotheses, but it is not designed around literal copying of another product.
+
 ## Open Decisions
 
+- Exact V1 resource/capacity model.
+- Market Intelligence and demand-source boundaries.
+- Venture validation experiment model.
+- Portfolio optimization objective and constraints.
+- Capital allocation policy and approval controls.
+- Exact experiment statistics/decision methodology.
 - First marketplace adapter.
 - Initial persistence technology.
 - Initial API technology.
 - Initial UI technology.
-- Exact V1 resource/capacity model.
-- Portfolio optimization objective and constraints.
-- Exact experiment statistics/decision methodology.
