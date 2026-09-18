@@ -145,3 +145,26 @@ def test_mean_uncertainty_returns_inapplicable_when_assumptions_are_not_satisfie
 def test_mean_uncertainty_rejects_non_boolean_assumption_flag():
     with pytest.raises(ValueError, match="assumptions_satisfied must be a boolean"):
         calculate_mean_uncertainty((), window=window(), assumptions_satisfied=1)
+
+
+def test_mean_uncertainty_validates_context_before_applicability():
+    other = BusinessPerformanceObservation(
+        id="o2", business_id="business-2", source_type=PerformanceSourceType.OPERATIONAL,
+        source_id="source-o2", metric_name="delivery_hours", unit="hours",
+        expected_value=None, actual_value=12, observed_at=START + timedelta(hours=1),
+    )
+    result = calculate_mean_uncertainty(
+        (item("o1", 10), other),
+        window=window(),
+        assumptions_satisfied=False,
+    )
+    assert result.status is MeanUncertaintyStatus.INVALID_CONTEXT
+
+
+def test_mean_uncertainty_validates_values_before_applicability():
+    result = calculate_mean_uncertainty(
+        (item("o1", float("nan")), item("o2", 10, at=START + timedelta(hours=1))),
+        window=window(),
+        assumptions_satisfied=False,
+    )
+    assert result.status is MeanUncertaintyStatus.INVALID_VALUE
