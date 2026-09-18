@@ -223,3 +223,23 @@ The first provider-independent foundation is implemented in `app/domain/market_i
 - supporting observation count
 
 Search engines, scraping systems, social networks, marketplaces, data providers, and AI research tools remain replaceable external capabilities.
+
+
+## Venture Validation & Experimentation
+
+The platform now has a provider-independent validation experiment foundation.
+
+**Venture Thesis → Hypothesis → Experiment → Measurable Result → Explicit Decision → Evidence / Learning**
+
+Experiments support:
+
+- measurable success criteria
+- controlled variants
+- budget limits
+- explicit lifecycle
+- VALIDATED / INVALIDATED / INCONCLUSIVE outcomes
+- PROMOTE / REJECT / CONTINUE_TESTING decisions
+
+Validation results become evidence. They do not silently change venture state, policy, economics, or portfolio posture.
+
+External execution, real spending, customer communication, statistical inference, persistence, and scheduling remain outside the current domain-only slice.
