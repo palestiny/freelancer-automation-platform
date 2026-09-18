@@ -267,3 +267,13 @@ Build:
 - descriptive trend handoff
 
 **Status:** V1 deterministic comparison-policy foundation implemented. Forecasting and statistical inference remain future work.
+
+### Phase 16 — Performance Evidence Provenance
+
+Build:
+- preserve source-type provenance in historical aggregates
+- require compatible provenance context for descriptive comparisons
+- retain raw observation identifiers as authoritative lineage
+- keep provenance separate from source-reliability scoring
+
+**Status:** V1 provenance-preserving aggregation foundation implemented. Source reliability scoring, causal attribution, and statistical inference remain future work.
