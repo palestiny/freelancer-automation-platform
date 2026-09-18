@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture**
+**Phase 0 — Product & Architecture — Gate Approved; entering Domain TDD**
 
 ## Completed
 
@@ -13,7 +13,7 @@
 - Opportunity Intelligence Design Gate drafted.
 - Proposed Opportunity Evaluation Policy documented without converting open product decisions into commitments.
 
-## Current Design Gate
+## Approved Design Gate
 
 ### Concept
 
@@ -40,20 +40,26 @@ Opportunity Intelligence owns opportunity qualification and analysis representat
 - Opportunity evaluation must be explainable.
 - External observations and derived analysis are distinct concepts.
 - Windows/mobile clients will consume backend capabilities rather than duplicate business logic.
+- The platform is marketplace-independent and supports multiple marketplaces.
+- Marketplace selection is runtime configuration; no single marketplace is a core architectural dependency.
+- Marketplace integrations are replaceable, independently evolvable capabilities.
+- Integration improvement may use measured reports, user feedback, comments, AI-assisted recommendations, and user input without turning recommendations into automatic decisions.
 
-### Proposed — Not Yet Committed
+### Committed Opportunity Evaluation Policy
 
-The current evaluation-policy proposal defines:
+The first domain slice uses:
 - Eligibility
 - Requirement Fit
 - Estimated Effort
 - Economic Fit
 - Client/Project Risk
 - Success Confidence
-- Criterion-level evidence and uncertainty
-- Categorical outcomes before introducing numeric scoring
+- criterion-level evidence and uncertainty
+- QUALIFIED / NOT_QUALIFIED / REVIEW_REQUIRED
+- no required numeric score in the first slice
+- configurable V1 constraints for project type, capabilities/skills, budget, client/location, and project size where applicable
 
-See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md.
+See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md and docs/PROPOSED_OPPORTUNITY_INTELLIGENCE_GATE_RESOLUTION.md.
 
 ### Assumptions
 
@@ -64,12 +70,12 @@ See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md.
 
 ### Open Questions
 
-- Whether the six proposed evaluation dimensions are the correct first-version scope.
-- Whether hard eligibility should be separated from softer qualification criteria.
-- Whether the proposed overall outcomes are sufficient.
-- Whether numeric scoring should remain outside the first vertical slice.
-- Which policy constraints are mandatory in version one.
-- First marketplace integration.
+- Which marketplace integration should be implemented first.
+- Marketplace-specific API/data constraints.
+- Whether/when advanced numeric ranking should be introduced.
+- Initial persistence technology.
+- Initial API technology.
+- Initial UI technology.
 - Opportunity identity when a marketplace changes/reuses identifiers.
 - Whether Client should be a separate domain entity in the first slice.
 - Initial persistence technology.
@@ -78,10 +84,15 @@ See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md.
 
 ## Next Step
 
-Do not begin implementation yet.
+Begin the first domain TDD cycle for Opportunity Intelligence.
 
-First complete the Opportunity Intelligence Design Gate by resolving the product-owner decisions above. Once the evaluation behavior is approved, create the first domain TDD tests and proceed through RED → GREEN → REFACTOR.
+Start with the approved behavior only:
+RED → GREEN → REFACTOR → REVIEW → DOCUMENT → COMMIT + PUSH.
+
+Do not introduce a marketplace SDK, persistence, HTTP/API, UI, or AI dependency into the first domain tests.
 
 ## Current Boundary
 
-The project is intentionally stopped at the design gate. No marketplace integration, persistence implementation, API implementation, UI implementation, or AI integration should be introduced as part of this gate until the relevant design decisions are made.
+The Opportunity Intelligence design gate is closed.
+
+The current implementation boundary is the domain model and domain behavior only. Marketplace adapters, persistence, API, UI, and AI integrations remain outside the first TDD slice until their own design gates/decisions are reached.
