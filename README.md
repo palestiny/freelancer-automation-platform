@@ -8,11 +8,34 @@ Freelancing remains the first laboratory because it gives us a concrete, measura
 
 It is not the permanent architectural boundary.
 
-The long-term system discovers opportunities across multiple markets, proposes multiple business models, evaluates economics and evidence, validates the cheapest credible hypotheses, operates proven businesses, learns from outcomes, and eventually supports portfolio and capital-allocation decisions under explicit policy.
+The long-term system discovers opportunities across multiple markets, proposes multiple business models, evaluates economics and evidence, validates cheaply, operates proven businesses, learns from outcomes, and eventually supports portfolio and capital-allocation decisions under explicit policy.
 
 ## Core Economic Loop
 
 **Market Signals → Opportunity Discovery → Business Model Discovery → Venture Thesis → Economic Evaluation → Validation → Revenue → Measurement → Learning → Experimentation → Scale / Kill → Portfolio / Capital Allocation**
+
+## Economic Health
+
+Profitability is not the only economic objective.
+
+The platform maintains a changeable Economic Profile with separate 0–100 dimensions for:
+
+- Profitability
+- Profit Potential
+- Profit Stability
+- Demand Stability
+- Safety
+- Recurring Revenue
+- Automation
+- Capital Efficiency
+- Scalability
+- Evidence Quality
+
+There is intentionally no permanent universal master score. A stable, profitable, safe business can therefore be protected even when its growth potential is modest.
+
+Economic scores are derived assessments supported by evidence/metrics. Scoring formulas, thresholds, baselines, and time windows remain policy and may evolve without changing business identity.
+
+Future portfolio postures such as PROTECT, MAINTAIN, GROW, and TURNAROUND are policy decisions, not intrinsic business states.
 
 ## Opportunity Types
 
@@ -58,8 +81,6 @@ Broader ventures use a separate evaluation model covering:
 - Evidence Quality
 - Strategic Fit
 - Exit / Expansion Potential
-
-No universal numeric master score is required for the first venture slice.
 
 ## Evidence
 
@@ -107,6 +128,7 @@ Automatic financial execution and automatic capital movement are outside the cur
 - Business decisions are explainable and auditable.
 - Learning produces evidence and recommendations; it does not silently rewrite policy.
 - High-risk or irreversible actions require explicit policy and appropriate approval.
+- Economic scoring policy remains changeable and separate from core business identity.
 
 ## Current Domain Foundations
 
@@ -118,6 +140,7 @@ Implemented:
 - Venture evaluation
 - Venture lifecycle
 - EconomicEstimate
+- EconomicProfile
 - Opportunity Intelligence foundations
 
 Still outside the current slice:
