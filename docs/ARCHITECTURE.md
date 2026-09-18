@@ -427,3 +427,16 @@ Business operations now have an explicit provider-independent domain foundation:
 **Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
 
 Business identity is separate from operational state. Each cycle and work item belongs to one business, preventing cross-business execution and measurement contamination. Scheduling, workers, provider APIs, credentials, payments, and AI remain outside the domain.
+
+
+## Operational Measurement & Learning Boundary
+
+The current operational learning foundation is provider-independent:
+
+**Work Item → Outcome Observation → Measurement → Variance → Learning Signal → Improvement Recommendation → Policy Review / Experiment**
+
+The domain owns the meaning of outcomes, expected-vs-actual measurements, variance, business performance snapshots, learning signals, and explicit improvement handoffs.
+
+It does not own scheduling, workers, persistence, external providers, AI model selection, automatic policy mutation, automatic experiment execution, or financial execution.
+
+Business ownership is enforced on measurements and snapshots to prevent cross-business contamination.
