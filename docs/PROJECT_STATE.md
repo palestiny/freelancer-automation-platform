@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; economic health model established**
+**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; economic health and resource/capacity foundations established**
 
 ## Product Direction
 
@@ -28,6 +28,9 @@ Its first laboratory is freelance work, but the permanent product boundary is br
 - Business Economics domain foundation implemented.
 - Economic Health & Portfolio Policy design gate approved.
 - Changeable Economic Profile score-vector foundation implemented.
+- Resource Economics & Capacity design gate approved.
+- Resource usage and explicit resource-kind foundation implemented.
+- Human-time capacity snapshot foundation implemented.
 
 ## Opportunity Evaluation Model
 
@@ -84,6 +87,37 @@ Future portfolio postures may include:
 - EXIT
 
 These are policy-derived actions, not intrinsic business properties.
+
+## Resource Economics & Capacity
+
+V1 now has explicit domain foundations for resource consumption and human-time capacity.
+
+Resource usage captures:
+
+- resource kind
+- quantity
+- monetary unit cost
+- derived total cost
+
+Supported resource kinds:
+
+- HUMAN_TIME
+- CAPABILITY_USAGE
+- INFRASTRUCTURE
+- COMMUNICATION
+- MARKETPLACE_FEE
+- REVIEW_TIME
+
+Capacity snapshots capture:
+
+- planning period
+- total human-time hours
+- committed hours
+- reserved hours
+- remaining hours
+- utilization
+
+Capacity remains operational constraint data. It is not itself a profitability or economic-health score.
 
 ## Broader Opportunity Model
 
@@ -163,11 +197,10 @@ Still outside the current slice:
 
 ## Next Design Gates
 
-1. Resource Economics / Capacity.
-2. Market Intelligence / Demand Discovery.
-3. Venture Validation / Experimentation.
-4. Portfolio posture and allocation policy.
-5. Revenue Engine / Recurring Revenue.
+1. Market Intelligence / Demand Discovery.
+2. Venture Validation / Experimentation.
+3. Portfolio posture and allocation policy.
+4. Revenue Engine / Recurring Revenue.
 
 ## Learning Loop
 
