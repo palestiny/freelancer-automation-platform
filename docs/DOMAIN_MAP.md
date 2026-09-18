@@ -386,3 +386,14 @@ Historical aggregation, persistence, statistical inference, automated experiment
 ### Operational Learning — Current Foundation
 
 Repeated operational measurements can now produce an evidence-linked learning signal when a configurable minimum observation count and material average relative variance threshold are met. Cross-business and mixed-metric evidence is rejected. Learning retains all contributing measurement identifiers and remains a non-executing recommendation input.
+
+
+## Business Performance History — Current Foundation
+
+The Measurement & Learning domain now has a normalized business-level history view:
+
+**Operational / Revenue / Campaign Evidence → BusinessPerformanceObservation → BusinessPerformanceHistory → Variance / Learning**
+
+The normalized model preserves source identity and business ownership, supports optional expectations, derives variance without inventing missing expectations, and provides chronological and metric-scoped access.
+
+It remains independent of providers and does not mutate source domains.
