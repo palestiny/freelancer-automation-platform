@@ -46,8 +46,6 @@ class MeanComparisonResult:
             raise ValueError("sample_size_first must match first_observation_ids")
         if self.sample_size_second != len(self.second_observation_ids):
             raise ValueError("sample_size_second must match second_observation_ids")
-        if self.first_window.end > self.second_window.start and self.second_window.end > self.first_window.start:
-            raise ValueError("comparison windows must not overlap")
         all_ids = self.first_observation_ids + self.second_observation_ids
         if len(set(all_ids)) != len(all_ids):
             raise ValueError("observation_ids must be unique")
