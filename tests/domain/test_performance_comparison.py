@@ -261,3 +261,34 @@ def test_comparison_accepts_same_provenance_in_different_order():
 
     assert result.trend is not None
     assert result.rejection_reason is None
+
+
+
+def test_comparison_rejects_future_current_window():
+    baseline = aggregate(start_day=0, value=10)
+    current_window = PerformanceWindow(
+        START + timedelta(days=1),
+        START + timedelta(days=3),
+    )
+    current = aggregate_performance(
+        tuple(
+            item(
+                f"future-{i}",
+                15 + i,
+                at=START + timedelta(days=1, hours=i),
+            )
+            for i in range(3)
+        ),
+        window=current_window,
+    )
+
+    result = assess_performance_comparison(
+        current=current,
+        baseline=baseline,
+        baseline_policy=PerformanceBaselinePolicy(),
+        comparison_policy=PerformanceComparisonPolicy(),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.trend is None
+    assert result.rejection_reason is ComparisonRejectionReason.FUTURE_CURRENT_WINDOW
