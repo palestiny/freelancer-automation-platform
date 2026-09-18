@@ -492,3 +492,20 @@ The latest implementation slice is still domain-only. CI completion for the newe
 ## Current Implementation Addition — Performance Windows
 
 Phase 16 now has deterministic time-window primitives for business performance history. Window selection is explicit and does not infer trends, aggregate across businesses, or mutate policy.
+## Current Measurement Addition — Historical Aggregation
+
+The current Phase 16 foundation now includes deterministic historical aggregation through `app/domain/performance_aggregation.py`.
+
+The aggregate is:
+- business/metric/unit scoped
+- restricted to an explicit performance window
+- traceable to source observation IDs
+- based on actual count/average/minimum/maximum
+- based on expected values only where expectations exist
+- evidence-quality aware
+
+Missing expectations are not converted to zero, and zero expectations do not create relative variance. No provider, persistence, statistical inference, or automatic policy mutation has been introduced.
+
+## Immediate Next Slice
+
+The next logical measurement slice is trend/baseline analysis over these normalized observations and aggregates, with explicit policy and evidence requirements. It should remain deterministic first and avoid premature statistical inference.
