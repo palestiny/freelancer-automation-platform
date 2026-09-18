@@ -35,6 +35,12 @@ class EvidenceDecisionRecord:
         if not isinstance(self.outcome, DecisionOutcome):
             raise TypeError("outcome must be a DecisionOutcome")
 
+        if not isinstance(self.decided_at, datetime):
+            raise TypeError("decided_at must be a datetime")
+
+        if not isinstance(self.evidence_ids, tuple):
+            raise TypeError("evidence_ids must be a tuple")
+
         if not self.evidence_ids:
             raise ValueError("evidence_ids cannot be empty")
         if any(not isinstance(value, str) or not value.strip() for value in self.evidence_ids):

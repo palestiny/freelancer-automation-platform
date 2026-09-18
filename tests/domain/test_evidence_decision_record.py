@@ -55,3 +55,13 @@ def test_evidence_ids_must_be_non_empty_and_unique():
 def test_decision_outcome_is_required_enum():
     with pytest.raises(TypeError):
         _record(outcome="accept")
+
+
+def test_decided_at_must_be_datetime():
+    with pytest.raises(TypeError):
+        _record(decided_at="2026-09-19")
+
+
+def test_evidence_ids_must_be_tuple():
+    with pytest.raises(TypeError):
+        _record(evidence_ids=["e1", "e2"])
