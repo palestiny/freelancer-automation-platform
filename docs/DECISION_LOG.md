@@ -678,3 +678,10 @@ Minimum observations and minimum average relative variance remain independent le
 **Status:** COMMITTED
 
 A learning signal remains evidence for explicit improvement handling and does not silently change policy, economics, lifecycle, or execution.
+
+
+## D-109 — Current Comparison Evidence Must Not Extend Beyond As-Of
+
+**Status:** COMMITTED
+
+A performance comparison requires the current aggregate window to end at or before the explicit `as_of` timestamp. This keeps both baseline and current evidence bounded by known observation time and prevents a descriptive comparison from consuming future evidence. The rule is enforced by the comparison policy and remains separate from baseline freshness policy.
