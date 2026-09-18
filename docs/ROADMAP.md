@@ -4,7 +4,7 @@
 
 Define product boundaries, domain model, economics, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
 
-**Status:** Economic Opportunity OS expansion approved; economic health model established; domain foundations in progress.
+**Status:** Economic Opportunity OS expansion approved; economic health and resource/capacity foundations established; domain foundations in progress.
 
 ## Phase 1 — Opportunity Intelligence
 
@@ -34,7 +34,7 @@ Build:
 - opportunity cost
 - economic health metrics and history
 
-**Status:** Economic estimate and Economic Profile foundations implemented; resource/capacity design is next.
+**Status:** Economic estimate, Economic Profile, resource usage, and human-time capacity foundations implemented; actual-vs-expected, opportunity cost, and historical economics remain future slices.
 
 ## Phase 3 — Market Intelligence & Demand Discovery
 
