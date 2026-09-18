@@ -17,13 +17,17 @@ class DescriptiveDirection(str, Enum):
 
 class InferentialStatus(str, Enum):
     STATISTICAL_DIFFERENCE_DETECTED = "statistical_difference_detected"
-    NO_STATISTICAL_DIFFERENCE_DETECTED = "no_statistical_difference_detected"
+    NO_STATISTICALLY_DETECTED_DIFFERENCE = "no_statistically_detected_difference"
     UNAVAILABLE = "unavailable"
 
 
 class CombinedEvidencePosture(str, Enum):
-    DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION = "descriptive_change_with_statistical_detection"
-    DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION = "descriptive_change_without_statistical_detection"
+    DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION = (
+        "descriptive_change_with_statistical_detection"
+    )
+    DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION = (
+        "descriptive_change_without_statistical_detection"
+    )
     NO_DESCRIPTIVE_CHANGE = "no_descriptive_change"
     INFERENTIAL_EVIDENCE_UNAVAILABLE = "inferential_evidence_unavailable"
     CONTEXT_INVALID = "context_invalid"
@@ -38,28 +42,21 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        if not self.business_id.strip():
-            raise ValueError("business_id cannot be empty")
-        if not self.metric_name.strip():
-            raise ValueError("metric_name cannot be empty")
-        if not self.unit.strip():
-            raise ValueError("unit cannot be empty")
-        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
-            raise ValueError("statistical_observation_ids must be unique")
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
-            raise ValueError("business_id, metric_name, and unit cannot be empty")
-        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
-            raise ValueError("statistical_observation_ids must be unique")
-        if len(set(self.current_observation_ids)) != len(self.current_observation_ids):
-            raise ValueError("current_observation_ids must be unique")
-        if len(set(self.baseline_observation_ids)) != len(self.baseline_observation_ids):
-            raise ValueError("baseline_observation_ids must be unique")
+        for name in ("business_id", "metric_name", "unit"):
+            if not getattr(self, name).strip():
+                raise ValueError(f"{name} cannot be empty")
+
+        for name, ids in (
+            ("statistical_observation_ids", self.statistical_observation_ids),
+            ("current_observation_ids", self.current_observation_ids),
+            ("baseline_observation_ids", self.baseline_observation_ids),
+        ):
+            if len(set(ids)) != len(ids):
+                raise ValueError(f"{name} must be unique")
 
 
 def compose_performance_evidence(
@@ -76,16 +73,12 @@ def compose_performance_evidence(
         or statistical_evidence.metric_name != trend.metric_name
         or statistical_evidence.unit != trend.unit
     ):
-        return PerformanceEvidenceDecisionSupport(
+        return _result(
+            trend=trend,
             business_id=business_id,
-            metric_name=trend.metric_name,
-            unit=trend.unit,
-            descriptive_direction=_descriptive_direction(trend),
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.CONTEXT_INVALID,
-            statistical_observation_ids=statistical_evidence.observation_ids,
-            current_observation_ids=trend.current_observation_ids,
-            baseline_observation_ids=trend.baseline_observation_ids,
+            statistical_evidence=statistical_evidence,
         )
 
     descriptive = _descriptive_direction(trend)
@@ -96,16 +89,34 @@ def compose_performance_evidence(
     elif descriptive is DescriptiveDirection.NO_CHANGE:
         posture = CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
     elif inferential is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
+        # Statistical detection alone does not establish directional alignment.
         posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     else:
         posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
 
+    return _result(
+        trend=trend,
+        business_id=business_id,
+        inferential_status=inferential,
+        posture=posture,
+        statistical_evidence=statistical_evidence,
+    )
+
+
+def _result(
+    *,
+    trend: PerformanceTrend,
+    business_id: str,
+    inferential_status: InferentialStatus,
+    posture: CombinedEvidencePosture,
+    statistical_evidence: StatisticalEvidenceComposition,
+) -> PerformanceEvidenceDecisionSupport:
     return PerformanceEvidenceDecisionSupport(
         business_id=business_id,
         metric_name=trend.metric_name,
         unit=trend.unit,
-        descriptive_direction=descriptive,
-        inferential_status=inferential,
+        descriptive_direction=_descriptive_direction(trend),
+        inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=statistical_evidence.observation_ids,
         current_observation_ids=trend.current_observation_ids,
@@ -126,8 +137,14 @@ def _inferential_status(
 ) -> InferentialStatus:
     if not evidence.eligible:
         return InferentialStatus.UNAVAILABLE
-    if evidence.interpretation is StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE:
+    if (
+        evidence.interpretation
+        is StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+    ):
         return InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
-    if evidence.interpretation is StatisticalEvidenceInterpretation.NO_STATISTICALLY_DETECTED_DIFFERENCE:
-        return InferentialStatus.NO_STATISTICAL_DIFFERENCE_DETECTED
+    if (
+        evidence.interpretation
+        is StatisticalEvidenceInterpretation.NO_STATISTICALLY_DETECTED_DIFFERENCE
+    ):
+        return InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE
     return InferentialStatus.UNAVAILABLE
