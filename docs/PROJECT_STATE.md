@@ -320,3 +320,18 @@ Implemented:
 - provider-independent currency and amount representation
 
 Payment execution, refunds, reconciliation, invoicing, and automatic pricing remain outside the current domain slice.
+
+
+## Social Presence & Customer Communication
+
+Implemented the provider-independent communication foundation:
+
+- SocialPresence
+- IncomingMessage
+- MessageClassification
+- ResponseDraft
+- explicit response authorization
+- escalation requirement
+- SentMessage
+
+External account creation, credentials, publishing, and message delivery remain outside the domain.
