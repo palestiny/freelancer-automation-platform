@@ -59,7 +59,7 @@ def test_aligned_improvement_is_explicit():
     )
     assert result.descriptive_direction is DescriptiveDirection.IMPROVING
     assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
-    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
 
 
 def test_descriptive_change_without_statistical_detection_is_not_suppressed():
@@ -96,3 +96,31 @@ def test_context_mismatch_is_explicit():
         business_id="other",
     )
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
+
+
+def test_zero_descriptive_change_is_not_called_aligned_with_statistical_detection():
+    result = compose_performance_evidence(
+        trend=_trend(0.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
+    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_result_rejects_duplicate_statistical_observation_ids():
+    import pytest
+
+    with pytest.raises(ValueError):
+        from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("x", "x"),
+        )

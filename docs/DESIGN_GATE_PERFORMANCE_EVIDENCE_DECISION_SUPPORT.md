@@ -30,7 +30,7 @@ Inferential status:
 - UNAVAILABLE
 
 Combined posture:
-- DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+- DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
 - DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
 - NO_DESCRIPTIVE_CHANGE
 - INFERENTIAL_EVIDENCE_UNAVAILABLE
@@ -45,4 +45,4 @@ Combined posture:
 5. Statistical evidence eligibility remains distinct from statistical interpretation.
 6. Context must match on business, metric, and unit.
 7. Source observation lineage is preserved from the statistical evidence artifact.
-8. A statistically detected difference does not override a descriptive direction mismatch; disagreement remains explicit through the combined posture.
+8. A statistically detected difference does not establish directional agreement with the descriptive trend. A nonzero descriptive change plus statistical detection is represented as evidence of change, not directional alignment.

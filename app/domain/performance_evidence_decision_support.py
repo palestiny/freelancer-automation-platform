@@ -22,7 +22,7 @@ class InferentialStatus(str, Enum):
 
 
 class CombinedEvidencePosture(str, Enum):
-    DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT = "descriptive_and_statistical_alignment"
+    DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION = "descriptive_change_with_statistical_detection"
     DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION = "descriptive_change_without_statistical_detection"
     NO_DESCRIPTIVE_CHANGE = "no_descriptive_change"
     INFERENTIAL_EVIDENCE_UNAVAILABLE = "inferential_evidence_unavailable"
@@ -38,6 +38,12 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
+            raise ValueError("business_id, metric_name, and unit cannot be empty")
+        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
+            raise ValueError("statistical_observation_ids must be unique")
 
 
 def compose_performance_evidence(
@@ -72,7 +78,7 @@ def compose_performance_evidence(
     elif descriptive is DescriptiveDirection.NO_CHANGE:
         posture = CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
     elif inferential is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
-        posture = CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+        posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     else:
         posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
 
