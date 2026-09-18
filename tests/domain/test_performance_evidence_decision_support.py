@@ -179,6 +179,10 @@ def test_temporal_context_mismatch_is_explicit():
         reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha,
         first_window=PerformanceWindow(datetime(2026, 1, 20), datetime(2026, 1, 27)),
         second_window=PerformanceWindow(datetime(2026, 1, 27), datetime(2026, 2, 3)),
+        current_evidence_quality=evidence.current_evidence_quality,
+        baseline_evidence_quality=evidence.baseline_evidence_quality,
+        current_source_reliability=evidence.current_source_reliability,
+        baseline_source_reliability=evidence.baseline_source_reliability,
     )
     result = compose_performance_evidence(trend=trend, statistical_evidence=mismatched, business_id="b1")
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
