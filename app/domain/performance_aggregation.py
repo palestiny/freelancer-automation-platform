@@ -36,6 +36,8 @@ class PerformanceAggregate:
             raise ValueError("observation_ids cannot be empty")
         if not self.source_types:
             raise ValueError("source_types cannot be empty")
+        if len(set(self.source_types)) != len(self.source_types):
+            raise ValueError("source_types must be unique")
         if self.actual_count != len(self.observation_ids):
             raise ValueError("actual_count must match observation_ids")
         if self.actual_count <= 0:
