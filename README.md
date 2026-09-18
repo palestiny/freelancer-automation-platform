@@ -252,3 +252,12 @@ The platform now has a provider-independent revenue foundation:
 **Business Model → Revenue Contract → Realized Revenue Event → Economic Measurement → Learning**
 
 Recurring revenue is explicit and period-bound. Actual revenue is represented separately from expected revenue. Payment execution remains outside the domain.
+
+
+## Social Presence & Customer Communication
+
+The platform now models the communication loop independently of external providers:
+
+**Presence → Incoming Message → Classification → Response Draft → Authorization → Sent Message → Learning**
+
+External account access and message delivery remain capability boundaries, and AI cannot bypass authorization.
