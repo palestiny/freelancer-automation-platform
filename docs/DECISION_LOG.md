@@ -769,3 +769,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-122 — Evidence Decision Records Are Explicit, Not Inferred
 
 Decision records preserve an externally made decision and its evidence lineage. The evidence layer must not infer ACCEPT, REJECT, or DEFER outcomes, and recording a decision does not mutate business, policy, portfolio, financial, or execution state.
+
+
+### D-122 — Evidence Decision Records Are Explicit, Not Generated
+
+The platform may record an externally supplied decision against evidence, but the domain must not generate the decision, infer authorization, mutate policy, allocate capital, or execute an action from the record.
