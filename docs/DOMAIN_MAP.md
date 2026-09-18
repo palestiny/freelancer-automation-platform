@@ -319,3 +319,12 @@ The revenue domain represents the commercial outcome of a business model without
 Revenue contracts explicitly distinguish one-time and recurring revenue. Recurring contracts require a period.
 
 Revenue events represent realized revenue observations. Payment execution remains a capability boundary.
+
+
+## Social Presence & Customer Communication
+
+**Presence → Incoming Message → Classification → Response Draft → Authorization → Sent Message → Learning**
+
+The domain separates incoming customer facts, response drafts, authorization, and actually sent messages.
+
+AI can assist classification/drafting through replaceable capabilities, but cannot bypass authorization or communication policy.
