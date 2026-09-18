@@ -46,6 +46,7 @@ class OperationalMeasurement:
     expected_value: float
     actual_value: float
     measured_at: datetime
+    evidence_quality: int = 50
 
     def __post_init__(self) -> None:
         for name in ("id", "business_id", "metric_name", "unit"):
@@ -56,6 +57,13 @@ class OperationalMeasurement:
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, (int, float)):
                 raise TypeError(f"{name} must be numeric")
+
+        if not isinstance(self.evidence_quality, int) or isinstance(
+            self.evidence_quality, bool
+        ):
+            raise TypeError("evidence_quality must be an integer")
+        if not 0 <= self.evidence_quality <= 100:
+            raise ValueError("evidence_quality must be between 0 and 100")
 
     @property
     def variance(self) -> float:
