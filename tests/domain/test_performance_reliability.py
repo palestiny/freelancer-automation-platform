@@ -76,20 +76,24 @@ def test_reliability_policy_rejects_missing_source_configuration():
 
 
 @pytest.mark.parametrize(
-    "policy",
+    "kwargs",
     [
-        PerformanceSourceReliabilityPolicy(
-            minimum_reliability=101,
-            reliability_by_source_type=((PerformanceSourceType.OPERATIONAL, 80),),
-        ),
-        PerformanceSourceReliabilityPolicy(
-            reliability_by_source_type=((PerformanceSourceType.OPERATIONAL, 101),)
-        ),
+        {
+            "minimum_reliability": 101,
+            "reliability_by_source_type": (
+                (PerformanceSourceType.OPERATIONAL, 80),
+            ),
+        },
+        {
+            "reliability_by_source_type": (
+                (PerformanceSourceType.OPERATIONAL, 101),
+            ),
+        },
     ],
 )
-def test_reliability_policy_rejects_invalid_configuration(policy):
-    # Construction is expected to fail before this test body can run.
-    assert policy
+def test_reliability_policy_rejects_invalid_configuration(kwargs):
+    with pytest.raises(ValueError):
+        PerformanceSourceReliabilityPolicy(**kwargs)
 
 
 def test_reliability_policy_rejects_duplicate_source_configuration():
