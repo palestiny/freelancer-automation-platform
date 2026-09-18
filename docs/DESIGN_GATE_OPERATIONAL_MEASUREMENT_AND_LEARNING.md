@@ -136,3 +136,10 @@ Those remain explicit future capability boundaries.
 5. Learning is derived from evidence and does not mutate policy.
 6. Improvement recommendations require an explicit policy-review or experiment handoff.
 7. Domain tests cover valid states and invalid cross-boundary states.
+
+
+## Evidence Quality Follow-up
+
+Operational measurements now carry explicit bounded evidence quality. Repeated-variance learning derives the learning signal's evidence quality from the average quality of its contributing measurements rather than using a neutral constant.
+
+This keeps learning evidence-aware while leaving richer provenance and evidence aggregation policy as future work.
