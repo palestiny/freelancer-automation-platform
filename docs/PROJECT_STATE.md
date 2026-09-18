@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 17 — Statistical Learning & Inference (First Statistical Use Case Implemented and Hardened)
+**Phase 17 — Statistical Learning & Inference (Current V1 Statistical Surface Closed)
 
-Phase 16 deterministic measurement and learning scope is closed. Phase 17 now has its first narrow statistical runtime use case implemented and verified. Further statistical methods remain gated by explicit design.
+Phase 16 deterministic measurement and learning scope is closed. Phase 17's current V1 statistical surface is closed after two bounded statistical use cases: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Further statistical methods require a concrete downstream consumer and dedicated design gate.
 
 The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The operational outcomes → measurement → learning bridge is now implemented as a provider-independent domain foundation.
 
@@ -307,7 +307,7 @@ Still outside the current slice:
 
 ## Next Design Gates
 
-1. Phase 17 closure review and selection of the next concrete statistical use case.
+1. Identify a concrete downstream consumer for the existing statistical evidence surface.
 2. Persistence/API when required by a concrete application boundary.
 3. Portfolio posture and allocation policy as a future strategic domain.
 
@@ -592,3 +592,8 @@ The second Phase 17 statistical use case is now implemented and verified: a prov
 ## Phase 17 Closure — Current Statistical Method Boundary
 
 Phase 17's current V1 statistical-method surface is closed. It contains Student's t mean uncertainty and Welch's two-sample historical mean comparison. Both are provider-independent evidence artifacts with explicit assumptions, statuses, context, lineage, and non-executing boundaries. Further statistical methods require a concrete downstream consumer and dedicated design gate.
+
+
+## Current Statistical Surface Closure
+
+Phase 17 closure review is approved. The current statistical surface contains two bounded methods: Student's t mean uncertainty and Welch's two-sample historical mean comparison. No third method is authorized without a concrete consumer/use case and dedicated design gate.
