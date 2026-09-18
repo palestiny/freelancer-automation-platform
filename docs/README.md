@@ -16,9 +16,10 @@ This directory is the engineering source of truth for product direction, archite
 10. DESIGN_GATE_BUSINESS_ECONOMICS_AND_GROWTH.md — economics/growth gate.
 11. DESIGN_GATE_ECONOMIC_OPPORTUNITY_OS.md — broader Economic Opportunity OS expansion gate.
 12. DESIGN_GATE_ECONOMIC_HEALTH_AND_PORTFOLIO_POLICY.md — economic health, stability, safety, and portfolio-posture gate.
-13. PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md — committed V1 evaluation behavior.
-14. OPPORTUNITY_INTELLIGENCE_DECISION_MATRIX.md — Opportunity Intelligence decisions.
-15. TDD_OPPORTUNITY_INTELLIGENCE_PLAN.md — active Opportunity Intelligence TDD sequence.
+13. DESIGN_GATE_RESOURCE_ECONOMICS_AND_CAPACITY.md — resource consumption and human-time capacity gate.
+14. PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md — committed V1 evaluation behavior.
+15. OPPORTUNITY_INTELLIGENCE_DECISION_MATRIX.md — Opportunity Intelligence decisions.
+16. TDD_OPPORTUNITY_INTELLIGENCE_PLAN.md — active Opportunity Intelligence TDD sequence.
 
 ## Source-of-Truth Rules
 
@@ -37,10 +38,10 @@ This directory is the engineering source of truth for product direction, archite
 - Business Economics & Growth: approved; economic estimate foundation implemented.
 - Economic Opportunity OS expansion: approved; domain foundations implemented.
 - Economic Health & Portfolio Policy: approved; Economic Profile foundation implemented.
-- Resource Economics / Capacity: next implementation gate.
+- Resource Economics / Capacity: approved; resource and human-time capacity foundations implemented.
 - Market Intelligence / Demand Discovery: future.
 - Venture Validation / Experimentation: future.
-- Portfolio / Capital Allocation: future policy gate building on the Economic Health model.
+- Portfolio / Capital Allocation: future policy gate building on the Economic Health and Capacity models.
 - Revenue Engine / Recurring Revenue: future.
 
 ## Current Implementation Rule
