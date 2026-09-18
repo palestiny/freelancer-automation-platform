@@ -441,3 +441,9 @@ The Measurement & Learning domain now applies an explicit comparison policy afte
 **Current Evidence + Eligible Baseline → Comparison Policy → Performance Trend / Explicit Rejection**
 
 The policy checks current observation sufficiency, current evidence quality, context compatibility, and temporal ordering. It remains descriptive and does not forecast or mutate policy.
+
+### Performance Evidence Provenance — Current Foundation
+
+Performance aggregates now preserve source-type provenance in addition to raw observation identifiers. Descriptive comparisons require compatible provenance context, while raw observations remain authoritative.
+
+Provenance preservation is distinct from source reliability scoring and causal attribution; those remain future policy/design work.
