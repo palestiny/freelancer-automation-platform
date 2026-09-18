@@ -90,3 +90,48 @@ def test_learning_rejects_mixed_metrics():
             signal_id="l1",
             statement="Metrics must match.",
         )
+
+
+def test_learning_signal_carries_average_measurement_evidence_quality():
+    measurements = (
+        OperationalMeasurement(
+            id="m1",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=12,
+            measured_at=NOW,
+            evidence_quality=80,
+        ),
+        OperationalMeasurement(
+            id="m2",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=13,
+            measured_at=NOW,
+            evidence_quality=60,
+        ),
+        OperationalMeasurement(
+            id="m3",
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            expected_value=10,
+            actual_value=12,
+            measured_at=NOW,
+            evidence_quality=100,
+        ),
+    )
+
+    signal = derive_learning_signal(
+        measurements,
+        policy=OperationalLearningPolicy(),
+        signal_id="l1",
+        statement="Delivery variance is repeatedly material.",
+    )
+
+    assert signal is not None
+    assert signal.evidence_quality == 80
