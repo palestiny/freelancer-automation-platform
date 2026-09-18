@@ -49,3 +49,8 @@ Combined posture:
 6. Context must match on business, metric, and unit.
 7. Source observation lineage is preserved from the statistical evidence artifact.
 8. A statistically detected difference does not establish directional agreement with the descriptive trend. A nonzero descriptive change plus statistical detection is represented as evidence of change, not directional alignment.
+
+
+## Semantic Hardening
+
+Statistical detection is inferential and does not establish whether performance improved or declined. V1 therefore exposes descriptive direction and statistical detection as separate dimensions; the combined posture names their coexistence without calling it alignment.
