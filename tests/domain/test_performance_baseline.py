@@ -110,3 +110,44 @@ def test_missing_aggregate_is_not_eligible():
 def test_policy_rejects_invalid_values(kwargs):
     with pytest.raises(ValueError):
         PerformanceBaselinePolicy(**kwargs)
+
+
+def test_baseline_can_require_source_reliability():
+    from app.domain.business_performance import PerformanceSourceType
+    from app.domain.performance_reliability import PerformanceSourceReliabilityPolicy
+
+    result = assess_baseline(
+        aggregate=aggregate(),
+        policy=PerformanceBaselinePolicy(
+            source_reliability_policy=PerformanceSourceReliabilityPolicy(
+                minimum_reliability=70,
+                reliability_by_source_type=(
+                    (PerformanceSourceType.OPERATIONAL, 60),
+                ),
+            )
+        ),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.eligible is False
+    assert result.reason is BaselineEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY
+
+
+def test_baseline_rejects_unconfigured_source_when_reliability_is_required():
+    from app.domain.business_performance import PerformanceSourceType
+    from app.domain.performance_reliability import PerformanceSourceReliabilityPolicy
+
+    result = assess_baseline(
+        aggregate=aggregate(),
+        policy=PerformanceBaselinePolicy(
+            source_reliability_policy=PerformanceSourceReliabilityPolicy(
+                reliability_by_source_type=(
+                    (PerformanceSourceType.REVENUE, 90),
+                ),
+            )
+        ),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.eligible is False
+    assert result.reason is BaselineEligibilityReason.MISSING_SOURCE_RELIABILITY_POLICY
