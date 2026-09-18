@@ -567,3 +567,8 @@ The comparison layer continues to consume `BaselineEligibility` without duplicat
 ## Current Measurement Addition — Provenance Compatibility Hardening
 
 Performance comparison now treats source-type provenance as an unordered set of evidence domains rather than an ordered tuple. Compatibility still requires exact source-domain membership. Reliability assessment state is also validated so the eligibility flag cannot contradict its reason.
+
+
+## Phase 16 Closure Review — Closed
+
+Phase 16 deterministic measurement and evidence scope has completed its semantic closure review. Policy ownership, provenance compatibility, temporal boundaries, evidence lineage, and test coverage were reviewed without introducing a premature generic evidence abstraction. The deterministic domain boundary is now considered closed. Statistical inference, persistence, provider integration, and external execution require separate future design gates.
