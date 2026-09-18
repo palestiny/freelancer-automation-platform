@@ -93,6 +93,7 @@ def aggregate_performance(
         unit=first.unit,
         window=window,
         observation_ids=tuple(observation.id for observation in selected),
+        source_types=tuple(dict.fromkeys(observation.source_type for observation in selected)),
         actual_count=len(selected),
         actual_average=sum(o.actual_value for o in selected) / len(selected),
         actual_min=min(o.actual_value for o in selected),
