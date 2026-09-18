@@ -229,3 +229,8 @@ Build the missing bridge between operating businesses and the learning loop:
 The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
 
 Each increment is complete only when applicable design, RED/GREEN TDD, review/refactoring, documentation, tests, commit/push, and project-state update are completed and verified.
+
+
+### Phase 16 — Business Performance History Foundation
+
+The Phase 16 implementation now includes a normalized `BusinessPerformanceObservation` and business-scoped `BusinessPerformanceHistory`. The history preserves source identity, business isolation, optional expected values, deterministic variance, chronological ordering, and metric/unit filtering. Rich historical aggregation, persistence, and statistical inference remain future work.
