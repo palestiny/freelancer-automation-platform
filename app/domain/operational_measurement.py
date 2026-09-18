@@ -93,14 +93,16 @@ class BusinessPerformanceSnapshot:
 class LearningSignal:
     id: str
     business_id: str
-    source_measurement_id: str
+    source_measurement_ids: tuple[str, ...]
     statement: str
     evidence_quality: int = 50
 
     def __post_init__(self) -> None:
-        for name in ("id", "business_id", "source_measurement_id", "statement"):
+        for name in ("id", "business_id", "statement"):
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
+        if not self.source_measurement_ids or any(not value.strip() for value in self.source_measurement_ids):
+            raise ValueError("source_measurement_ids cannot be empty")
 
         if not isinstance(self.evidence_quality, int) or isinstance(
             self.evidence_quality, bool
