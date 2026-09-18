@@ -64,3 +64,20 @@ def test_mean_uncertainty_rejects_mixed_context():
 def test_mean_uncertainty_rejects_non_finite_values():
     result = calculate_mean_uncertainty((item("o1", float("nan")), item("o2", 10)), window=window())
     assert result.status is MeanUncertaintyStatus.INVALID_VALUE
+
+
+def test_mean_uncertainty_rejects_duplicate_observation_ids():
+    with pytest.raises(ValueError, match="observation_ids must be unique"):
+        calculate_mean_uncertainty(
+            (item("o1", 8), item("o1", 10, at=START + timedelta(hours=1))),
+            window=window(),
+        )
+
+
+def test_mean_uncertainty_rejects_invalid_confidence_level():
+    with pytest.raises(ValueError, match="confidence_level must be between zero and one"):
+        calculate_mean_uncertainty(
+            (item("o1", 8), item("o2", 10, at=START + timedelta(hours=1))),
+            window=window(),
+            confidence_level=1.0,
+        )

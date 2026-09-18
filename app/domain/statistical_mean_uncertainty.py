@@ -39,6 +39,8 @@ class MeanUncertaintyResult:
             raise ValueError("confidence_level must be between zero and one")
         if self.sample_size != len(self.observation_ids):
             raise ValueError("sample_size must match observation_ids")
+        if len(set(self.observation_ids)) != len(self.observation_ids):
+            raise ValueError("observation_ids must be unique")
         if self.status is MeanUncertaintyStatus.APPLICABLE:
             if self.sample_size < 2:
                 raise ValueError("applicable result requires at least two observations")
