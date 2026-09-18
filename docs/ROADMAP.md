@@ -234,3 +234,7 @@ Each increment is complete only when applicable design, RED/GREEN TDD, review/re
 ### Phase 16 — Business Performance History Foundation
 
 The Phase 16 implementation now includes a normalized `BusinessPerformanceObservation` and business-scoped `BusinessPerformanceHistory`. The history preserves source identity, business isolation, optional expected values, deterministic variance, chronological ordering, and metric/unit filtering. Rich historical aggregation, persistence, and statistical inference remain future work.
+
+### Phase 16 — Deterministic Performance Windows
+
+Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives prepare historical aggregation while deliberately avoiding statistical inference or policy decisions.
