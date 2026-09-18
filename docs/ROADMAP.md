@@ -140,7 +140,7 @@ Build:
 - business memory
 - learning signals
 
-**Status:** Architectural direction established, but the dedicated outcome/measurement/learning domain is not yet implemented.
+**Status:** Phase 16 now contains the dedicated outcome/measurement/learning foundation. Phase 10 remains the broader cross-domain measurement/memory destination; the implemented Phase 16 work is the first operational foundation for that direction.
 
 ## Phase 11 — Progressive Autonomy
 
@@ -222,7 +222,7 @@ Build the missing bridge between operating businesses and the learning loop:
 - evidence-linked improvement recommendations
 - explicit policy/experiment handoff
 
-**Status:** Provider-independent operational outcome, measurement, learning-signal, and improvement-handoff foundation implemented. Repeated-variance learning policy and multi-source evidence foundation are implemented. Persistence, richer provenance, historical aggregation, and automated learning remain future work.
+**Status:** Provider-independent operational outcome, measurement, learning-signal, improvement-handoff, historical aggregation, trend/baseline comparison, evidence eligibility, provenance, source-reliability, and evidence-aware operational-learning foundations are implemented. Persistence, statistical inference, and automated external learning remain future work.
 
 ## Guiding Rule
 
@@ -240,7 +240,7 @@ The Phase 16 implementation now includes a normalized `BusinessPerformanceObserv
 Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives prepare historical aggregation while deliberately avoiding statistical inference or policy decisions.
 ### Phase 16 — Historical Performance Aggregation
 
-The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference, trend modeling, persistence, and automated learning remain future work.
+The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference, persistence, and automated external learning remain future work.
 
 ### Phase 16 — Evidence & Baseline Policy
 
