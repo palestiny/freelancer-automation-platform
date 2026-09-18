@@ -323,3 +323,28 @@ Recurring revenue is modeled explicitly with a recurring period. A recurring lab
 **Status:** COMMITTED
 
 The core domain does not process payments or move money. Payment providers remain replaceable capabilities behind authorization and policy.
+
+
+## D-048 — Communication Is Provider-Independent
+
+**Status:** COMMITTED
+
+The core domain models communication meaning and authorization without depending on social, email, chat, or messaging providers.
+
+## D-049 — Drafts Are Not Sent Messages
+
+**Status:** COMMITTED
+
+A generated response draft is distinct from an actually sent message. This preserves an auditable boundary between preparation and external action.
+
+## D-050 — Escalation Overrides Automated Approval
+
+**Status:** COMMITTED
+
+A communication requiring escalation cannot simultaneously be approved for automated sending in the V1 domain foundation.
+
+## D-051 — Credentials Stay Outside the Domain
+
+**Status:** COMMITTED
+
+External account credentials and provider authentication remain adapter/infrastructure concerns and are not represented by the communication domain.
