@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from app.domain.business_performance import BusinessPerformanceHistory, BusinessPerformanceObservation
+from app.domain.business_performance import BusinessPerformanceHistory, BusinessPerformanceObservation, PerformanceSourceType
 from app.domain.performance_history import PerformanceWindow, observations_in_window, rolling_window
 
 
@@ -10,7 +10,7 @@ def item(id: str, at: datetime) -> BusinessPerformanceObservation:
     return BusinessPerformanceObservation(
         id=id,
         business_id="business-1",
-        source_type=__import__("app.domain.business_performance", fromlist=["PerformanceSourceType"]).PerformanceSourceType.OPERATIONAL,
+        source_type=PerformanceSourceType.OPERATIONAL,
         source_id=f"source-{id}",
         metric_name="delivery_hours",
         unit="hours",
