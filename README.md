@@ -272,3 +272,12 @@ Campaign performance now feeds a provider-independent optimization recommendatio
 V1 supports CONTINUE, INCREASE_BUDGET, DECREASE_BUDGET, and PAUSE recommendations. Recommendations are bounded by campaign budget limits and require sufficient observations before optimization. They do not execute external actions.
 
 Paid advertising remains an explicitly authorized financial action. Ad-provider APIs, credentials, payment execution, statistical attribution, and automatic spend remain outside the current domain-only boundary.
+
+
+## Business Operations
+
+The platform now models businesses as first-class managed entities with provider-independent operational cycles and work items:
+
+**Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
+
+This creates the foundation for operating multiple businesses without coupling core business meaning to schedulers, workers, marketplaces, payment providers, or AI.
