@@ -379,3 +379,34 @@ Optimization thresholds and adjustment rules remain policy and may evolve indepe
 **Status:** COMMITTED
 
 Paid spend remains an external financial action. V1 does not introduce automatic ad spending.
+
+
+## D-057 — Business Is a First-Class Domain Entity
+
+**Status:** COMMITTED
+
+A managed business has an identity separate from an opportunity, venture thesis, campaign, or revenue contract.
+
+## D-058 — Operations Are Separate From Business Identity
+
+**Status:** COMMITTED
+
+Operational state can change without redefining the business.
+
+## D-059 — Work Is Provider-Independent
+
+**Status:** COMMITTED
+
+The domain represents operational work meaning; scheduling, workers, providers, and AI remain external capabilities/infrastructure.
+
+## D-060 — Multi-Business Isolation Is Explicit
+
+**Status:** COMMITTED
+
+Each operational cycle and work item belongs to exactly one business.
+
+## D-061 — Operations Produce Evidence
+
+**Status:** COMMITTED
+
+Operational outcomes are observations for learning and do not silently rewrite economics, policy, or business state.
