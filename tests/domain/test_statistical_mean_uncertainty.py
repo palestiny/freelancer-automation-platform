@@ -110,3 +110,20 @@ def test_mean_uncertainty_uses_same_interval_for_negative_and_positive_t_values(
         positive = _student_t_cdf(value, 7)
         negative = _student_t_cdf(-value, 7)
         assert isclose(positive + negative, 1.0, rel_tol=1e-12, abs_tol=1e-12)
+
+
+def test_mean_uncertainty_supports_non_default_confidence_levels():
+    from app.domain.statistical_mean_uncertainty import _student_t_critical
+
+    # Standard two-sided t critical values: 99% confidence.
+    assert isclose(_student_t_critical(0.99, 1), 63.6567411629, rel_tol=1e-9)
+    assert isclose(_student_t_critical(0.99, 10), 3.169272673, rel_tol=1e-9)
+
+
+def test_mean_uncertainty_t_cdf_remains_bounded():
+    from app.domain.statistical_mean_uncertainty import _student_t_cdf
+
+    for degrees_of_freedom in (1, 2, 10, 100):
+        for value in (0.0, 0.1, 1.0, 10.0, 100.0):
+            result = _student_t_cdf(value, degrees_of_freedom)
+            assert 0.0 <= result <= 1.0
