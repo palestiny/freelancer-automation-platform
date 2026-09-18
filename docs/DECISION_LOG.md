@@ -764,3 +764,8 @@ The evidence composition layer must not label descriptive and inferential eviden
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
