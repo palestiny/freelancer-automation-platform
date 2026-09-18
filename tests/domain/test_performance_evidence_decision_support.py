@@ -129,3 +129,15 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_zero_change_with_statistical_detection_is_not_called_alignment():
+    result = compose_performance_evidence(
+        trend=_trend(0.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
+    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
