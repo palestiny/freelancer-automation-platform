@@ -503,3 +503,11 @@ The Measurement & Learning comparison layer separates evidence eligibility from 
 **Current Aggregate + Eligible Baseline → PerformanceComparisonPolicy → PerformanceTrend / Rejection**
 
 The comparison policy requires sufficient current evidence and non-overlapping, temporally ordered windows. It preserves the existing provider-independent trend model and does not introduce forecasting, statistical inference, scoring, ranking, or execution.
+
+## Performance Evidence Provenance Boundary
+
+The Measurement & Learning area preserves source provenance through historical aggregation:
+
+**Source Observation → Normalized Observation → Provenance-Preserving Aggregate → Context-Safe Comparison**
+
+PerformanceAggregate retains source types and raw observation identifiers. Current and baseline aggregates must have compatible source-type provenance before a descriptive trend is produced. Source reliability scoring, causal attribution, statistical inference, and external execution remain outside this boundary.
