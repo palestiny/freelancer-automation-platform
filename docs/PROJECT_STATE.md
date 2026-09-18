@@ -621,3 +621,8 @@ The performance evidence decision-support layer was hardened so statistical dete
 ## Performance Evidence Decision Support
 
 The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Performance Evidence Decision Support
+
+V1 now includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.

@@ -347,3 +347,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Evidence Posture Hardening
 
 **Status:** Completed and CI-verified. Descriptive direction and statistical detection remain explicitly separate; no directional inference is created from statistical significance alone.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. Future automation remains policy-gated.
