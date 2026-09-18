@@ -597,3 +597,12 @@ Phase 17's current V1 statistical-method surface is closed. It contains Student'
 ## Current Statistical Surface Closure
 
 Phase 17 closure review is approved. The current statistical surface contains two bounded methods: Student's t mean uncertainty and Welch's two-sample historical mean comparison. No third method is authorized without a concrete consumer/use case and dedicated design gate.
+
+
+## Phase 17 — Statistical Evidence Consumer
+
+The first downstream consumer of the closed statistical surface is now implemented as a provider-independent evidence-composition boundary.
+
+StatisticalEvidenceComposition consumes the existing Welch historical mean comparison together with explicit current/baseline evidence quality and source-reliability assessments. It produces explicit evidence eligibility, explicit eligibility reason, bounded statistical interpretation, and preserved method identity and observation lineage.
+
+It does not produce a universal score, ranking, business posture, recommendation, policy mutation, learning mutation, portfolio action, or external execution.
