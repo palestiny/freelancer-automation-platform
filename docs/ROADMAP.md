@@ -256,3 +256,14 @@ Build:
 ### Phase 16 — Performance Trend & Baseline Analysis
 
 Added a deterministic comparison foundation for explicit current and baseline windows. Comparisons report descriptive average changes and preserve observation provenance. Forecasting, significance testing, seasonality, anomaly detection, and policy decisions remain future work.
+
+### Phase 16 — Bounded Performance Comparison Policy
+
+Build:
+- baseline eligibility enforcement
+- current evidence sufficiency
+- temporal window ordering
+- explicit comparison rejection reasons
+- descriptive trend handoff
+
+**Status:** V1 deterministic comparison-policy foundation implemented. Forecasting and statistical inference remain future work.
