@@ -60,6 +60,32 @@ Owns:
 - risk-adjusted economics
 - economic health profile
 
+It may consume resource usage and capacity information, but it does not own capacity scheduling.
+
+### Resource Economics
+
+Owns:
+
+- explicit resource consumption
+- resource kind
+- quantity
+- monetary unit cost
+- derived resource cost
+
+V1 resource kinds are HUMAN_TIME, CAPABILITY_USAGE, INFRASTRUCTURE, COMMUNICATION, MARKETPLACE_FEE, and REVIEW_TIME.
+
+### Capacity
+
+Owns constrained human-time availability for a defined planning period:
+
+- total hours
+- committed hours
+- reserved hours
+- remaining hours
+- utilization
+
+V1 intentionally models capacity as a snapshot rather than a scheduling system.
+
 ### Economic Health
 
 Owns the changeable economic-quality view of a business/opportunity:
@@ -200,9 +226,11 @@ External observations never become business truth automatically.
 
 ## Economic Boundary
 
-Economic assessment is derived from explicit assumptions, metrics, and opportunity/business-model information.
+Economic assessment is derived from explicit assumptions, metrics, resource information, and opportunity/business-model information.
 
 Expected economics and actual outcomes remain distinct.
+
+Resource cost is not the same concept as profit. Capacity is an operational constraint and not an economic-quality score.
 
 Economic quality is multidimensional. Profitability, stability, safety, demand stability, recurring revenue, automation, capital efficiency, scalability, and evidence quality may all matter simultaneously.
 
@@ -240,6 +268,10 @@ Current domain slices include:
 **External Opportunity Observation → Normalized Opportunity → Opportunity Evaluation**
 
 **Opportunity → Economic Estimate**
+
+**Resource Consumption → Resource Cost**
+
+**Human-Time Capacity → Remaining Capacity / Utilization**
 
 **Opportunity/Business → Economic Profile**
 
