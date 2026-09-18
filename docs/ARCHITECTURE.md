@@ -58,6 +58,26 @@ Owns:
 - expected margin
 - profit per hour
 - risk-adjusted economics
+- economic health profile
+
+### Economic Health
+
+Owns the changeable economic-quality view of a business/opportunity:
+
+- profitability
+- profit potential
+- profit stability
+- demand stability
+- safety
+- recurring revenue
+- automation
+- capital efficiency
+- scalability
+- evidence quality
+
+The Economic Health model is a score vector, not a universal master score.
+
+Scores are derived from evidence and metrics. Scoring policy remains separate so it can evolve by opportunity/business type.
 
 ### Venture Intelligence
 
@@ -75,6 +95,9 @@ Future responsibility:
 - capital allocation
 - opportunity cost
 - business objectives
+- policy-derived economic posture
+
+Portfolio posture may distinguish protection, maintenance, controlled optimization, growth, harvesting, turnaround, and exit without making any of those states intrinsic to a business.
 
 ### Capability & Execution
 
@@ -177,9 +200,13 @@ External observations never become business truth automatically.
 
 ## Economic Boundary
 
-Economic assessment is derived from explicit assumptions and opportunity/business-model information.
+Economic assessment is derived from explicit assumptions, metrics, and opportunity/business-model information.
 
 Expected economics and actual outcomes remain distinct.
+
+Economic quality is multidimensional. Profitability, stability, safety, demand stability, recurring revenue, automation, capital efficiency, scalability, and evidence quality may all matter simultaneously.
+
+No permanent universal master score is part of the domain contract.
 
 ## Marketplace Strategy
 
@@ -213,6 +240,8 @@ Current domain slices include:
 **External Opportunity Observation → Normalized Opportunity → Opportunity Evaluation**
 
 **Opportunity → Economic Estimate**
+
+**Opportunity/Business → Economic Profile**
 
 **Demand/Opportunity → Business Model Hypotheses**
 
