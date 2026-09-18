@@ -41,3 +41,32 @@
 - Initial persistence technology.
 - Initial API technology.
 - Initial UI technology.
+
+
+## D-005 — Marketplace-Independent Multi-Marketplace Strategy
+
+**Status:** COMMITTED
+
+**Decision:** The platform will support multiple freelance marketplaces through replaceable adapters. The user can enable one, several, or none through configuration/dashboard controls.
+
+**Reason:** Marketplace selection is a runtime/product configuration, not a foundation-level architectural dependency. The core domain must remain portable across marketplaces.
+
+**Consequence:** Marketplace-specific behavior belongs behind adapter/integration boundaries. The first marketplace implementation may be selected later based on product priorities and evidence without redesigning the core opportunity domain.
+
+## D-006 — Marketplace Integrations Are Independently Evolvable Capabilities
+
+**Status:** COMMITTED
+
+**Decision:** A marketplace integration is treated as an independently evolvable project/capability with its own compatibility, quality, operational, and performance evidence.
+
+**Reason:** Integrations can differ substantially in APIs, data quality, rate limits, authentication, coverage, reliability, and business value.
+
+**Consequence:** Integration selection and improvement can be informed by reports, metrics, user feedback, comments, AI-assisted recommendations, and user input. Derived recommendations do not automatically become product or architecture decisions.
+
+## D-007 — Marketplace Choice Is Runtime Configuration
+
+**Status:** COMMITTED
+
+**Decision:** Marketplace enablement belongs to configuration/policy, not to the core Opportunity domain identity or architecture.
+
+**Reason:** The system must be able to operate across multiple enabled marketplaces and remain extensible without rebuilding the domain around one provider.
