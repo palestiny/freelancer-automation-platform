@@ -10,7 +10,7 @@ def item(id: str, at: datetime) -> BusinessPerformanceObservation:
     return BusinessPerformanceObservation(
         id=id,
         business_id="business-1",
-        source_type="operational",
+        source_type=__import__("app.domain.business_performance", fromlist=["PerformanceSourceType"]).PerformanceSourceType.OPERATIONAL,
         source_id=f"source-{id}",
         metric_name="delivery_hours",
         unit="hours",
