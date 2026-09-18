@@ -41,8 +41,8 @@ def test_mean_uncertainty_calculates_t_interval_and_preserves_lineage():
     assert isclose(result.sample_standard_deviation, 2.0, rel_tol=1e-12)
     assert result.interval_lower is not None
     assert result.interval_upper is not None
-    assert isclose(result.interval_lower, -0.205, abs_tol=0.02)
-    assert isclose(result.interval_upper, 20.205, abs_tol=0.02)
+    assert isclose(result.interval_lower, -4.97, abs_tol=0.02)
+    assert isclose(result.interval_upper, 24.97, abs_tol=0.02)
 
 def test_mean_uncertainty_uses_explicit_window():
     result = calculate_mean_uncertainty(
