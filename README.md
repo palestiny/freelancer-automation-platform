@@ -188,3 +188,20 @@ Still outside the current slice:
 **UNDERSTAND → MAP → DESIGN → DISCUSS TRADE-OFFS → DECIDE → TEST → IMPLEMENT → REVIEW → REFACTOR → DOCUMENT → LEARN → UPDATE THE MAP**
 
 See KHALED_ENGINEERING_WORKING_RULES.md and docs/README.md.
+
+
+## Existing Markets & Growth Automation
+
+The platform does not require an empty market.
+
+An existing Service, Game, SaaS, Product, Digital Asset, or other business can be a valid opportunity when its economic thesis is evidence-backed and testable. Competition is an input to evaluation, not an automatic rejection rule.
+
+The broader operating loop is:
+
+**Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
+
+Marketing and growth are therefore first-class future platform capabilities. The platform should eventually be able to design measurable campaigns, prepare content, manage authorized social presence, monitor customer feedback, and learn from campaign performance.
+
+The first provider-independent campaign domain foundation is implemented in `app/domain/marketing_campaign.py`. It models objectives, channels, lifecycle, authorization, budget limits, and measurable performance snapshots.
+
+Real advertising spend, social accounts, credentials, provider APIs, and automatic public communication remain outside the current domain-only boundary.
