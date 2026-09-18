@@ -104,7 +104,7 @@ def assess_performance_comparison(
         current.business_id != baseline.business_id
         or current.metric_name != baseline.metric_name
         or current.unit != baseline.unit
-        or current.source_types != baseline.source_types
+        or frozenset(current.source_types) != frozenset(baseline.source_types)
     ):
         return PerformanceComparisonResult(
             trend=None,
