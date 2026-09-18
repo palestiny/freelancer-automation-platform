@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Gate Approved; entering Domain TDD**
+**Phase 0 — Product & Architecture — Gate Approved; Domain TDD in progress**
 
 ## Completed
 
@@ -82,14 +82,25 @@ See docs/PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md and docs/PROPOSED_OPPORTUNITY
 - Initial API technology.
 - Initial UI technology.
 
+## Current Implementation Progress
+
+The first Opportunity Intelligence domain slice now contains:
+- Opportunity identity representation
+- Evaluation policy representation
+- Eligibility criterion evaluation
+- PASS / FAIL / INSUFFICIENT_DATA criterion outcomes
+- QUALIFIED / NOT_QUALIFIED / REVIEW_REQUIRED overall outcomes
+- Criterion-level evidence
+- Evaluation without mutating Opportunity identity
+- Re-evaluation of the same Opportunity under different policies
+
+The implementation remains marketplace-independent and infrastructure-free.
+
 ## Next Step
 
-Begin the first domain TDD cycle for Opportunity Intelligence.
+Continue the approved TDD sequence with the remaining evaluation criteria and boundary behaviors.
 
-Start with the approved behavior only:
-RED → GREEN → REFACTOR → REVIEW → DOCUMENT → COMMIT + PUSH.
-
-Do not introduce a marketplace SDK, persistence, HTTP/API, UI, or AI dependency into the first domain tests.
+Do not introduce a marketplace SDK, persistence, HTTP/API, UI, or AI dependency into the first domain slice.
 
 ## Current Boundary
 
