@@ -126,3 +126,18 @@ def test_comparison_rejects_invalid_alpha():
             second_window=window(START + timedelta(days=2)),
             alpha=1.0,
         )
+
+
+def test_welch_comparison_preserves_fractional_degrees_of_freedom():
+    result = compare_historical_means(
+        (item("a1", 1), item("a2", 2, at=START + timedelta(hours=1)), item("a3", 3, at=START + timedelta(hours=2)),
+         item("b1", 10, at=START + timedelta(days=2)), item("b2", 20, at=START + timedelta(days=2, hours=1)),
+         item("b3", 40, at=START + timedelta(days=2, hours=2)), item("b4", 80, at=START + timedelta(days=2, hours=3))),
+        first_window=window(START),
+        second_window=window(START + timedelta(days=2)),
+    )
+    assert result.status is MeanComparisonStatus.APPLICABLE
+    assert result.degrees_of_freedom is not None
+    assert result.degrees_of_freedom != int(result.degrees_of_freedom)
+    assert result.p_value is not None
+    assert 0.0 <= result.p_value <= 1.0
