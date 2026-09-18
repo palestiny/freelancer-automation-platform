@@ -304,3 +304,22 @@ Controlled variants are first-class experiment data so alternative offers, price
 **Status:** COMMITTED
 
 Experiment results become EXPERIMENT_RESULT evidence and carry an explicit PROMOTE, REJECT, or CONTINUE_TESTING decision. Results do not silently mutate venture lifecycle, policy, economics, or portfolio posture.
+
+
+## D-045 — Revenue Is Explicitly Split Into Expected and Realized
+
+**Status:** COMMITTED
+
+Revenue contracts describe the commercial model, while RevenueEvent represents realized revenue. The platform must not confuse forecasts or pricing hypotheses with actual revenue.
+
+## D-046 — Recurring Revenue Requires an Explicit Period
+
+**Status:** COMMITTED
+
+Recurring revenue is modeled explicitly with a recurring period. A recurring label alone is insufficient.
+
+## D-047 — Payment Execution Is Outside the Revenue Domain
+
+**Status:** COMMITTED
+
+The core domain does not process payments or move money. Payment providers remain replaceable capabilities behind authorization and policy.
