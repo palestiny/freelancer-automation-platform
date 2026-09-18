@@ -628,3 +628,28 @@ Baseline eligibility distinguishes insufficient source reliability from missing 
 **Status:** COMMITTED
 
 The comparison layer continues to consume `BaselineEligibility` and does not duplicate source-reliability logic.
+
+
+## D-101 — Current Evidence Reliability Is Optional Policy
+
+**Status:** COMMITTED
+
+`PerformanceComparisonPolicy` may include source reliability requirements for current evidence. Existing policies without the requirement retain their previous behavior.
+
+## D-102 — Current Reliability Is an Additional Gate
+
+**Status:** COMMITTED
+
+Current source reliability is checked in addition to current observation sufficiency and evidence quality.
+
+## D-103 — Reliability Rejections Remain Explicit
+
+**Status:** COMMITTED
+
+Insufficient current reliability and missing current source configuration are distinct comparison rejection reasons.
+
+## D-104 — Comparison Does Not Duplicate Baseline Reliability
+
+**Status:** COMMITTED
+
+Baseline reliability belongs to `PerformanceBaselinePolicy`; current reliability belongs to `PerformanceComparisonPolicy`. The comparison service composes these boundaries.
