@@ -60,9 +60,13 @@ def calculate_mean_uncertainty(
     *,
     window: PerformanceWindow,
     confidence_level: float = 0.95,
+    assumptions_satisfied: bool = True,
 ) -> MeanUncertaintyResult:
     if not 0 < confidence_level < 1:
         raise ValueError("confidence_level must be between zero and one")
+
+    if not isinstance(assumptions_satisfied, bool):
+        raise ValueError("assumptions_satisfied must be a boolean")
 
     selected = tuple(
         observation for observation in observations if window.contains(observation.observed_at)
@@ -85,6 +89,9 @@ def calculate_mean_uncertainty(
         )
 
     first = selected[0]
+    if not assumptions_satisfied:
+        return _result(first, selected, window, confidence_level, MeanUncertaintyStatus.INAPPLICABLE)
+
     if any(
         observation.business_id != first.business_id
         or observation.metric_name != first.metric_name

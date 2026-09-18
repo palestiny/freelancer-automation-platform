@@ -127,3 +127,21 @@ def test_mean_uncertainty_t_cdf_remains_bounded():
         for value in (0.0, 0.1, 1.0, 10.0, 100.0):
             result = _student_t_cdf(value, degrees_of_freedom)
             assert 0.0 <= result <= 1.0
+
+
+def test_mean_uncertainty_returns_inapplicable_when_assumptions_are_not_satisfied():
+    result = calculate_mean_uncertainty(
+        (item("o1", 8), item("o2", 10, at=START + timedelta(hours=1))),
+        window=window(),
+        assumptions_satisfied=False,
+    )
+    assert result.status is MeanUncertaintyStatus.INAPPLICABLE
+    assert result.observation_ids == ("o1", "o2")
+    assert result.sample_size == 2
+    assert result.interval_lower is None
+    assert result.interval_upper is None
+
+
+def test_mean_uncertainty_rejects_non_boolean_assumption_flag():
+    with pytest.raises(ValueError, match="assumptions_satisfied must be a boolean"):
+        calculate_mean_uncertainty((), window=window(), assumptions_satisfied=1)
