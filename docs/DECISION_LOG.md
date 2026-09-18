@@ -708,6 +708,12 @@ The first statistical method candidate is a Student's t confidence interval for 
 The Phase 17 Student's t implementation evaluates the distribution through a regularized incomplete-beta formulation with a continued-fraction evaluation, using only the Python standard library. Numerical regression tests cover known critical values, symmetry, bounded CDF output, and non-default confidence levels. This is an implementation contract for reproducibility and numerical hardening; it does not expand the statistical use-case boundary.
 
 
+## D-117 — Phase 17 Mean Uncertainty Applicability Is Explicitly Consumer-Declared
+
+**Status:** COMMITTED
+
+The Student's t mean-uncertainty calculation does not infer normality or independence from observations. The consumer explicitly declares applicability. Structural context and finite-value validation take precedence over applicability failure so malformed evidence is not masked.
+
 ## D-113 — Statistical Results Are Evidence Artifacts, Not Policy
 
 **Status:** COMMITTED

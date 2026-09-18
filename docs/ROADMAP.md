@@ -224,6 +224,18 @@ Build the missing bridge between operating businesses and the learning loop:
 
 **Status:** Provider-independent operational outcome, measurement, learning-signal, improvement-handoff, historical aggregation, trend/baseline comparison, evidence eligibility, provenance, source-reliability, and evidence-aware operational-learning foundations are implemented. Persistence, statistical inference, and automated external learning remain future work.
 
+## Phase 17 — Statistical Learning & Inference
+
+Build statistical evidence capabilities only through concrete, independently gated use cases.
+
+**Status:** First use case implemented and hardened: Student's t confidence interval for an observed historical mean. Additional statistical methods require a dedicated design gate.
+
+### Phase 17 — First Statistical Use Case: Mean Uncertainty
+
+Implemented with explicit confidence level, minimum sample size, result statuses, consumer-declared applicability, validation precedence, unique observation lineage, and standard-library numerical regression coverage.
+
+No forecasting, causal inference, anomaly detection, policy mutation, portfolio allocation, persistence, or external execution is included.
+
 ## Guiding Rule
 
 The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
