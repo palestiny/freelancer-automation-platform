@@ -181,3 +181,14 @@ Resource/capacity foundation completed in its dedicated gate:
 7. Reject over-allocation.
 
 Future slices include actual-vs-expected economics, opportunity cost, historical economics, and capacity-aware planning.
+
+
+## Marketing Integration
+
+Growth activity is now explicitly part of the economic operating loop.
+
+A validated business may operate in an existing competitive market. Competition is an input to economic/venture evaluation, not an automatic rejection rule.
+
+Marketing campaigns can generate measurable economic evidence including spend, revenue, conversion, CAC, and ROAS. These observations may later feed profitability, demand stability, recurring revenue, automation, capital efficiency, and evidence-quality assessments.
+
+Campaign performance remains distinct from business-level economic health.
