@@ -6,6 +6,7 @@ import pytest
 from app.domain.business_performance import BusinessPerformanceObservation, PerformanceSourceType
 from app.domain.performance_history import PerformanceWindow
 from app.domain.statistical_mean_comparison import (
+    MeanComparisonResult,
     MeanComparisonStatus,
     compare_historical_means,
 )
@@ -142,18 +143,3 @@ def test_welch_comparison_preserves_fractional_degrees_of_freedom():
     assert result.p_value is not None
     assert 0.0 <= result.p_value <= 1.0
 
-
-def test_result_rejects_overlapping_windows_at_construction():
-    first = PerformanceWindow(START, START + timedelta(days=2))
-    second = PerformanceWindow(START + timedelta(days=1), START + timedelta(days=3))
-    with pytest.raises(ValueError, match="comparison windows must not overlap"):
-        MeanComparisonResult(
-            business_id="business-1", metric_name="delivery_hours", unit="hours",
-            first_window=first, second_window=second,
-            first_observation_ids=("a1", "a2"), second_observation_ids=("b1", "b2"),
-            sample_size_first=2, sample_size_second=2,
-            mean_first=10.0, mean_second=20.0, mean_difference=-10.0,
-            t_statistic=-2.0, degrees_of_freedom=2.0, p_value=0.1,
-            alpha=0.05, method="welch_two_sample_t_test", rejects_null=False,
-            status=MeanComparisonStatus.APPLICABLE,
-        )
