@@ -39,8 +39,8 @@ This directory is the engineering source of truth for product direction, archite
 - Economic Opportunity OS expansion: approved; domain foundations implemented.
 - Economic Health & Portfolio Policy: approved; Economic Profile foundation implemented.
 - Resource Economics / Capacity: approved; resource and human-time capacity foundations implemented.
-- Market Intelligence / Demand Discovery: future.
-- Venture Validation / Experimentation: future.
+- Market Intelligence / Demand Discovery: approved; provider-independent observation and demand-signal foundation implemented.
+- Venture Validation / Experimentation: approved; provider-independent validation experiment foundation implemented.
 - Portfolio / Capital Allocation: future policy gate building on the Economic Health and Capacity models.
 - Revenue Engine / Recurring Revenue: future.
 
@@ -65,8 +65,16 @@ External ad/social execution remains outside the current domain-only boundary.
 
 17. DESIGN_GATE_MARKETING_AND_GROWTH_AUTOMATION.md — marketing, existing-market opportunity, campaign, and growth-automation gate.
 18. DESIGN_GATE_MARKET_INTELLIGENCE_AND_DEMAND_DISCOVERY.md — market observations, demand signals, provenance, and demand-discovery boundaries.
+19. DESIGN_GATE_VENTURE_VALIDATION_AND_EXPERIMENTATION.md — measurable validation experiments, variants, outcomes, and explicit decisions.
 
 ## Current Gate Status
 
 - Market Intelligence / Demand Discovery: approved; provider-independent observation and demand-signal foundation implemented.
 - Marketing & Growth Automation: approved; provider-independent campaign foundation implemented.
+
+## Venture Validation / Experimentation
+
+- Approved design gate.
+- Provider-independent ValidationExperiment and ExperimentResult implemented.
+- Controlled variants and explicit experiment decisions implemented.
+- External execution and statistical methodology remain future work.
