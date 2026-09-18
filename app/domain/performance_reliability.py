@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from enum import Enum
 
 from .business_performance import PerformanceSourceType
 from .performance_aggregation import PerformanceAggregate
 
 
-class SourceReliabilityReason(str):
+class SourceReliabilityReason(str, Enum):
     ELIGIBLE = "eligible"
     INSUFFICIENT_RELIABILITY = "insufficient_reliability"
     MISSING_SOURCE_POLICY = "missing_source_policy"
