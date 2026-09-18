@@ -28,6 +28,7 @@ def item(
     metric_name: str = "delivery_hours",
     unit: str = "hours",
     business_id: str = "business-1",
+    source_type: PerformanceSourceType = PerformanceSourceType.OPERATIONAL,
 ) -> BusinessPerformanceObservation:
     return BusinessPerformanceObservation(
         id=id,
@@ -62,6 +63,7 @@ def test_aggregate_preserves_source_observation_ids_and_basic_actuals():
 
     assert isinstance(result, PerformanceAggregate)
     assert result.observation_ids == ("o1", "o2")
+    assert result.source_types == (PerformanceSourceType.OPERATIONAL,)
     assert result.actual_count == 2
     assert result.actual_average == 10
     assert result.actual_min == 8

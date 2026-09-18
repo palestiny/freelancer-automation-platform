@@ -1,5 +1,9 @@
 from dataclasses import dataclass
-from .business_performance import (\n    BusinessPerformanceHistory,\n    BusinessPerformanceObservation,\n    PerformanceSourceType,\n)
+from .business_performance import (
+    BusinessPerformanceHistory,
+    BusinessPerformanceObservation,
+    PerformanceSourceType,
+)
 from .performance_history import PerformanceWindow, observations_in_window
 
 
@@ -12,6 +16,7 @@ class PerformanceAggregate:
     unit: str
     window: PerformanceWindow
     observation_ids: tuple[str, ...]
+    source_types: tuple[PerformanceSourceType, ...]
     actual_count: int
     actual_average: float
     actual_min: float
@@ -29,7 +34,9 @@ class PerformanceAggregate:
             raise ValueError("metric_name and unit cannot be empty")
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
-        if not self.source_types:\n            raise ValueError("source_types cannot be empty")\n        if self.actual_count != len(self.observation_ids):
+        if not self.source_types:
+            raise ValueError("source_types cannot be empty")
+        if self.actual_count != len(self.observation_ids):
             raise ValueError("actual_count must match observation_ids")
         if self.actual_count <= 0:
             raise ValueError("actual_count must be greater than zero")
@@ -86,6 +93,7 @@ def aggregate_performance(
         unit=first.unit,
         window=window,
         observation_ids=tuple(observation.id for observation in selected),
+        source_types=tuple(dict.fromkeys(observation.source_type for observation in selected)),
         actual_count=len(selected),
         actual_average=sum(o.actual_value for o in selected) / len(selected),
         actual_min=min(o.actual_value for o in selected),

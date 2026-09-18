@@ -64,6 +64,12 @@ def assess_performance_comparison(
             rejection_reason=ComparisonRejectionReason.INSUFFICIENT_CURRENT_OBSERVATIONS,
         )
 
+    if current.window.start < baseline.window.end:
+        return PerformanceComparisonResult(
+            trend=None,
+            rejection_reason=ComparisonRejectionReason.OVERLAPPING_WINDOWS,
+        )
+
     if current.average_evidence_quality < comparison_policy.minimum_current_evidence_quality:
         return PerformanceComparisonResult(
             trend=None,
@@ -74,16 +80,11 @@ def assess_performance_comparison(
         current.business_id != baseline.business_id
         or current.metric_name != baseline.metric_name
         or current.unit != baseline.unit
+        or current.source_types != baseline.source_types
     ):
         return PerformanceComparisonResult(
             trend=None,
             rejection_reason=ComparisonRejectionReason.INCOMPATIBLE_CONTEXT,
-        )
-
-    if current.window.start < baseline.window.end:
-        return PerformanceComparisonResult(
-            trend=None,
-            rejection_reason=ComparisonRejectionReason.OVERLAPPING_WINDOWS,
         )
 
     return PerformanceComparisonResult(

@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from app.domain.business_performance import PerformanceSourceType\nfrom app.domain.performance_aggregation import aggregate_performance
+from app.domain.business_performance import PerformanceSourceType
+from app.domain.performance_aggregation import aggregate_performance
 from app.domain.performance_baseline import PerformanceBaselinePolicy
 from app.domain.performance_comparison import (
     ComparisonRejectionReason,
@@ -23,6 +24,7 @@ def aggregate(
     count: int = 3,
     evidence_quality: int = 80,
     business_id: str = "business-1",
+    source_type: PerformanceSourceType = PerformanceSourceType.OPERATIONAL,
 ):
     window = PerformanceWindow(
         START + timedelta(days=start_day),
@@ -35,6 +37,7 @@ def aggregate(
             at=START + timedelta(days=start_day, hours=i + 1),
             evidence_quality=evidence_quality,
             business_id=business_id,
+            source_type=source_type,
         )
         for i in range(count)
     )
