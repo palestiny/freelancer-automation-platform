@@ -18,6 +18,7 @@ class ComparisonRejectionReason(str, Enum):
     INSUFFICIENT_CURRENT_EVIDENCE_QUALITY = "insufficient_current_evidence_quality"
     INCOMPATIBLE_CONTEXT = "incompatible_context"
     OVERLAPPING_WINDOWS = "overlapping_windows"
+    FUTURE_CURRENT_WINDOW = "future_current_window"
     INSUFFICIENT_CURRENT_SOURCE_RELIABILITY = "insufficient_current_source_reliability"
     MISSING_CURRENT_SOURCE_RELIABILITY_POLICY = "missing_current_source_reliability_policy"
 
@@ -70,6 +71,12 @@ def assess_performance_comparison(
         return PerformanceComparisonResult(
             trend=None,
             rejection_reason=ComparisonRejectionReason.INSUFFICIENT_CURRENT_OBSERVATIONS,
+        )
+
+    if current.window.end > as_of:
+        return PerformanceComparisonResult(
+            trend=None,
+            rejection_reason=ComparisonRejectionReason.FUTURE_CURRENT_WINDOW,
         )
 
     if current.window.start < baseline.window.end:
