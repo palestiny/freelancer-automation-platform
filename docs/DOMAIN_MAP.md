@@ -243,3 +243,34 @@ The freelance loop remains a concrete first path through this broader flow.
 No external marketplace SDK, HTTP framework, database, UI framework, AI provider, or financial execution provider may become a dependency of core business meaning.
 
 External systems enter through explicit replaceable boundaries.
+
+
+### Marketing & Growth Automation
+
+Answers:
+
+> How do we acquire demand, operate distribution, and learn whether marketing creates durable economic value?
+
+Responsibilities:
+
+- positioning and offer communication
+- campaign planning
+- audience/channel selection
+- organic and paid growth experiments
+- campaign lifecycle
+- measurable performance observations
+- social presence operations
+- customer/comment feedback handling
+- campaign learning and iteration
+
+The domain is provider-independent. Advertising platforms, social networks, content tools, communication providers, and AI models enter through replaceable capabilities/adapters.
+
+### Revenue & Growth Measurement
+
+Marketing performance connects Revenue Engine and Measurement & Learning through observable metrics such as impressions, clicks, leads, conversions, spend, revenue, CTR, conversion rate, CAC, and ROAS.
+
+Campaign metrics are not a universal business score. They are evidence used by business economics, economic health, and experimentation policies.
+
+## Expanded Domain Flow
+
+**Market Signals → Opportunity Discovery → Evaluation → Business Model Discovery → Economics → Resource/Capacity Analysis → Venture Thesis → Validation → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio / Capital Allocation**
