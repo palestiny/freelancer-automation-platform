@@ -2,13 +2,13 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Business Economics & Growth approved; Domain TDD in progress**
+**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; domain foundations in progress**
 
 ## Product Direction
 
-The platform is now explicitly a **Business Automation OS**, initially validated through the freelance-work market.
+The platform is now an **Economic Opportunity OS / Business Automation OS**.
 
-Freelancing remains the first concrete market, not the permanent architectural boundary.
+Its first laboratory is freelance work, but the permanent product boundary is broader: the system can discover, evaluate, validate, operate, and learn from multiple business and income opportunities.
 
 ## Completed
 
@@ -18,10 +18,18 @@ Freelancing remains the first concrete market, not the permanent architectural b
 - Marketplace-independent architecture established.
 - Opportunity Intelligence gate approved.
 - Six Opportunity Evaluation dimensions committed.
-- Economic/growth direction approved.
+- Business Economics & Growth direction approved.
+- Economic Opportunity OS expansion approved.
+- Opportunity type foundation implemented.
+- Evidence taxonomy implemented.
+- Business-model hypothesis foundation implemented.
+- Venture evaluation foundation implemented.
+- Venture lifecycle foundation implemented.
 - Business Economics domain foundation implemented.
 
-## Committed Opportunity Evaluation Dimensions
+## Opportunity Evaluation Model
+
+The original six Opportunity Intelligence dimensions remain committed for their applicable opportunity context:
 
 1. Eligibility
 2. Requirement Fit
@@ -40,55 +48,65 @@ Overall outcomes:
 
 Numeric scoring is not required for the first domain slice.
 
-## Committed Economic Model
+## Broader Opportunity Model
 
-The first economic slice models:
+Supported opportunity types now include:
 
-- expected revenue
-- expected effort
-- platform fee
-- capability cost
-- operating cost
-- revision allowance
-- success confidence
-- expected cost
-- expected profit
-- expected margin
-- expected profit per hour
-- risk-adjusted profit
+- Freelance
+- Service
+- Product
+- SaaS
+- Game
+- Digital Asset
+- Recurring Revenue
+- Partnership
+- Investment
+- Acquisition
 
-Economic estimates are derived data and do not mutate Opportunity identity.
+These are not forced into one universal evaluation algorithm.
 
-## Current Implementation Progress
+## Venture Evaluation
 
-Opportunity Intelligence contains:
+The broader venture model evaluates:
 
-- Opportunity identity representation
-- Evaluation policy representation
-- Eligibility criterion evaluation
-- PASS / FAIL / INSUFFICIENT_DATA criterion outcomes
-- QUALIFIED / NOT_QUALIFIED / REVIEW_REQUIRED overall outcomes
-- Criterion-level evidence
-- Evaluation without mutating Opportunity identity
-- Re-evaluation of the same Opportunity under different policies
-- Budget eligibility boundaries
+- Market Demand
+- Market Size
+- Competition
+- Capital Requirement
+- Time to Revenue
+- Recurring Revenue Potential
+- Automation Potential
+- Scalability
+- Risk
+- Evidence Quality
+- Strategic Fit
+- Exit / Expansion Potential
 
-Business Economics now contains:
+The evaluation remains evidence-aware and explainable.
 
-- immutable EconomicEstimate
-- explicit cost components
-- expected cost calculation
-- expected profit calculation
-- expected margin calculation
-- expected profit/hour calculation
-- risk-adjusted profit calculation
-- validation of invalid economic inputs
+## Evidence Model
 
-## Current Boundary
+The domain distinguishes:
 
-The active implementation boundary is domain behavior only.
+FACT → OBSERVATION → ESTIMATE → ASSUMPTION → HYPOTHESIS → FORECAST → EXPERIMENT_RESULT
 
-Allowed now:
+These labels represent epistemic status, not a ranking of value.
+
+## Business Model Discovery
+
+The domain can represent multiple business-model hypotheses for the same opportunity, including service, productized service, managed service, SaaS, API, digital product, game, white-label, subscription, and partnership models.
+
+Recurring revenue and automation intensity are explicit attributes.
+
+## Venture Pipeline
+
+**DISCOVERED → RESEARCHING → THESIS_CREATED → ECONOMICALLY_EVALUATED → VALIDATION_REQUIRED → MVP → EARLY_REVENUE → PROVEN → SCALE**
+
+A venture can be killed through explicit lifecycle transitions.
+
+## Current Implementation Boundary
+
+Still domain-only:
 
 - domain models
 - domain services
@@ -103,22 +121,18 @@ Still outside the current slice:
 - HTTP/API
 - UI
 - AI provider dependencies
+- financial execution
+- automatic capital movement
 
-## Next Step
+## Next Design Gates
 
-Complete the remaining Opportunity Intelligence domain behaviors, then continue Business Economics with a dedicated Resource Economics / Capacity Design Gate.
+1. Resource Economics / Capacity.
+2. Market Intelligence / Demand Discovery.
+3. Venture Validation / Experimentation.
+4. Portfolio / Capital Allocation.
+5. Revenue Engine / Recurring Revenue.
 
-The next economic gate should define:
-
-- resource identity
-- resource cost
-- capacity
-- availability
-- opportunity cost
-- actual-vs-expected economics
-- portfolio constraints
-
-## Long-Term Learning Loop
+## Learning Loop
 
 **Expected → Actual → Variance → Learning Signal → Controlled Policy/Experiment Improvement**
 
