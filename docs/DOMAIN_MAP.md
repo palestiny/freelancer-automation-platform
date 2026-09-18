@@ -361,3 +361,23 @@ Responsibilities:
 - explicit business ownership of operations
 
 Operations produce evidence for Measurement & Learning and do not silently change business policy or economics.
+
+
+## Measurement & Learning — Current Foundation
+
+The operational learning domain now connects repeatable work to evidence and explicit improvement handoffs:
+
+**Work Item → Outcome Observation → Operational Measurement → Variance → Learning Signal → Improvement Recommendation**
+
+Responsibilities now include:
+
+- work-item outcome observations
+- expected-vs-actual operational measurements
+- deterministic variance
+- business performance snapshots
+- evidence-aware learning signals
+- explicit policy-review or experiment handoffs
+
+Learning remains derived evidence. It does not silently rewrite policy or business state.
+
+Historical aggregation, persistence, statistical inference, automated experiments, and external execution remain future capabilities.
