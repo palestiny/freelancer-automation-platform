@@ -524,3 +524,27 @@ Baseline age is evaluated against an explicit `as_of` timestamp and configurable
 **Status:** COMMITTED
 
 Baseline assessment returns a deterministic eligibility reason, including insufficient observations, insufficient evidence quality, stale history, or future baseline timing.
+
+## D-084 — Comparison Requires an Eligible Baseline
+
+**Status:** COMMITTED
+
+Performance comparison must first pass the explicit baseline eligibility policy. Comparison cannot bypass evidence sufficiency or freshness requirements.
+
+## D-085 — Current Evidence Has Minimum Sufficiency
+
+**Status:** COMMITTED
+
+Current performance evidence requires configurable minimum observation count and evidence quality before producing a descriptive comparison.
+
+## D-086 — Comparison Windows Must Be Temporally Ordered
+
+**Status:** COMMITTED
+
+Current and baseline windows may not overlap. The current window must start at or after the baseline window ends.
+
+## D-087 — Comparison Produces Descriptive Evidence
+
+**Status:** COMMITTED
+
+The comparison policy can produce a descriptive PerformanceTrend but cannot forecast, rank, score, mutate policy, or execute actions.
