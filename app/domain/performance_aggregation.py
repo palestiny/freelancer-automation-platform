@@ -16,6 +16,7 @@ class PerformanceAggregate:
     unit: str
     window: PerformanceWindow
     observation_ids: tuple[str, ...]
+    source_types: tuple[PerformanceSourceType, ...]
     actual_count: int
     actual_average: float
     actual_min: float
