@@ -116,3 +116,31 @@ V1 does not implement:
 V1 now includes a deterministic `PerformanceWindow` with start-inclusive/end-exclusive semantics, plus helpers for selecting observations inside a window and constructing a rolling window from an explicit end time and duration.
 
 Time windows are selection primitives only. They do not imply business-period aggregation, trend inference, or policy decisions.
+## Historical Aggregation Foundation
+
+V1 now includes deterministic per-metric aggregation inside an explicit performance window.
+
+The aggregate preserves:
+- business identity
+- metric and unit
+- explicit window
+- source observation identifiers
+- actual observation count, average, minimum, and maximum
+- count and average of observations that have an expected value
+- average variance when expectations exist
+- average relative variance only where an expected value is non-zero
+- average evidence quality
+
+Aggregation deliberately does not provide a universal sum operation because summation semantics depend on metric meaning. Generic V1 aggregation is limited to deterministic count/range/average-style summaries.
+
+Missing expected values are excluded from expected-derived aggregates rather than treated as zero. Raw observations remain the authoritative evidence records.
+
+### Acceptance Criteria — Aggregation
+
+1. Aggregation is scoped to one explicit business/metric/unit.
+2. Only observations inside the requested window are included.
+3. Source observation identifiers remain traceable from the aggregate.
+4. Expected-derived values use only observations with actual expected values.
+5. Zero expected values do not produce relative variance.
+6. Empty windows return no aggregate rather than an invented value.
+7. Aggregation remains provider-independent and does not mutate source observations.
