@@ -71,6 +71,8 @@ Build:
 - experiment outcomes
 - explicit promotion/rejection
 
+**Status:** Provider-independent validation experiment foundation implemented. External execution, statistical methodology, and automated promotion remain future work.
+
 ## Phase 6 — Decision, Portfolio & Capital Allocation
 
 Build:
