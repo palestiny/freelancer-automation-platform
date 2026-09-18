@@ -509,3 +509,20 @@ Missing expectations are not converted to zero, and zero expectations do not cre
 ## Immediate Next Slice
 
 The next logical measurement slice is trend/baseline analysis over these normalized observations and aggregates, with explicit policy and evidence requirements. It should remain deterministic first and avoid premature statistical inference.
+
+## Current Measurement Addition — Performance Trend & Baseline
+
+Phase 16 now includes `app/domain/performance_trend.py`, providing a deterministic comparison between two compatible `PerformanceAggregate` instances.
+
+The comparison:
+- requires explicit current and baseline windows
+- preserves business, metric, and unit identity
+- reports current/baseline averages
+- derives absolute change
+- derives relative change only when the baseline average is non-zero
+- preserves source observation identifiers
+- carries evidence quality for both windows
+
+A missing window produces no comparison. The result is descriptive evidence, not a forecast, recommendation, or policy decision.
+
+Statistical inference remains deliberately deferred.
