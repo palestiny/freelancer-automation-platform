@@ -131,16 +131,13 @@ Business identity is separate from operational state. Each operational cycle and
 
 Scheduling, workers, provider APIs, credentials, payment execution, automatic capital movement, and AI model selection remain outside the domain.
 
-## Next Implementation Slice
+## Current Implementation Slice
 
-The next Design Gate is **Operational Measurement & Learning Integration**; its V1 foundation is now implemented.
+Phase 16 — Operational Measurement & Learning Integration is implemented through deterministic performance history, explicit windows, aggregation, descriptive trend comparison, baseline eligibility, provenance compatibility, source-reliability policy, and evidence-aware operational learning.
 
-It should connect actual work outcomes to the existing economic/revenue/campaign/venture evidence model without:
-- silently changing policy
-- inventing forecasts from observations
-- coupling to providers
-- introducing persistence prematurely
-- introducing automatic financial execution
+The current boundary remains domain-only. Statistical inference, persistence, provider integration, automatic experiment execution, automatic policy mutation, and financial execution remain outside the implementation.
+
+The next architectural decision should therefore be a deliberate Phase 16 closure review: identify any remaining semantic gaps or duplicated policy logic before opening a new statistical-learning or infrastructure slice.
 
 
 ## Opportunity Evaluation Model
@@ -308,10 +305,10 @@ Still outside the current slice:
 
 ## Next Design Gates
 
-1. Market Intelligence / Demand Discovery.
-2. Venture Validation / Experimentation.
-3. Portfolio posture and allocation policy.
-4. Revenue Engine / Recurring Revenue.
+1. Phase 16 closure / semantic consistency review.
+2. Statistical learning or inference under a dedicated design gate.
+3. Persistence/API when required by a concrete application boundary.
+4. Portfolio posture and allocation policy as a future strategic domain.
 
 ## Learning Loop
 
@@ -349,12 +346,10 @@ No real ad spend, social credentials, account creation, provider APIs, or automa
 
 ## Current Next Design Gates
 
-1. Market Intelligence / Demand Discovery.
-2. Venture Validation / Experimentation.
-3. Revenue Engine / Recurring Revenue.
-4. Social Presence & Customer Communication.
-5. Campaign Optimization & Budget Policy.
-6. Portfolio posture and allocation policy.
+1. Phase 16 closure / semantic consistency review.
+2. Statistical learning or inference only after an explicit design gate.
+3. Persistence / API only when a concrete product boundary requires it.
+4. Portfolio posture and allocation policy remains a future strategic domain.
 
 ## Current Implementation Addition
 
@@ -463,7 +458,7 @@ The domain preserves expected and actual values separately, derives variance, en
 
 Learning remains evidence/recommendation, not silent policy mutation.
 
-Repeated-variance learning policy and multi-source evidence are now implemented. Historical persistence, richer measurement provenance, aggregation, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
+Repeated-variance learning policy and multi-source evidence are now implemented. Historical persistence, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
 
 
 ## Current Implementation Addition — Business Performance History
@@ -478,7 +473,7 @@ BusinessPerformanceHistory enforces single-business isolation and provides deter
 
 This is a normalized evidence view, not a replacement for source domains and not a policy or execution mechanism.
 
-The next engineering work remains evidence/provenance enrichment, baseline eligibility, historical comparison policy, and statistical learning before persistence/API/external execution.
+Those evidence/provenance, baseline, and bounded comparison foundations are now implemented. The next engineering work is a Phase 16 closure review before introducing statistical learning or infrastructure.
 
 ## Current Implementation Addition — Evidence-Aware Measurement Learning
 
@@ -486,7 +481,7 @@ Operational measurements now carry bounded evidence quality. Repeated-variance l
 
 The implementation therefore no longer relies on the previous neutral evidence baseline. Rich provenance and more advanced evidence aggregation remain future policy/design work.
 
-The latest implementation slice is still domain-only. CI completion for the newest main-branch push has not been independently verified through the available repository workflow interface, so no new green-test claim is recorded here.
+The latest implementation slices remain domain-only. CI has been verified green on the relevant pull-request runs; no claim is made about an unexposed post-merge run.
 
 ## Current Implementation Addition — Performance Windows
 
@@ -531,7 +526,7 @@ Statistical inference remains deliberately deferred.
 
 The Measurement & Learning domain now includes an explicit evidence-aware baseline eligibility policy. A supplied historical aggregate can be assessed against minimum observation count, minimum average evidence quality, and explicit maximum age. Future baselines are rejected, and every ineligible result has a deterministic reason. The policy does not select baselines, forecast, mutate policy, or execute actions.
 
-Next measurement slice: use eligible historical evidence in a bounded, explicit comparison policy before introducing statistical inference.
+Eligible historical evidence is now consumed by the bounded comparison policy. Statistical inference remains deliberately deferred.
 
 ## Current Measurement Addition — Bounded Performance Comparison
 
@@ -539,7 +534,7 @@ Phase 16 now includes an explicit comparison-policy foundation. A comparison fir
 
 A successful result is the existing descriptive PerformanceTrend. Rejected comparisons return an explicit reason. No forecasting, statistical inference, ranking, scoring, policy mutation, or external execution was introduced.
 
-The next measurement slice is evidence/provenance enrichment or carefully bounded statistical learning, with statistical inference still deliberately deferred until its own design gate.
+The evidence/provenance enrichment and bounded comparison slices are now implemented. Statistical learning remains deliberately deferred until its own design gate.
 
 ## Current Measurement Addition — Performance Evidence Provenance
 
