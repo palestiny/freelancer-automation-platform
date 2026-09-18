@@ -447,3 +447,40 @@ Operational measurement meaning remains independent from schedulers, workers, pr
 **Status:** COMMITTED
 
 Operational observations, measurements, learning signals, and recommendations carry explicit business ownership. Cross-business measurement contamination is invalid.
+
+
+## D-068 — Business Performance History Is a Normalized Evidence View
+
+**Status:** COMMITTED
+
+Business Performance History is a derived, provider-independent view over bounded observations. It does not replace the source domain that produced an observation.
+
+## D-069 — Source Identity Is Preserved
+
+**Status:** COMMITTED
+
+Every normalized performance observation preserves its source type and source identifier.
+
+## D-070 — Expected Values May Be Absent
+
+**Status:** COMMITTED
+
+An actual performance observation may exist without an expected value. The platform must not invent an expectation to manufacture variance.
+
+## D-071 — Business Isolation Is Mandatory
+
+**Status:** COMMITTED
+
+A performance history belongs to exactly one business. Cross-business observations cannot be combined.
+
+## D-072 — History Does Not Mutate Source Domains
+
+**Status:** COMMITTED
+
+Organizing performance evidence does not mutate operational state, revenue, campaign state, economic profiles, or business lifecycle state.
+
+## D-073 — Aggregation Policy Remains Separate
+
+**Status:** COMMITTED
+
+Ordering, filtering, time windows, baselines, thresholds, and future statistical methods remain changeable policy rather than hard-coded business identity rules.
