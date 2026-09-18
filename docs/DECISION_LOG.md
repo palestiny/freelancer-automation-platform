@@ -749,3 +749,8 @@ The current Phase 17 V1 statistical surface is closed after implementing and har
 ### D-120 — Phase 17 Statistical Evidence Is Composed Through an Explicit Consumer
 
 The first downstream statistical consumer must preserve statistical results as evidence artifacts and separately evaluate evidence quality and source reliability. V1 composition may report eligibility and bounded statistical interpretation, but must not collapse evidence into a universal score or mutate policy, learning, lifecycle, portfolio, or execution state.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.

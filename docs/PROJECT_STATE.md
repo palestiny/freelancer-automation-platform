@@ -606,3 +606,8 @@ The first downstream consumer of the closed statistical surface is now implement
 StatisticalEvidenceComposition consumes the existing Welch historical mean comparison together with explicit current/baseline evidence quality and source-reliability assessments. It produces explicit evidence eligibility, explicit eligibility reason, bounded statistical interpretation, and preserved method identity and observation lineage.
 
 It does not produce a universal score, ranking, business posture, recommendation, policy mutation, learning mutation, portfolio action, or external execution.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
