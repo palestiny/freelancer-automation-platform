@@ -4,60 +4,175 @@
 
 The initial architecture is a **Modular Monolith**.
 
-The system should keep business domains internally separated while avoiding distributed-system complexity until real requirements justify it.
+The system keeps business domains internally separated while avoiding distributed-system complexity until real requirements justify it.
+
+## Platform Shape
+
+The platform is a Business Automation OS initially validated through freelance work.
+
+Freelancing is an application/domain context, not the permanent architectural boundary.
+
+## Domain Areas
+
+### Opportunity Intelligence
+
+Owns:
+
+- external observation normalization
+- opportunity representation
+- six-dimensional evaluation
+- evidence and uncertainty
+- qualification result
+
+### Business Economics
+
+Owns:
+
+- economic assumptions
+- expected revenue
+- expected cost
+- expected profit
+- expected margin
+- profit per hour
+- risk-adjusted economics
+
+### Decision & Planning
+
+Future responsibility:
+
+- opportunity selection
+- portfolio allocation
+- capacity-aware planning
+- execution strategy selection
+
+### Capability & Execution
+
+Future responsibility:
+
+- capability registry
+- capability selection
+- cost/quality/reliability metadata
+- execution planning
+- execution monitoring
+
+AI providers and tools are capabilities, not domain owners.
+
+### Quality & Delivery
+
+Future responsibility:
+
+- quality gates
+- verification
+- delivery readiness
+- acceptance evidence
+- revision handling
+
+### Measurement & Learning
+
+Future responsibility:
+
+- expected vs actual
+- variance analysis
+- outcome metrics
+- capability performance
+- marketplace performance
+- learning signals
+
+### Experimentation
+
+Future responsibility:
+
+- hypotheses
+- controlled policy/strategy variants
+- experiment metrics
+- promotion/rejection decisions
+
+## Cross-Cutting Concerns
+
+- Policy
+- Risk
+- Auditability
+- Explainability
+- Autonomy level
+- Versioning
+- Resource constraints
+- Provenance
 
 ## High-Level Layers
 
-- API / Interface
+- Interface / API
 - Application
 - Domain
 - Infrastructure
 - External Platform Adapters
-- AI / Capability Orchestration
+- Capability / AI Integrations
 
-## Domain Candidates
-
-- Opportunity
-- Client
-- Opportunity Intelligence / Evaluation
-- Proposal / Pricing
-- Project
-- Execution
-- Communication
-- Revision
-- Quality Gate
-- Analytics / Business Intelligence
-- AI Operations
-- Experimentation / Release Management
-
-These are candidate boundaries, not permission to create modules without a demonstrated responsibility.
+Business meaning must remain independent from delivery mechanisms and infrastructure.
 
 ## Dependency Direction
 
-Business meaning should remain independent of delivery mechanisms and infrastructure. External platforms and AI providers are replaceable at explicit boundaries.
+**Business Meaning → Domain Model → Application Logic → Infrastructure → External Systems**
 
-## Marketplace Integration Strategy
+Domain logic must not depend on:
+
+- HTTP frameworks
+- databases/ORMs
+- marketplace SDKs
+- UI frameworks
+- AI providers
+
+## External Data Boundary
+
+**External Observation → Normalization → Data Quality → Analysis → Business Decision**
+
+Provider data is an observation, not automatically business truth.
+
+## Economic Boundary
+
+Economic assessment is derived from explicit assumptions and opportunity information.
+
+It must not mutate Opportunity identity.
+
+Expected economics and actual economics are distinct. Actual outcomes later feed the measurement and learning loop.
+
+## Marketplace Strategy
 
 The core domain is marketplace-independent.
 
-A marketplace is selected at runtime through configuration/policy. Multiple marketplaces may be enabled simultaneously. The domain must not encode assumptions that require a particular marketplace.
+Each marketplace is isolated behind a replaceable adapter responsible for provider-specific:
 
-Each marketplace is isolated behind a replaceable adapter boundary responsible for provider-specific concerns such as:
-- authentication and authorization
-- API/transport behavior
-- rate limits and provider constraints
-- mapping provider data into external observations
-- provider-specific submission/communication mechanics
-- provider-specific error handling
+- authentication
+- transport/API behavior
+- rate limits
+- data mapping
+- submission mechanics
+- provider-specific errors
 
-Marketplace integrations are independently evolvable capabilities. Their quality and business value can be evaluated using operational metrics, reports, user feedback, comments, and AI-assisted recommendations.
+Marketplace integrations are independently evolvable capabilities.
+
+## Autonomy Boundary
+
+Automation operates under explicit policy.
+
+Future autonomy levels:
+
+- L0 Observe
+- L1 Recommend
+- L2 Prepare
+- L3 Execute with Approval
+- L4 Execute Automatically within Policy
+- L5 Optimize within Policy
+
+AI cannot bypass the policy boundary.
 
 ## First Vertical Slice
 
-Marketplace-independent domain behavior:
+The current domain slices are:
 
-External Opportunity Observation → Normalization → Opportunity → Evaluation Policy → Evaluation Result.
+**External Opportunity Observation → Normalized Opportunity → Opportunity Evaluation**
 
-The first slice should validate the domain without requiring a real marketplace integration, persistence engine, API framework, dashboard, or AI provider.
+and
 
-A later integration slice can plug a concrete marketplace adapter into the established boundary without changing the core Opportunity Intelligence semantics.
+**Opportunity → Economic Estimate**
+
+No marketplace SDK, persistence, API, UI, or AI provider is required for these slices.
