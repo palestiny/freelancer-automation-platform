@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture — Economic Opportunity OS expansion approved; economic health and resource/capacity foundations established**
+**Phase 5 — Venture Validation & Experimentation — validation foundation implemented**
 
 ## Product Direction
 
@@ -31,6 +31,9 @@ Its first laboratory is freelance work, but the permanent product boundary is br
 - Resource Economics & Capacity design gate approved.
 - Resource usage and explicit resource-kind foundation implemented.
 - Human-time capacity snapshot foundation implemented.
+- Venture Validation & Experimentation design gate approved.
+- Provider-independent ValidationExperiment foundation implemented.
+- Explicit experiment outcomes and promotion/rejection decisions implemented.
 
 ## Opportunity Evaluation Model
 
@@ -277,3 +280,28 @@ Market observations do not become business truth automatically, and existing com
 4. Campaign Optimization & Budget Policy.
 5. Portfolio posture and allocation policy.
 6. Market Intelligence normalization, trend, and source-reliability follow-up.
+
+## Venture Validation & Experimentation
+
+The validation foundation now represents a measurable, bounded experiment independently of any provider.
+
+A ValidationExperiment preserves:
+
+- hypothesis
+- objective
+- success criterion
+- controlled variants
+- budget limit
+- explicit lifecycle
+
+ExperimentResult preserves:
+
+- outcome: VALIDATED / INVALIDATED / INCONCLUSIVE
+- observed measurement
+- success-criterion status
+- evidence statement
+- explicit decision: PROMOTE / REJECT / CONTINUE_TESTING
+
+An experiment result is evidence and does not silently mutate venture lifecycle, economics, policy, or portfolio posture.
+
+External execution, statistical inference, spending, scheduling, and persistence remain outside this slice.
