@@ -6,7 +6,7 @@ from .operational_measurement import LearningSignal, OperationalMeasurement
 class OperationalLearningPolicy:
     minimum_observations: int = 3
     minimum_average_relative_variance: float = 0.10
-    minimum_average_evidence_quality: float = 60
+    minimum_average_evidence_quality: float = 50
 
     def __post_init__(self) -> None:
         if self.minimum_observations <= 0:
