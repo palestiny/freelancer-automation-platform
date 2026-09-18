@@ -2,118 +2,116 @@
 
 ## Status
 
-**DESIGN IN PROGRESS — decisions requiring product-owner confirmation remain open.**
+**APPROVED — V1 domain direction committed; domain TDD in progress.**
 
-This document defines the proposed domain shape for the first vertical slice. It does not silently convert open questions into committed decisions.
-
-## 1. Concept
+## Concept
 
 Opportunity Intelligence answers:
 
-> "What freelance opportunities are available, what do we reliably know about each one, and how suitable is each opportunity according to the user's configured policy?"
+> What freelance opportunities are available, what do we reliably know about each one, and how suitable is each opportunity according to the user's configured policy?
 
 It is an analysis capability over opportunities, not the full freelancer lifecycle.
 
-## 2. Core Concepts
+## Core Concepts
 
 ### Opportunity
 
-Represents a freelance work opportunity as the platform understands it after normalization.
+Represents a freelance work opportunity after normalization.
 
-It should contain business-relevant information such as:
+It contains business-relevant information such as:
+
 - stable identity within its source/platform
 - title
 - description/requirements
 - source/platform identity
 - client reference when available
 - budget/pricing information when available
-- published/updated timestamps when available
-- required skills
+- timestamps when available
+- required capabilities
 - source URL
 - normalized metadata needed for qualification
 
-Opportunity does **not** contain:
-- proposal state
-- execution state
-- communication state
-- revision state
-- AI provider details
-- evaluation result as intrinsic identity
+Opportunity does not contain proposal, execution, communication, revision, AI-provider, or evaluation-result state.
 
 ### External Opportunity Observation
 
 Represents data received from a marketplace integration.
 
-Its purpose is to preserve what the external source reported before business interpretation.
-
-It may contain provider-specific fields and raw values.
-
-It should not be treated as the business truth merely because a provider supplied it.
+Provider data remains an observation until normalized and assessed.
 
 ### Normalized Opportunity
 
-Represents the platform's normalized interpretation of an external observation.
-
-Normalization should make equivalent concepts comparable across platforms while preserving provenance.
+Represents the platform's normalized interpretation of an external observation while preserving provenance.
 
 ### Opportunity Evaluation
 
-Represents a derived assessment of an opportunity against an evaluation policy.
+Represents a derived assessment against an Evaluation Policy.
 
-It should answer:
-- which criteria were evaluated
-- what evidence was used
-- what result each criterion produced
-- what uncertainties/data-quality limitations exist
-- the resulting qualification outcome
+It preserves:
 
-Evaluation is derived data, not part of the opportunity's immutable identity.
+- evaluated criteria
+- criterion outcomes
+- evidence
+- uncertainty
+- overall qualification outcome
 
 ### Evaluation Policy
 
 Represents configurable rules used to evaluate opportunities.
 
-The policy should be independent from a particular marketplace.
+The policy remains independent from a particular marketplace.
 
-The exact criteria and weighting model remain OPEN.
+## Committed V1 Evaluation Dimensions
 
-### Evaluation Result
+1. Eligibility
+2. Requirement Fit
+3. Estimated Effort
+4. Economic Fit
+5. Client / Project Risk
+6. Success Confidence
 
-The initial result should be explainable rather than a single unexplained score.
+These dimensions are the first evaluation model. They can evolve through explicit decisions and versioning.
 
-Candidate outcomes:
+## Committed Overall Outcomes
+
 - QUALIFIED
 - NOT_QUALIFIED
 - REVIEW_REQUIRED
 
-These names are **PROPOSED**, not yet committed.
+Criterion outcomes include:
 
-## 3. Responsibility
+- PASS
+- FAIL
+- INSUFFICIENT_DATA
+- NOT_APPLICABLE
+
+## Economic Boundary
+
+Economic Fit is one of the six Opportunity Intelligence dimensions.
+
+Reusable economic calculations belong to the separate Business Economics domain so they can later support pricing, resource planning, portfolio allocation, and actual-vs-expected measurement.
+
+## Responsibility
 
 ### Opportunity module
 
-Owns the business identity and normalized representation of an opportunity.
+Owns business identity and normalized opportunity representation.
 
 ### Opportunity Intelligence module
 
-Owns:
-- evaluation policy
-- evaluation process
-- evaluation evidence
-- qualification result
+Owns evaluation policy, evaluation process, evidence, and qualification result.
+
+### Business Economics module
+
+Owns reusable economic calculations and derived economic estimates.
 
 ### Platform Adapter
 
-Owns:
-- communication with an external marketplace
-- provider-specific authentication/integration details
-- mapping external observations into the platform boundary
+Owns provider-specific communication, authentication, transport, mapping, and submission mechanics.
 
 It does not decide whether an opportunity is good for the user.
 
-## 4. Boundary
-
-Proposed flow:
+## Boundary
 
 External Platform
 → Platform Adapter
@@ -121,79 +119,46 @@ External Platform
 → Normalization
 → Opportunity
 → Evaluation Policy + Evaluation
-→ API representation
+→ Economic Assessment
+→ later Decision/Planning
 
-The external adapter must not directly call evaluation business rules.
+The evaluator must not depend on marketplace SDKs or HTTP clients.
 
-The evaluation domain must not depend on marketplace SDKs or HTTP clients.
+## External Facts vs Derived Meaning
 
-## 5. External Facts vs Derived Meaning
-
-Example:
-
-**External fact**
+External fact:
 - marketplace reports budget = $500
 
-**Normalized fact**
-- budget represented as USD 500 with source provenance
+Normalized fact:
+- budget represented as USD 500 with provenance
 
-**Data-quality assessment**
+Data-quality assessment:
 - budget is missing / ambiguous / inconsistent / valid
 
-**Derived assessment**
-- estimated effort may fit configured target range
+Derived assessment:
+- economic and effort calculations
 
-**Business decision**
-- qualification result according to the user's policy
+Business decision:
+- qualification or later pursuit decision according to explicit policy
 
-These stages must remain distinguishable.
+These stages remain distinguishable.
 
-## 6. Alternatives Considered
+## Alternatives Rejected for V1
 
-### Alternative A — Put evaluation directly inside Opportunity
+### Evaluation inside Opportunity
 
-**Trade-off:** Simple initially, but mixes identity/representation with policy-driven analysis and makes repeated evaluations under different policies harder.
+Rejected because it mixes immutable opportunity identity with policy-driven derived analysis.
 
-### Alternative B — Separate Opportunity and Evaluation
+### Generic AI Agent as domain owner
 
-**Trade-off:** Slightly more domain structure, but keeps derived analysis independent and supports multiple policies/evaluation versions.
+Rejected because business rules, integrations, reasoning, and execution become coupled.
 
-**Current proposal:** Alternative B.
+## Open Decisions
 
-### Alternative C — One generic AI Agent owns discovery and evaluation
+- First marketplace.
+- Persistence/API/UI technology.
+- Opportunity identity behavior for source identifier changes and republishing.
+- Client representation.
+- Advanced numeric ranking.
 
-**Trade-off:** Fast demo path, but couples business rules, external integrations, reasoning, and execution. It conflicts with the committed architecture.
-
-**Decision:** Not selected for this architecture.
-
-## 7. Assumptions
-
-- An opportunity can be evaluated more than once as its data or policy changes.
-- External marketplace data can be incomplete or inconsistent.
-- Evaluation must preserve enough evidence to explain its result.
-- Multiple marketplaces may eventually provide different representations of similar opportunities.
-
-These remain assumptions unless explicitly committed.
-
-## 8. Open Decisions
-
-1. **Evaluation criteria:** Which dimensions are required for the first version?
-2. **Scoring:** Should the first version use categorical rule outcomes, numeric scoring, or both?
-3. **Policy configuration:** Static application configuration, persisted user policy, or another model?
-4. **Opportunity identity:** How should an opportunity be identified when the source changes identifiers or republishes a listing?
-5. **Client representation:** Is Client a separate domain entity now, or only a reference in the first slice?
-6. **First marketplace:** Which platform should provide the first real adapter?
-7. **Persistence/API technology:** These can remain open until the domain behavior is stable.
-
-## 9. Proposed First TDD Behaviors
-
-Before infrastructure, tests should establish domain behavior for:
-
-1. An external observation can be normalized into an opportunity without losing source identity.
-2. Missing optional external data does not automatically make an opportunity invalid.
-3. Evaluation produces explicit criterion-level evidence.
-4. Evaluation does not modify the opportunity's identity.
-5. The same opportunity can be evaluated under a different policy.
-6. Evaluation can represent uncertainty or insufficient data rather than inventing a fact.
-
-These are proposed behaviors for the first implementation gate.
+These remain separate from the committed V1 evaluation dimensions.
