@@ -38,6 +38,7 @@ def aggregate(
             evidence_quality=evidence_quality,
             business_id=business_id,
             source_type=source_type,
+            source_type=source_type,
         )
         for i in range(count)
     )
