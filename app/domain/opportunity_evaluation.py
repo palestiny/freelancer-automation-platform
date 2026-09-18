@@ -45,16 +45,20 @@ class OpportunityEvaluator:
     ) -> OpportunityEvaluation:
         eligibility = self._evaluate_eligibility(opportunity, policy)
 
-        overall = (
-            OverallOutcome.QUALIFIED
-            if eligibility.outcome is CriterionOutcome.PASS
-            else OverallOutcome.NOT_QUALIFIED
-        )
+        overall = self._overall_outcome(eligibility.outcome)
 
         return OpportunityEvaluation(
             overall_outcome=overall,
             criteria={"eligibility": eligibility},
         )
+
+    @staticmethod
+    def _overall_outcome(outcome: CriterionOutcome) -> OverallOutcome:
+        if outcome is CriterionOutcome.PASS:
+            return OverallOutcome.QUALIFIED
+        if outcome is CriterionOutcome.INSUFFICIENT_DATA:
+            return OverallOutcome.REVIEW_REQUIRED
+        return OverallOutcome.NOT_QUALIFIED
 
     def _evaluate_eligibility(
         self,
