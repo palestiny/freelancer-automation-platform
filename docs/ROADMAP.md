@@ -241,3 +241,7 @@ Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and
 ### Phase 16 — Historical Performance Aggregation
 
 The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference, trend modeling, persistence, and automated learning remain future work.
+
+### Phase 16 — Performance Trend & Baseline Analysis
+
+Added a deterministic comparison foundation for explicit current and baseline windows. Comparisons report descriptive average changes and preserve observation provenance. Forecasting, significance testing, seasonality, anomaly detection, and policy decisions remain future work.
