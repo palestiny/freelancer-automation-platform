@@ -306,4 +306,4 @@ Current foundation is complete for the deterministic evidence/measurement slice.
 
 ## Phase 17 — Statistical Learning & Inference
 
-**Status:** Design gate proposed; implementation intentionally not started. Phase 17 must select a concrete statistical use case and define assumptions, applicability, insufficient-data behavior, method provenance, and explicit handoff before RED/GREEN implementation begins.
+**Status:** First statistical mean-uncertainty use case implemented and verified. Student's t confidence intervals are available as provider-independent evidence artifacts; further statistical methods remain gated by dedicated design.
