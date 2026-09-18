@@ -582,3 +582,8 @@ Phase 16 deterministic measurement/evidence scope is closed. The next candidate 
 ## Current Implementation Addition — Phase 17 Statistical Mean Uncertainty Hardening
 
 The first Phase 17 statistical use case is now hardened. Applicability is explicitly consumer-declared; invalid context and invalid values take precedence over applicability failure; observation IDs must be unique; confidence levels are validated; and Student's t numerical evaluation has standard-library regression coverage.
+
+
+## Current Implementation Addition — Phase 17 Historical Mean Comparison
+
+The second Phase 17 statistical use case is now implemented and verified: a provider-independent two-sided Welch's two-sample t-test compares means from two explicit, non-overlapping historical windows for the same business/metric/unit. V1 uses alpha 0.05, requires at least two observations per window, preserves both observation lineages, and keeps applicability consumer-declared. The result remains evidence only and does not mutate policy, learning, business state, or execution.
