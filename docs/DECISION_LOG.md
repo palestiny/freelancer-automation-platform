@@ -737,3 +737,10 @@ The first V1 statistical method uses the Python standard library and does not in
 **Status:** COMMITTED
 
 The next Phase 17 statistical use case compares observed means from two explicit, non-overlapping historical windows for the same business, metric, and unit. V1 uses a two-sided Welch's two-sample t-test with alpha = 0.05 and a mathematical minimum of two observations per window. Applicability assumptions remain consumer-declared; the domain does not infer independence or distributional assumptions. The result remains an evidence artifact and does not mutate policy, learning, business state, or execution.
+
+
+## D-119 — Phase 17 Current Statistical Method Scope Is Closed
+
+**Status:** COMMITTED
+
+The current Phase 17 V1 statistical surface is closed after implementing and hardening two bounded methods: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Additional statistical methods or automatic consumers require a concrete downstream use case and dedicated design gate. Statistical outputs remain evidence artifacts and do not replace raw evidence, source reliability, policy, or execution boundaries.
