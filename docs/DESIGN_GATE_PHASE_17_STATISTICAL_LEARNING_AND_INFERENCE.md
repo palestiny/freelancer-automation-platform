@@ -131,3 +131,30 @@ The statistical result is an evidence artifact. It may later be composed with pe
 ### Implementation gate
 
 Runtime implementation remains blocked until this proposal is reviewed against the repository's existing aggregate/window contracts and RED tests define every invalid/insufficient-data path above. The confidence level, method name, and policy ownership must be explicit in code rather than hidden constants.
+
+
+## Runtime Status
+
+**Status: APPROVED — V1 first statistical use case implemented.**
+
+The first Phase 17 statistical slice is now implemented as a provider-independent domain evidence artifact for uncertainty around an observed historical mean inside an explicit `PerformanceWindow`.
+
+### Implemented contract
+
+- Student's t confidence interval for a population mean.
+- Default confidence level: 95%.
+- Mathematical minimum: 2 valid observations.
+- Explicit statuses for insufficient observations, invalid context, invalid values, and applicability.
+- Observation IDs are preserved as authoritative lineage.
+- Business, metric, unit, and explicit time window are preserved.
+- Runtime implementation uses the Python standard library; no statistical provider dependency was introduced.
+
+### Assumptions and boundary
+
+The result is an inferential estimate under the method's stated assumptions. The domain does not claim to prove independence or normality from raw observations. Consumers must treat those assumptions as part of applicability context and must not interpret a 95% confidence interval as a probability statement about the fixed population mean.
+
+The implementation does not perform forecasting, causal inference, anomaly detection, automatic policy mutation, learning-policy mutation, portfolio allocation, or external execution.
+
+### Verification
+
+PR #17 was merged after GitHub Actions CI run **277** completed successfully with the full test suite: **206 passed**.

@@ -696,6 +696,25 @@ Statistical inference is not an implicit extension of deterministic Phase 16 mea
 
 ## D-112 — Phase 17 Uses an Explicit t-Interval Contract
 
-**Status:** PROPOSED
+**Status:** COMMITTED
 
-The first statistical method candidate is a Student's t confidence interval for an observed mean. V1 proposes a 95% confidence level and a mathematical applicability floor of two valid observations. Invalid, insufficient, or inapplicable data must produce explicit outcomes; no fallback statistical method is selected automatically. This proposal does not authorize runtime implementation until the design gate and RED tests are closed.
+The first statistical method candidate is a Student's t confidence interval for an observed mean. V1 proposes a 95% confidence level and a mathematical applicability floor of two valid observations. Invalid, insufficient, or inapplicable data must produce explicit outcomes; no fallback statistical method is selected automatically. The contract was closed for the first use case and implemented in `app/domain/statistical_mean_uncertainty.py`. Runtime scope remains limited to this use case.
+
+
+## D-113 — Statistical Results Are Evidence Artifacts, Not Policy
+
+**Status:** COMMITTED
+
+The Phase 17 mean-uncertainty result is an evidence artifact. Producing a confidence interval does not mutate performance trends, learning signals, policy, business state, lifecycle state, or execution state.
+
+## D-114 — Statistical Applicability Assumptions Are Not Silently Proven
+
+**Status:** COMMITTED
+
+The domain implementation does not claim to prove independence or normality from operational observations. Consumers must treat the Student's t assumptions as explicit applicability context rather than inferred facts.
+
+## D-115 — Statistical Method Dependencies Must Remain Explicit
+
+**Status:** COMMITTED
+
+The first V1 statistical method uses the Python standard library and does not introduce a statistical provider dependency. Any future external statistical dependency requires an explicit design decision.
