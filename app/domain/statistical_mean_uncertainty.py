@@ -178,7 +178,7 @@ def _student_t_critical(confidence_level: float, degrees_of_freedom: int) -> flo
     return (low + high) / 2
 
 
-def _student_t_cdf(x: float, degrees_of_freedom: int) -> float:
+def _student_t_cdf(x: float, degrees_of_freedom: float) -> float:
     if degrees_of_freedom < 1:
         raise ValueError("degrees_of_freedom must be positive")
     if x == 0:
