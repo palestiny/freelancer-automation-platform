@@ -141,3 +141,22 @@ def test_zero_change_with_statistical_detection_is_not_called_alignment():
     )
     assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
     assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_result_rejects_duplicate_statistical_lineage():
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+
+    try:
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=("x", "x"),
+        )
+    except ValueError as exc:
+        assert "unique" in str(exc)
+    else:
+        raise AssertionError("duplicate statistical lineage must be rejected")
