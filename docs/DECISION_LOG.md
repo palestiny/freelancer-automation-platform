@@ -764,3 +764,8 @@ The evidence composition layer must not label descriptive and inferential eviden
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-122 — Evidence Decision Records Are Explicit, Not Inferred
+
+Decision records preserve an externally made decision and its evidence lineage. The evidence layer must not infer ACCEPT, REJECT, or DEFER outcomes, and recording a decision does not mutate business, policy, portfolio, financial, or execution state.
