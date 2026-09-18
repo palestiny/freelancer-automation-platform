@@ -110,6 +110,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
             interpretation=_interpretation(comparison),
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     return _compose(
