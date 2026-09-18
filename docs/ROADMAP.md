@@ -112,7 +112,7 @@ Build:
 - delivery preparation
 - execution monitoring
 
-**Status:** Planned. Core capability/execution orchestration is not yet implemented.
+**Status:** First statistical mean-uncertainty use case implemented and verified. Further methods remain gated by explicit design. Core capability/execution orchestration is not yet implemented.
 
 ## Phase 9 — Client Communication & Service Operations
 
