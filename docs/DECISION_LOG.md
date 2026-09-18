@@ -267,3 +267,23 @@ Advertising networks, social networks, communication providers, content tools, a
 Real ad spend, account creation, credentials, public publishing, and customer communication are external actions governed by policy and authorization.
 
 Automatic financial spend is not introduced by the marketing domain foundation. High-impact or irreversible actions may require human approval under the existing progressive-autonomy model.
+
+## D-039 — Market Intelligence Preserves Observation Boundaries
+
+**Status:** COMMITTED
+
+Market Intelligence separates external observations from derived demand signals and downstream opportunity/business decisions.
+
+External observations preserve provenance and observation time. Demand signals are derived assessments with explicit evidence quality and supporting-observation counts.
+
+## D-040 — Existing Demand Is Valid Discovery Input
+
+**Status:** COMMITTED
+
+Demand discovery must support both emerging demand and established demand in competitive markets. Existing competition does not invalidate demand; it becomes evidence/context for later venture and business-model evaluation.
+
+## D-041 — Market Intelligence Is Provider-Independent
+
+**Status:** COMMITTED
+
+Core Market Intelligence does not depend on a search engine, scraping provider, social network, marketplace, data vendor, or AI provider. External research enters through replaceable adapters/capabilities.
