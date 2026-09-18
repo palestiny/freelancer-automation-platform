@@ -323,3 +323,15 @@ Paid advertising can spend money and social/customer actions can create external
 - AI may prepare or recommend content but cannot bypass policy.
 
 No real ad spend, credentials, social account creation, or provider API is part of the current domain-only implementation.
+
+## Market Intelligence Boundary
+
+The first Market Intelligence slice is provider-independent:
+
+**External Observation → MarketObservation → DemandSignal → Opportunity Hypothesis**
+
+MarketObservation preserves provenance and observation time.
+
+DemandSignal preserves derived demand strength and evidence quality plus the number of supporting observations.
+
+The domain intentionally does not implement scraping, search APIs, social APIs, marketplace APIs, or AI research providers. Those belong behind replaceable external capabilities.
