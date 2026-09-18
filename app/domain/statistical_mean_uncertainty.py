@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from math import exp, isfinite, lgamma, log, pi, sqrt
+from math import exp, isfinite, lgamma, log, sqrt
 from statistics import mean
 from typing import Iterable
 
@@ -239,6 +239,3 @@ def _continued_fraction_beta(x: float, a: float, b: float) -> float:
             return h
 
     raise ArithmeticError("incomplete beta continued fraction did not converge")
-
-
-def _student_t_pdf(x: float, degrees_of_freedom: int) -> float:
