@@ -1,5 +1,3 @@
-import pytest
-
 from app.domain.opportunity import Opportunity
 from app.domain.opportunity_evaluation import (
     EvaluationPolicy,
