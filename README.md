@@ -4,15 +4,15 @@ Professional automation platform for the freelancer lifecycle.
 
 ## Current Phase
 
-**Phase 0 — Product & Architecture**
+**Phase 0 — Product & Architecture — Gate Approved; Domain TDD in progress**
 
-The project is currently completing the Opportunity Intelligence Design Gate. Implementation has intentionally not started.
+The Opportunity Intelligence Design Gate is closed. The first domain TDD slice is being implemented without marketplace, persistence, API, UI, or AI dependencies.
 
 ## Product Direction
 
-The platform is being designed as a controlled autonomous freelancer lifecycle system that can eventually:
+The platform is a controlled autonomous freelancer lifecycle system that can eventually:
 
-- discover freelance opportunities
+- discover freelance opportunities across multiple marketplaces
 - evaluate opportunities against configurable user policy
 - prepare and manage proposals
 - plan and execute projects using replaceable AI/tool capabilities
@@ -20,16 +20,31 @@ The platform is being designed as a controlled autonomous freelancer lifecycle s
 - handle revisions
 - verify and deliver work
 - learn from outcomes and operational metrics
+- measure and improve marketplace integrations using reports, feedback, comments, and AI-assisted recommendations
 
-The first implementation slice is intentionally much smaller:
+Marketplace selection is runtime configuration. No single marketplace is a core architectural dependency.
 
-**Opportunity Discovery → Normalization → Evaluation → Persistence → API/Dashboard**
+## First Domain Slice
+
+**Opportunity → Evaluation Policy → Evaluation Result**
+
+Current behavior includes eligibility evaluation, criterion evidence, explicit uncertainty, qualification outcomes, and policy-independent re-evaluation.
+
+The first implementation remains domain-only:
+
+- no marketplace SDK
+- no real marketplace credentials
+- no persistence
+- no HTTP/API
+- no UI
+- no AI provider
 
 ## Architecture Direction
 
 - Modular monolith initially.
 - Domain logic remains independent from HTTP, persistence, marketplace SDKs, UI, and AI providers.
 - External freelance platforms are isolated behind adapters/ports.
+- Marketplace integrations are independently evolvable capabilities.
 - AI is a replaceable capability, not the owner of business architecture.
 - Evaluation results must be explainable and preserve evidence/uncertainty.
 
@@ -39,12 +54,14 @@ The first implementation slice is intentionally much smaller:
 
 See docs/README.md for the documentation map and source-of-truth rules.
 
-## Current Gate
+## Current TDD Progress
 
-**Opportunity Intelligence Design Gate — OPEN**
+- Eligibility PASS
+- Eligibility FAIL
+- Missing evidence → REVIEW_REQUIRED
+- Criterion evidence preservation
+- Opportunity identity preservation
+- Policy independence
+- Budget eligibility boundaries
 
-The proposed evaluation model and gate-resolution documents are intentionally marked as proposals. Product-owner decisions must be approved before they become committed domain behavior.
-
-Once the gate is closed, implementation starts with domain TDD:
-
-**RED → GREEN → REFACTOR**
+Tests are executed automatically through GitHub Actions.
