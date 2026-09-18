@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from math import exp, isfinite, lgamma, log, pi, sqrt
+from math import exp, isfinite, lgamma, log, sqrt
 from statistics import mean
 from typing import Iterable
 
@@ -167,32 +167,75 @@ def _student_t_critical(confidence_level: float, degrees_of_freedom: int) -> flo
 
 
 def _student_t_cdf(x: float, degrees_of_freedom: int) -> float:
+    if degrees_of_freedom < 1:
+        raise ValueError("degrees_of_freedom must be positive")
     if x == 0:
         return 0.5
-    sign = 1 if x > 0 else -1
-    area = _integrate_student_t_pdf(0.0, abs(x), degrees_of_freedom)
-    return 0.5 + sign * area
+
+    v = float(degrees_of_freedom)
+    a = v / 2.0
+    b = 0.5
+    z = v / (v + x * x)
+    beta = _regularized_incomplete_beta(z, a, b)
+    return 1.0 - 0.5 * beta if x > 0 else 0.5 * beta
 
 
-def _integrate_student_t_pdf(start: float, end: float, degrees_of_freedom: int) -> float:
-    intervals = 2048
-    h = (end - start) / intervals
-    total = _student_t_pdf(start, degrees_of_freedom) + _student_t_pdf(end, degrees_of_freedom)
-    total += 4 * sum(
-        _student_t_pdf(start + i * h, degrees_of_freedom)
-        for i in range(1, intervals, 2)
-    )
-    total += 2 * sum(
-        _student_t_pdf(start + i * h, degrees_of_freedom)
-        for i in range(2, intervals, 2)
-    )
-    return total * h / 3
+def _regularized_incomplete_beta(x: float, a: float, b: float) -> float:
+    if not 0.0 <= x <= 1.0:
+        raise ValueError("beta input must be between zero and one")
+    if x == 0.0:
+        return 0.0
+    if x == 1.0:
+        return 1.0
+
+    if x < (a + 1.0) / (a + b + 2.0):
+        return _beta_front_factor(x, a, b) * _continued_fraction_beta(x, a, b) / a
+
+    return 1.0 - _beta_front_factor(1.0 - x, b, a) * _continued_fraction_beta(1.0 - x, b, a) / b
 
 
-def _student_t_pdf(x: float, degrees_of_freedom: int) -> float:
-    coefficient = exp(
-        lgamma((degrees_of_freedom + 1) / 2)
-        - lgamma(degrees_of_freedom / 2)
-        - 0.5 * (log(degrees_of_freedom) + log(pi))
-    )
-    return coefficient * (1 + (x * x) / degrees_of_freedom) ** (-(degrees_of_freedom + 1) / 2)
+def _beta_front_factor(x: float, a: float, b: float) -> float:
+    return exp(a * log(x) + b * log(1.0 - x) - lgamma(a) - lgamma(b) + lgamma(a + b))
+
+
+def _continued_fraction_beta(x: float, a: float, b: float) -> float:
+    # Lentz's method for the incomplete-beta continued fraction.
+    max_iterations = 200
+    epsilon = 3.0e-14
+    tiny = 1.0e-300
+
+    c = 1.0
+    d = 1.0 - (a + b) * x / (a + 1.0)
+    if abs(d) < tiny:
+        d = tiny
+    d = 1.0 / d
+    h = d
+
+    for m in range(1, max_iterations + 1):
+        m_float = float(m)
+        m2 = 2.0 * m_float
+        numerator = m_float * (b - m_float) * x / ((a - 1.0 + m2) * (a + m2))
+        d = 1.0 + numerator * d
+        if abs(d) < tiny:
+            d = tiny
+        c = 1.0 + numerator / c
+        if abs(c) < tiny:
+            c = tiny
+        d = 1.0 / d
+        h *= d * c
+
+        numerator = -(a + m_float) * (a + b + m_float) * x / ((a + m2) * (a + 1.0 + m2))
+        d = 1.0 + numerator * d
+        if abs(d) < tiny:
+            d = tiny
+        c = 1.0 + numerator / c
+        if abs(c) < tiny:
+            c = tiny
+        d = 1.0 / d
+        delta = d * c
+        h *= delta
+
+        if abs(delta - 1.0) < epsilon:
+            return h
+
+    raise ArithmeticError("incomplete beta continued fraction did not converge")
