@@ -1,6 +1,6 @@
 # Design Gate — Phase 17 Statistical Learning & Inference
 
-**Status:** APPROVED — V1 first statistical use case implemented; this gate records the Phase 17 boundary and remains closed for additional methods until a dedicated use case is approved.
+**Status:** CLOSED — current V1 statistical-method boundary approved. Additional methods require a concrete downstream consumer and a dedicated design gate.
 
 ## Purpose
 
@@ -63,7 +63,7 @@ This gate does not authorize:
 
 ## Decision Gate
 
-For additional statistical methods, no implementation should begin until a concrete statistical use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
+The current Phase 17 method boundary is closed. For any additional statistical method, no implementation should begin until a concrete downstream consumer/use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
 
 Phase 16 remains closed and unchanged while this gate is open.
 
@@ -158,3 +158,8 @@ The implementation does not perform forecasting, causal inference, anomaly detec
 ### Verification
 
 PR #17 was merged after GitHub Actions CI run **277** completed successfully with the full test suite: **206 passed**.
+
+
+## Closure State
+
+The current V1 statistical surface is intentionally closed after two bounded methods. The next Phase 17 extension must be consumer-driven rather than method-driven.
