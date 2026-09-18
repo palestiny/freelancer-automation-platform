@@ -139,7 +139,7 @@ Phase 16 — Operational Measurement & Learning Integration is implemented throu
 
 The current boundary remains domain-only. Statistical inference, persistence, provider integration, automatic experiment execution, automatic policy mutation, and financial execution remain outside the implementation.
 
-Phase 17's first statistical slice is implemented and hardened through explicit applicability, validation precedence, lineage uniqueness, confidence-level validation, and standard-library numerical regression coverage. Additional statistical methods remain gated by dedicated use cases. No forecasting, causal inference, persistence, provider integration, policy mutation, or external execution was introduced.
+Phase 17's statistical surface is closed and now has bounded downstream consumers: statistical evidence composition, descriptive/inferential performance evidence composition, and explicit evidence decision recording. These consumers preserve evidence lineage and do not generate or execute decisions.
 
 
 ## Opportunity Evaluation Model
@@ -641,3 +641,8 @@ The platform now has a bounded downstream evidence-composition layer that combin
 ## Explicit Evidence Decision Records
 
 V1 now has a provider-independent `EvidenceDecisionRecord` for recording an explicit decision against preserved evidence references. It records the decision maker, timestamp, outcome, statement, rationale, and evidence lineage. It never generates the decision, mutates policy, executes an action, or allocates capital.
+
+
+## Explicit Evidence Decision Recording
+
+`EvidenceDecisionRecord` is implemented as a non-generating domain artifact. It records an explicitly supplied outcome, statement, rationale, decision maker, timestamp, and evidence IDs. It validates structure and lineage only; it does not recommend, authorize, mutate policy, allocate capital, or execute actions.
