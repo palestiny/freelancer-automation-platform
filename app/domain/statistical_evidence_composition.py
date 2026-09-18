@@ -32,6 +32,10 @@ class StatisticalEvidenceComposition:
     alpha: float
     first_window: PerformanceWindow
     second_window: PerformanceWindow
+    current_evidence_quality: float
+    baseline_evidence_quality: float
+    current_source_reliability: SourceReliabilityAssessment
+    baseline_source_reliability: SourceReliabilityAssessment
 
     def __post_init__(self) -> None:
         if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
@@ -42,6 +46,9 @@ class StatisticalEvidenceComposition:
             raise ValueError("alpha must be between zero and one")
         if self.first_window.end > self.second_window.start:
             raise ValueError("statistical evidence windows must not overlap")
+        for name, value in (("current_evidence_quality", self.current_evidence_quality), ("baseline_evidence_quality", self.baseline_evidence_quality)):
+            if not 0 <= value <= 100:
+                raise ValueError(f"{name} must be between 0 and 100")
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
         if len(set(self.observation_ids)) != len(self.observation_ids):
@@ -76,6 +83,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.STATISTICAL_RESULT_NOT_APPLICABLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICAL_RESULT_NOT_APPLICABLE,
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     if (
@@ -87,6 +98,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_EVIDENCE_QUALITY,
             interpretation=_interpretation(comparison),
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     if not current_source_reliability.eligible or not baseline_source_reliability.eligible:
@@ -95,6 +110,10 @@ def compose_statistical_evidence(
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
             interpretation=_interpretation(comparison),
+            current_evidence_quality=current_evidence_quality,
+            baseline_evidence_quality=baseline_evidence_quality,
+            current_source_reliability=current_source_reliability,
+            baseline_source_reliability=baseline_source_reliability,
         )
 
     return _compose(
@@ -102,6 +121,10 @@ def compose_statistical_evidence(
         eligible=True,
         reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
         interpretation=_interpretation(comparison),
+        current_evidence_quality=current_evidence_quality,
+        baseline_evidence_quality=baseline_evidence_quality,
+        current_source_reliability=current_source_reliability,
+        baseline_source_reliability=baseline_source_reliability,
     )
 
 
@@ -117,6 +140,10 @@ def _compose(
     eligible: bool,
     reason: StatisticalEvidenceEligibilityReason,
     interpretation: StatisticalEvidenceInterpretation,
+    current_evidence_quality: float,
+    baseline_evidence_quality: float,
+    current_source_reliability: SourceReliabilityAssessment,
+    baseline_source_reliability: SourceReliabilityAssessment,
 ) -> StatisticalEvidenceComposition:
     return StatisticalEvidenceComposition(
         business_id=comparison.business_id,
@@ -132,4 +159,8 @@ def _compose(
         alpha=comparison.alpha,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
+        current_evidence_quality=current_evidence_quality,
+        baseline_evidence_quality=baseline_evidence_quality,
+        current_source_reliability=current_source_reliability,
+        baseline_source_reliability=baseline_source_reliability,
     )
