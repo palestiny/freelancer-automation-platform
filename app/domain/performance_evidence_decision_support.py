@@ -38,6 +38,16 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not self.business_id.strip():
+            raise ValueError("business_id cannot be empty")
+        if not self.metric_name.strip():
+            raise ValueError("metric_name cannot be empty")
+        if not self.unit.strip():
+            raise ValueError("unit cannot be empty")
+        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
+            raise ValueError("statistical_observation_ids must be unique")
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
 
