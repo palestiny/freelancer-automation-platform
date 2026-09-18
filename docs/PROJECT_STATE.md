@@ -631,3 +631,8 @@ V1 now includes a bounded downstream evidence-composition layer combining determ
 ## Reconciliation Note
 
 Performance evidence decision support is implemented and CI-verified on main. This document records that state explicitly for future sessions.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
