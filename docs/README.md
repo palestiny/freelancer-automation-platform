@@ -86,3 +86,11 @@ External ad/social execution remains outside the current domain-only boundary.
 - Provider-independent RevenueContract and RevenueEvent implemented.
 - Recurring revenue requires an explicit period.
 - Payment execution and reconciliation remain outside the domain.
+
+
+## Social Presence & Customer Communication
+
+- Approved design gate.
+- Provider-independent presence and communication models implemented.
+- Draft, authorization, escalation, and sent-message boundaries are explicit.
+- Provider credentials and external sending remain outside the domain.
