@@ -230,11 +230,20 @@ Build statistical evidence capabilities only through concrete, independently gat
 
 **Status:** First use case implemented and hardened: Student's t confidence interval for an observed historical mean. Additional statistical methods require a dedicated design gate.
 
-### Phase 17 — First Statistical Use Case: Mean Uncertainty
+### Phase 17 — Statistical Learning & Inference
 
-Implemented with explicit confidence level, minimum sample size, result statuses, consumer-declared applicability, validation precedence, unique observation lineage, and standard-library numerical regression coverage.
+**Status:** CLOSED for the current V1 statistical-method boundary.
 
-No forecasting, causal inference, anomaly detection, policy mutation, portfolio allocation, persistence, or external execution is included.
+Implemented and verified:
+- Student's t mean uncertainty for an explicit historical mean.
+- Welch's two-sample historical mean comparison for two explicit non-overlapping windows.
+- explicit applicability and validation precedence.
+- unique observation lineage and method provenance.
+- standard-library numerical hardening and regression coverage.
+
+No forecasting, causal inference, anomaly detection, automatic method selection, policy mutation, portfolio allocation, persistence, or external execution is included.
+
+**Next boundary:** identify a concrete downstream consumer of statistical evidence before adding another statistical method or automatic integration.
 
 ## Guiding Rule
 

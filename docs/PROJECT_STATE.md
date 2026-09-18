@@ -587,3 +587,8 @@ The first Phase 17 statistical use case is now hardened. Applicability is explic
 ## Current Implementation Addition — Phase 17 Historical Mean Comparison
 
 The second Phase 17 statistical use case is now implemented and verified: a provider-independent two-sided Welch's two-sample t-test compares means from two explicit, non-overlapping historical windows for the same business/metric/unit. V1 uses alpha 0.05, requires at least two observations per window, preserves both observation lineages, and keeps applicability consumer-declared. The result remains evidence only and does not mutate policy, learning, business state, or execution.
+
+
+## Phase 17 Closure — Current Statistical Method Boundary
+
+Phase 17's current V1 statistical-method surface is closed. It contains Student's t mean uncertainty and Welch's two-sample historical mean comparison. Both are provider-independent evidence artifacts with explicit assumptions, statuses, context, lineage, and non-executing boundaries. Further statistical methods require a concrete downstream consumer and dedicated design gate.
