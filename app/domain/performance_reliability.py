@@ -43,16 +43,16 @@ class PerformanceSourceReliabilityPolicy:
 @dataclass(frozen=True)
 class SourceReliabilityAssessment:
     eligible: bool
-    reason: str
+    reason: SourceReliabilityReason
     minimum_reliability: int | None
 
     def __post_init__(self) -> None:
-        if self.reason not in {
-            SourceReliabilityReason.ELIGIBLE,
-            SourceReliabilityReason.INSUFFICIENT_RELIABILITY,
-            SourceReliabilityReason.MISSING_SOURCE_POLICY,
-        }:
-            raise ValueError("unknown source reliability reason")
+        if not isinstance(self.reason, SourceReliabilityReason):
+            raise TypeError("reason must be a SourceReliabilityReason")
+        if (self.eligible and self.reason is not SourceReliabilityReason.ELIGIBLE) or (
+            not self.eligible and self.reason is SourceReliabilityReason.ELIGIBLE
+        ):
+            raise ValueError("eligible state must match reliability reason")
         if self.minimum_reliability is not None and not 0 <= self.minimum_reliability <= 100:
             raise ValueError("minimum_reliability must be between 0 and 100")
 

@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import datetime, timedelta
 
 import pytest
@@ -229,3 +230,34 @@ def test_comparison_rejects_unconfigured_current_source_when_reliability_is_requ
 
     assert result.trend is None
     assert result.rejection_reason is ComparisonRejectionReason.MISSING_CURRENT_SOURCE_RELIABILITY_POLICY
+
+
+
+def test_comparison_accepts_same_provenance_in_different_order():
+    baseline = aggregate(start_day=0, value=10)
+    current = aggregate(start_day=1, value=15)
+    current = replace(
+        current,
+        source_types=(
+            PerformanceSourceType.REVENUE,
+            PerformanceSourceType.OPERATIONAL,
+        ),
+    )
+    baseline = replace(
+        baseline,
+        source_types=(
+            PerformanceSourceType.OPERATIONAL,
+            PerformanceSourceType.REVENUE,
+        ),
+    )
+
+    result = assess_performance_comparison(
+        current=current,
+        baseline=baseline,
+        baseline_policy=PerformanceBaselinePolicy(),
+        comparison_policy=PerformanceComparisonPolicy(),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.trend is not None
+    assert result.rejection_reason is None

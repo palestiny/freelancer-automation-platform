@@ -127,3 +127,22 @@ def _aggregate(
         average_relative_variance=None,
         average_evidence_quality=80,
     )
+
+
+
+def test_reliability_assessment_rejects_inconsistent_state():
+    from app.domain.performance_reliability import SourceReliabilityAssessment
+
+    with pytest.raises(ValueError):
+        SourceReliabilityAssessment(
+            eligible=True,
+            reason=SourceReliabilityReason.INSUFFICIENT_RELIABILITY,
+            minimum_reliability=50,
+        )
+
+    with pytest.raises(ValueError):
+        SourceReliabilityAssessment(
+            eligible=False,
+            reason=SourceReliabilityReason.ELIGIBLE,
+            minimum_reliability=80,
+        )
