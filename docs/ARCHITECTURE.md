@@ -418,3 +418,12 @@ The campaign domain separates performance observation from optimization policy a
 The V1 optimization foundation owns changeable thresholds and non-executing recommendations. Budget limits are hard safety constraints. Insufficient evidence cannot produce a budget-changing recommendation.
 
 It does not own ad-provider APIs, credentials, payment execution, statistical attribution, or automatic spend.
+
+
+## Business Operations & Multi-Business Execution
+
+Business operations now have an explicit provider-independent domain foundation:
+
+**Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
+
+Business identity is separate from operational state. Each cycle and work item belongs to one business, preventing cross-business execution and measurement contamination. Scheduling, workers, provider APIs, credentials, payments, and AI remain outside the domain.
