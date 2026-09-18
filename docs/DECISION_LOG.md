@@ -701,6 +701,13 @@ Statistical inference is not an implicit extension of deterministic Phase 16 mea
 The first statistical method candidate is a Student's t confidence interval for an observed mean. V1 proposes a 95% confidence level and a mathematical applicability floor of two valid observations. Invalid, insufficient, or inapplicable data must produce explicit outcomes; no fallback statistical method is selected automatically. The contract was closed for the first use case and implemented in `app/domain/statistical_mean_uncertainty.py`. Runtime scope remains limited to this use case.
 
 
+## D-116 — Student's t Numerical Evaluation Has Explicit Standard-Library Semantics
+
+**Status:** COMMITTED
+
+The Phase 17 Student's t implementation evaluates the distribution through a regularized incomplete-beta formulation with a continued-fraction evaluation, using only the Python standard library. Numerical regression tests cover known critical values, symmetry, bounded CDF output, and non-default confidence levels. This is an implementation contract for reproducibility and numerical hardening; it does not expand the statistical use-case boundary.
+
+
 ## D-113 — Statistical Results Are Evidence Artifacts, Not Policy
 
 **Status:** COMMITTED
