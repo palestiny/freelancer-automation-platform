@@ -32,7 +32,7 @@ def item(
     return BusinessPerformanceObservation(
         id=id,
         business_id=business_id,
-        source_type=PerformanceSourceType.OPERATIONAL,
+        source_type=source_type,
         source_id=f"source-{id}",
         metric_name=metric_name,
         unit=unit,
@@ -174,3 +174,23 @@ def test_average_evidence_quality_is_deterministic():
     )
 
     assert result.average_evidence_quality == 70
+
+
+def test_aggregate_preserves_distinct_source_types():
+    result = aggregate_performance(
+        (
+            item("o1", 12, source_type=PerformanceSourceType.OPERATIONAL),
+            item(
+                "o2",
+                14,
+                source_type=PerformanceSourceType.REVENUE,
+                at=START + timedelta(hours=1),
+            ),
+        ),
+        window=window(),
+    )
+
+    assert result.source_types == (
+        PerformanceSourceType.OPERATIONAL,
+        PerformanceSourceType.REVENUE,
+    )
