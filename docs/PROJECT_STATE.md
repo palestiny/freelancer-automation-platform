@@ -480,3 +480,11 @@ BusinessPerformanceHistory enforces single-business isolation and provides deter
 This is a normalized evidence view, not a replacement for source domains and not a policy or execution mechanism.
 
 The next engineering work remains evidence/provenance enrichment, historical aggregation, and statistical learning before persistence/API/external execution.
+
+## Current Implementation Addition — Evidence-Aware Measurement Learning
+
+Operational measurements now carry bounded evidence quality. Repeated-variance learning derives the resulting LearningSignal evidence quality from the average quality of its contributing measurements.
+
+The implementation therefore no longer relies on the previous neutral evidence baseline. Rich provenance and more advanced evidence aggregation remain future policy/design work.
+
+The latest implementation slice is still domain-only. CI completion for the newest main-branch push has not been independently verified through the available repository workflow interface, so no new green-test claim is recorded here.
