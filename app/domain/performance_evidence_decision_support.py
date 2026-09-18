@@ -38,12 +38,18 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+    current_observation_ids: tuple[str, ...]
+    baseline_observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
         if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
             raise ValueError("business_id, metric_name, and unit cannot be empty")
         if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
             raise ValueError("statistical_observation_ids must be unique")
+        if len(set(self.current_observation_ids)) != len(self.current_observation_ids):
+            raise ValueError("current_observation_ids must be unique")
+        if len(set(self.baseline_observation_ids)) != len(self.baseline_observation_ids):
+            raise ValueError("baseline_observation_ids must be unique")
 
 
 def compose_performance_evidence(
@@ -68,6 +74,8 @@ def compose_performance_evidence(
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.CONTEXT_INVALID,
             statistical_observation_ids=statistical_evidence.observation_ids,
+            current_observation_ids=trend.current_observation_ids,
+            baseline_observation_ids=trend.baseline_observation_ids,
         )
 
     descriptive = _descriptive_direction(trend)
@@ -90,6 +98,8 @@ def compose_performance_evidence(
         inferential_status=inferential,
         posture=posture,
         statistical_observation_ids=statistical_evidence.observation_ids,
+        current_observation_ids=trend.current_observation_ids,
+        baseline_observation_ids=trend.baseline_observation_ids,
     )
 
 
