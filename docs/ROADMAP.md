@@ -238,3 +238,6 @@ The Phase 16 implementation now includes a normalized `BusinessPerformanceObserv
 ### Phase 16 — Deterministic Performance Windows
 
 Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives prepare historical aggregation while deliberately avoiding statistical inference or policy decisions.
+### Phase 16 — Historical Performance Aggregation
+
+The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference, trend modeling, persistence, and automated learning remain future work.
