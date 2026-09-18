@@ -82,7 +82,7 @@ def test_high_cac_can_pause():
         {"allowed_actions": ()},
     ],
 )
-def test_policy_rejects_invalid_values(**kwargs):
+def test_policy_rejects_invalid_values(kwargs):
     with pytest.raises(ValueError):
         CampaignOptimizationPolicy(**kwargs)
 
