@@ -410,3 +410,40 @@ Each operational cycle and work item belongs to exactly one business.
 **Status:** COMMITTED
 
 Operational outcomes are observations for learning and do not silently rewrite economics, policy, or business state.
+
+
+## D-062 — Operational Outcomes Are First-Class Observations
+
+**Status:** COMMITTED
+
+Work-item outcomes are explicit observations that preserve what happened without directly changing policy or business state.
+
+## D-063 — Expected and Actual Values Remain Separate
+
+**Status:** COMMITTED
+
+Operational measurements preserve expected and actual values independently and derive variance rather than overwriting estimates with observations.
+
+## D-064 — Learning Signals Are Evidence, Not Policy
+
+**Status:** COMMITTED
+
+Learning signals summarize evidence and cannot silently mutate business policy, economics, workflow, or lifecycle state.
+
+## D-065 — Improvement Requires an Explicit Handoff
+
+**Status:** COMMITTED
+
+Improvement recommendations must explicitly target policy review or controlled experimentation. Recommendations are not execution commands.
+
+## D-066 — Operational Measurement Is Provider-Independent
+
+**Status:** COMMITTED
+
+Operational measurement meaning remains independent from schedulers, workers, providers, databases, HTTP, AI, and financial execution.
+
+## D-067 — Business Isolation Applies to Measurement
+
+**Status:** COMMITTED
+
+Operational observations, measurements, learning signals, and recommendations carry explicit business ownership. Cross-business measurement contamination is invalid.
