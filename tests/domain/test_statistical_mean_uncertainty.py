@@ -5,7 +5,7 @@ import pytest
 
 from app.domain.business_performance import BusinessPerformanceObservation, PerformanceSourceType
 from app.domain.performance_history import PerformanceWindow
-from app.domain.statistical_mean_uncertainty import MeanUncertaintyStatus, calculate_mean_uncertainty
+from app.domain.statistical_mean_uncertainty import MeanUncertaintyResult, MeanUncertaintyStatus, calculate_mean_uncertainty
 
 START = datetime(2026, 1, 1)
 
@@ -168,3 +168,29 @@ def test_mean_uncertainty_validates_values_before_applicability():
         assumptions_satisfied=False,
     )
     assert result.status is MeanUncertaintyStatus.INVALID_VALUE
+
+
+def test_non_applicable_result_rejects_sample_statistics():
+    with pytest.raises(ValueError, match="non-applicable result cannot contain sample statistics"):
+        MeanUncertaintyResult(
+            business_id="business-1",
+            metric_name="delivery_hours",
+            unit="hours",
+            window=window(),
+            observation_ids=("o1", "o2"),
+            sample_size=2,
+            sample_mean=10.0,
+            sample_standard_deviation=None,
+            confidence_level=0.95,
+            interval_lower=None,
+            interval_upper=None,
+            method="student_t_mean_ci",
+            status=MeanUncertaintyStatus.INAPPLICABLE,
+        )
+
+
+def test_insufficient_result_can_preserve_sample_mean_but_not_standard_deviation():
+    result = calculate_mean_uncertainty((item("o1", 10),), window=window())
+    assert result.status is MeanUncertaintyStatus.INSUFFICIENT_OBSERVATIONS
+    assert result.sample_mean == 10.0
+    assert result.sample_standard_deviation is None
