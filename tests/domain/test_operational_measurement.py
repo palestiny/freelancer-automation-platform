@@ -120,13 +120,13 @@ def test_learning_signal_is_derived_evidence():
     signal = LearningSignal(
         id="learning-1",
         business_id="business-1",
-        source_measurement_id="measurement-1",
+        source_measurement_ids=("measurement-1",)
         statement="Delivery consistently takes longer than expected.",
         evidence_quality=90,
     )
 
     assert signal.business_id == "business-1"
-    assert signal.source_measurement_id == "measurement-1"
+    assert signal.source_measurement_ids == ("measurement-1",)
 
 
 def test_improvement_recommendation_requires_explicit_handoff():
