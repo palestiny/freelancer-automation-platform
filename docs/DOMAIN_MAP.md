@@ -274,3 +274,15 @@ Campaign metrics are not a universal business score. They are evidence used by b
 ## Expanded Domain Flow
 
 **Market Signals → Opportunity Discovery → Evaluation → Business Model Discovery → Economics → Resource/Capacity Analysis → Venture Thesis → Validation → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio / Capital Allocation**
+
+### Market Intelligence — Current Foundation
+
+The first domain foundation now distinguishes:
+
+**Market Observation → Demand Signal**
+
+MarketObservation preserves source, observed value, timestamp, and evidence quality.
+
+DemandSignal is a derived assessment with bounded demand strength, evidence quality, and supporting observation count.
+
+Neither object is itself a validated opportunity or business decision.
