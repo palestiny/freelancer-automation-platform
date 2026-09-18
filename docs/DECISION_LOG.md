@@ -603,3 +603,28 @@ A source type without explicit reliability configuration cannot be assumed relia
 **Status:** COMMITTED
 
 V1 source reliability is an eligibility input only. It does not rank providers, infer causal correctness, mutate evidence, execute actions, or change business policy.
+
+
+## D-097 — Baseline Eligibility May Require Source Reliability
+
+**Status:** COMMITTED
+
+A baseline policy may optionally require an explicit source-reliability policy. Existing policies without one retain their prior behavior.
+
+## D-098 — Source Reliability Is an Additional Gate
+
+**Status:** COMMITTED
+
+Source reliability does not replace minimum observations, observation-level evidence quality, or freshness. All applicable baseline requirements must pass.
+
+## D-099 — Reliability Failures Are Explainable
+
+**Status:** COMMITTED
+
+Baseline eligibility distinguishes insufficient source reliability from missing source-reliability configuration.
+
+## D-100 — Comparison Semantics Remain Stable
+
+**Status:** COMMITTED
+
+The comparison layer continues to consume `BaselineEligibility` and does not duplicate source-reliability logic.
