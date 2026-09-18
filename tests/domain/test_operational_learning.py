@@ -191,3 +191,16 @@ def test_learning_requires_minimum_average_evidence_quality():
 def test_learning_policy_rejects_invalid_evidence_quality(kwargs):
     with pytest.raises(ValueError):
         OperationalLearningPolicy(**kwargs)
+
+
+
+def test_learning_rejects_duplicate_measurement_ids():
+    measurement = measurement_item("m1", expected=10, actual=12)
+
+    with pytest.raises(ValueError, match="unique ids"):
+        derive_learning_signal(
+            (measurement, measurement, measurement),
+            policy=OperationalLearningPolicy(),
+            signal_id="signal-duplicate",
+            statement="repeated evidence",
+        )
