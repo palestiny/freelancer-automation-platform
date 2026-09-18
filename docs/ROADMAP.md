@@ -318,6 +318,6 @@ Current foundation is complete for the deterministic evidence/measurement slice.
 
 ## Phase 17 — Statistical Learning & Inference
 
-**Status:** First statistical mean-uncertainty use case implemented and verified. Student's t confidence intervals are available as provider-independent evidence artifacts; further statistical methods remain gated by dedicated design.
+**Status:** Two narrow statistical use cases implemented and verified: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Further statistical methods remain gated by dedicated design.
 
-Next boundary: define and design the next statistical consumer before adding another method.
+Next boundary: review the Phase 17 statistical surface and identify the next concrete consumer before adding another method.
