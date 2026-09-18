@@ -465,3 +465,18 @@ The domain preserves expected and actual values separately, derives variance, en
 Learning remains evidence/recommendation, not silent policy mutation.
 
 Repeated-variance learning policy and multi-source evidence are now implemented. Historical persistence, richer measurement provenance, aggregation, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
+
+
+## Current Implementation Addition — Business Performance History
+
+The Phase 16 foundation now includes a normalized business-level performance history:
+
+**Operational / Revenue / Campaign Evidence → BusinessPerformanceObservation → BusinessPerformanceHistory → Variance / Learning**
+
+The normalized observation preserves source type/source identifier, business ownership, metric/unit, optional expected value, actual value, observation time, and evidence quality. Variance is derived only when an expectation exists.
+
+BusinessPerformanceHistory enforces single-business isolation and provides deterministic chronological ordering, metric/unit filtering, and latest-observation access.
+
+This is a normalized evidence view, not a replacement for source domains and not a policy or execution mechanism.
+
+The next engineering work remains evidence/provenance enrichment, historical aggregation, and statistical learning before persistence/API/external execution.
