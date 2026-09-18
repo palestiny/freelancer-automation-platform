@@ -126,8 +126,8 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x", "x"),
-            current_observation_ids=("c1",),
-            baseline_observation_ids=("b1",),
+            current_observation_ids=("c",),
+            baseline_observation_ids=("b",),
         )
 
 
@@ -141,3 +141,4 @@ def test_zero_change_with_statistical_detection_is_not_called_alignment():
     )
     assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
     assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
