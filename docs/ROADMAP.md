@@ -4,7 +4,7 @@
 
 Define product boundaries, domain model, economics, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
 
-**Status:** Economic Opportunity OS expansion approved; domain foundations in progress.
+**Status:** Economic Opportunity OS expansion approved; economic health model established; domain foundations in progress.
 
 ## Phase 1 — Opportunity Intelligence
 
@@ -32,8 +32,9 @@ Build:
 - profit and margin reporting
 - risk-adjusted economics
 - opportunity cost
+- economic health metrics and history
 
-**Status:** Economic estimate foundation implemented; resource/capacity design is next.
+**Status:** Economic estimate and Economic Profile foundations implemented; resource/capacity design is next.
 
 ## Phase 3 — Market Intelligence & Demand Discovery
 
@@ -74,6 +75,7 @@ Build:
 
 Build:
 
+- economic posture rules
 - opportunity prioritization
 - capacity-aware allocation
 - capital constraints
@@ -81,6 +83,7 @@ Build:
 - portfolio objectives
 - evidence-adjusted capital allocation
 - human approval controls
+- protection of stable profitable assets
 
 No automatic capital movement until explicit policy and safety design are approved.
 
