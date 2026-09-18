@@ -220,7 +220,6 @@ Capacity availability is an operational constraint, not an economic-quality scor
 - Economic score calculation policies and evidence requirements by opportunity/business type.
 - Historical stability metric windows and baselines.
 - Market Intelligence and demand-source boundaries.
-- Venture validation experiment model.
 - Portfolio posture rules and optimization constraints.
 - Capital allocation policy and approval controls.
 - Exact experiment statistics/decision methodology.
@@ -287,3 +286,21 @@ Demand discovery must support both emerging demand and established demand in com
 **Status:** COMMITTED
 
 Core Market Intelligence does not depend on a search engine, scraping provider, social network, marketplace, data vendor, or AI provider. External research enters through replaceable adapters/capabilities.
+
+## D-042 — Validation Is Explicit Experimentation
+
+**Status:** COMMITTED
+
+A venture thesis is not considered proven merely because research or economic estimates look attractive. Validation must use a bounded, measurable experiment that produces decision-useful evidence.
+
+## D-043 — Experiment Variants Are Explicit
+
+**Status:** COMMITTED
+
+Controlled variants are first-class experiment data so alternative offers, prices, messages, or approaches can be compared without embedding provider-specific execution into the domain.
+
+## D-044 — Experiment Results Are Evidence, Not Silent Policy Changes
+
+**Status:** COMMITTED
+
+Experiment results become EXPERIMENT_RESULT evidence and carry an explicit PROMOTE, REJECT, or CONTINUE_TESTING decision. Results do not silently mutate venture lifecycle, policy, economics, or portfolio posture.
