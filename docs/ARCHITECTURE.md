@@ -282,3 +282,44 @@ Current domain slices include:
 **Venture → Explicit Lifecycle Stage**
 
 No marketplace SDK, persistence, API, UI, AI provider, or financial execution is required for these slices.
+
+
+## Marketing & Growth Automation
+
+Marketing/Growth is a first-class future domain connected to Revenue Engine, Experimentation & Validation, and Measurement & Learning.
+
+It owns:
+
+- campaign intent
+- objective
+- target audience and positioning metadata
+- channel selection
+- campaign lifecycle
+- budget constraints
+- authorization state
+- provider-independent performance observations
+- derived campaign metrics
+
+It does not own provider credentials, social-network APIs, advertising SDKs, or AI models.
+
+### Campaign Boundary
+
+The domain represents a campaign as a business experiment, not as a provider-specific ad object.
+
+External flow:
+
+**Campaign Intent → Policy/Authorization → Provider Adapter → External Execution → Performance Observation → Normalization → Measurement → Learning**
+
+The current foundation includes a provider-independent campaign lifecycle and performance snapshot.
+
+### Marketing Safety Boundary
+
+Paid advertising can spend money and social/customer actions can create external commitments. Therefore:
+
+- campaign spend is subject to explicit budget and authorization policy;
+- account creation requires explicit authorization;
+- public publishing and responses require content/brand/privacy policy;
+- sensitive actions may require approval;
+- AI may prepare or recommend content but cannot bypass policy.
+
+No real ad spend, credentials, social account creation, or provider API is part of the current domain-only implementation.
