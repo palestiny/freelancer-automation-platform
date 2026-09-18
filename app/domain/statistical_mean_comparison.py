@@ -52,8 +52,6 @@ class MeanComparisonResult:
         if len(set(all_ids)) != len(all_ids):
             raise ValueError("observation_ids must be unique")
         if self.status is MeanComparisonStatus.APPLICABLE:
-            if self.first_window.end > self.second_window.start and self.second_window.end > self.first_window.start:
-                raise ValueError("comparison windows must not overlap")
             if self.sample_size_first < 2 or self.sample_size_second < 2:
                 raise ValueError("applicable result requires at least two observations per window")
             if any(value is None for value in (
