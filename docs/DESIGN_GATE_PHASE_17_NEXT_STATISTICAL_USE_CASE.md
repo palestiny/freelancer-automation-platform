@@ -1,6 +1,6 @@
 # Design Gate — Phase 17 Next Statistical Use Case: Historical Mean Comparison
 
-**Status:** PROPOSED — design only; no runtime implementation authorized.
+**Status:** APPROVED — V1 design contract committed; runtime implementation follows this gate.
 
 ## Purpose
 
@@ -14,15 +14,15 @@ Given two non-overlapping historical windows for the same business, metric, and 
 
 This is an inferential comparison of historical samples, not a prediction of future performance.
 
-## Candidate Method
+## Committed Method — Welch's Two-Sample t-Test
 
-A two-sample comparison of means is the candidate method. The implementation must not be selected until the assumptions and exact test contract are approved.
+V1 uses **Welch's two-sample t-test** to compare two historical sample means without assuming equal population variances.
 
-The design review must explicitly decide between:
-- Welch's two-sample t-test, which does not require equal population variances; or
-- another justified method if the evidence/use case requires it.
+The test is two-sided. V1 significance level is **alpha = 0.05**.
 
-No method is authorized by this document alone.
+Minimum mathematical sample size is **2 observations in each window**, because each sample requires a variance estimate.
+
+The result is inferential evidence about a difference between the two observed sample means under the method's assumptions. It is not a forecast, causal conclusion, or statement that either period is representative of all future periods.
 
 ## Required Context
 
@@ -74,4 +74,6 @@ Tests must define:
 
 ## Decision Gate
 
-Implementation is blocked until the exact statistical method, assumptions, sample-size floor, significance level, and result semantics are explicitly approved and recorded in the decision log.
+**APPROVED.** The exact method, two-sided alpha of 0.05, minimum sample size of 2 per window, explicit applicability, non-overlap requirement, and result semantics are committed for V1.
+
+Implementation must still follow RED → GREEN and preserve the non-executing evidence boundary.
