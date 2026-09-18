@@ -731,3 +731,9 @@ The domain implementation does not claim to prove independence or normality from
 **Status:** COMMITTED
 
 The first V1 statistical method uses the Python standard library and does not introduce a statistical provider dependency. Any future external statistical dependency requires an explicit design decision.
+
+## D-118 — Phase 17 Historical Mean Comparison Uses Welch's Two-Sample t-Test
+
+**Status:** COMMITTED
+
+The next Phase 17 statistical use case compares observed means from two explicit, non-overlapping historical windows for the same business, metric, and unit. V1 uses a two-sided Welch's two-sample t-test with alpha = 0.05 and a mathematical minimum of two observations per window. Applicability assumptions remain consumer-declared; the domain does not infer independence or distributional assumptions. The result remains an evidence artifact and does not mutate policy, learning, business state, or execution.
