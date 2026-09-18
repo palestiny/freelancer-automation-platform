@@ -47,3 +47,18 @@ This directory is the engineering source of truth for product direction, archite
 ## Current Implementation Rule
 
 Do not introduce marketplace SDKs, persistence, HTTP/API, UI, AI-provider dependencies, financial execution, or automatic capital movement into the current domain-only slices.
+
+
+17. DESIGN_GATE_MARKETING_AND_GROWTH_AUTOMATION.md — marketing, existing-market opportunity, campaign, and growth-automation gate.
+
+## Additional Current Gate
+
+- Marketing & Growth Automation: approved; provider-independent campaign foundation implemented.
+
+The platform may evaluate and build businesses in existing markets. Competition is not a hard rejection rule.
+
+The growth path is now explicitly:
+
+**Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
+
+External ad/social execution remains outside the current domain-only boundary.
