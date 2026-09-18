@@ -1,0 +1,146 @@
+# Business Economics & Growth Design Gate
+
+## Status
+
+**APPROVED — V1 business-economics direction committed; domain TDD implementation in progress.**
+
+## Purpose
+
+Make profitability, resource economics, measurement, learning, and controlled growth first-class platform concerns rather than reporting features added after automation works.
+
+The platform's goal is not merely to automate freelance actions. It must continuously improve the economic outcome of the work it performs.
+
+## Product-Level Business Loop
+
+Opportunity → Evaluation → Economic Assessment → Decision → Planning → Execution → Quality → Delivery → Measurement → Learning → Policy/Experiment Improvement.
+
+The loop is intentionally closed. Actual outcomes must be able to challenge previous estimates.
+
+## Committed V1 Economic Concepts
+
+### Expected Revenue
+
+Revenue expected from the opportunity before execution.
+
+### Expected Cost
+
+The expected cost of producing and delivering the work, including applicable platform fees, capability/tool costs, operating costs, and configured allowances.
+
+### Expected Profit
+
+Expected Revenue minus Expected Cost.
+
+### Expected Margin
+
+Expected Profit divided by Expected Revenue when revenue is positive.
+
+### Expected Profit per Hour
+
+Expected Profit divided by expected effort when effort is positive.
+
+### Risk-Adjusted Profit
+
+Expected Profit adjusted by a configured success-confidence probability.
+
+This is a derived planning metric, not a guarantee.
+
+## Resource Economics
+
+The platform will eventually model constrained resources such as:
+
+- human execution time
+- AI/model usage
+- tool/API usage
+- infrastructure cost
+- review time
+- communication time
+- marketplace fees
+
+Resource capacity is a business constraint, not merely an infrastructure concern.
+
+## Portfolio Direction
+
+The platform should eventually optimize a portfolio of opportunities under constrained capacity rather than evaluating each opportunity in isolation.
+
+The optimization objective must remain explicit and configurable. The platform must not silently invent a user's business objective.
+
+## Measurement Loop
+
+Every meaningful execution should be able to compare:
+
+Expected → Actual → Variance → Learning Signal.
+
+Important measurements include:
+
+- revenue
+- cost
+- effort
+- margin
+- delivery time
+- revisions
+- acceptance
+- reliability
+- capability cost/performance
+- marketplace integration performance
+
+## Learning and Policy Safety
+
+Learning produces evidence and recommendations.
+
+Learning does not silently rewrite business policy.
+
+The controlled path is:
+
+Observed Data → Analysis → Recommendation → Policy/Experiment Decision → Versioned Change.
+
+## Experimentation
+
+The platform will support controlled experiments around:
+
+- evaluation policies
+- pricing
+- proposal strategies
+- execution strategies
+- capability selection
+
+Experiments must have a hypothesis, measurable metrics, a defined comparison, and an explicit promotion/rejection decision.
+
+## Autonomy Levels
+
+The platform should support progressive autonomy:
+
+- L0 — Observe
+- L1 — Recommend
+- L2 — Prepare
+- L3 — Execute with Approval
+- L4 — Execute Automatically within Policy
+- L5 — Optimize within Policy
+
+Autonomy level is a policy concern. It is not permission for an AI provider to bypass business controls.
+
+## Non-Goals of This Gate
+
+This gate does not decide:
+
+- first marketplace
+- persistence technology
+- API technology
+- UI technology
+- exact pricing thresholds
+- a specific AI provider
+- autonomous irreversible business actions without policy/approval
+
+## First TDD Slice
+
+The first implementation slice is intentionally small:
+
+1. Represent an economic estimate explicitly.
+2. Calculate expected cost from explicit cost components.
+3. Calculate expected profit.
+4. Calculate expected margin.
+5. Calculate expected profit per hour.
+6. Calculate risk-adjusted profit from explicit success confidence.
+7. Preserve the estimate as derived data without mutating Opportunity.
+8. Reject invalid economic inputs instead of silently producing misleading values.
+
+After this slice, resource capacity and portfolio allocation get their own design gate.
