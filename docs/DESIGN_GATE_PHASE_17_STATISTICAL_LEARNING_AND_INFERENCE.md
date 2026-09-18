@@ -131,3 +131,16 @@ The statistical result is an evidence artifact. It may later be composed with pe
 ### Implementation gate
 
 Runtime implementation remains blocked until this proposal is reviewed against the repository's existing aggregate/window contracts and RED tests define every invalid/insufficient-data path above. The confidence level, method name, and policy ownership must be explicit in code rather than hidden constants.
+
+
+## Implementation Authorization Review
+
+The Phase 17 method and contract are now specified for the first candidate use case. Before runtime implementation, the remaining gate is limited to repository-level contract closure:
+
+1. Define the domain result/status types and invariants.
+2. Define deterministic RED tests for insufficient observations, invalid context, invalid/non-finite values, and successful calculation.
+3. Verify the implementation can calculate the Student's t critical value without introducing an unnecessary external provider dependency.
+4. Preserve exact observation lineage and explicit method/confidence parameters.
+5. Keep the statistical result non-executing and independent from policy mutation.
+
+Runtime implementation is authorized only for this narrow use case. Forecasting, causal inference, hypothesis-testing claims, anomaly detection, automatic learning-policy changes, and execution remain out of scope.
