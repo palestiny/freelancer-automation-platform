@@ -744,3 +744,8 @@ The next Phase 17 statistical use case compares observed means from two explicit
 **Status:** COMMITTED
 
 The current Phase 17 V1 statistical surface is closed after implementing and hardening two bounded methods: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Additional statistical methods or automatic consumers require a concrete downstream use case and dedicated design gate. Statistical outputs remain evidence artifacts and do not replace raw evidence, source reliability, policy, or execution boundaries.
+
+
+### D-120 — Phase 17 Statistical Evidence Is Composed Through an Explicit Consumer
+
+The first downstream statistical consumer must preserve statistical results as evidence artifacts and separately evaluate evidence quality and source reliability. V1 composition may report eligibility and bounded statistical interpretation, but must not collapse evidence into a universal score or mutate policy, learning, lifecycle, portfolio, or execution state.
