@@ -199,3 +199,16 @@ Extend the platform from campaign automation into repeatable business operations
 - stable-profit protection
 - progressive autonomy
 - auditability and learning.
+
+## Phase 3 — Market Intelligence & Demand Discovery
+
+Build:
+
+- market observation model
+- demand signals
+- competitor/trend observations
+- source provenance
+- evidence quality
+- demand-to-opportunity transformation
+
+**Status:** Initial provider-independent MarketObservation and DemandSignal foundation implemented. Source normalization, trend detection, competitor analysis, and demand persistence remain future slices.
