@@ -65,6 +65,47 @@ Responsibilities:
 - profit per hour
 - risk-adjusted economics
 - economic assumptions/provenance
+- consumption of resource-cost information
+
+### Resource Economics
+
+Answers:
+
+> What resources are consumed, and what monetary cost does that consumption represent?
+
+Responsibilities:
+
+- resource usage
+- resource kind
+- quantity
+- unit cost
+- derived total resource cost
+
+V1 kinds:
+
+- HUMAN_TIME
+- CAPABILITY_USAGE
+- INFRASTRUCTURE
+- COMMUNICATION
+- MARKETPLACE_FEE
+- REVIEW_TIME
+
+### Capacity
+
+Answers:
+
+> How much constrained human-time capacity remains in a planning period?
+
+Responsibilities:
+
+- planning period
+- total hours
+- committed hours
+- reserved hours
+- remaining hours
+- utilization
+
+Capacity is operational constraint data, not a profitability score.
 
 ### Economic Health
 
@@ -193,7 +234,7 @@ Future responsibility:
 
 ## Domain Flow
 
-**Market Signals → Opportunity Discovery → Evaluation → Business Model Discovery → Economics → Venture Thesis → Validation → Execution → Revenue → Measurement → Learning → Experimentation → Scale / Kill → Portfolio / Capital Allocation**
+**Market Signals → Opportunity Discovery → Evaluation → Business Model Discovery → Economics → Resource/Capacity Analysis → Venture Thesis → Validation → Execution → Revenue → Measurement → Learning → Experimentation → Scale / Kill → Portfolio / Capital Allocation**
 
 The freelance loop remains a concrete first path through this broader flow.
 
