@@ -493,3 +493,34 @@ Historical aggregation produces a derived summary over normalized performance ob
 V1 uses deterministic count, minimum, maximum, and average-style summaries. It does not introduce a universal sum operation because summation semantics depend on metric meaning.
 
 Missing expected values are excluded from expected-derived aggregates rather than treated as zero. Aggregation does not mutate source observations or policy.
+
+
+## D-079 — Baseline Eligibility Is Policy, Not Evidence
+
+**Status:** COMMITTED
+
+A historical performance aggregate is derived evidence. Whether it is suitable for baseline use is evaluated by an explicit policy rather than embedded in the aggregate itself.
+
+## D-080 — Baseline Eligibility Requires Sufficient Observations
+
+**Status:** COMMITTED
+
+Baseline eligibility requires a configurable minimum observation count; sparse history must not be treated as sufficient evidence by default.
+
+## D-081 — Baseline Eligibility Requires Evidence Quality
+
+**Status:** COMMITTED
+
+Baseline eligibility requires a configurable minimum average evidence quality. Evidence quality remains an evidence property, not a correctness guarantee.
+
+## D-082 — Baseline Freshness Is Explicit
+
+**Status:** COMMITTED
+
+Baseline age is evaluated against an explicit `as_of` timestamp and configurable maximum age. The domain does not infer recency from the current clock.
+
+## D-083 — Ineligibility Must Be Explainable
+
+**Status:** COMMITTED
+
+Baseline assessment returns a deterministic eligibility reason, including insufficient observations, insufficient evidence quality, stale history, or future baseline timing.
