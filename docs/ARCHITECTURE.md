@@ -335,3 +335,32 @@ MarketObservation preserves provenance and observation time.
 DemandSignal preserves derived demand strength and evidence quality plus the number of supporting observations.
 
 The domain intentionally does not implement scraping, search APIs, social APIs, marketplace APIs, or AI research providers. Those belong behind replaceable external capabilities.
+
+## Venture Validation & Experimentation Boundary
+
+The first validation slice is provider-independent:
+
+**Venture Thesis → ValidationExperiment → External Execution Boundary → ExperimentResult → Evidence / Decision**
+
+The domain owns experiment meaning:
+
+- hypothesis
+- objective
+- success criterion
+- controlled variants
+- budget constraint
+- lifecycle
+- measured result
+- explicit decision
+
+The domain does not own:
+
+- ad or marketplace execution
+- customer communication
+- scheduling
+- statistical inference
+- financial spending
+- persistence
+- automatic venture lifecycle mutation
+
+External execution remains behind capabilities/adapters and authorization policy. Experiment results become evidence; learning cannot silently rewrite policy.
