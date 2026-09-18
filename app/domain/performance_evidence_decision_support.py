@@ -72,6 +72,8 @@ def compose_performance_evidence(
         statistical_evidence.business_id != business_id
         or statistical_evidence.metric_name != trend.metric_name
         or statistical_evidence.unit != trend.unit
+        or statistical_evidence.first_window != trend.baseline_window
+        or statistical_evidence.second_window != trend.current_window
     ):
         return _result(
             trend=trend,
