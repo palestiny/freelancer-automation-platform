@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from app.domain.performance_aggregation import aggregate_performance
+from app.domain.business_performance import PerformanceSourceType\nfrom app.domain.performance_aggregation import aggregate_performance
 from app.domain.performance_baseline import PerformanceBaselinePolicy
 from app.domain.performance_comparison import (
     ComparisonRejectionReason,
@@ -158,3 +158,22 @@ def test_comparison_rejects_overlapping_windows():
 def test_comparison_policy_rejects_invalid_values(kwargs):
     with pytest.raises(ValueError):
         PerformanceComparisonPolicy(**kwargs)
+
+
+def test_comparison_rejects_incompatible_provenance():
+    baseline = aggregate(start_day=0, value=10)
+    current = aggregate(
+        start_day=1,
+        value=15,
+        source_type=PerformanceSourceType.REVENUE,
+    )
+
+    result = assess_performance_comparison(
+        current=current,
+        baseline=baseline,
+        baseline_policy=PerformanceBaselinePolicy(),
+        comparison_policy=PerformanceComparisonPolicy(),
+        as_of=START + timedelta(days=2),
+    )
+
+    assert result.rejection_reason is ComparisonRejectionReason.INCOMPATIBLE_CONTEXT
