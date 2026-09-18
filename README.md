@@ -205,3 +205,21 @@ Marketing and growth are therefore first-class future platform capabilities. The
 The first provider-independent campaign domain foundation is implemented in `app/domain/marketing_campaign.py`. It models objectives, channels, lifecycle, authorization, budget limits, and measurable performance snapshots.
 
 Real advertising spend, social accounts, credentials, provider APIs, and automatic public communication remain outside the current domain-only boundary.
+
+## Market Intelligence & Demand Discovery
+
+The platform now distinguishes external market observations from derived demand signals.
+
+**External Observation → Demand Signal → Opportunity Hypothesis**
+
+The first provider-independent foundation is implemented in `app/domain/market_intelligence.py` with:
+
+- MarketObservation
+- source provenance
+- observation timestamp
+- evidence quality
+- DemandSignal
+- demand strength
+- supporting observation count
+
+Search engines, scraping systems, social networks, marketplaces, data providers, and AI research tools remain replaceable external capabilities.
