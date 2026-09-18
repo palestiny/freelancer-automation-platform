@@ -88,6 +88,14 @@ Evaluation remains explainable and evidence-aware.
 
 No numeric master score is required for the first venture domain slice.
 
+## Economic Health and Portfolio Safety
+
+The Economic Opportunity OS must evaluate more than theoretical upside. Economic health is represented through separate dimensions for profitability, profit potential, profit stability, demand stability, safety, recurring revenue, automation, capital efficiency, scalability, and evidence quality.
+
+This model deliberately avoids a universal master score. A stable profitable asset can be protected even when its upside is modest. Future portfolio postures are policy-derived and remain separate from the business identity.
+
+The approved details are recorded in `DESIGN_GATE_ECONOMIC_HEALTH_AND_PORTFOLIO_POLICY.md` and decisions D-025 through D-029.
+
 ## Evidence Model
 
 The system distinguishes:
