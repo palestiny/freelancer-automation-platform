@@ -328,3 +328,21 @@ Revenue events represent realized revenue observations. Payment execution remain
 The domain separates incoming customer facts, response drafts, authorization, and actually sent messages.
 
 AI can assist classification/drafting through replaceable capabilities, but cannot bypass authorization or communication policy.
+
+
+### Campaign Optimization & Budget Policy
+
+Answers:
+
+> Given observed campaign performance and an explicit policy, what action should be considered next?
+
+Responsibilities:
+
+- optimization policy
+- evidence sufficiency
+- budget adjustment recommendation
+- pause/continue recommendation
+- rationale
+- hard budget-limit enforcement
+
+Recommendations are not external execution. Paid spend remains an authorized capability boundary.
