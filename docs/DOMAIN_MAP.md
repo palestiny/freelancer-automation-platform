@@ -447,3 +447,8 @@ The policy checks current observation sufficiency, current evidence quality, con
 Performance aggregates now preserve source-type provenance in addition to raw observation identifiers. Descriptive comparisons require compatible provenance context, while raw observations remain authoritative.
 
 Provenance preservation is distinct from source reliability scoring and causal attribution; those remain future policy/design work.
+
+
+## Performance Source Reliability
+
+Performance evidence now has a bounded source-reliability policy layer between provenance-preserving aggregates and downstream evidence eligibility. It preserves the distinction between source-type reliability and observation-level evidence quality and does not rank providers or execute actions.
