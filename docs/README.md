@@ -94,3 +94,13 @@ External ad/social execution remains outside the current domain-only boundary.
 - Provider-independent presence and communication models implemented.
 - Draft, authorization, escalation, and sent-message boundaries are explicit.
 - Provider credentials and external sending remain outside the domain.
+
+
+20. DESIGN_GATE_CAMPAIGN_OPTIMIZATION_AND_BUDGET_POLICY.md — campaign optimization, budget constraints, evidence sufficiency, and authorization boundaries.
+
+## Campaign Optimization / Budget Policy
+
+- Approved design gate.
+- Provider-independent optimization recommendation foundation implemented.
+- Budget limits and evidence sufficiency are explicit.
+- Automatic ad spend remains outside the domain.
