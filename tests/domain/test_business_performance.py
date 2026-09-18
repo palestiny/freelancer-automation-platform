@@ -20,6 +20,7 @@ def observation(
     expected: float | None = 10,
     business_id: str = "business-1",
     source_type: PerformanceSourceType = PerformanceSourceType.OPERATIONAL,
+    evidence_quality: int = 50,
     metric_name: str = "delivery_hours",
     unit: str = "hours",
 ) -> BusinessPerformanceObservation:
@@ -33,6 +34,7 @@ def observation(
         expected_value=expected,
         actual_value=actual,
         observed_at=observed_at,
+        evidence_quality=evidence_quality,
     )
 
 
@@ -118,4 +120,4 @@ def test_empty_history_has_no_latest_observation():
 
 def test_evidence_quality_is_bounded():
     with pytest.raises(ValueError):
-        observation("o1", 12)._replace(evidence_quality=101)
+        observation("o1", 12, evidence_quality=101)
