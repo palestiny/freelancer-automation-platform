@@ -81,6 +81,29 @@ The first evaluation model uses six dimensions for its applicable context:
 
 Each criterion retains evidence and uncertainty.
 
+## Economic Health
+
+Economic quality is a separate multidimensional view of an opportunity, business model, or operating business.
+
+V1 dimensions:
+
+- Profitability
+- Profit Potential
+- Profit Stability
+- Demand Stability
+- Safety
+- Recurring Revenue
+- Automation
+- Capital Efficiency
+- Scalability
+- Evidence Quality
+
+These dimensions are scored independently on a 0–100 scale. They are derived from evidence/metrics rather than being raw facts. There is no permanent universal master score because different policies may legitimately optimize different objectives.
+
+The model explicitly protects the possibility that a modest but stable, profitable, safe recurring business is valuable even when its theoretical growth upside is limited.
+
+Future portfolio postures are policy-derived actions, not intrinsic business states.
+
 ## Venture Intelligence
 
 Broader venture evaluation uses:
