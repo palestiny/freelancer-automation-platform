@@ -440,3 +440,26 @@ The domain owns the meaning of outcomes, expected-vs-actual measurements, varian
 It does not own scheduling, workers, persistence, external providers, AI model selection, automatic policy mutation, automatic experiment execution, or financial execution.
 
 Business ownership is enforced on measurements and snapshots to prevent cross-business contamination.
+
+
+## Business Performance History Boundary
+
+Business Performance History is a normalized evidence view across bounded source domains:
+
+**Source Observation → Normalized Business Performance Observation → Business Performance History → Analysis / Learning**
+
+The normalized observation preserves:
+
+- business identity
+- source type and source identifier
+- metric and unit
+- optional expected value
+- actual value
+- observation time
+- evidence quality
+
+It derives variance only when an expected value exists. The history enforces one-business isolation and provides deterministic ordering and metric filtering.
+
+The history model does not replace operational, revenue, campaign, or economic source models and does not mutate them. Source-specific mapping belongs outside this core model.
+
+Persistence, statistical inference, attribution, and automatic policy changes remain outside the current slice.
