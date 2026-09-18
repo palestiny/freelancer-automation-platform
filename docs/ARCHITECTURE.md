@@ -511,3 +511,8 @@ The Measurement & Learning area preserves source provenance through historical a
 **Source Observation → Normalized Observation → Provenance-Preserving Aggregate → Context-Safe Comparison**
 
 PerformanceAggregate retains source types and raw observation identifiers. Current and baseline aggregates must have compatible source-type provenance before a descriptive trend is produced. Source reliability scoring, causal attribution, statistical inference, and external execution remain outside this boundary.
+
+
+## Performance Source Reliability Policy
+
+The Measurement & Learning boundary now includes an explicit source-reliability policy. Reliability is policy-derived from source type and is separate from observation-level evidence quality. Mixed-source aggregates are evaluated using the weakest configured source reliability, and missing configuration blocks eligibility. This remains provider-independent and non-executing.
