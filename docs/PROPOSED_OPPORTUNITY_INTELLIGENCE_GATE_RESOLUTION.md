@@ -2,7 +2,7 @@
 
 ## Status
 
-**PROPOSAL ONLY — NOT COMMITTED**
+**COMMITTED — APPROVED BY PRODUCT OWNER**
 
 This document is a concrete default proposal intended to make the first implementation gate actionable. It does not change the committed architecture or product decisions.
 
@@ -61,11 +61,30 @@ Initial policy should support only constraints needed by the first marketplace/u
 
 Economic thresholds and risk tolerance should be represented only if the first real workflow needs them.
 
-### 6. First Marketplace
+### 6. Marketplace Strategy
 
-**OPEN — product-owner selection required.**
+**COMMITTED:** The platform is marketplace-independent and supports multiple freelance marketplaces.
 
-No marketplace-specific domain implementation should begin until this is selected.
+The dashboard will allow the user to:
+- enable one marketplace
+- enable multiple marketplaces
+- disable marketplaces
+- configure marketplace-specific preferences where supported
+
+No core domain behavior may depend on a single marketplace.
+
+Marketplace integrations are replaceable adapters. Each marketplace integration is treated as an independently developed integration capability with its own compatibility, data-quality, operational, and performance evaluation.
+
+The platform may use:
+- measured reports and operational metrics
+- integration quality data
+- user feedback, ratings, and comments
+- AI-assisted analysis and recommendations
+- user-provided recommendations
+
+to propose improvements, priorities, or future integrations. Such recommendations remain derived guidance and do not silently become architectural or product decisions.
+
+A specific marketplace is therefore **not a product-level architectural dependency** and is intentionally deferred from the first domain design.
 
 ### 7. Opportunity Identity
 
@@ -87,19 +106,31 @@ Keep persistence/API/UI technology explicitly deferred until the domain behavior
 
 The first implementation should be domain-first and testable without infrastructure.
 
-## Remaining Product-Owner Decisions
+## Gate Resolution
 
-Only these decisions still require explicit approval before the proposal becomes committed:
+The Product Owner approved:
+1. the six initial evaluation dimensions
+2. hard-vs-soft evaluation
+3. the three overall outcomes
+4. deferring numeric scoring from the first slice
+5. the minimum version-one policy constraints
+6. a marketplace-independent, multi-marketplace strategy
 
-1. Approve the six initial evaluation dimensions.
-2. Approve hard-vs-soft evaluation.
-3. Approve the three overall outcomes.
-4. Approve deferring numeric scoring.
-5. Confirm the minimum version-one policy constraints.
-6. Select the first marketplace.
+The first marketplace is intentionally **not selected as a fixed architectural dependency**.
 
-Everything else above is intentionally a proposed default, not a committed architectural decision.
+## Deferred Decisions
 
-## After Approval
+The following remain intentionally deferred:
+- which marketplace integrations are implemented first
+- persistence technology
+- API technology
+- UI technology
+- marketplace-specific capabilities and constraints
+- advanced ranking/scoring
+- integration-level performance/reliability policy
+
+These decisions may be made as implementation evidence requires them.
+
+## After Gate Closure
 
 **RED → GREEN → REFACTOR → REVIEW → DOCUMENT → COMMIT + PUSH**
