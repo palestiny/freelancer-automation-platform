@@ -128,6 +128,8 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             statistical_observation_ids=("x", "x"),
             current_observation_ids=("c",),
             baseline_observation_ids=("b",),
+            current_observation_ids=("c",),
+            baseline_observation_ids=("b",),
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
