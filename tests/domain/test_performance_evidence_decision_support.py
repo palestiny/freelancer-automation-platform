@@ -177,3 +177,29 @@ def test_temporal_context_mismatch_is_explicit():
     )
     result = compose_performance_evidence(trend=trend, statistical_evidence=mismatched, business_id="b1")
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
+
+
+def test_no_descriptive_change_preserves_statistical_detection_without_calling_it_alignment():
+    result = compose_performance_evidence(
+        trend=_trend(0.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
+    assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_context_invalid_preserves_lineage_for_diagnostics():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="other",
+    )
+    assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
+    assert result.inferential_status is InferentialStatus.UNAVAILABLE
+    assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
