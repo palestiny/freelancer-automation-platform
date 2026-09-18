@@ -2,9 +2,9 @@
 
 ## Status
 
-**PREPARATION ONLY — implementation must wait for Design Gate approval.**
+**ACTIVE — Design Gate approved; first domain TDD slice in progress.**
 
-This plan defines how the first domain behavior will be tested after the Opportunity Intelligence Design Gate is closed.
+This plan defines the first domain behavior and test sequence after the Opportunity Intelligence Design Gate was closed.
 
 ## Testing Boundary
 
@@ -87,4 +87,4 @@ Those belong to later design/implementation gates.
 
 ## Gate Dependency
 
-This plan is ready for implementation once the product-owner decisions listed in `docs/PROPOSED_OPPORTUNITY_INTELLIGENCE_GATE_RESOLUTION.md` are approved and recorded as committed decisions.
+The Opportunity Intelligence Design Gate is closed. The approved behavior is now being implemented incrementally through domain-only TDD.
