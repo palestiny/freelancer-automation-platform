@@ -91,3 +91,22 @@ def test_mean_uncertainty_empty_window_has_explicit_unknown_context():
     assert result.business_id == "unknown"
     assert result.metric_name == "unknown"
     assert result.unit == "unknown"
+
+
+def test_mean_uncertainty_matches_known_student_t_critical_values():
+    # Two-sided 95% critical values from standard t-distribution tables.
+    from app.domain.statistical_mean_uncertainty import _student_t_critical
+
+    assert isclose(_student_t_critical(0.95, 1), 12.7062047364, rel_tol=1e-10)
+    assert isclose(_student_t_critical(0.95, 2), 4.3026527297, rel_tol=1e-10)
+    assert isclose(_student_t_critical(0.95, 10), 2.22813885196, rel_tol=1e-10)
+    assert isclose(_student_t_critical(0.95, 30), 2.0422724563, rel_tol=1e-10)
+
+
+def test_mean_uncertainty_uses_same_interval_for_negative_and_positive_t_values():
+    from app.domain.statistical_mean_uncertainty import _student_t_cdf
+
+    for value in (0.5, 1.5, 3.0):
+        positive = _student_t_cdf(value, 7)
+        negative = _student_t_cdf(-value, 7)
+        assert isclose(positive + negative, 1.0, rel_tol=1e-12, abs_tol=1e-12)
