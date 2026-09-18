@@ -46,6 +46,8 @@ def _stat(*, interpretation, eligible=True):
         ),
         interpretation=interpretation,
         alpha=0.05,
+        first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
+        second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
     )
 
 
@@ -161,3 +163,17 @@ def test_result_requires_nonempty_context_fields():
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_temporal_context_mismatch_is_explicit():
+    trend = _trend(10.0)
+    evidence = _stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)
+    mismatched = StatisticalEvidenceComposition(
+        business_id=evidence.business_id, metric_name=evidence.metric_name, unit=evidence.unit,
+        method=evidence.method, observation_ids=evidence.observation_ids, eligible=evidence.eligible,
+        reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha,
+        first_window=PerformanceWindow(datetime(2026, 1, 20), datetime(2026, 1, 27)),
+        second_window=PerformanceWindow(datetime(2026, 1, 27), datetime(2026, 2, 3)),
+    )
+    result = compose_performance_evidence(trend=trend, statistical_evidence=mismatched, business_id="b1")
+    assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
