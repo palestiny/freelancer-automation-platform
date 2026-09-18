@@ -555,3 +555,9 @@ Phase 16 now has an explicit `PerformanceSourceReliabilityPolicy` and `SourceRel
 This remains a provider-independent eligibility input. It does not rank providers, infer causality, forecast, mutate policy, or execute external actions.
 
 The latest branch changes are awaiting CI verification before any green-test claim is recorded.
+
+## Current Measurement Addition — Baseline Reliability Integration
+
+Baseline eligibility now optionally consumes `PerformanceSourceReliabilityPolicy`. This preserves the distinction between source reliability and observation-level evidence quality while making reliability a real eligibility gate. Existing baseline policies without source reliability retain their prior behavior.
+
+The comparison layer continues to consume `BaselineEligibility` without duplicating reliability logic.

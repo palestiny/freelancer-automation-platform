@@ -452,3 +452,7 @@ Provenance preservation is distinct from source reliability scoring and causal a
 ## Performance Source Reliability
 
 Performance evidence now has a bounded source-reliability policy layer between provenance-preserving aggregates and downstream evidence eligibility. It preserves the distinction between source-type reliability and observation-level evidence quality and does not rank providers or execute actions.
+
+## Baseline Reliability Integration
+
+`PerformanceBaselinePolicy` may optionally include `PerformanceSourceReliabilityPolicy`. The resulting `BaselineEligibility` reports explicit reliability-related rejection reasons while preserving existing count, evidence-quality, and freshness boundaries.

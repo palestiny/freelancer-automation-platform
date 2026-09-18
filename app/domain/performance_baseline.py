@@ -3,6 +3,11 @@ from datetime import datetime, timedelta
 from enum import Enum
 
 from .performance_aggregation import PerformanceAggregate
+from .performance_reliability import (
+    PerformanceSourceReliabilityPolicy,
+    SourceReliabilityReason,
+    assess_source_reliability,
+)
 
 
 class BaselineEligibilityReason(str, Enum):
@@ -11,6 +16,8 @@ class BaselineEligibilityReason(str, Enum):
     INSUFFICIENT_EVIDENCE_QUALITY = "insufficient_evidence_quality"
     STALE_BASELINE = "stale_baseline"
     FUTURE_BASELINE = "future_baseline"
+    INSUFFICIENT_SOURCE_RELIABILITY = "insufficient_source_reliability"
+    MISSING_SOURCE_RELIABILITY_POLICY = "missing_source_reliability_policy"
 
 
 @dataclass(frozen=True)
@@ -18,6 +25,7 @@ class PerformanceBaselinePolicy:
     minimum_observations: int = 3
     minimum_average_evidence_quality: float = 60
     maximum_age: timedelta = timedelta(days=30)
+    source_reliability_policy: PerformanceSourceReliabilityPolicy | None = None
 
     def __post_init__(self) -> None:
         if self.minimum_observations <= 0:
@@ -59,6 +67,22 @@ def assess_baseline(
             eligible=False,
             reason=BaselineEligibilityReason.INSUFFICIENT_EVIDENCE_QUALITY,
         )
+
+    if policy.source_reliability_policy is not None:
+        reliability = assess_source_reliability(
+            aggregate=aggregate,
+            policy=policy.source_reliability_policy,
+        )
+        if reliability.reason is SourceReliabilityReason.INSUFFICIENT_RELIABILITY:
+            return BaselineEligibility(
+                eligible=False,
+                reason=BaselineEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
+            )
+        if reliability.reason is SourceReliabilityReason.MISSING_SOURCE_POLICY:
+            return BaselineEligibility(
+                eligible=False,
+                reason=BaselineEligibilityReason.MISSING_SOURCE_RELIABILITY_POLICY,
+            )
 
     if aggregate.window.end > as_of:
         return BaselineEligibility(
