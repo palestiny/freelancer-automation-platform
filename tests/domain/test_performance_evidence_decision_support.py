@@ -60,6 +60,9 @@ def test_aligned_improvement_is_explicit():
     assert result.descriptive_direction is DescriptiveDirection.IMPROVING
     assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
     assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+    assert result.current_observation_ids == ("c1",)
+    assert result.baseline_observation_ids == ("b1",)
+    assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
 
 
 def test_descriptive_change_without_statistical_detection_is_not_suppressed():
@@ -123,4 +126,6 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x", "x"),
+            current_observation_ids=("c1",),
+            baseline_observation_ids=("b1",),
         )
