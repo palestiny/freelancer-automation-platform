@@ -286,3 +286,25 @@ MarketObservation preserves source, observed value, timestamp, and evidence qual
 DemandSignal is a derived assessment with bounded demand strength, evidence quality, and supporting observation count.
 
 Neither object is itself a validated opportunity or business decision.
+
+## Venture Validation & Experimentation — Current Foundation
+
+Answers:
+
+> What is the cheapest credible test that can produce decision-useful evidence for this venture thesis?
+
+Responsibilities:
+
+- validation hypotheses
+- measurable success criteria
+- controlled variants
+- bounded experiment budgets
+- experiment lifecycle
+- measured outcomes
+- explicit promotion/rejection/continue-testing decisions
+
+The validation model is provider-independent. External execution belongs to capabilities/adapters and authorization policy.
+
+**Validation Flow:** Venture Thesis → Hypothesis → Experiment → Result → Evidence → Explicit Decision → Learning
+
+Experiment results do not silently rewrite policy or venture state.
