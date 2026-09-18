@@ -144,3 +144,7 @@ Missing expected values are excluded from expected-derived aggregates rather tha
 5. Zero expected values do not produce relative variance.
 6. Empty windows return no aggregate rather than an invented value.
 7. Aggregation remains provider-independent and does not mutate source observations.
+
+## Cross-Reference — Trend / Baseline Analysis
+
+Trend and baseline comparison is defined by the separate Design Gate `DESIGN_GATE_PERFORMANCE_TREND_AND_BASELINE_ANALYSIS.md`. Business Performance History remains responsible for normalized evidence and aggregation; trend analysis consumes those derived aggregates without mutating history.
