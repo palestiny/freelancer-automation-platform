@@ -248,3 +248,32 @@ No real ad spend, social credentials, account creation, provider APIs, or automa
 ## Current Implementation Addition
 
 `app/domain/marketing_campaign.py` is the provider-independent foundation for campaign lifecycle and measurable campaign performance.
+
+## Market Intelligence & Demand Discovery
+
+The first Market Intelligence foundation is now implemented.
+
+Provider-independent domain objects represent:
+
+- external market observations
+- source provenance
+- observation time
+- evidence quality
+- derived demand signals
+- demand strength
+- supporting observation count
+
+The boundary is explicit:
+
+**External Observation → Demand Signal → Opportunity Hypothesis**
+
+Market observations do not become business truth automatically, and existing competitive demand remains valid input for opportunity discovery.
+
+## Updated Current Next Design Gates
+
+1. Venture Validation / Experimentation.
+2. Revenue Engine / Recurring Revenue.
+3. Social Presence & Customer Communication.
+4. Campaign Optimization & Budget Policy.
+5. Portfolio posture and allocation policy.
+6. Market Intelligence normalization, trend, and source-reliability follow-up.
