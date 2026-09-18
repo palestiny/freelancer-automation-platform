@@ -4,11 +4,13 @@
 
 Define product boundaries, domain model, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
 
-**Status:** In progress.
+**Status:** Gate approved; domain TDD starting.
 
 ## Phase 1 — Opportunity Intelligence
 
-Collect and normalize opportunities, evaluate configurable criteria, persist analysis, and expose results through an API/dashboard.
+Build marketplace-independent opportunity collection contracts, normalization, configurable evaluation, persistence, and API/dashboard exposure.
+
+Marketplace adapters can be introduced incrementally behind the established boundary rather than selecting one marketplace as a core dependency.
 
 **Status:** Not started.
 
@@ -30,7 +32,9 @@ Feedback interpretation, change requests, impact analysis, revision planning, ex
 
 ## Phase 6 — Intelligence & Business Analytics
 
-Success rates, revenue, costs, margins, delivery time, client outcomes, capability performance, and improvement recommendations.
+Success rates, revenue, costs, margins, delivery time, client outcomes, capability performance, marketplace integration performance, and improvement recommendations.
+
+Reports and feedback from marketplace integrations become evidence for improving integrations and product behavior. AI can assist analysis and recommendations, while product/architecture decisions remain explicit.
 
 ## Phase 7 — Experimental Platform
 
