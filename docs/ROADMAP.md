@@ -277,3 +277,7 @@ Build:
 - keep provenance separate from source-reliability scoring
 
 **Status:** V1 provenance-preserving aggregation foundation implemented. Source reliability scoring, causal attribution, and statistical inference remain future work.
+
+### Phase 16 — Performance Source Reliability Policy
+
+The Measurement & Learning foundation now includes a provider-independent source-reliability policy. Reliability is explicitly policy-derived and remains separate from observation-level evidence quality. Mixed-source aggregates use the weakest configured source reliability, and missing source configuration blocks eligibility. No provider ranking, causal inference, automatic action, or policy mutation is introduced.
