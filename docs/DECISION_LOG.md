@@ -548,3 +548,27 @@ Current and baseline windows may not overlap. The current window must start at o
 **Status:** COMMITTED
 
 The comparison policy can produce a descriptive PerformanceTrend but cannot forecast, rank, score, mutate policy, or execute actions.
+
+## D-088 — Derived Aggregates Preserve Source-Type Provenance
+
+**Status:** COMMITTED
+
+Performance aggregates preserve the distinct source types represented by their normalized observations. Observation identifiers remain necessary lineage, but source-type context must also remain directly inspectable.
+
+## D-089 — Aggregation Does Not Invent Provenance
+
+**Status:** COMMITTED
+
+Source provenance is copied from normalized observations. Aggregation does not infer or manufacture source identity.
+
+## D-090 — Comparison Requires Compatible Provenance Context
+
+**Status:** COMMITTED
+
+A descriptive performance comparison requires matching source-type provenance between current and baseline aggregates. Identical metric/unit names are not sufficient to establish comparable evidence domains.
+
+## D-091 — Raw Observation Lineage Remains Authoritative
+
+**Status:** COMMITTED
+
+Aggregates remain derived evidence views. Raw observation identifiers and source observations remain the authoritative lineage for audit and interpretation.
