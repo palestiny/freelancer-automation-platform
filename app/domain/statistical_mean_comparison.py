@@ -46,10 +46,14 @@ class MeanComparisonResult:
             raise ValueError("sample_size_first must match first_observation_ids")
         if self.sample_size_second != len(self.second_observation_ids):
             raise ValueError("sample_size_second must match second_observation_ids")
+        if self.first_window.end > self.second_window.start and self.second_window.end > self.first_window.start:
+            raise ValueError("comparison windows must not overlap")
         all_ids = self.first_observation_ids + self.second_observation_ids
         if len(set(all_ids)) != len(all_ids):
             raise ValueError("observation_ids must be unique")
         if self.status is MeanComparisonStatus.APPLICABLE:
+            if self.first_window.end > self.second_window.start and self.second_window.end > self.first_window.start:
+                raise ValueError("comparison windows must not overlap")
             if self.sample_size_first < 2 or self.sample_size_second < 2:
                 raise ValueError("applicable result requires at least two observations per window")
             if any(value is None for value in (
@@ -75,6 +79,8 @@ def compare_historical_means(
         raise ValueError("alpha must be between zero and one")
     if not isinstance(assumptions_satisfied, bool):
         raise ValueError("assumptions_satisfied must be a boolean")
+    if first_window.end <= first_window.start or second_window.end <= second_window.start:
+        return _empty_context_result(first_window, second_window, alpha, MeanComparisonStatus.INVALID_CONTEXT)
     if first_window.end > second_window.start and second_window.end > first_window.start:
         return _empty_context_result(first_window, second_window, alpha, MeanComparisonStatus.INVALID_CONTEXT)
 
