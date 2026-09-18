@@ -414,3 +414,13 @@ Responsibilities:
 - traceable historical aggregation
 
 Aggregation remains derived data. It does not replace raw observations, mutate source domains, or make policy decisions.
+
+### Performance Trend & Baseline Analysis — Current Foundation
+
+Consumes explicit `PerformanceAggregate` values from two windows and produces a descriptive `PerformanceTrend`.
+
+Flow:
+
+**Performance History → Window Aggregates → Baseline Comparison → Trend Evidence**
+
+The trend result preserves provenance and evidence quality. It does not forecast, score business health, or mutate policy.
