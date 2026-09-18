@@ -2,38 +2,147 @@
 
 ## Current Phase
 
-**Phase 14 — Business Operations & Multi-Business Execution — campaign optimization foundation implemented**
+**Phase 16 — Operational Measurement & Learning Integration**
 
-## Product Direction
+The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The next missing domain bridge is operational outcomes → measurement → learning.
 
-The platform is now an **Economic Opportunity OS / Business Automation OS**.
+## Verified Test / CI State
 
-Its first laboratory is freelance work, but the permanent product boundary is broader: the system can discover, evaluate, validate, operate, and learn from multiple business and income opportunities.
+- The repository contains one canonical GitHub Actions CI workflow: `.github/workflows/ci.yml`.
+- A previous verified run on commit `7bf259b68bc24bcf3ab8b40ba1752c27e4427b8c` completed successfully with **119 passed** tests.
+- The latest CI run for commit `b0d5e6659ae1067cd775fa747c84cb68e8320185` reached the test step successfully; final workflow completion should be verified before calling the latest run green.
+- CI is intentionally dependency-minimal at this stage: it installs pytest directly because the repository currently has no `requirements.txt` or `pyproject.toml`.
 
-## Completed
+## Implemented Domain Foundations
 
-- Repository created and verified.
-- Shared engineering working rules established.
-- Modular-monolith direction established.
-- Marketplace-independent architecture established.
-- Opportunity Intelligence gate approved.
-- Six Opportunity Evaluation dimensions committed.
-- Business Economics & Growth direction approved.
-- Economic Opportunity OS expansion approved.
-- Opportunity type foundation implemented.
-- Evidence taxonomy implemented.
-- Business-model hypothesis foundation implemented.
-- Venture evaluation foundation implemented.
-- Venture lifecycle foundation implemented.
-- Business Economics domain foundation implemented.
-- Economic Health & Portfolio Policy design gate approved.
-- Changeable Economic Profile score-vector foundation implemented.
-- Resource Economics & Capacity design gate approved.
-- Resource usage and explicit resource-kind foundation implemented.
-- Human-time capacity snapshot foundation implemented.
-- Venture Validation & Experimentation design gate approved.
-- Provider-independent ValidationExperiment foundation implemented.
-- Explicit experiment outcomes and promotion/rejection decisions implemented.
+- Opportunity types and evidence taxonomy.
+- Six-dimensional Opportunity Evaluation foundations.
+- Business Model Hypothesis.
+- Venture evaluation and lifecycle.
+- EconomicEstimate and EconomicProfile.
+- ResourceUsage and human-time CapacitySnapshot.
+- MarketObservation and DemandSignal.
+- ValidationExperiment and ExperimentResult.
+- RevenueContract and RevenueEvent.
+- SocialPresence, IncomingMessage, ResponseDraft, authorization, and SentMessage.
+- MarketingCampaign and CampaignPerformanceSnapshot.
+- CampaignOptimizationPolicy and non-executing optimization recommendations.
+- Business lifecycle.
+- OperationalCycle and WorkItem lifecycle.
+
+## Current Product Direction
+
+The platform is an **Economic Opportunity OS / Business Automation OS**.
+
+Freelancing is the first laboratory, not the permanent architectural boundary.
+
+The broader loop is:
+
+**Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
+
+## Opportunity Evaluation
+
+The original six dimensions remain committed for applicable opportunity contexts:
+
+1. Eligibility
+2. Requirement Fit
+3. Estimated Effort
+4. Economic Fit
+5. Client / Project Risk
+6. Success Confidence
+
+Criterion-level evidence and uncertainty remain mandatory.
+
+Overall outcomes:
+
+- QUALIFIED
+- NOT_QUALIFIED
+- REVIEW_REQUIRED
+
+## Economic Health
+
+Economic quality is represented as a vector rather than a universal master score:
+
+- Profitability
+- Profit Potential
+- Profit Stability
+- Demand Stability
+- Safety
+- Recurring Revenue
+- Automation
+- Capital Efficiency
+- Scalability
+- Evidence Quality
+
+Scores are derived assessments supported by evidence/metrics. Stable profitable businesses remain representable as economically valuable assets even when growth upside is modest.
+
+## Resource Economics & Capacity
+
+V1 explicitly models:
+
+- resource kind
+- quantity
+- monetary unit cost
+- total resource cost
+- human-time capacity
+- committed/reserved/remaining hours
+- utilization
+
+Resource cost and capacity remain separate concepts.
+
+## Market Intelligence & Validation
+
+The current discovery/validation boundaries are:
+
+**External Observation → Demand Signal → Opportunity Hypothesis**
+
+and:
+
+**Venture Thesis → Hypothesis → Experiment → Result → Evidence → Explicit Decision**
+
+Experiment results do not silently rewrite policy, economics, venture lifecycle, or portfolio posture.
+
+## Revenue
+
+The revenue boundary is:
+
+**Business Model → Revenue Contract → Realized Revenue Event → Economic Measurement → Learning**
+
+Actual revenue remains distinct from expected revenue. Payment execution remains outside the domain.
+
+## Communication & Growth
+
+Communication:
+
+**Presence → Incoming Message → Classification → Response Draft → Authorization → Sent Message → Learning**
+
+Marketing:
+
+**Campaign → Performance Observation → Optimization Policy → Recommendation → Authorization → External Execution → New Observation**
+
+Recommendations do not execute external actions. Budget limits are hard constraints.
+
+## Business Operations
+
+Operations:
+
+**Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
+
+Business identity is separate from operational state. Each operational cycle and work item belongs to exactly one business.
+
+Scheduling, workers, provider APIs, credentials, payment execution, automatic capital movement, and AI model selection remain outside the domain.
+
+## Next Implementation Slice
+
+The next Design Gate should define **Operational Measurement & Learning Integration**.
+
+It should connect actual work outcomes to the existing economic/revenue/campaign/venture evidence model without:
+- silently changing policy
+- inventing forecasts from observations
+- coupling to providers
+- introducing persistence prematurely
+- introducing automatic financial execution
+
 
 ## Opportunity Evaluation Model
 
