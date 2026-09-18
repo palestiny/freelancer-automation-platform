@@ -66,3 +66,79 @@ This gate does not authorize:
 No implementation should begin until one concrete statistical use case is selected, its assumptions are documented, and RED tests define insufficient-data and invalid-context behavior.
 
 Phase 16 remains closed and unchanged while this gate is open.
+
+
+## Proposed First Use Case — Mean Performance Uncertainty
+
+### Product question
+
+For one business, one metric, one unit, and one explicit observation window:
+
+> How uncertain is the observed mean performance, given the observations actually available in that window?
+
+The immediate purpose is to prevent deterministic average changes from being treated as stronger evidence than the underlying sample supports.
+
+This use case is intentionally narrower than forecasting or causal inference. It addresses uncertainty around an observed historical metric, not what will happen next.
+
+### Proposed V1 statistical output
+
+A future result may contain:
+
+- business identity
+- metric and unit
+- explicit observation window
+- contributing observation identifiers
+- sample size
+- sample mean
+- sample dispersion
+- an uncertainty interval around the mean when applicability conditions are satisfied
+- method identifier
+- method assumptions
+- insufficient-data or inapplicable reason when an interval cannot be produced
+
+The statistical result remains derived evidence. Raw observations remain authoritative.
+
+### Initial applicability boundary
+
+The first implementation should prefer a method whose assumptions can be made explicit and whose failure modes are deterministic.
+
+For an initial confidence-interval method, the design must explicitly settle:
+
+- minimum sample size
+- treatment of independent versus repeated observations
+- handling of missing values
+- handling of zero and negative metric values where the metric permits them
+- required distributional assumptions, if any
+- confidence level
+- behavior when assumptions cannot be established
+- whether the interval is descriptive uncertainty or intended for a formal inferential claim
+
+No statistical significance claim is implied merely by producing an interval.
+
+### Evidence composition
+
+Statistical uncertainty must not replace:
+
+- observation-level evidence quality
+- source-type reliability
+- business/metric/unit identity
+- explicit time windows
+- raw observation lineage
+
+These remain separate evidence dimensions.
+
+A statistical result may consume already-eligible observations, but it must preserve the exact observation identifiers used to derive it.
+
+### Explicit consumer
+
+The first consumer should be the existing performance-comparison / learning boundary.
+
+The statistical result may provide additional evidence about whether an observed historical difference is supported by a sufficiently informative sample. It must not directly change a PerformanceTrend, LearningSignal, policy, business state, or execution outcome.
+
+Any such composition requires a later implementation decision and tests.
+
+### Gate status
+
+This use case is a **design proposal**, not implementation authorization.
+
+Before RED/GREEN implementation, the gate still requires final decisions on the statistical method, assumptions, minimum sample size, confidence level, insufficient-data semantics, and exact consumer contract.
