@@ -645,3 +645,8 @@ Economic health evidence now requires an explicit start-inclusive/end-exclusive 
 ## Economic Stability Policy
 
 V1 now has an explicit, configurable stability-eligibility policy over economic-health evidence. It evaluates observation sufficiency, profitable-outcome rate, average actual profit, and profit variability. The result is explainable eligibility evidence only; it does not rank businesses, assign universal scores, select portfolio postures, forecast, allocate capital, mutate policy, or execute financial actions.
+
+
+## Economic Numeric Validity Hardening
+
+Economic estimates and realized economic outcomes now reject non-finite numeric values before derived economics are calculated. This prevents NaN/infinite contamination of profitability, variance, stability, and downstream evidence.
