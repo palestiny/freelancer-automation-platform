@@ -916,3 +916,8 @@ Retry orchestration must use durable command identity and idempotency semantics,
 ### D-143 — Retry Orchestration Requires Separate Durable Persistence and Scheduler Ports
 
 Runtime retry orchestration requires replaceable persistence and scheduler ports before a concrete adapter is introduced. Durable command identity is the deduplication anchor; atomic claiming prevents concurrent duplicate execution; scheduler ambiguity remains explicit infrastructure evidence; authorization and retry policy are revalidated immediately before external execution.
+
+
+### D-144 — Retry Command Identity Is Explicit and Provider-Independent
+
+Retry orchestration commands preserve request identity, provider idempotency identity, attempt identity, authorization context, and command identity as explicit immutable evidence. Persistence and scheduler implementations remain replaceable ports; command contracts do not perform execution.

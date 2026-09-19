@@ -760,3 +760,8 @@ The history-aware execution coordination result now exposes concrete provider-in
 ## Execution Retry Orchestration Design Boundary
 
 A design-only gate is now approved for review as the next execution boundary. It defines scheduling/idempotency/revalidation concerns while keeping retry orchestration outside the domain. No scheduler, queue, worker, retry loop, or persistence implementation has been introduced.
+
+
+## Retry Orchestration Command Boundary
+
+The first runtime-neutral retry orchestration contracts are implemented and CI-verified. Durable retry command identity, explicit lifecycle/status values, scheduler acknowledgements, and replaceable persistence/scheduler protocols now exist. Concrete persistence, scheduler, worker, and retry-loop adapters remain outside this increment.
