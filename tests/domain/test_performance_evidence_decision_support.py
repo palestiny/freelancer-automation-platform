@@ -129,3 +129,16 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_statistical_and_trend_lineage_are_preserved_without_deduplication():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
+    assert result.current_observation_ids == ("c1",)
+    assert result.baseline_observation_ids == ("b1",)
