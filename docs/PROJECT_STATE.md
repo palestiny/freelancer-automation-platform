@@ -755,3 +755,8 @@ V1 application coordination now derives execution attempt numbers from immutable
 ## History-Aware Execution Result Contract Hardening
 
 The history-aware execution coordination result now exposes concrete provider-independent domain types for outcome, policy assessment, and recovery handoff. This removes an avoidable type-safety gap without changing coordination behavior or execution boundaries.
+
+
+## Execution Retry Orchestration Design Boundary
+
+A design-only gate is now approved for review as the next execution boundary. It defines scheduling/idempotency/revalidation concerns while keeping retry orchestration outside the domain. No scheduler, queue, worker, retry loop, or persistence implementation has been introduced.
