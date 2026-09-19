@@ -4,7 +4,7 @@ from .execution_port import ExecutionPort, dispatch_execution
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest
 from app.domain.execution_outcome import ExecutionOutcome
 from app.domain.execution_outcome_policy import ExecutionOutcomePolicy, assess_execution_outcome
-from app.domain.execution_recovery import ExecutionRecoveryHandoff, derive_execution_recovery
+from app.domain.execution_recovery import ExecutionRecoveryHandoff, create_execution_recovery_handoff
 
 
 @dataclass(frozen=True)
@@ -27,9 +27,8 @@ def coordinate_execution(
         policy=policy,
         attempt_number=attempt_number,
     )
-    recovery = derive_execution_recovery(
-        outcome=outcome,
-        policy_assessment=assessment,
+    recovery = create_execution_recovery_handoff(
+        assessment=assessment,
     )
     return ExecutionCoordinationResult(
         outcome=outcome,
