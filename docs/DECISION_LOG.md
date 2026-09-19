@@ -904,3 +904,10 @@ The history-aware coordination boundary must expose concrete provider-independen
 ### D-141 — Execution Retry Orchestration Requires an Explicit Scheduling Boundary
 
 Retry orchestration must remain outside the domain policy layer. Any future scheduler/worker implementation must consume history-consistent recovery handoffs, preserve authorization and idempotency, revalidate before external execution, and define durable/concurrency semantics before implementation.
+
+
+### D-142 — Retry Orchestration Requires Durable Identity and Pre-Execution Revalidation
+
+**Status:** COMMITTED
+
+Retry orchestration must use durable command identity and idempotency semantics, preserve immutable execution-attempt history, and revalidate authorization/policy immediately before an external retry. Stale authorization, stale policy/autonomy context, ambiguous scheduler state, duplicate scheduling, and concurrent claims must remain explicit and non-executing until reconciled. Runtime scheduler/worker implementation requires a separate persistence and scheduler boundary.
