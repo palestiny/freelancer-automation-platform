@@ -864,3 +864,8 @@ The execution adapter port rejects results that are not the explicit immutable P
 ### D-139 — Execution Adapter Observation Times Must Be Timezone-Aware
 
 Provider execution results must carry timezone-aware observation timestamps. This prevents ambiguous execution evidence at the adapter boundary without introducing provider-specific behavior or authorization/execution policy.
+
+
+### D-122 — Execution Coordination Is Non-Executing Application Composition
+
+The coordinator composes existing authorization/request, provider execution, outcome policy, and recovery artifacts. It does not own provider selection, retries, scheduling, compensation, authorization, or policy mutation. External side effects remain behind the ExecutionPort implementation.
