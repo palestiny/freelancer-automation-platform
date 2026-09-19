@@ -695,3 +695,8 @@ The execution boundary now includes a provider-independent outcome artifact. A p
 ## Execution Outcome Policy
 
 V1 now has a provider-independent, non-executing execution-outcome policy assessment. Observed outcomes can be classified as accepted, retry-eligible, manual-review-required, or terminal failure using explicit retry-code and attempt limits. The assessment preserves request identity and idempotency and does not retry, schedule, compensate, authorize, mutate policy, or execute.
+
+
+## Execution Recovery Handoff
+
+V1 includes a non-executing recovery handoff derived from execution-outcome policy assessment. Retry-eligible outcomes can be represented as a retry handoff, unknown outcomes require manual review, and accepted/terminal outcomes produce no recovery mode. The handoff preserves request identity and idempotency and performs no scheduling, retry, compensation, provider call, or external side effect.
