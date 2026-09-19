@@ -483,3 +483,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### History-Aware Execution Result Contract Hardening
 
 **Status:** Completed and CI-verified. Coordination outputs now use concrete provider-independent domain types; behavioral and execution boundaries remain unchanged.
+
+
+### Execution Retry Orchestration & Scheduling
+
+**Status:** Design gate defined and CI-verified; implementation is intentionally blocked until authorization revalidation, durable idempotency, stale-command handling, ambiguous scheduler outcomes, concurrency/claiming, and persistence guarantees are explicitly decided.
