@@ -503,3 +503,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Durable Retry Command Persistence
 
 **Status:** V1 SQLite RetryCommandStore implemented and CI-verified. Concrete scheduler, worker, queue, and provider adapters remain separate integration boundaries.
+
+
+### Durable Retry Scheduler Adapter
+
+**Status:** V1 SQLite scheduler adapter implemented and CI-verified, including scheduler identity and concurrency hardening. Worker execution and external provider execution remain separate boundaries.
