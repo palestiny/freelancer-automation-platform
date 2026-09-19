@@ -212,3 +212,16 @@ def test_context_invalid_preserves_lineage_for_diagnostics():
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
     assert result.inferential_status is InferentialStatus.UNAVAILABLE
     assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
+
+
+def test_zero_descriptive_change_with_statistical_detection_is_disagreement():
+    result = compose_performance_evidence(
+        trend=_trend(0.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
+    assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_DISAGREEMENT
