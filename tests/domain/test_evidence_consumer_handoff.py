@@ -19,6 +19,8 @@ def _support(*, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTI
         inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
+        current_observation_ids=("c1", "c2"),
+        baseline_observation_ids=("b1", "b2"),
     )
 
 
