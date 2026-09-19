@@ -941,3 +941,8 @@ The first concrete retry persistence adapter uses standard-library SQLite behind
 ### D-145 — Durable Retry Scheduling Remains an Adapter Boundary
 
 The SQLite retry scheduler persists logical scheduling identity and returns explicit scheduler acknowledgements. Identity conflicts and concurrency/lock outcomes remain explicit infrastructure evidence; the scheduler does not execute workers or providers and does not authorize retries.
+
+
+### D-122 — Retry Execution Claim Is Separate From Execution
+
+A scheduled retry command may transition to EXECUTION_IN_PROGRESS through an explicit claim and produce a provider-independent handoff. The claim does not imply provider execution, completion, or success. Persistence/race failures remain explicit and non-executing.
