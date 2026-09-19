@@ -12,6 +12,7 @@ class FakeStore:
         self.existing = existing
         self.created = []
         self.acks = []
+        self.current = existing
     def create_or_get(self, command):
         self.created.append(command)
         return self.existing or command
@@ -19,9 +20,11 @@ class FakeStore:
     def claim(self, command_id): return None
     def record_scheduler_acknowledgement(self, command_id, acknowledgement):
         self.acks.append((command_id, acknowledgement))
-        command = self.existing or self.created[-1]
+        command = self.current or self.created[-1]
         return command.transition_to(RetryCommandState.SCHEDULED, scheduling_id=acknowledgement.scheduling_id)
-    def save(self, command): return command
+    def save(self, command):
+        self.current = command
+        return command
 
 class FakeScheduler:
     def __init__(self, status=SchedulerAcknowledgementStatus.ACCEPTED): self.status=status; self.calls=[]
