@@ -690,3 +690,8 @@ V1 now separates authorization from execution with a non-executing AuthorizedExe
 ## Authorized Execution Outcome
 
 The execution boundary now includes a provider-independent outcome artifact. A prepared authorized request may be represented as succeeded, failed, rejected, or unknown after an adapter reports an outcome. The domain records the evidence only; provider calls, retries, scheduling, compensation, billing, policy mutation, and external side effects remain outside the domain.
+
+
+## Execution Outcome Policy
+
+V1 now has a provider-independent, non-executing execution-outcome policy assessment. Observed outcomes can be classified as accepted, retry-eligible, manual-review-required, or terminal failure using explicit retry-code and attempt limits. The assessment preserves request identity and idempotency and does not retry, schedule, compensate, authorize, mutate policy, or execute.

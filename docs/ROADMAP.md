@@ -423,3 +423,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Authorized Execution Outcome Contract
 
 **Status:** V1 provider-independent outcome artifact implemented and CI-verified. External provider execution, retry, scheduling, compensation, and side effects remain outside the domain boundary.
+
+
+### Execution Outcome Policy
+
+**Status:** V1 policy assessment implemented and CI-verified. Retry eligibility is evidence/policy output only; actual retry, scheduling, compensation, and provider execution remain outside the domain boundary.
