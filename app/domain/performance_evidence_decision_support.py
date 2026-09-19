@@ -63,6 +63,8 @@ class PerformanceEvidenceDecisionSupport:
             ("current_observation_ids", self.current_observation_ids),
             ("baseline_observation_ids", self.baseline_observation_ids),
         ):
+            if not ids:
+                raise ValueError(f"{name} cannot be empty")
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
 
