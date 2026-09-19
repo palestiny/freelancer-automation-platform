@@ -90,6 +90,26 @@ class PerformanceEvidenceDecisionSupport:
                 "statistical_difference_direction must be unavailable when inferential evidence is unavailable"
             )
 
+        if (
+            self.inferential_status is InferentialStatus.UNAVAILABLE
+            and self.posture
+            not in (
+                CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+                CombinedEvidencePosture.CONTEXT_INVALID,
+            )
+        ):
+            raise ValueError(
+                "unavailable inferential evidence cannot use an inferential-result posture"
+            )
+
+        if (
+            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+            and self.descriptive_direction is DescriptiveDirection.NO_CHANGE
+        ):
+            raise ValueError(
+                "statistical detection with no descriptive change must use NO_DESCRIPTIVE_CHANGE"
+            )
+
 
 def compose_performance_evidence(
     *,
