@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from math import isfinite
 from enum import Enum
 
 from .performance_history import PerformanceWindow
@@ -53,13 +54,23 @@ class StatisticalEvidenceComposition:
             ("current_evidence_quality", self.current_evidence_quality),
             ("baseline_evidence_quality", self.baseline_evidence_quality),
         ):
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise TypeError(f"{name} must be numeric")
+            if not isfinite(value):
+                raise ValueError(f"{name} must be finite")
             if not 0 <= value <= 100:
                 raise ValueError(f"{name} must be between 0 and 100")
 
-        if self.mean_difference is not None and isinstance(self.mean_difference, bool):
-            raise TypeError("mean_difference must be numeric or None")
+        if self.mean_difference is not None:
+            if isinstance(self.mean_difference, bool) or not isinstance(self.mean_difference, (int, float)):
+                raise TypeError("mean_difference must be numeric or None")
+            if not isfinite(self.mean_difference):
+                raise ValueError("mean_difference must be finite")
+
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
+        if any(not isinstance(value, str) or not value.strip() for value in self.observation_ids):
+            raise ValueError("observation_ids must contain non-empty strings")
         if len(set(self.observation_ids)) != len(self.observation_ids):
             raise ValueError("observation_ids must be unique")
 
