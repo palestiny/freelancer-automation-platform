@@ -700,3 +700,8 @@ V1 now has a provider-independent, non-executing execution-outcome policy assess
 ## Execution Recovery Handoff
 
 V1 includes a non-executing recovery handoff derived from execution-outcome policy assessment. Retry-eligible outcomes can be represented as a retry handoff, unknown outcomes require manual review, and accepted/terminal outcomes produce no recovery mode. The handoff preserves request identity and idempotency and performs no scheduling, retry, compensation, provider call, or external side effect.
+
+
+## Performance Evidence Provenance Hardening
+
+The performance evidence decision-support artifact now keeps statistical direction unavailable whenever the statistical evidence itself is unavailable or ineligible. Raw statistical observation lineage remains preserved independently. This prevents downstream consumers from treating an ineligible inferential result as an actionable directional conclusion.
