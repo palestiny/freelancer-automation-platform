@@ -175,3 +175,12 @@ def test_get_rejects_invalid_persisted_state():
 
 def test_nonexistent_claim_returns_none():
     assert store().claim("missing") is None
+
+
+def test_duplicate_logical_command_with_different_command_id_is_rejected():
+    s = store()
+    original = command("cmd-1")
+    s.create_or_get(original)
+
+    with pytest.raises(ValueError, match="command identity conflict"):
+        s.create_or_get(command("cmd-2"))
