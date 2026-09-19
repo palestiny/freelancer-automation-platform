@@ -40,6 +40,13 @@ class ExecutionRecoveryHandoff:
         }[self.mode]
         if self.reason is not expected_reason:
             raise ValueError("reason must match recovery mode")
+        expected_statuses = {
+            ExecutionRecoveryMode.RETRY: {ExecutionOutcomeAssessmentStatus.RETRY_ELIGIBLE},
+            ExecutionRecoveryMode.MANUAL_REVIEW: {ExecutionOutcomeAssessmentStatus.MANUAL_REVIEW_REQUIRED},
+            ExecutionRecoveryMode.NONE: {ExecutionOutcomeAssessmentStatus.ACCEPTED, ExecutionOutcomeAssessmentStatus.TERMINAL_FAILURE},
+        }[self.mode]
+        if self.source_status not in expected_statuses:
+            raise ValueError("source_status must match recovery mode")
 
 
 def create_execution_recovery_handoff(
