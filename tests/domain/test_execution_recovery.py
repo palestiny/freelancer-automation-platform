@@ -4,6 +4,7 @@ from app.domain.execution_outcome_policy import (
     ExecutionOutcomeAssessmentStatus,
 )
 from app.domain.execution_recovery import (
+    ExecutionRecoveryHandoff,
     ExecutionRecoveryMode,
     ExecutionRecoveryReason,
     create_execution_recovery_handoff,
