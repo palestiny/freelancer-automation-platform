@@ -131,7 +131,7 @@ def test_provider_failure_does_not_fabricate_outcome():
     result=dispatch_one_retry(command=cmd, store=store, revalidator=Revalidator(prepared_request()), provider=provider)
     assert result.status is RetryWorkerDispatchStatus.PROVIDER_FAILURE
     assert result.outcome is None
-    assert store.get("cmd-1").state is RetryCommandState.EXECUTION_IN_PROGRESS
+    assert store.get("cmd-1").state is RetryCommandState.REQUIRES_MANUAL_REVIEW
 
 
 def test_revalidation_failure_does_not_execute():
