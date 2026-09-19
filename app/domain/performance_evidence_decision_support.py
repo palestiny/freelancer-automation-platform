@@ -80,10 +80,6 @@ class PerformanceEvidenceDecisionSupport:
                 "current_observation_ids and baseline_observation_ids must be disjoint"
             )
 
-        if not set(self.statistical_observation_ids).issuperset(self.current_observation_ids) or not set(self.statistical_observation_ids).issuperset(self.baseline_observation_ids):
-            raise ValueError(
-                "statistical_observation_ids must preserve current and baseline lineage"
-            )
 
         for name, value in (("current_window_start", self.current_window_start), ("current_window_end", self.current_window_end), ("baseline_window_start", self.baseline_window_start), ("baseline_window_end", self.baseline_window_end)):
             if value is not None and not isinstance(value, datetime):
