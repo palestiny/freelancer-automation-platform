@@ -665,3 +665,8 @@ V1 now represents bounded opportunity-cost evidence for constrained capacity. Th
 ## Evidence-to-Decision Support Handoff
 
 A non-executing handoff artifact now separates composed performance evidence from future policy review. Valid evidence may require policy review, while context-invalid evidence is blocked from the handoff. No action is authorized by this boundary.
+
+
+## Evidence-to-Decision Handoff Hardening
+
+The handoff contract now preserves descriptive direction, inferential status, combined posture, and separate current/baseline/statistical observation lineage. It explicitly marks valid evidence as requiring policy review while preventing context-invalid evidence from entering that review boundary. The handoff still authorizes no action.
