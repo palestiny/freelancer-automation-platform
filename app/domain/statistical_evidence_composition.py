@@ -2,8 +2,6 @@ from dataclasses import dataclass
 from enum import Enum
 
 from .performance_history import PerformanceWindow
-
-from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
 from .statistical_mean_comparison import MeanComparisonResult, MeanComparisonStatus
 
@@ -38,37 +36,30 @@ class StatisticalEvidenceComposition:
     baseline_evidence_quality: float
     current_source_reliability: SourceReliabilityAssessment
     baseline_source_reliability: SourceReliabilityAssessment
-    first_window: PerformanceWindow
-    second_window: PerformanceWindow
-    current_evidence_quality: float
-    baseline_evidence_quality: float
-    current_source_reliability: SourceReliabilityAssessment
-    baseline_source_reliability: SourceReliabilityAssessment
 
     def __post_init__(self) -> None:
-        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
-            raise ValueError("business_id, metric_name, and unit cannot be empty")
-        if not self.method.strip():
-            raise ValueError("method cannot be empty")
+        for name in ("business_id", "metric_name", "unit", "method"):
+            if not getattr(self, name).strip():
+                raise ValueError(f"{name} cannot be empty")
+
         if not 0 < self.alpha < 1:
             raise ValueError("alpha must be between zero and one")
+
         if self.first_window.end > self.second_window.start:
             raise ValueError("statistical evidence windows cannot overlap")
-        for name, quality in ((
-            "current_evidence_quality", self.current_evidence_quality),
+
+        for name, value in (
+            ("current_evidence_quality", self.current_evidence_quality),
             ("baseline_evidence_quality", self.baseline_evidence_quality),
         ):
-            if not 0 <= quality <= 100:
-                raise ValueError(f"{name} must be between 0 and 100")
-        if self.first_window.end > self.second_window.start:
-            raise ValueError("statistical evidence windows must not overlap")
-        for name, value in (("current_evidence_quality", self.current_evidence_quality), ("baseline_evidence_quality", self.baseline_evidence_quality)):
             if not 0 <= value <= 100:
                 raise ValueError(f"{name} must be between 0 and 100")
+
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
         if len(set(self.observation_ids)) != len(self.observation_ids):
             raise ValueError("observation_ids must be unique")
+
         if self.eligible != (
             self.reason is StatisticalEvidenceEligibilityReason.ELIGIBLE
         ):
@@ -84,14 +75,13 @@ def compose_statistical_evidence(
     baseline_source_reliability: SourceReliabilityAssessment,
     minimum_evidence_quality: float = 60,
 ) -> StatisticalEvidenceComposition:
-    if not 0 <= current_evidence_quality <= 100:
-        raise ValueError("current_evidence_quality must be between 0 and 100")
-    if not 0 <= baseline_evidence_quality <= 100:
-        raise ValueError("baseline_evidence_quality must be between 0 and 100")
-    if not 0 <= minimum_evidence_quality <= 100:
-        raise ValueError("minimum_evidence_quality must be between 0 and 100")
-
-    observation_ids = comparison.first_observation_ids + comparison.second_observation_ids
+    for name, value in (
+        ("current_evidence_quality", current_evidence_quality),
+        ("baseline_evidence_quality", baseline_evidence_quality),
+        ("minimum_evidence_quality", minimum_evidence_quality),
+    ):
+        if not 0 <= value <= 100:
+            raise ValueError(f"{name} must be between 0 and 100")
 
     if comparison.status is not MeanComparisonStatus.APPLICABLE:
         return _compose(
@@ -144,7 +134,9 @@ def compose_statistical_evidence(
     )
 
 
-def _interpretation(comparison: MeanComparisonResult) -> StatisticalEvidenceInterpretation:
+def _interpretation(
+    comparison: MeanComparisonResult,
+) -> StatisticalEvidenceInterpretation:
     if comparison.rejects_null:
         return StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
     return StatisticalEvidenceInterpretation.NO_STATISTICALLY_DETECTED_DIFFERENCE
