@@ -225,3 +225,27 @@ def test_autonomy_change_blocks_scheduler():
     assert result.failure == "authorization_autonomy_changed"
     assert result.command.state is RetryCommandState.REQUIRES_MANUAL_REVIEW
     assert scheduler.calls == 0
+
+
+class MismatchingScheduler:
+    def schedule(self, command):
+        return SchedulerAcknowledgement(
+            command_id="other-command",
+            scheduling_id="schedule-1",
+            status=SchedulerAcknowledgementStatus.ACCEPTED,
+            observed_at=datetime(2026, 9, 19, tzinfo=timezone.utc),
+        )
+
+
+def test_scheduler_command_mismatch_is_persisted_as_ambiguous():
+    store = Store()
+    result = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=MismatchingScheduler(),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "scheduler_command_mismatch"
+    assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+    assert store.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
