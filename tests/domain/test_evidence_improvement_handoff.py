@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from app.domain.performance_history import PerformanceWindow
+
 from app.domain.performance_evidence_decision_support import (
     CombinedEvidencePosture,
     DescriptiveDirection,
@@ -21,6 +23,14 @@ def _support(*, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED):
         inferential_status=inferential,
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
+        statistical_first_window=PerformanceWindow(datetime(2026, 1, 1), datetime(2026, 1, 8)),
+        statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
+        current_window_start=datetime(2026, 2, 1),
+        current_window_end=datetime(2026, 2, 8),
+        baseline_window_start=datetime(2026, 1, 1),
+        baseline_window_end=datetime(2026, 1, 8),
+        current_observation_ids=("c1", "c2"),
+        baseline_observation_ids=("b1", "b2"),
     )
 
 
