@@ -19,13 +19,13 @@ def coordinate_execution(
     port: ExecutionPort,
     request: AuthorizedExecutionRequest,
     policy: ExecutionOutcomePolicy,
-    attempt_number: int,
+    attempt_count: int,
 ) -> ExecutionCoordinationResult:
     outcome = dispatch_execution(port=port, request=request)
     assessment = assess_execution_outcome(
         outcome=outcome,
         policy=policy,
-        attempt_number=attempt_number,
+        attempt_count=attempt_count,
     )
     recovery = create_execution_recovery_handoff(
         assessment=assessment,
