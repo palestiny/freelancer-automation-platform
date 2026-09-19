@@ -715,3 +715,8 @@ V1 now has an application-layer ExecutionPort between authorized execution reque
 ## Execution Adapter Runtime Contract Hardening
 
 The provider execution port now rejects untyped adapter results and malformed status/timestamp values before request identity validation and outcome creation. The boundary remains provider-independent and non-authorizing.
+
+
+## Execution Adapter Timestamp Contract Hardening
+
+Provider execution results now require timezone-aware observation timestamps. This makes execution evidence temporally unambiguous at the adapter boundary while preserving the existing non-authorizing, provider-independent outcome contract.
