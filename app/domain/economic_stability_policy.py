@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from .economic_health import EconomicHealthEvidence
+from .economic_performance_aggregation import EconomicPerformanceWindow
 
 
 class EconomicStabilityEligibilityReason(str, Enum):
@@ -33,11 +34,18 @@ class EconomicStabilityPolicy:
 
 @dataclass(frozen=True)
 class EconomicStabilityAssessment:
+    business_id: str | None
+    window: EconomicPerformanceWindow | None
+    outcome_ids: tuple[str, ...]
     eligible: bool
     reason: EconomicStabilityEligibilityReason
     profit_stddev_ratio: float | None
 
     def __post_init__(self) -> None:
+        if self.business_id is not None and not self.business_id.strip():
+            raise ValueError("business_id cannot be empty")
+        if len(set(self.outcome_ids)) != len(self.outcome_ids):
+            raise ValueError("outcome_ids must be unique")
         if self.eligible != (self.reason is EconomicStabilityEligibilityReason.ELIGIBLE):
             raise ValueError("eligible state must match reason")
         if self.profit_stddev_ratio is not None and self.profit_stddev_ratio < 0:
@@ -51,42 +59,63 @@ def assess_economic_stability(
 ) -> EconomicStabilityAssessment:
     if health is None or health.outcome_count < policy.minimum_observations:
         return EconomicStabilityAssessment(
+            business_id=health.business_id if health is not None else None,
+            window=health.window if health is not None else None,
+            outcome_ids=health.outcome_ids if health is not None else (),
             eligible=False,
             reason=EconomicStabilityEligibilityReason.INSUFFICIENT_OBSERVATIONS,
             profit_stddev_ratio=None,
         )
 
     if health.profitable_outcome_rate < policy.minimum_profitable_outcome_rate:
-        return EconomicStabilityAssessment(
-            eligible=False,
-            reason=EconomicStabilityEligibilityReason.PROFITABILITY_RATE_BELOW_THRESHOLD,
-            profit_stddev_ratio=None,
+        return _assessment(
+            health,
+            False,
+            EconomicStabilityEligibilityReason.PROFITABILITY_RATE_BELOW_THRESHOLD,
         )
 
     if health.average_actual_profit < policy.minimum_average_actual_profit:
-        return EconomicStabilityAssessment(
-            eligible=False,
-            reason=EconomicStabilityEligibilityReason.AVERAGE_PROFIT_BELOW_THRESHOLD,
-            profit_stddev_ratio=None,
+        return _assessment(
+            health,
+            False,
+            EconomicStabilityEligibilityReason.AVERAGE_PROFIT_BELOW_THRESHOLD,
         )
 
     if health.sample_profit_standard_deviation is None or health.average_actual_profit <= 0:
-        return EconomicStabilityAssessment(
-            eligible=False,
-            reason=EconomicStabilityEligibilityReason.INSUFFICIENT_VARIABILITY_DATA,
-            profit_stddev_ratio=None,
+        return _assessment(
+            health,
+            False,
+            EconomicStabilityEligibilityReason.INSUFFICIENT_VARIABILITY_DATA,
         )
 
     ratio = health.sample_profit_standard_deviation / health.average_actual_profit
     if ratio > policy.maximum_profit_stddev_ratio:
-        return EconomicStabilityAssessment(
-            eligible=False,
-            reason=EconomicStabilityEligibilityReason.PROFIT_VARIABILITY_ABOVE_THRESHOLD,
-            profit_stddev_ratio=ratio,
+        return _assessment(
+            health,
+            False,
+            EconomicStabilityEligibilityReason.PROFIT_VARIABILITY_ABOVE_THRESHOLD,
+            ratio,
         )
 
+    return _assessment(
+        health,
+        True,
+        EconomicStabilityEligibilityReason.ELIGIBLE,
+        ratio,
+    )
+
+
+def _assessment(
+    health: EconomicHealthEvidence,
+    eligible: bool,
+    reason: EconomicStabilityEligibilityReason,
+    ratio: float | None = None,
+) -> EconomicStabilityAssessment:
     return EconomicStabilityAssessment(
-        eligible=True,
-        reason=EconomicStabilityEligibilityReason.ELIGIBLE,
+        business_id=health.business_id,
+        window=health.window,
+        outcome_ids=health.outcome_ids,
+        eligible=eligible,
+        reason=reason,
         profit_stddev_ratio=ratio,
     )
