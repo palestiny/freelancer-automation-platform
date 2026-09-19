@@ -468,3 +468,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Policy & Attempt History Integration
 
 **Status:** V1 history-consistent retry assessment implemented and CI-verified. Outcome/history mismatches block policy assessment; actual retry orchestration remains outside the domain boundary.
+
+
+### History-Consistent Execution Recovery
+
+**Status:** V1 history-aware recovery handoff implemented and CI-verified. Inconsistent execution history blocks recovery intent creation; scheduling and external recovery execution remain outside the domain boundary.
