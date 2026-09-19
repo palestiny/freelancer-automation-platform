@@ -85,8 +85,10 @@ def orchestrate_retry(
         )
 
     if acknowledgement.command_id != existing.command_id:
+        ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS)
+        store.save(ambiguous)
         return RetryOrchestrationResult(
-            command=_state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS),
+            command=ambiguous,
             scheduled=False,
             failure="scheduler_command_mismatch",
         )
@@ -125,16 +127,7 @@ def _state(
     state: RetryCommandState,
     scheduling_id: str | None = None,
 ) -> RetryCommand:
-    return RetryCommand(
-        command_id=command.command_id,
-        request_id=command.request_id,
-        idempotency_key=command.idempotency_key,
-        attempt_number=command.attempt_number,
-        action=command.action,
-        authorization_policy_id=command.authorization_policy_id,
-        authorization_policy_version=command.authorization_policy_version,
-        autonomy_bound=command.autonomy_bound,
-        created_at=command.created_at,
-        state=state,
-        scheduling_id=scheduling_id or command.scheduling_id,
+    return command.transition_to(
+        state,
+        scheduling_id=scheduling_id,
     )
