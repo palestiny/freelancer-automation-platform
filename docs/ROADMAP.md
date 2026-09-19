@@ -222,7 +222,7 @@ Build the missing bridge between operating businesses and the learning loop:
 - evidence-linked improvement recommendations
 - explicit policy/experiment handoff
 
-**Status:** Provider-independent operational outcome, measurement, learning-signal, improvement-handoff, historical aggregation, trend/baseline comparison, evidence eligibility, provenance, source-reliability, and evidence-aware operational-learning foundations are implemented. Persistence, statistical inference, and automated external learning remain future work.
+**Status:** Provider-independent operational outcome, measurement, learning-signal, improvement-handoff, historical aggregation, trend/baseline comparison, evidence eligibility, provenance, source-reliability, evidence-aware operational learning, and the first statistical evidence capabilities are implemented across Phases 16–17. Persistence and external execution remain future work.
 
 ## Phase 17 — Statistical Learning & Inference
 
@@ -258,10 +258,10 @@ Phase 16 includes normalized business performance history, deterministic windows
 
 ### Phase 16 — Deterministic Performance Windows
 
-Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives prepare historical aggregation while deliberately avoiding statistical inference or policy decisions.
+Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives support deterministic historical evidence; statistical inference is implemented separately in Phase 17.
 ### Phase 16 — Historical Performance Aggregation
 
-The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference, persistence, and automated external learning remain future work.
+The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference is implemented separately in Phase 17; persistence and automated external learning remain future work.
 
 ### Phase 16 — Evidence & Baseline Policy
 
@@ -272,11 +272,11 @@ Build:
 - explicit baseline freshness
 - explainable baseline rejection
 
-**Status:** V1 deterministic evidence-aware baseline eligibility foundation implemented. Statistical inference and automatic baseline selection remain future work.
+**Status:** V1 deterministic evidence-aware baseline eligibility foundation implemented. Automatic baseline selection remains future work; statistical inference is implemented separately in Phase 17.
 
 ### Phase 16 — Performance Trend & Baseline Analysis
 
-Added a deterministic comparison foundation for explicit current and baseline windows. Comparisons report descriptive average changes and preserve observation provenance. Forecasting, significance testing, seasonality, anomaly detection, and policy decisions remain future work.
+Added a deterministic comparison foundation for explicit current and baseline windows. Comparisons report descriptive average changes and preserve observation provenance. Forecasting, seasonality, anomaly detection, and policy decisions remain future work; bounded significance testing is implemented separately in Phase 17.
 
 ### Phase 16 — Bounded Performance Comparison Policy
 
@@ -287,7 +287,7 @@ Build:
 - explicit comparison rejection reasons
 - descriptive trend handoff
 
-**Status:** V1 deterministic comparison-policy foundation implemented. Forecasting and statistical inference remain future work.
+**Status:** V1 deterministic comparison-policy foundation implemented. Forecasting remains future work; statistical inference is implemented separately in Phase 17.
 
 ### Phase 16 — Performance Evidence Provenance
 
@@ -297,7 +297,7 @@ Build:
 - retain raw observation identifiers as authoritative lineage
 - keep provenance separate from source-reliability scoring
 
-**Status:** V1 provenance-preserving aggregation foundation implemented. Source reliability scoring, causal attribution, and statistical inference remain future work.
+**Status:** V1 provenance-preserving aggregation foundation implemented. Source reliability scoring is implemented separately; causal attribution remains future work.
 
 ### Phase 16 — Performance Source Reliability Policy
 
