@@ -804,3 +804,8 @@ Economic health metrics and stability-policy eligibility are composed into one e
 ### D-122 — Opportunity Cost Is Evidence, Not Allocation
 
 The first opportunity-cost capability represents the foregone expected economic value of an alternative use of constrained capacity. It must not rank alternatives or silently decide resource allocation.
+
+
+### D-122 — Evidence Handoff Does Not Authorize Action
+
+Decision-support evidence may be handed to policy review only when context is valid. The handoff preserves evidence lineage and posture and never authorizes execution or mutates policy.
