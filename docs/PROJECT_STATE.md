@@ -765,3 +765,8 @@ A design-only gate is now approved for review as the next execution boundary. It
 ## Retry Orchestration Command Boundary
 
 The first runtime-neutral retry orchestration contracts are implemented and CI-verified. Durable retry command identity, explicit lifecycle/status values, scheduler acknowledgements, and replaceable persistence/scheduler protocols now exist. Concrete persistence, scheduler, worker, and retry-loop adapters remain outside this increment.
+
+
+## Performance Evidence Policy State
+
+The first consumer-facing performance evidence policy state boundary is implemented and CI-verified. It derives explicit evidence states from the existing descriptive trend and inferential evidence without producing recommendations, scores, rankings, policy mutation, learning mutation, portfolio actions, or execution.

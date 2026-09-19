@@ -493,3 +493,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Retry Command & Scheduler Ports
 
 **Status:** V1 provider-independent command and port contracts implemented and CI-verified. Concrete persistence/scheduler adapters and workers remain separate integration boundaries.
+
+
+### Performance Evidence Policy State
+
+**Status:** V1 evidence-state boundary implemented and verified. Downstream automation remains explicitly outside this boundary.

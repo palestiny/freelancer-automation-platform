@@ -921,3 +921,8 @@ Runtime retry orchestration requires replaceable persistence and scheduler ports
 ### D-144 — Retry Command Identity Is Explicit and Provider-Independent
 
 Retry orchestration commands preserve request identity, provider idempotency identity, attempt identity, authorization context, and command identity as explicit immutable evidence. Persistence and scheduler implementations remain replaceable ports; command contracts do not perform execution.
+
+
+### D-122 — Performance Evidence States Are Non-Decisioning
+
+The performance evidence policy state is an evidence classification for downstream consumers. It must not be interpreted as an automatic recommendation or execution instruction, and it preserves insufficient inference and descriptive/inferential disagreement explicitly.
