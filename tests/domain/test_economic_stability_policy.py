@@ -85,3 +85,11 @@ def test_high_variability_is_rejected():
     )
     result = assess_economic_stability(health=health, policy=_policy())
     assert result.reason is EconomicStabilityEligibilityReason.PROFIT_VARIABILITY_ABOVE_THRESHOLD
+
+
+def test_assessment_preserves_business_window_and_outcome_lineage():
+    result = assess_economic_stability(health=_health(), policy=_policy())
+
+    assert result.business_id == "b1"
+    assert result.window == _health().window
+    assert result.outcome_ids == ("o1", "o2", "o3")
