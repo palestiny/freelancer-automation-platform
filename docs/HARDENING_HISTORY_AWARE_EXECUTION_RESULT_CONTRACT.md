@@ -11,3 +11,6 @@ Behavior is unchanged. The result remains an immutable composition of:
 - ExecutionRecoveryHandoff
 
 No authorization, retry, scheduling, provider selection, or external side effect is introduced.
+
+
+The hardening tests also keep existing evidence-consumer fixtures aligned with the already-approved non-empty lineage invariant.
