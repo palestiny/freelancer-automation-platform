@@ -44,7 +44,7 @@ def orchestrate_retry(
             failure="command_persistence_failed",
         )
 
-    if existing.command_id != command.command_id:
+    if existing.identity != command.identity:
         return RetryOrchestrationResult(
             command=existing,
             scheduled=False,
@@ -72,9 +72,16 @@ def orchestrate_retry(
 
     if claimed is None:
         return RetryOrchestrationResult(command=existing, scheduled=False, failure="claim_conflict")
+    if claimed.state is not RetryCommandState.CLAIMED:
+        return RetryOrchestrationResult(command=claimed, scheduled=False, failure="claim_state_invalid")
     existing = claimed
 
-    authorization = authorization_revalidator.revalidate(existing)
+    try:
+        authorization = authorization_revalidator.revalidate(existing)
+    except Exception:
+        updated = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW)
+        persisted, failure = _try_persist_state(store, updated)
+        return RetryOrchestrationResult(command=persisted, scheduled=False, failure=failure or "authorization_revalidation_failed")
     if authorization.status is not ActionAuthorizationStatus.AUTHORIZED:
         updated = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW)
         try:
@@ -122,12 +129,12 @@ def orchestrate_retry(
         )
 
     if acknowledgement.command_id != existing.command_id:
-        ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS)
-        store.save(ambiguous)
+        ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS, acknowledgement.scheduling_id)
+        persisted, failure = _try_persist_state(store, ambiguous)
         return RetryOrchestrationResult(
-            command=ambiguous,
+            command=persisted,
             scheduled=False,
-            failure="scheduler_command_mismatch",
+            failure=failure or "scheduler_command_mismatch",
         )
 
     if acknowledgement.status is SchedulerAcknowledgementStatus.ACCEPTED:
@@ -169,8 +176,15 @@ def orchestrate_retry(
         return RetryOrchestrationResult(command=persisted, scheduled=False, failure="scheduler_rejected")
 
     ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS, acknowledgement.scheduling_id)
-    store.save(ambiguous)
-    return RetryOrchestrationResult(command=ambiguous, scheduled=False, failure="scheduler_acknowledgement_ambiguous")
+    persisted, failure = _try_persist_state(store, ambiguous)
+    return RetryOrchestrationResult(command=persisted, scheduled=False, failure=failure or "scheduler_acknowledgement_ambiguous")
+
+
+def _try_persist_state(store: RetryCommandStore, command: RetryCommand) -> tuple[RetryCommand, str | None]:
+    try:
+        return store.save(command), None
+    except Exception:
+        return command, "state_persistence_failed"
 
 
 def _state(
