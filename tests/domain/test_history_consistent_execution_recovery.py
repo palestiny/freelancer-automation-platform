@@ -51,7 +51,7 @@ def test_consistent_history_produces_history_derived_retry_handoff():
     result = create_execution_recovery_handoff_with_history(
         outcome=outcome,
         history=history,
-        policy=ExecutionOutcomePolicy(max_retries=3),
+        policy=ExecutionOutcomePolicy(retryable_outcome_codes=("provider_failure",), maximum_attempts=3),
     )
 
     assert result.consistency_status is ExecutionHistoryConsistencyStatus.CONSISTENT
@@ -79,7 +79,13 @@ def test_inconsistent_history_blocks_recovery_handoff():
 
 
 def test_manual_review_is_preserved_as_manual_review():
-    outcome = _outcome()
+    outcome = ExecutionOutcome(
+        request_id="req-1",
+        idempotency_key="idem-1",
+        status=ExecutionOutcomeStatus.UNKNOWN,
+        outcome_code="unknown_result",
+        observed_at=outcome_time(),
+    )
     history = ExecutionAttemptHistory(
         request_id="req-1",
         idempotency_key="idem-1",
@@ -89,7 +95,7 @@ def test_manual_review_is_preserved_as_manual_review():
     result = create_execution_recovery_handoff_with_history(
         outcome=outcome,
         history=history,
-        policy=ExecutionOutcomePolicy(max_retries=0),
+        policy=ExecutionOutcomePolicy(maximum_attempts=1),
     )
 
     assert result.handoff is not None
