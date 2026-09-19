@@ -13,12 +13,19 @@ class ExecutionRecoveryMode(str, Enum):
     NONE = "none"
 
 
+class ExecutionRecoveryReason(str, Enum):
+    RETRY_ELIGIBLE = "retry_eligible"
+    MANUAL_REVIEW_REQUIRED = "manual_review_required"
+    NO_RECOVERY_REQUIRED = "no_recovery_required"
+
+
 @dataclass(frozen=True)
 class ExecutionRecoveryHandoff:
     request_id: str
     idempotency_key: str
     attempt_count: int
     mode: ExecutionRecoveryMode
+    reason: ExecutionRecoveryReason
     source_status: ExecutionOutcomeAssessmentStatus
 
     def __post_init__(self) -> None:
@@ -26,6 +33,13 @@ class ExecutionRecoveryHandoff:
             raise ValueError("request_id and idempotency_key cannot be empty")
         if self.attempt_count <= 0:
             raise ValueError("attempt_count must be greater than zero")
+        expected_reason = {
+            ExecutionRecoveryMode.RETRY: ExecutionRecoveryReason.RETRY_ELIGIBLE,
+            ExecutionRecoveryMode.MANUAL_REVIEW: ExecutionRecoveryReason.MANUAL_REVIEW_REQUIRED,
+            ExecutionRecoveryMode.NONE: ExecutionRecoveryReason.NO_RECOVERY_REQUIRED,
+        }[self.mode]
+        if self.reason is not expected_reason:
+            raise ValueError("reason must match recovery mode")
 
 
 def create_execution_recovery_handoff(
@@ -44,5 +58,6 @@ def create_execution_recovery_handoff(
         idempotency_key=assessment.idempotency_key,
         attempt_count=assessment.attempt_count,
         mode=mode,
+        reason=reason,
         source_status=assessment.status,
     )
