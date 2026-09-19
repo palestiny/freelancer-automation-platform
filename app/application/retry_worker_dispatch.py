@@ -114,7 +114,7 @@ def _matches_command(
         and request.idempotency_key == command.idempotency_key
         and request.policy_id == command.authorization_policy_id
         and request.policy_version == command.authorization_policy_version
-        and request.autonomy_level.name == command.autonomy_bound
+        and f"L{request.autonomy_level.value}" == command.autonomy_bound
     )
 
 
