@@ -680,3 +680,8 @@ The first policy-review consumer is now implemented as an explicit, immutable, p
 ## Action Authorization & Progressive Autonomy
 
 V1 now has an explicit authorization artifact between policy review and execution. Authorization preserves policy identity/version, requested and maximum autonomy, action class, status, and human-approval requirement. L3 execution-with-approval is explicitly human-gated. Irreversible external and financial action classes are safety-blocked in this domain slice. No execution is performed.
+
+
+## Authorized Execution Request Boundary
+
+V1 now separates authorization from execution with a non-executing AuthorizedExecutionRequest artifact. Only an AUTHORIZED action can become PREPARED. Rejected authorization states cannot cross this boundary. Request identity and idempotency key are explicit, while provider credentials, queues, workers, scheduling, network calls, and external side effects remain outside the domain.
