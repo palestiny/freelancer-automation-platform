@@ -3,6 +3,7 @@ from enum import Enum
 
 from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
+from .performance_history import PerformanceWindow
 from .statistical_mean_comparison import MeanComparisonResult, MeanComparisonStatus
 
 
@@ -30,8 +31,8 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
-    first_window: object
-    second_window: object
+    first_window: PerformanceWindow
+    second_window: PerformanceWindow
     first_window: PerformanceWindow
     second_window: PerformanceWindow
 
@@ -131,6 +132,8 @@ def _compose(
             comparison.first_observation_ids + comparison.second_observation_ids
         ),
         eligible=eligible,
+        first_window=comparison.first_window,
+        second_window=comparison.second_window,
         reason=reason,
         interpretation=interpretation,
         alpha=comparison.alpha,
