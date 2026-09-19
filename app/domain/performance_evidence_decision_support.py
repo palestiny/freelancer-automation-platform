@@ -46,9 +46,9 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
-    statistical_method: str
-    statistical_first_window: PerformanceWindow
-    statistical_second_window: PerformanceWindow
+    statistical_method: str = ""
+    statistical_first_window: PerformanceWindow | None = None
+    statistical_second_window: PerformanceWindow | None = None
     statistical_difference_direction: DescriptiveDirection
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
