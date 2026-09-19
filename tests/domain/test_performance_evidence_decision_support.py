@@ -211,3 +211,17 @@ def test_evidence_composition_preserves_trend_windows():
     assert result.current_window_end == datetime(2026, 2, 8)
     assert result.baseline_window_start == datetime(2026, 1, 25)
     assert result.baseline_window_end == datetime(2026, 2, 1)
+
+
+def test_result_rejects_non_datetime_window_values():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(TypeError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start="2026-02-01", current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+
+
+def test_result_rejects_malformed_current_window():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start=datetime(2026, 2, 8), current_window_end=datetime(2026, 2, 1), current_observation_ids=("c1",), baseline_observation_ids=("b1",))
