@@ -408,3 +408,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Evidence Policy Review
 
 **Status:** V1 policy-evaluation consumer implemented and CI-verified. Policy satisfaction is explicitly separated from authorization and execution. The next action-authorization boundary remains gated by a dedicated design decision.
+
+
+### Action Authorization & Progressive Autonomy
+
+**Status:** V1 authorization artifact implemented and CI-verified. Authorization is separate from execution; autonomy limits, human approval, and safety blocks are explicit. Execution adapters remain a future boundary.
