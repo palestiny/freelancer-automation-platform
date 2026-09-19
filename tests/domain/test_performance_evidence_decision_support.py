@@ -219,11 +219,30 @@ def test_context_invalid_preserves_lineage_for_diagnostics():
 
 
 def test_declining_change_with_statistical_detection_preserves_both_evidence_types():
+    evidence = _stat(
+        interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+    )
+    evidence = StatisticalEvidenceComposition(
+        business_id=evidence.business_id,
+        metric_name=evidence.metric_name,
+        unit=evidence.unit,
+        method=evidence.method,
+        observation_ids=evidence.observation_ids,
+        eligible=evidence.eligible,
+        reason=evidence.reason,
+        interpretation=evidence.interpretation,
+        alpha=evidence.alpha,
+        mean_difference=-10.0,
+        first_window=evidence.first_window,
+        second_window=evidence.second_window,
+        current_evidence_quality=evidence.current_evidence_quality,
+        baseline_evidence_quality=evidence.baseline_evidence_quality,
+        current_source_reliability=evidence.current_source_reliability,
+        baseline_source_reliability=evidence.baseline_source_reliability,
+    )
     result = compose_performance_evidence(
         trend=_trend(-10.0),
-        statistical_evidence=_stat(
-            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
-        ),
+        statistical_evidence=evidence,
         business_id="b1",
     )
     assert result.descriptive_direction is DescriptiveDirection.DECLINING
@@ -240,3 +259,32 @@ def test_opposite_statistical_direction_is_not_called_alignment():
         business_id="b1",
     )
     assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
+
+def test_opposite_statistical_direction_is_explicit_conflict():
+    evidence = _stat(
+        interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+    )
+    evidence = StatisticalEvidenceComposition(
+        business_id=evidence.business_id,
+        metric_name=evidence.metric_name,
+        unit=evidence.unit,
+        method=evidence.method,
+        observation_ids=evidence.observation_ids,
+        eligible=evidence.eligible,
+        reason=evidence.reason,
+        interpretation=evidence.interpretation,
+        alpha=evidence.alpha,
+        mean_difference=-10.0,
+        first_window=evidence.first_window,
+        second_window=evidence.second_window,
+        current_evidence_quality=evidence.current_evidence_quality,
+        baseline_evidence_quality=evidence.baseline_evidence_quality,
+        current_source_reliability=evidence.current_source_reliability,
+        baseline_source_reliability=evidence.baseline_source_reliability,
+    )
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=evidence,
+        business_id="b1",
+    )
+    assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT

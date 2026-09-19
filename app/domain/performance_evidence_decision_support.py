@@ -28,6 +28,9 @@ class CombinedEvidencePosture(str, Enum):
     DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION = (
         "descriptive_change_without_statistical_detection"
     )
+    STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT = (
+        "statistical_and_descriptive_direction_conflict"
+    )
     NO_DESCRIPTIVE_CHANGE = "no_descriptive_change"
     INFERENTIAL_EVIDENCE_UNAVAILABLE = "inferential_evidence_unavailable"
     CONTEXT_INVALID = "context_invalid"
@@ -92,8 +95,16 @@ def compose_performance_evidence(
     elif descriptive is DescriptiveDirection.NO_CHANGE:
         posture = CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
     elif inferential is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
-        # Statistical detection alone does not establish directional alignment.
-        posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+        if (
+            descriptive is DescriptiveDirection.NO_CHANGE
+            or not _directions_align(
+                descriptive,
+                _difference_direction(statistical_evidence),
+            )
+        ):
+            posture = CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+        else:
+            posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     else:
         posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
 
