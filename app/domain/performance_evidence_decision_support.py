@@ -120,6 +120,11 @@ def _result(
     posture: CombinedEvidencePosture,
     statistical_evidence: StatisticalEvidenceComposition,
 ) -> PerformanceEvidenceDecisionSupport:
+    difference_direction = (
+        _difference_direction(statistical_evidence)
+        if inferential_status is not InferentialStatus.UNAVAILABLE
+        else DescriptiveDirection.UNAVAILABLE
+    )
     return PerformanceEvidenceDecisionSupport(
         business_id=business_id,
         metric_name=trend.metric_name,
@@ -128,7 +133,7 @@ def _result(
         inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=statistical_evidence.observation_ids,
-        statistical_difference_direction=_difference_direction(statistical_evidence),
+        statistical_difference_direction=difference_direction,
         current_observation_ids=trend.current_observation_ids,
         baseline_observation_ids=trend.baseline_observation_ids,
     )
