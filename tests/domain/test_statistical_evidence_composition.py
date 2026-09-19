@@ -176,6 +176,7 @@ def test_result_rejects_invalid_evidence_quality():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
+            mean_difference=10.0,
             first_window=comparison.first_window,
             second_window=comparison.second_window,
             current_evidence_quality=101,
