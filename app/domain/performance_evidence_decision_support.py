@@ -45,14 +45,6 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        if not self.business_id.strip():
-            raise ValueError("business_id cannot be empty")
-        if not self.metric_name.strip() or not self.unit.strip():
-            raise ValueError("metric_name and unit cannot be empty")
-        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
-            raise ValueError("statistical_observation_ids must be unique")
     statistical_difference_direction: DescriptiveDirection
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
@@ -103,13 +95,8 @@ def compose_performance_evidence(
     elif descriptive is DescriptiveDirection.NO_CHANGE:
         posture = CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
     elif inferential is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
-        if (
-            descriptive is DescriptiveDirection.NO_CHANGE
-            or not _directions_align(
-                descriptive,
-                _difference_direction(statistical_evidence),
-            )
-        ):
+        difference = _difference_direction(statistical_evidence)
+        if not _directions_align(descriptive, difference):
             posture = CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
         else:
             posture = CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
@@ -173,7 +160,9 @@ def _inferential_status(
     return InferentialStatus.UNAVAILABLE
 
 
-def _difference_direction(evidence: StatisticalEvidenceComposition) -> DescriptiveDirection:
+def _difference_direction(
+    evidence: StatisticalEvidenceComposition,
+) -> DescriptiveDirection:
     if evidence.mean_difference is None:
         return DescriptiveDirection.UNAVAILABLE
     if evidence.mean_difference > 0:
@@ -183,5 +172,8 @@ def _difference_direction(evidence: StatisticalEvidenceComposition) -> Descripti
     return DescriptiveDirection.NO_CHANGE
 
 
-def _directions_align(left: DescriptiveDirection, right: DescriptiveDirection) -> bool:
+def _directions_align(
+    left: DescriptiveDirection,
+    right: DescriptiveDirection,
+) -> bool:
     return left is right
