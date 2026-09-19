@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from app.application.execution_port import ExecutionPort
+from app.application.execution_port import ExecutionPort, ProviderExecutionResult
 from app.application.retry_worker_dispatch import (
     RetryWorkerDispatchStatus,
     dispatch_one_retry,
@@ -63,10 +63,13 @@ def prepared_request():
 
 
 def raw_outcome(status="succeeded"):
-    return {
-        "request_id":"req-1", "idempotency_key":"idem-1", "status":ExecutionOutcomeStatus(status),
-        "outcome_code":status, "observed_at":datetime(2026,9,20,1,tzinfo=timezone.utc),
-    }
+    return ProviderExecutionResult(
+        request_id="req-1",
+        idempotency_key="idem-1",
+        status=ExecutionOutcomeStatus(status),
+        outcome_code=status,
+        observed_at=datetime(2026,9,20,1,tzinfo=timezone.utc),
+    )
 
 
 def scheduled_store():
