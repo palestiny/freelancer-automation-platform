@@ -418,3 +418,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Authorized Execution Request Boundary
 
 **Status:** V1 non-executing request artifact implemented and CI-verified. Authorization can prepare an idempotent execution request, but no external execution occurs. Provider execution remains a future boundary.
+
+
+### Authorized Execution Outcome Contract
+
+**Status:** V1 provider-independent outcome artifact implemented and CI-verified. External provider execution, retry, scheduling, compensation, and side effects remain outside the domain boundary.
