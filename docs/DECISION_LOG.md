@@ -794,3 +794,8 @@ Stable profitability is assessed from economic-health evidence using explicit po
 ### D-129 — Economic Numeric Inputs Must Be Finite
 
 Economic estimates and realized outcomes must reject NaN and infinite numeric inputs. Derived economic evidence must never be allowed to propagate non-finite source values.
+
+
+### D-130 — Economic Stability Evidence Remains Explicitly Composed
+
+Economic health metrics and stability-policy eligibility are composed into one evidence artifact while preserving their semantic distinction. The consumer must not create a universal score, portfolio posture, capital allocation, forecast, policy mutation, or financial execution action.
