@@ -17,7 +17,12 @@ class FakeStore:
         self.created.append(command)
         return self.existing or command
     def get(self, command_id): return self.existing
-    def claim(self, command_id): return None
+    def claim(self, command_id):
+        command = self.current or (self.created[-1] if self.created else None)
+        if command is None or command.state is not RetryCommandState.CREATED:
+            return None
+        self.current = command.transition_to(RetryCommandState.CLAIMED)
+        return self.current
     def record_scheduler_acknowledgement(self, command_id, acknowledgement):
         self.acks.append((command_id, acknowledgement))
         command = self.current or self.created[-1]
@@ -42,6 +47,7 @@ def test_retry_command_uses_history_derived_next_attempt_and_persists_before_sch
     assert result.state is RetryCommandState.SCHEDULED
     assert store.created[0].attempt_number == 3
     assert len(scheduler.calls) == 1
+    assert scheduler.calls[0].state is RetryCommandState.CLAIMED
 
 def test_ambiguous_scheduler_ack_is_not_retried():
     store=FakeStore(); scheduler=FakeScheduler(SchedulerAcknowledgementStatus.AMBIGUOUS)
@@ -64,3 +70,21 @@ def test_accepted_acknowledgement_is_recorded_after_claim():
     result=schedule_retry_command(handoff=_handoff(),command_id='cmd-accepted',authorization_policy_id='policy-1',authorization_policy_version='v1',autonomy_bound='L3',created_at=datetime(2026,9,19,tzinfo=timezone.utc),store=store,scheduler=scheduler)
     assert store.acks[0][0] == 'cmd-accepted'
     assert result.scheduling_id == 'sched-1'
+
+
+def test_claim_conflict_does_not_schedule_duplicate_command():
+    existing = RetryCommand(
+        command_id="cmd-1", request_id="req-1", idempotency_key="idem-1", attempt_number=3,
+        action=RetryCommandAction.RETRY, authorization_policy_id="policy-1",
+        authorization_policy_version="v1", autonomy_bound="L3",
+        created_at=datetime(2026, 9, 19, tzinfo=timezone.utc), state=RetryCommandState.CLAIMED,
+    )
+    store = FakeStore(existing=existing)
+    scheduler = FakeScheduler()
+    result = schedule_retry_command(
+        handoff=_handoff(), command_id="different", authorization_policy_id="policy-1",
+        authorization_policy_version="v1", autonomy_bound="L3",
+        created_at=datetime(2026, 9, 19, tzinfo=timezone.utc), store=store, scheduler=scheduler,
+    )
+    assert result is existing
+    assert scheduler.calls == []
