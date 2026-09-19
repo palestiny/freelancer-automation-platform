@@ -1,5 +1,7 @@
 import pytest
 
+from app.domain.performance_history import PerformanceWindow
+
 from app.domain.evidence_decision_context import (
     EvidenceDecisionContext,
     build_evidence_decision_context,
