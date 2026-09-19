@@ -25,3 +25,4 @@ def test_duplicate_logical_command_with_different_command_id_is_identity_conflic
 
     with pytest.raises(ValueError, match="command identity conflict"):
         store.create_or_get(_command("cmd-2"))
+
