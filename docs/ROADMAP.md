@@ -523,3 +523,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Retry Worker Dispatch Boundary
 
 **Status:** V1 single-command worker dispatch implemented and CI-verified. Claim, revalidation, provider dispatch, and outcome handoff are explicit; worker loop/infrastructure and automatic retry remain separate boundaries.
+
+
+### Retry Worker Provider Failure Handoff
+
+**Status:** V1 provider-failure handoff implemented and CI-verified. Provider exceptions transition successfully persisted claims to manual review; persistence failures remain explicit. Automatic retry, compensation, and rescheduling remain separate boundaries.
