@@ -19,7 +19,7 @@ def _support(*, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED):
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=inferential,
-        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
     )
 
