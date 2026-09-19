@@ -951,3 +951,8 @@ A scheduled retry command may transition to EXECUTION_IN_PROGRESS through an exp
 ### D-123 — Retry Execution Outcomes Do Not Automatically Retry
 
 Observed retry execution outcomes are consumed only to close the current command state. Success is terminal completion; non-success is explicit manual review. Automatic retry, compensation, and subsequent scheduling remain outside this boundary.
+
+
+### D-122 — Retry Worker Dispatch Remains a Single-Command Application Boundary
+
+Worker dispatch may consume one scheduled retry command through atomic claim, authorization revalidation, the existing ExecutionPort, and outcome handoff. It must not introduce a background loop, queue framework, provider selection, automatic retry, compensation, or authorization mutation.
