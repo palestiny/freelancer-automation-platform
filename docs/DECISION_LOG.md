@@ -814,3 +814,8 @@ Decision-support evidence may be handed to policy review only when context is va
 ### D-131 — Evidence Handoff Preserves Full Context and Requires Explicit Policy Review
 
 A valid evidence handoff preserves descriptive direction, inferential status, posture, and current/baseline/statistical observation lineage. Valid evidence is marked as requiring explicit policy review; context-invalid evidence is blocked. The handoff never authorizes action or execution.
+
+
+### D-132 — Policy Review Is Explicit and Non-Executing
+
+Evidence policy review evaluates supplied evidence against an explicit immutable policy and returns a deterministic policy status/reason without authorizing or executing an action. Policy identity/configuration is caller-supplied; no default policy, automatic policy selection, ranking, recommendation, or mutation is introduced.
