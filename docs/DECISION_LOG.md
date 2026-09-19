@@ -956,3 +956,8 @@ Observed retry execution outcomes are consumed only to close the current command
 ### D-122 — Retry Worker Dispatch Remains a Single-Command Application Boundary
 
 Worker dispatch may consume one scheduled retry command through atomic claim, authorization revalidation, the existing ExecutionPort, and outcome handoff. It must not introduce a background loop, queue framework, provider selection, automatic retry, compensation, or authorization mutation.
+
+
+### D-124 — Retry Provider Failures Enter Explicit Manual Review
+
+A provider exception after an execution claim must not silently leave the command unresolved. V1 attempts a manual-review transition. If persistence fails, the system reports the persistence failure without fabricating an outcome or performing automatic retry/compensation.
