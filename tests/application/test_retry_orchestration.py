@@ -299,7 +299,7 @@ def test_authorization_state_save_failure_does_not_claim_successfully():
         store=RaisingSaveStore(),
         scheduler=Scheduler(SchedulerAcknowledgementStatus.ACCEPTED),
         authorization_revalidator=Revalidator(
-            authorization(status=ActionAuthorizationStatus.REJECTED)
+            authorization(status=ActionAuthorizationStatus.NOT_AUTHORIZED)
         ),
     )
     assert result.scheduled is False
@@ -308,6 +308,10 @@ def test_authorization_state_save_failure_does_not_claim_successfully():
 
 
 class RaisingAmbiguousSaveStore(Store):
+    def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
+        return self.command
+
     def save(self, command):
         raise RuntimeError("ambiguous-state persistence failed")
 
