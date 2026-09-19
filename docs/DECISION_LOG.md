@@ -854,3 +854,8 @@ A downstream performance evidence artifact may expose statistical direction only
 ### D-124 — Provider Execution Is an Application Adapter Boundary
 
 External execution is reached only through an explicit application-layer port after authorization has produced a prepared request. The port cannot authorize, retry, schedule, or mutate policy; provider-specific credentials and integrations remain outside the domain.
+
+
+### D-138 — Execution Adapter Results Must Be Runtime-Validated
+
+The execution adapter port rejects results that are not the explicit immutable ProviderExecutionResult contract and rejects invalid status/timestamp types before translating them into ExecutionOutcome. Runtime validation does not authorize, retry, schedule, compensate, or execute.
