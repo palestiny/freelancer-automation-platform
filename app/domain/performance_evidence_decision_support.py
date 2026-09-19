@@ -23,6 +23,7 @@ class InferentialStatus(str, Enum):
 
 class CombinedEvidencePosture(str, Enum):
     DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION = "descriptive_change_with_statistical_detection"
+    DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT = "descriptive_and_statistical_alignment"
     DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION = "descriptive_change_without_statistical_detection"
     DESCRIPTIVE_AND_STATISTICAL_DISAGREEMENT = "descriptive_and_statistical_disagreement"
 
