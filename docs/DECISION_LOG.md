@@ -931,3 +931,8 @@ The performance evidence policy state is an evidence classification for downstre
 ### D-122 — Retry Orchestration Runtime-Neutral Boundary Is Implemented
 
 The retry orchestration application boundary may coordinate durable command identity, atomic claiming through a port, authorization revalidation, scheduler acknowledgements, and explicit failure states. Concrete persistence, scheduler/queue, worker, retry-loop, and provider adapters remain outside the current boundary.
+
+
+### D-122 — Retry Command Persistence Uses a Replaceable SQLite Adapter in V1
+
+The first concrete retry persistence adapter uses standard-library SQLite behind the existing RetryCommandStore port. Durable logical identity and atomic claim semantics are infrastructure guarantees; retry policy and provider execution remain outside the adapter.
