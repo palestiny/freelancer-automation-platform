@@ -43,6 +43,9 @@ def orchestrate_retry(
             failure="idempotency_conflict",
         )
 
+    if existing.action is not RetryCommandAction.RETRY:
+        return RetryOrchestrationResult(command=existing, scheduled=False, failure="manual_review_not_schedulable")
+
     if existing.state is not RetryCommandState.CREATED:
         return RetryOrchestrationResult(
             command=existing,
@@ -64,10 +67,11 @@ def orchestrate_retry(
     if (
         authorization.policy_id != existing.authorization_policy_id
         or authorization.policy_version != existing.authorization_policy_version
+        or f"L{authorization.requested_autonomy.value}" != existing.autonomy_bound
     ):
         updated = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW)
         store.save(updated)
-        return RetryOrchestrationResult(command=updated, scheduled=False, failure="authorization_policy_changed")
+        return RetryOrchestrationResult(command=updated, scheduled=False, failure=("authorization_policy_changed" if authorization.policy_id != existing.authorization_policy_id or authorization.policy_version != existing.authorization_policy_version else "authorization_autonomy_changed"))
 
     try:
         acknowledgement = scheduler.schedule(existing)
