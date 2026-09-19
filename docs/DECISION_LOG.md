@@ -884,3 +884,8 @@ Execution history consistency validates identity and latest observed attempt agr
 ### D-124 — Execution Retry Policy Must Consume Consistent Attempt Evidence
 
 Retry eligibility must not be derived from a caller-supplied attempt count when immutable execution history is available. Outcome/history identity and latest-attempt consistency are required before policy assessment; the policy remains non-executing.
+
+
+### D-138 — Recovery Handoff Requires Consistent Attempt Evidence
+
+Recovery intent must be derived from the history-consistent execution policy assessment. Immutable attempt history is authoritative for observed attempt count; inconsistent history blocks recovery handoff creation. The boundary remains non-executing and non-authorizing.
