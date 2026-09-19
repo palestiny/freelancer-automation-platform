@@ -11,6 +11,7 @@ from app.domain.statistical_mean_comparison import (
     MeanComparisonStatus,
 )
 from app.domain.statistical_evidence_composition import (
+    StatisticalEvidenceComposition,
     StatisticalEvidenceEligibilityReason,
     StatisticalEvidenceInterpretation,
     compose_statistical_evidence,
