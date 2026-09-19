@@ -685,3 +685,8 @@ V1 now has an explicit authorization artifact between policy review and executio
 ## Authorized Execution Request Boundary
 
 V1 now separates authorization from execution with a non-executing AuthorizedExecutionRequest artifact. Only an AUTHORIZED action can become PREPARED. Rejected authorization states cannot cross this boundary. Request identity and idempotency key are explicit, while provider credentials, queues, workers, scheduling, network calls, and external side effects remain outside the domain.
+
+
+## Authorized Execution Outcome
+
+The execution boundary now includes a provider-independent outcome artifact. A prepared authorized request may be represented as succeeded, failed, rejected, or unknown after an adapter reports an outcome. The domain records the evidence only; provider calls, retries, scheduling, compensation, billing, policy mutation, and external side effects remain outside the domain.
