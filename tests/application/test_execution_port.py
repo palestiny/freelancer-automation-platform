@@ -5,7 +5,7 @@ import pytest
 from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
 from app.domain.execution_outcome import ExecutionOutcomeStatus
-from app.application.execution_port import ExecutionPort, dispatch_execution
+from app.application.execution_port import ExecutionPort, ProviderExecutionResult, dispatch_execution
 
 
 class RecordingPort(ExecutionPort):
@@ -14,13 +14,13 @@ class RecordingPort(ExecutionPort):
 
     def execute(self, request):
         self.received.append(request)
-        return {
-            "request_id": request.request_id,
-            "idempotency_key": request.idempotency_key,
-            "status": ExecutionOutcomeStatus.SUCCEEDED,
-            "outcome_code": "ok",
-            "observed_at": datetime(2026, 9, 19, tzinfo=timezone.utc),
-        }
+        return ProviderExecutionResult(
+            request_id=request.request_id,
+            idempotency_key=request.idempotency_key,
+            status=ExecutionOutcomeStatus.SUCCEEDED,
+            outcome_code="ok",
+            observed_at=datetime(2026, 9, 19, tzinfo=timezone.utc),
+        )
 
 
 def _request(status=ExecutionRequestStatus.PREPARED):
