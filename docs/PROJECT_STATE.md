@@ -630,3 +630,8 @@ V1 now has an explicit actual-vs-expected economic performance foundation. Econo
 ## Phase 2 — Economic Performance Aggregation
 
 V1 now includes explicit-window aggregation of realized economic outcomes. The aggregate preserves business identity, time window, outcome lineage, realized revenue/cost/profit/effort averages, and actual-vs-expected variance averages. Empty windows remain missing evidence rather than zero economics. No economic scoring, forecasting, capital allocation, or execution is introduced.
+
+
+## Phase 2 — Economic Health & Stability Evidence
+
+V1 now exposes descriptive economic health/stability evidence from realized outcomes: profitability rate, profit range, sample profit variability, average margin where available, and profit per effort hour where available. This is evidence only; it does not score, rank, forecast, allocate capital, mutate policy, or execute financial actions.

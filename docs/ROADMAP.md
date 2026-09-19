@@ -366,3 +366,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 2 — Economic Performance Aggregation
 
 **Status:** V1 deterministic historical aggregation implemented and CI-verified. Raw realized outcomes remain authoritative; aggregates are derived views only. Economic health/stability policy remains a separate future slice.
+
+
+### Phase 2 — Economic Health & Stability Evidence
+
+**Status:** V1 descriptive evidence implemented and CI-verified. Profitability and stability are now measurable from realized outcomes without a universal health score or automatic business posture.
