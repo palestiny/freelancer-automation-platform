@@ -10,13 +10,13 @@ from app.domain.evidence_consumer_handoff import (
 )
 
 
-def _support(*, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION):
+def _support(*, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION, inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED):
     return PerformanceEvidenceDecisionSupport(
         business_id="b1",
         metric_name="profit",
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
-        inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+        inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
     )
@@ -30,7 +30,10 @@ def test_usable_evidence_is_ready_for_review():
 
 def test_unavailable_inferential_evidence_is_explicitly_unavailable():
     item = create_evidence_review_item(
-        _support(posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE)
+        _support(
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+        )
     )
     assert item.state is EvidenceReviewState.EVIDENCE_UNAVAILABLE
 
