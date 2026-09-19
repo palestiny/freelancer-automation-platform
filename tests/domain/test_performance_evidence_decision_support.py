@@ -225,3 +225,32 @@ def test_result_rejects_malformed_current_window():
     from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
     with pytest.raises(ValueError):
         PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start=datetime(2026, 2, 8), current_window_end=datetime(2026, 2, 1), current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+
+
+def test_result_rejects_alignment_posture_when_inferential_status_is_unavailable():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("x",), current_observation_ids=("c1",),
+            baseline_observation_ids=("b1",),
+        )
+
+
+def test_result_rejects_statistical_detection_with_no_descriptive_change():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.NO_CHANGE,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("x",),
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
+            current_observation_ids=("c1",), baseline_observation_ids=("b1",),
+        )
