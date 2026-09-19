@@ -458,3 +458,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Attempt History
 
 **Status:** V1 provider-independent attempt evidence implemented and verified. Repeated execution observations are now representable without introducing retry scheduling or provider-specific orchestration.
+
+
+### Execution Attempt History Consistency
+
+**Status:** V1 evidence-consistency validation implemented and CI-verified. Outcome/history identity and latest-attempt agreement are explicit; missing attempt numbers remain evidence rather than inferred state.

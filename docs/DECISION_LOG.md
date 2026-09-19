@@ -874,3 +874,8 @@ The coordinator composes existing authorization/request, provider execution, out
 ### D-122 — Execution Attempts Are Immutable Evidence
 
 Repeated provider execution attempts are preserved as explicit evidence with request identity, idempotency identity, and attempt number. The attempt history does not infer retry policy or perform scheduling/execution.
+
+
+### D-125 — Execution Attempt History Consistency Does Not Infer Missing Attempts
+
+Execution history consistency validates identity and latest observed attempt agreement. Attempt numbers are explicit evidence; gaps are not treated as implicit failures or retries. The consistency boundary remains non-executing and non-authorizing.
