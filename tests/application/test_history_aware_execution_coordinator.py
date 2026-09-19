@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from app.application.execution_coordinator import coordinate_execution_with_history
+from app.application.history_aware_execution_coordinator import coordinate_execution_with_history
 from app.application.execution_port import ExecutionPort, ProviderExecutionResult
 from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
