@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from .performance_history import PerformanceWindow
 from .performance_trend import PerformanceTrend
 from .statistical_evidence_composition import (
     StatisticalEvidenceComposition,
@@ -45,9 +46,12 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
-    statistical_difference_direction: DescriptiveDirection
-    current_observation_ids: tuple[str, ...]
-    baseline_observation_ids: tuple[str, ...]
+    statistical_method: str = ""
+    statistical_first_window: PerformanceWindow | None = None
+    statistical_second_window: PerformanceWindow | None = None
+    statistical_difference_direction: DescriptiveDirection = DescriptiveDirection.UNAVAILABLE
+    current_observation_ids: tuple[str, ...] = ()
+    baseline_observation_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name in ("business_id", "metric_name", "unit"):
@@ -141,6 +145,9 @@ def _result(
         inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=statistical_evidence.observation_ids,
+        statistical_method=statistical_evidence.method,
+        statistical_first_window=statistical_evidence.first_window,
+        statistical_second_window=statistical_evidence.second_window,
         statistical_difference_direction=difference_direction,
         current_observation_ids=trend.current_observation_ids,
         baseline_observation_ids=trend.baseline_observation_ids,

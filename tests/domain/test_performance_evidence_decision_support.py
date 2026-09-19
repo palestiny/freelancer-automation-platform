@@ -71,6 +71,9 @@ def test_statistical_detection_does_not_claim_directional_alignment():
     assert result.current_observation_ids == ("c1",)
     assert result.baseline_observation_ids == ("b1",)
     assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
+    assert result.statistical_method == "welch_two_sample_t_test"
+    assert result.statistical_first_window == PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1))
+    assert result.statistical_second_window == PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8))
 
 
 def test_descriptive_change_without_statistical_detection_is_not_suppressed():
@@ -149,6 +152,9 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("x", "x"),
+            statistical_method="welch_two_sample_t_test",
+            statistical_first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
+            statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
             statistical_difference_direction=DescriptiveDirection.UNAVAILABLE,
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
