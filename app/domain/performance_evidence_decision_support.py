@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 from .performance_history import PerformanceWindow
@@ -46,10 +47,10 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
-    current_window_start: object | None = None
-    current_window_end: object | None = None
-    baseline_window_start: object | None = None
-    baseline_window_end: object | None = None
+    current_window_start: datetime | None = None
+    current_window_end: datetime | None = None
+    baseline_window_start: datetime | None = None
+    baseline_window_end: datetime | None = None
     statistical_method: str = ""
     statistical_first_window: PerformanceWindow | None = None
     statistical_second_window: PerformanceWindow | None = None
@@ -71,6 +72,15 @@ class PerformanceEvidenceDecisionSupport:
                 raise ValueError(f"{name} cannot be empty")
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
+
+        for name, value in (("current_window_start", self.current_window_start), ("current_window_end", self.current_window_end), ("baseline_window_start", self.baseline_window_start), ("baseline_window_end", self.baseline_window_end)):
+            if value is not None and not isinstance(value, datetime):
+                raise TypeError(f"{name} must be a datetime or None")
+
+        if self.current_window_start is not None and self.current_window_end is not None and self.current_window_end <= self.current_window_start:
+            raise ValueError("current window must end after it starts")
+        if self.baseline_window_start is not None and self.baseline_window_end is not None and self.baseline_window_end <= self.baseline_window_start:
+            raise ValueError("baseline window must end after it starts")
 
         if (
             self.inferential_status is InferentialStatus.UNAVAILABLE
