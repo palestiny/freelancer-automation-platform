@@ -31,6 +31,10 @@ class Store:
     def claim(self, command_id):
         return self.command
 
+    def save(self, command):
+        self.command = command
+        return command
+
     def record_scheduler_acknowledgement(self, command_id, acknowledgement):
         self.command = RetryCommand(
             **{**self.command.__dict__, "state": RetryCommandState.SCHEDULED, "scheduling_id": acknowledgement.scheduling_id}
