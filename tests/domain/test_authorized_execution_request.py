@@ -8,7 +8,7 @@ def _authorization(status=ActionAuthorizationStatus.AUTHORIZED):
     return ActionAuthorization(policy_id="p1", policy_version="1", action_class=ActionClass.REVERSIBLE_EXTERNAL,
                                requested_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
                                maximum_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
-                               status=status, requires_human_approval=False)
+                               status=status, requires_human_approval=(status is ActionAuthorizationStatus.HUMAN_APPROVAL_REQUIRED))
 
 
 def test_authorized_action_produces_prepared_request():
