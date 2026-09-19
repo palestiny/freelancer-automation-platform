@@ -109,6 +109,7 @@ def test_ineligible_statistical_evidence_remains_unavailable():
         business_id="b1",
     )
     assert result.inferential_status is InferentialStatus.UNAVAILABLE
+    assert result.statistical_difference_direction is DescriptiveDirection.UNAVAILABLE
     assert result.posture is CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE
 
 
