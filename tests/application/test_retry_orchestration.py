@@ -29,6 +29,7 @@ class Store:
         return self.command
 
     def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
         return self.command
 
     def save(self, command):
