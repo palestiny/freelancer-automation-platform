@@ -889,3 +889,8 @@ Retry eligibility must not be derived from a caller-supplied attempt count when 
 ### D-138 — Recovery Handoff Requires Consistent Attempt Evidence
 
 Recovery intent must be derived from the history-consistent execution policy assessment. Immutable attempt history is authoritative for observed attempt count; inconsistent history blocks recovery handoff creation. The boundary remains non-executing and non-authorizing.
+
+
+### D-140 — Immutable Attempt History Is Authoritative During Execution Coordination
+
+The history-aware coordinator derives the next attempt number from immutable execution history, records the provider outcome as an explicit attempt, and performs policy/recovery assessment only after history consistency is established. Callers must not provide a separate attempt count for this boundary. No retry, scheduling, authorization, compensation, or external side effect is introduced.
