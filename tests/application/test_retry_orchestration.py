@@ -289,6 +289,10 @@ def test_claim_persistence_failure_does_not_schedule():
 
 
 class RaisingSaveStore(Store):
+    def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
+        return self.command
+
     def save(self, command):
         raise RuntimeError("save persistence failed")
 
