@@ -428,3 +428,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Outcome Policy
 
 **Status:** V1 policy assessment implemented and CI-verified. Retry eligibility is evidence/policy output only; actual retry, scheduling, compensation, and provider execution remain outside the domain boundary.
+
+
+### Execution Recovery Handoff
+
+**Status:** V1 non-executing recovery handoff implemented and CI-verified. Recovery remains an orchestration concern; this domain artifact does not schedule or execute retries.
