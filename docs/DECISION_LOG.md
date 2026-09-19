@@ -899,3 +899,8 @@ The history-aware coordinator derives the next attempt number from immutable exe
 ### D-122 — History-Aware Coordination Results Use Concrete Domain Types
 
 The history-aware coordination boundary must expose concrete provider-independent result types rather than generic object values. This is a type-safety hardening only; it does not authorize, retry, schedule, compensate, or execute additional actions.
+
+
+### D-141 — Execution Retry Orchestration Requires an Explicit Scheduling Boundary
+
+Retry orchestration must remain outside the domain policy layer. Any future scheduler/worker implementation must consume history-consistent recovery handoffs, preserve authorization and idempotency, revalidate before external execution, and define durable/concurrency semantics before implementation.
