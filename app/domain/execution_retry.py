@@ -65,7 +65,7 @@ class RetryCommand:
             RetryCommandState.CREATED: {RetryCommandState.CLAIMED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.SCHEDULING_AMBIGUOUS},
             RetryCommandState.CLAIMED: {RetryCommandState.SCHEDULED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.SCHEDULING_AMBIGUOUS},
             RetryCommandState.SCHEDULED: {RetryCommandState.EXECUTION_IN_PROGRESS, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.REJECTED_STALE, RetryCommandState.SCHEDULING_AMBIGUOUS},
-            RetryCommandState.EXECUTION_IN_PROGRESS: {RetryCommandState.COMPLETED, RetryCommandState.REQUIRES_MANUAL_REVIEW},
+            RetryCommandState.EXECUTION_IN_PROGRESS: {RetryCommandState.COMPLETED, RetryCommandState.REJECTED_STALE, RetryCommandState.REQUIRES_MANUAL_REVIEW},
             RetryCommandState.SCHEDULING_AMBIGUOUS: {RetryCommandState.SCHEDULED, RetryCommandState.REQUIRES_MANUAL_REVIEW},
             RetryCommandState.REQUIRES_MANUAL_REVIEW: set(),
             RetryCommandState.REJECTED_STALE: set(),
