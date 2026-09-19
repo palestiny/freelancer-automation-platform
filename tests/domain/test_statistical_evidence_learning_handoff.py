@@ -43,7 +43,7 @@ def test_handoff_preserves_evidence_and_target():
 def test_handoff_does_not_require_statistical_availability():
     evidence = _evidence()
     evidence = PerformanceEvidenceDecisionSupport(
-        **{**evidence.__dict__, "inferential_status": InferentialStatus.UNAVAILABLE}
+        **{**evidence.__dict__, "inferential_status": InferentialStatus.UNAVAILABLE, "posture": CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, "statistical_difference_direction": DescriptiveDirection.UNAVAILABLE}
     )
     result = create_statistical_evidence_learning_handoff(
         evidence=evidence,
