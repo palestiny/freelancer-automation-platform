@@ -7,6 +7,7 @@ from app.application.execution_coordinator import coordinate_execution
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
 from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.execution_outcome import ExecutionOutcomeStatus
+from app.domain.execution_outcome_policy import ExecutionOutcomeAssessmentStatus
 from app.domain.execution_outcome_policy import ExecutionOutcomePolicy
 
 
@@ -68,7 +69,7 @@ def test_retryable_failure_reaches_recovery_handoff():
         attempt_count=1,
     )
 
-    assert result.policy_assessment.retry_eligible is True
+    assert result.policy_assessment.status is ExecutionOutcomeAssessmentStatus.RETRY_ELIGIBLE
     assert result.recovery_handoff.mode.value == "retry"
 
 
