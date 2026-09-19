@@ -60,6 +60,33 @@ class RetryCommand:
         if self.scheduling_id is not None and not self.scheduling_id.strip():
             raise ValueError("scheduling_id cannot be empty")
 
+    def can_transition_to(self, target: RetryCommandState) -> bool:
+        allowed = {
+            RetryCommandState.CREATED: {RetryCommandState.CLAIMED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.SCHEDULING_AMBIGUOUS},
+            RetryCommandState.CLAIMED: {RetryCommandState.SCHEDULED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.SCHEDULING_AMBIGUOUS},
+            RetryCommandState.SCHEDULED: {RetryCommandState.EXECUTION_IN_PROGRESS, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.REJECTED_STALE, RetryCommandState.SCHEDULING_AMBIGUOUS},
+            RetryCommandState.EXECUTION_IN_PROGRESS: {RetryCommandState.COMPLETED, RetryCommandState.REQUIRES_MANUAL_REVIEW},
+            RetryCommandState.SCHEDULING_AMBIGUOUS: {RetryCommandState.SCHEDULED, RetryCommandState.REQUIRES_MANUAL_REVIEW},
+            RetryCommandState.REQUIRES_MANUAL_REVIEW: set(),
+            RetryCommandState.REJECTED_STALE: set(),
+            RetryCommandState.COMPLETED: set(),
+            RetryCommandState.CLAIM_CONFLICT: set(),
+            RetryCommandState.REVALIDATION_REQUIRED: set(),
+        }
+        return target in allowed[self.state]
+
+    def transition_to(self, target: RetryCommandState, scheduling_id: str | None = None) -> "RetryCommand":
+        if not self.can_transition_to(target):
+            raise ValueError(f"invalid retry command transition: {self.state.value} -> {target.value}")
+        return RetryCommand(
+            command_id=self.command_id, request_id=self.request_id, idempotency_key=self.idempotency_key,
+            attempt_number=self.attempt_number, action=self.action,
+            authorization_policy_id=self.authorization_policy_id,
+            authorization_policy_version=self.authorization_policy_version,
+            autonomy_bound=self.autonomy_bound, created_at=self.created_at, state=target,
+            scheduling_id=self.scheduling_id if scheduling_id is None else scheduling_id,
+        )
+
     @property
     def identity(self) -> tuple[str, str, int, str]:
         return (

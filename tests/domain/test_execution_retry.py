@@ -69,3 +69,22 @@ def test_scheduler_acknowledgement_requires_identity():
             status=SchedulerAcknowledgementStatus.ACCEPTED,
             observed_at=datetime(2026, 9, 19, tzinfo=timezone.utc),
         )
+
+
+def test_retry_command_allows_declared_lifecycle_transitions():
+    command = RetryCommand(command_id="cmd", request_id="req", idempotency_key="idem", attempt_number=1, action=RetryCommandAction.RETRY, authorization_policy_id="policy", authorization_policy_version="v1", autonomy_bound="L4", created_at=datetime(2026, 9, 19, tzinfo=timezone.utc))
+    claimed = command.transition_to(RetryCommandState.CLAIMED)
+    scheduled = claimed.transition_to(RetryCommandState.SCHEDULED, scheduling_id="s1")
+    assert scheduled.state is RetryCommandState.SCHEDULED
+    assert scheduled.scheduling_id == "s1"
+
+
+def test_retry_command_rejects_invalid_transition():
+    command = RetryCommand(command_id="cmd", request_id="req", idempotency_key="idem", attempt_number=1, action=RetryCommandAction.RETRY, authorization_policy_id="policy", authorization_policy_version="v1", autonomy_bound="L4", created_at=datetime(2026, 9, 19, tzinfo=timezone.utc))
+    assert command.can_transition_to(RetryCommandState.COMPLETED) is False
+    try:
+        command.transition_to(RetryCommandState.COMPLETED)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("invalid transition must fail")
