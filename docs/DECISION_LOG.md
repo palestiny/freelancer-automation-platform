@@ -936,3 +936,8 @@ The retry orchestration application boundary may coordinate durable command iden
 ### D-122 — Retry Command Persistence Uses a Replaceable SQLite Adapter in V1
 
 The first concrete retry persistence adapter uses standard-library SQLite behind the existing RetryCommandStore port. Durable logical identity and atomic claim semantics are infrastructure guarantees; retry policy and provider execution remain outside the adapter.
+
+
+### D-145 — Durable Retry Scheduling Remains an Adapter Boundary
+
+The SQLite retry scheduler persists logical scheduling identity and returns explicit scheduler acknowledgements. Identity conflicts and concurrency/lock outcomes remain explicit infrastructure evidence; the scheduler does not execute workers or providers and does not authorize retries.
