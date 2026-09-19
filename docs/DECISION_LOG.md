@@ -911,3 +911,8 @@ Retry orchestration must remain outside the domain policy layer. Any future sche
 **Status:** COMMITTED
 
 Retry orchestration must use durable command identity and idempotency semantics, preserve immutable execution-attempt history, and revalidate authorization/policy immediately before an external retry. Stale authorization, stale policy/autonomy context, ambiguous scheduler state, duplicate scheduling, and concurrent claims must remain explicit and non-executing until reconciled. Runtime scheduler/worker implementation requires a separate persistence and scheduler boundary.
+
+
+### D-143 — Retry Orchestration Requires Separate Durable Persistence and Scheduler Ports
+
+Runtime retry orchestration requires replaceable persistence and scheduler ports before a concrete adapter is introduced. Durable command identity is the deduplication anchor; atomic claiming prevents concurrent duplicate execution; scheduler ambiguity remains explicit infrastructure evidence; authorization and retry policy are revalidated immediately before external execution.
