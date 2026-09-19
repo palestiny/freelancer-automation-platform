@@ -839,3 +839,8 @@ Execution outcomes record what an external adapter reports for a prepared reques
 ### D-136 — Execution Outcome Assessment Is Non-Executing
 
 Execution outcomes are classified by explicit policy into accepted, retry-eligible, manual-review-required, or terminal failure. Retry eligibility never authorizes or performs a retry; request identity and idempotency remain preserved, and execution orchestration remains outside the domain.
+
+
+### D-137 — Recovery Handoff Does Not Execute Recovery
+
+Execution-outcome policy may produce a retry-eligible or manual-review assessment. A separate recovery handoff can preserve that intent, but it never schedules, retries, compensates, authorizes, or performs an external action.
