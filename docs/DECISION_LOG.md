@@ -824,3 +824,8 @@ Evidence policy review evaluates supplied evidence against an explicit immutable
 ### D-133 — Authorization Is Separate From Execution and Bounded by Explicit Autonomy
 
 Authorization requires a policy-satisfied review, preserves policy identity/version and autonomy bounds, and returns an explicit authorization status. L3 requires human approval. Irreversible external and financial actions are safety-blocked by this V1 domain boundary. No execution or external side effect occurs.
+
+
+### D-134 — Execution Preparation Is Separate From Execution
+
+An authorized action may produce a prepared execution request carrying explicit request identity, idempotency key, action class, autonomy, and policy identity/version. Preparation does not execute, enqueue, schedule, or cause an external side effect. Only authorized actions may cross this boundary.
