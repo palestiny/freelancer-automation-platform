@@ -47,8 +47,8 @@ def test_coordinator_dispatches_and_propagates_policy_and_recovery():
     result = coordinate_execution(
         port=port,
         request=_request(),
-        policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_codes=("timeout",)),
-        attempt_number=1,
+        policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_outcome_codes=("timeout",)),
+        attempt_count=1,
     )
 
     assert port.received == _request()
@@ -64,8 +64,8 @@ def test_retryable_failure_reaches_recovery_handoff():
     result = coordinate_execution(
         port=port,
         request=_request(),
-        policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_codes=("timeout",)),
-        attempt_number=1,
+        policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_outcome_codes=("timeout",)),
+        attempt_count=1,
     )
 
     assert result.policy_assessment.retry_eligible is True
@@ -78,7 +78,7 @@ def test_non_prepared_request_is_rejected_before_provider_call():
         coordinate_execution(
             port=port,
             request=_request(ExecutionRequestStatus.REJECTED),
-            policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_codes=("timeout",)),
-            attempt_number=1,
+            policy=ExecutionOutcomePolicy(maximum_attempts=3, retryable_outcome_codes=("timeout",)),
+            attempt_count=1,
         )
     assert port.received is None
