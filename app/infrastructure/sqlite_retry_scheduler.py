@@ -14,7 +14,8 @@ from app.domain.execution_retry import (
 
 class SQLiteRetryScheduler(RetrySchedulerPort):
     def __init__(self, database: str) -> None:
-        self._connection = sqlite3.connect(database, check_same_thread=False)
+        self._connection = sqlite3.connect(database, check_same_thread=False, timeout=5.0)
+        self._connection.execute("PRAGMA busy_timeout = 5000")
         self._connection.execute(
             """
             CREATE TABLE IF NOT EXISTS retry_schedule (

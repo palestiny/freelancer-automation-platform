@@ -79,3 +79,44 @@ def test_schedule_rejects_manual_review_commands():
     )
     with pytest.raises(ValueError, match="only retry commands"):
         scheduler.schedule(review)
+
+
+def test_concurrent_schedulers_deduplicate_same_logical_retry(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+
+    path = str(tmp_path / "concurrent.sqlite3")
+    command_value = command()
+
+    def schedule_once():
+        return SQLiteRetryScheduler(path).schedule(command_value).scheduling_id
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        scheduling_ids = list(executor.map(lambda _: schedule_once(), range(8)))
+
+    assert len(set(scheduling_ids)) == 1
+
+
+def test_concurrent_conflicting_command_identity_has_single_winner(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+
+    path = str(tmp_path / "conflict.sqlite3")
+    commands = [
+        command(command_id=f"cmd-{index}")
+        for index in range(8)
+    ]
+
+    def schedule_once(value):
+        try:
+            return ("accepted", SQLiteRetryScheduler(path).schedule(value).scheduling_id)
+        except ValueError as exc:
+            return ("conflict", str(exc))
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        results = list(executor.map(schedule_once, commands))
+
+    accepted = [result for result in results if result[0] == "accepted"]
+    conflicts = [result for result in results if result[0] == "conflict"]
+
+    assert len(accepted) == 1
+    assert len(conflicts) == 7
+    assert all("command identity conflict" in result[1] for result in conflicts)
