@@ -800,3 +800,8 @@ V1 now consumes an observed ExecutionOutcome for an EXECUTION_IN_PROGRESS retry 
 ## Retry Worker Dispatch Boundary
 
 V1 worker dispatch is now implemented as an application boundary for one scheduled retry command at a time. It atomically claims work, revalidates authorization/request identity, dispatches only prepared requests through the existing ExecutionPort, records observed outcomes through the existing retry outcome handoff, and preserves explicit failure/manual-review states. It does not implement a worker loop, queue framework, lease renewal, provider selection, automatic retry, compensation, or authorization mutation.
+
+
+## Retry Worker Provider Failure Boundary
+
+A claimed retry command that encounters a provider exception now attempts an explicit transition to REQUIRES_MANUAL_REVIEW. If that transition cannot be persisted, the application returns an explicit provider-failure persistence error and preserves the in-memory EXECUTION_IN_PROGRESS state; it does not fabricate an execution outcome or retry automatically.
