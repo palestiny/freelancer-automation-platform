@@ -799,3 +799,8 @@ Economic estimates and realized outcomes must reject NaN and infinite numeric in
 ### D-130 — Economic Stability Evidence Remains Explicitly Composed
 
 Economic health metrics and stability-policy eligibility are composed into one evidence artifact while preserving their semantic distinction. The consumer must not create a universal score, portfolio posture, capital allocation, forecast, policy mutation, or financial execution action.
+
+
+### D-122 — Opportunity Cost Is Evidence, Not Allocation
+
+The first opportunity-cost capability represents the foregone expected economic value of an alternative use of constrained capacity. It must not rank alternatives or silently decide resource allocation.
