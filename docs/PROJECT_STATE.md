@@ -750,3 +750,8 @@ V1 recovery handoff can now be composed only after immutable execution attempt h
 ## History-Aware Execution Coordination
 
 V1 application coordination now derives execution attempt numbers from immutable attempt history, records the provider outcome as an explicit attempt, and then performs history-consistent policy assessment and recovery handoff. Callers no longer provide an independent attempt count in this boundary. No retry, scheduling, authorization, compensation, or additional external action is introduced.
+
+
+## History-Aware Execution Result Contract Hardening
+
+The history-aware execution coordination result now exposes concrete provider-independent domain types for outcome, policy assessment, and recovery handoff. This removes an avoidable type-safety gap without changing coordination behavior or execution boundaries.
