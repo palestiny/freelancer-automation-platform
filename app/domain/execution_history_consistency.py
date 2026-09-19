@@ -8,7 +8,6 @@ from .execution_outcome import ExecutionOutcome
 class ExecutionHistoryConsistencyStatus(str, Enum):
     CONSISTENT = "consistent"
     IDENTITY_MISMATCH = "identity_mismatch"
-    ATTEMPT_COUNT_MISMATCH = "attempt_count_mismatch"
     LATEST_ATTEMPT_MISMATCH = "latest_attempt_mismatch"
     EMPTY_HISTORY = "empty_history"
 
@@ -40,14 +39,6 @@ def assess_execution_history_consistency(
             outcome.idempotency_key,
             0,
             ExecutionHistoryConsistencyStatus.EMPTY_HISTORY,
-        )
-
-    if len(history.attempts) != max(attempt.attempt_number for attempt in history.attempts):
-        return ExecutionHistoryConsistency(
-            outcome.request_id,
-            outcome.idempotency_key,
-            len(history.attempts),
-            ExecutionHistoryConsistencyStatus.ATTEMPT_COUNT_MISMATCH,
         )
 
     latest = history.latest_attempt
