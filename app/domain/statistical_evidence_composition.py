@@ -30,6 +30,8 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
+    first_window: object
+    second_window: object
     first_window: PerformanceWindow
     second_window: PerformanceWindow
 
@@ -42,6 +44,8 @@ class StatisticalEvidenceComposition:
             raise ValueError("alpha must be between zero and one")
         if self.first_window.end > self.second_window.start:
             raise ValueError("statistical evidence windows must not overlap")
+        if self.first_window is None or self.second_window is None:
+            raise ValueError("statistical evidence windows cannot be None")
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
         if len(set(self.observation_ids)) != len(self.observation_ids):
