@@ -249,3 +249,84 @@ def test_scheduler_command_mismatch_is_persisted_as_ambiguous():
     assert result.failure == "scheduler_command_mismatch"
     assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
     assert store.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+
+
+class RaisingCreateStore(Store):
+    def create_or_get(self, command):
+        raise RuntimeError("create persistence failed")
+
+
+def test_command_persistence_failure_does_not_schedule():
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    result = orchestrate_retry(
+        command=command(),
+        store=RaisingCreateStore(),
+        scheduler=scheduler,
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "command_persistence_failed"
+    assert result.command.command_id == "cmd-1"
+    assert scheduler.calls == 0
+
+
+class RaisingClaimStore(Store):
+    def claim(self, command_id):
+        raise RuntimeError("claim persistence failed")
+
+
+def test_claim_persistence_failure_does_not_schedule():
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    result = orchestrate_retry(
+        command=command(),
+        store=RaisingClaimStore(),
+        scheduler=scheduler,
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "claim_persistence_failed"
+    assert scheduler.calls == 0
+
+
+class RaisingSaveStore(Store):
+    def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
+        return self.command
+
+    def save(self, command):
+        raise RuntimeError("save persistence failed")
+
+
+def test_authorization_state_save_failure_does_not_claim_successfully():
+    result = orchestrate_retry(
+        command=command(),
+        store=RaisingSaveStore(),
+        scheduler=Scheduler(SchedulerAcknowledgementStatus.ACCEPTED),
+        authorization_revalidator=Revalidator(
+            authorization(status=ActionAuthorizationStatus.NOT_AUTHORIZED)
+        ),
+    )
+    assert result.scheduled is False
+    assert result.failure == "state_persistence_failed"
+    assert result.command.state is RetryCommandState.CLAIMED
+
+
+class RaisingAmbiguousSaveStore(Store):
+    def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
+        return self.command
+
+    def save(self, command):
+        raise RuntimeError("ambiguous-state persistence failed")
+
+
+def test_ambiguous_state_save_failure_is_not_reported_as_ambiguous():
+    result = orchestrate_retry(
+        command=command(),
+        store=RaisingAmbiguousSaveStore(),
+        scheduler=RaisingScheduler(),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "state_persistence_failed"
+    assert result.command.state is RetryCommandState.CLAIMED
