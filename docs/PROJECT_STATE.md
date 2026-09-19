@@ -785,3 +785,8 @@ V1 SQLite persistence adapter is implemented and CI-verified for the existing Re
 ## Durable Retry Scheduler
 
 V1 SQLite retry scheduling is now a concrete adapter behind the existing RetrySchedulerPort. Scheduler identity is durable and provider-independent, duplicate logical scheduling is reconciled explicitly, and concurrent scheduling is hardened against SQLite locking/race behavior. Scheduler acknowledgement remains evidence; it does not execute a worker or provider action.
+
+
+## Retry Execution Claim & Handoff
+
+V1 now has an explicit provider-independent boundary for claiming scheduled retry work into EXECUTION_IN_PROGRESS and producing a RetryExecutionHandoff. Claiming is not execution; no provider, worker loop, queue, or external side effect is introduced. Completion/failure outcome handling remains a separate boundary.
