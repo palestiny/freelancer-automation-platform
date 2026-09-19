@@ -5,6 +5,7 @@ import pytest
 from app.application.execution_port import ExecutionPort, ProviderExecutionResult
 from app.application.execution_coordinator import coordinate_execution
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
+from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.execution_outcome import ExecutionOutcomeStatus
 from app.domain.execution_outcome_policy import ExecutionOutcomePolicy
 
@@ -22,9 +23,11 @@ class FakeExecutionPort(ExecutionPort):
 def _request(status=ExecutionRequestStatus.PREPARED):
     return AuthorizedExecutionRequest(
         request_id="req-1",
-        authorization_id="auth-1",
         idempotency_key="idem-1",
-        action_class="publish",
+        action_class=ActionClass.REVERSIBLE_EXTERNAL,
+        autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        policy_id="policy-1",
+        policy_version="1",
         status=status,
     )
 
@@ -74,7 +77,7 @@ def test_non_prepared_request_is_rejected_before_provider_call():
     with pytest.raises(ValueError):
         coordinate_execution(
             port=port,
-            request=_request(ExecutionRequestStatus.AUTHORIZED),
+            request=_request(ExecutionRequestStatus.REJECTED),
             policy=ExecutionOutcomePolicy(max_attempts=3, retryable_codes=("timeout",)),
             attempt_number=1,
         )
