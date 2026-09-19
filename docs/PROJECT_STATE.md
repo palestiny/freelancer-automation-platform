@@ -770,3 +770,8 @@ The first runtime-neutral retry orchestration contracts are implemented and CI-v
 ## Performance Evidence Policy State
 
 The first consumer-facing performance evidence policy state boundary is implemented and CI-verified. It derives explicit evidence states from the existing descriptive trend and inferential evidence without producing recommendations, scores, rankings, policy mutation, learning mutation, portfolio actions, or execution.
+
+
+## Retry Orchestration Runtime-Neutral Closure
+
+The retry orchestration application boundary is implemented and hardened against duplicate command identity, persistence failures, scheduler ambiguity, acknowledgement persistence failure, authorization drift, claim conflicts, and race-sensitive state transitions. Concrete scheduler, durable-store, worker, retry-loop, and provider adapters remain outside the domain/application contract.
