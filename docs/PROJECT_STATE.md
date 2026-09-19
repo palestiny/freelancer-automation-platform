@@ -660,3 +660,8 @@ A bounded consumer now composes economic health evidence with the explicit econo
 ## Capacity Opportunity Cost Evidence
 
 V1 now represents bounded opportunity-cost evidence for constrained capacity. The artifact preserves selected versus alternative expected profit and the derived foregone value without ranking alternatives or making allocation decisions.
+
+
+## Evidence-to-Decision Support Handoff
+
+A non-executing handoff artifact now separates composed performance evidence from future policy review. Valid evidence may require policy review, while context-invalid evidence is blocked from the handoff. No action is authorized by this boundary.
