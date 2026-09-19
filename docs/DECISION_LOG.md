@@ -829,3 +829,8 @@ Authorization requires a policy-satisfied review, preserves policy identity/vers
 ### D-134 — Execution Preparation Is Separate From Execution
 
 An authorized action may produce a prepared execution request carrying explicit request identity, idempotency key, action class, autonomy, and policy identity/version. Preparation does not execute, enqueue, schedule, or cause an external side effect. Only authorized actions may cross this boundary.
+
+
+### D-135 — Execution Outcomes Are Provider-Independent Evidence
+
+Execution outcomes record what an external adapter reports for a prepared request. Unknown outcomes remain explicit, request identity and idempotency are preserved, and recording an outcome does not authorize, retry, compensate, bill, mutate policy, or execute further actions.
