@@ -809,3 +809,8 @@ The first opportunity-cost capability represents the foregone expected economic 
 ### D-122 — Evidence Handoff Does Not Authorize Action
 
 Decision-support evidence may be handed to policy review only when context is valid. The handoff preserves evidence lineage and posture and never authorizes execution or mutates policy.
+
+
+### D-131 — Evidence Handoff Preserves Full Context and Requires Explicit Policy Review
+
+A valid evidence handoff preserves descriptive direction, inferential status, posture, and current/baseline/statistical observation lineage. Valid evidence is marked as requiring explicit policy review; context-invalid evidence is blocked. The handoff never authorizes action or execution.
