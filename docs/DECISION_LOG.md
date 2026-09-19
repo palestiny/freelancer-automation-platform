@@ -849,3 +849,8 @@ Execution-outcome policy may produce a retry-eligible or manual-review assessmen
 ### D-122 — Statistical Direction Requires Eligible Inferential Evidence
 
 A downstream performance evidence artifact may expose statistical direction only when the statistical evidence is eligible. Ineligible or unavailable statistical evidence must preserve raw lineage but expose no inferential direction.
+
+
+### D-124 — Provider Execution Is an Application Adapter Boundary
+
+External execution is reached only through an explicit application-layer port after authorization has produced a prepared request. The port cannot authorize, retry, schedule, or mutate policy; provider-specific credentials and integrations remain outside the domain.
