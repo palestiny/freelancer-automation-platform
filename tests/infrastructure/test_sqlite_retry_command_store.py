@@ -160,16 +160,17 @@ def test_persistence_survives_connection_reopen(tmp_path):
     assert second.get("cmd-1") == command()
 
 
-def test_create_or_get_detects_corrupt_duplicate_identity():
+def test_get_rejects_invalid_persisted_state():
     s = store()
     s.create_or_get(command())
+    s._connection.execute(
+        "UPDATE retry_commands SET state = ? WHERE command_id = ?",
+        ("invalid_state", "cmd-1"),
+    )
+    s._connection.commit()
+
     with pytest.raises(ValueError):
-        s._connection.execute(
-            "UPDATE retry_commands SET command_id = ? WHERE command_id = ?",
-            ("corrupt", "cmd-1"),
-        )
-        s._connection.commit()
-    assert s.get("corrupt") is not None
+        s.get("cmd-1")
 
 
 def test_nonexistent_claim_returns_none():
