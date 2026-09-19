@@ -69,7 +69,17 @@ def orchestrate_retry(
         store.save(updated)
         return RetryOrchestrationResult(command=updated, scheduled=False, failure="authorization_policy_changed")
 
-    acknowledgement = scheduler.schedule(existing)
+    try:
+        acknowledgement = scheduler.schedule(existing)
+    except Exception:
+        ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS)
+        store.save(ambiguous)
+        return RetryOrchestrationResult(
+            command=ambiguous,
+            scheduled=False,
+            failure="scheduler_call_ambiguous",
+        )
+
     if acknowledgement.command_id != existing.command_id:
         return RetryOrchestrationResult(
             command=_state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS),
@@ -78,7 +88,22 @@ def orchestrate_retry(
         )
 
     if acknowledgement.status is SchedulerAcknowledgementStatus.ACCEPTED:
-        scheduled = store.record_scheduler_acknowledgement(existing.command_id, acknowledgement)
+        try:
+            scheduled = store.record_scheduler_acknowledgement(
+                existing.command_id, acknowledgement
+            )
+        except Exception:
+            ambiguous = _state(
+                existing,
+                RetryCommandState.SCHEDULING_AMBIGUOUS,
+                acknowledgement.scheduling_id,
+            )
+            store.save(ambiguous)
+            return RetryOrchestrationResult(
+                command=ambiguous,
+                scheduled=False,
+                failure="scheduler_acknowledgement_persistence_ambiguous",
+            )
         return RetryOrchestrationResult(command=scheduled, scheduled=True)
 
     if acknowledgement.status is SchedulerAcknowledgementStatus.REJECTED:
