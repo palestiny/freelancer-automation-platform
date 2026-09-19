@@ -376,3 +376,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Economic Health Window Hardening
 
 **Status:** Completed and CI-verified. Economic health evidence is now explicitly window-scoped and lineage-safe.
+
+
+### Phase 2 — Economic Stability Policy
+
+**Status:** V1 configurable eligibility policy implemented and CI-verified. Stable profitability is now expressible as an explicit policy result with deterministic reasons, without automatic portfolio action.
