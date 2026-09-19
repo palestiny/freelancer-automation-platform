@@ -16,7 +16,7 @@ Output:
 - idempotency key
 - recovery mode
 - attempt count
-- explicit reason
+- explicit recovery reason
 - source assessment status
 
 Recovery modes:
@@ -33,3 +33,8 @@ Rules:
 6. Idempotency and request identity are preserved.
 7. No policy, lifecycle, portfolio, learning, or financial state is mutated.
 8. Unknown outcomes remain manual review; they must never be converted into retry.
+
+
+## Hardening
+
+The recovery reason is now an explicit typed field and must remain consistent with the recovery mode. This prevents downstream consumers from having to infer why a handoff was produced from the mode alone.
