@@ -124,9 +124,9 @@ def test_zero_descriptive_change_is_not_called_aligned_with_statistical_detectio
 
 def test_result_rejects_duplicate_statistical_observation_ids():
     import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
 
     with pytest.raises(ValueError):
-        from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
         PerformanceEvidenceDecisionSupport(
             business_id="b1",
             metric_name="profit",
