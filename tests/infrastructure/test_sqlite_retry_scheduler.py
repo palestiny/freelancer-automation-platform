@@ -1,3 +1,4 @@
+import pytest
 from datetime import datetime, timezone
 
 from app.domain.execution_retry import RetryCommand, RetryCommandAction, SchedulerAcknowledgementStatus
@@ -53,3 +54,28 @@ def test_schedule_survives_connection_reopen(tmp_path):
     restored = second.schedule(command())
 
     assert restored.scheduling_id == ack.scheduling_id
+
+
+def test_schedule_rejects_same_logical_retry_with_different_command_identity():
+    scheduler = SQLiteRetryScheduler(":memory:")
+    scheduler.schedule(command(command_id="cmd-1"))
+    with pytest.raises(ValueError, match="command identity conflict"):
+        scheduler.schedule(command(command_id="cmd-2"))
+
+
+def test_schedule_rejects_manual_review_commands():
+    from app.domain.execution_retry import RetryCommandAction
+    scheduler = SQLiteRetryScheduler(":memory:")
+    review = RetryCommand(
+        command_id="cmd-review",
+        request_id="req-review",
+        idempotency_key="idem-review",
+        attempt_number=1,
+        action=RetryCommandAction.MANUAL_REVIEW,
+        authorization_policy_id="policy",
+        authorization_policy_version="v1",
+        autonomy_bound="L3",
+        created_at=datetime(2026, 9, 20, tzinfo=timezone.utc),
+    )
+    with pytest.raises(ValueError, match="only retry commands"):
+        scheduler.schedule(review)
