@@ -1,8 +1,8 @@
-import pytest
+from datetime import datetime, timezone
 
-from app.domain.execution_attempt_history import ExecutionAttemptHistory
+from app.domain.execution_attempt_history import ExecutionAttempt, ExecutionAttemptHistory
 from app.domain.execution_history_consistency import ExecutionHistoryConsistencyStatus
-from app.domain.execution_outcome import ExecutionOutcome
+from app.domain.execution_outcome import ExecutionOutcome, ExecutionOutcomeStatus
 from app.domain.execution_outcome_policy import (
     ExecutionOutcomeAssessmentStatus,
     ExecutionOutcomePolicy,
@@ -13,26 +13,45 @@ from app.domain.history_consistent_execution_recovery import (
 )
 
 
-def test_consistent_history_produces_history_derived_retry_handoff():
-    outcome = ExecutionOutcome(
+def outcome_time():
+    return datetime(2026, 9, 19, tzinfo=timezone.utc)
+
+
+def _outcome():
+    return ExecutionOutcome(
         request_id="req-1",
         idempotency_key="idem-1",
-        status="failed",
-        provider_reference="p-1",
-        occurred_at=outcome_time(),
-        attempt_number=2,
+        status=ExecutionOutcomeStatus.FAILED,
+        outcome_code="provider_failure",
+        observed_at=outcome_time(),
+        external_reference="p-1",
     )
+
+
+def _attempt(number=1, *, request_id="req-1"):
+    return ExecutionAttempt(
+        request_id=request_id,
+        idempotency_key="idem-1",
+        attempt_number=number,
+        status=ExecutionOutcomeStatus.FAILED,
+        outcome_code="provider_failure",
+        observed_at=outcome_time(),
+        external_reference="p-1",
+    )
+
+
+def test_consistent_history_produces_history_derived_retry_handoff():
+    outcome = _outcome()
     history = ExecutionAttemptHistory(
         request_id="req-1",
         idempotency_key="idem-1",
-        attempts=(outcome,),
+        attempts=(_attempt(1),),
     )
-    policy = ExecutionOutcomePolicy(max_retries=3)
 
     result = create_execution_recovery_handoff_with_history(
         outcome=outcome,
         history=history,
-        policy=policy,
+        policy=ExecutionOutcomePolicy(max_retries=3),
     )
 
     assert result.consistency_status is ExecutionHistoryConsistencyStatus.CONSISTENT
@@ -42,18 +61,11 @@ def test_consistent_history_produces_history_derived_retry_handoff():
 
 
 def test_inconsistent_history_blocks_recovery_handoff():
-    outcome = ExecutionOutcome(
-        request_id="req-1",
-        idempotency_key="idem-1",
-        status="failed",
-        provider_reference="p-1",
-        occurred_at=outcome_time(),
-        attempt_number=2,
-    )
+    outcome = _outcome()
     history = ExecutionAttemptHistory(
         request_id="other",
         idempotency_key="idem-1",
-        attempts=(outcome,),
+        attempts=(_attempt(1, request_id="other"),),
     )
 
     result = create_execution_recovery_handoff_with_history(
@@ -67,18 +79,11 @@ def test_inconsistent_history_blocks_recovery_handoff():
 
 
 def test_manual_review_is_preserved_as_manual_review():
-    outcome = ExecutionOutcome(
-        request_id="req-1",
-        idempotency_key="idem-1",
-        status="failed",
-        provider_reference="p-1",
-        occurred_at=outcome_time(),
-        attempt_number=1,
-    )
+    outcome = _outcome()
     history = ExecutionAttemptHistory(
         request_id="req-1",
         idempotency_key="idem-1",
-        attempts=(outcome,),
+        attempts=(_attempt(1),),
     )
 
     result = create_execution_recovery_handoff_with_history(
@@ -90,8 +95,3 @@ def test_manual_review_is_preserved_as_manual_review():
     assert result.handoff is not None
     assert result.handoff.mode is ExecutionRecoveryMode.MANUAL_REVIEW
     assert result.handoff.source_status is ExecutionOutcomeAssessmentStatus.MANUAL_REVIEW_REQUIRED
-
-
-def outcome_time():
-    from datetime import datetime, timezone
-    return datetime(2026, 9, 19, tzinfo=timezone.utc)
