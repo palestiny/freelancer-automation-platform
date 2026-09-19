@@ -879,3 +879,8 @@ Repeated provider execution attempts are preserved as explicit evidence with req
 ### D-125 — Execution Attempt History Consistency Does Not Infer Missing Attempts
 
 Execution history consistency validates identity and latest observed attempt agreement. Attempt numbers are explicit evidence; gaps are not treated as implicit failures or retries. The consistency boundary remains non-executing and non-authorizing.
+
+
+### D-124 — Execution Retry Policy Must Consume Consistent Attempt Evidence
+
+Retry eligibility must not be derived from a caller-supplied attempt count when immutable execution history is available. Outcome/history identity and latest-attempt consistency are required before policy assessment; the policy remains non-executing.

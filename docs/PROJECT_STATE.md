@@ -735,3 +735,8 @@ V1 now composes the existing prepared execution request, provider execution port
 ## Execution Attempt History Consistency
 
 V1 now validates that an observed ExecutionOutcome is consistent with its immutable ExecutionAttemptHistory. The boundary preserves request/idempotency identity, reports observed attempt count, and validates latest-attempt agreement. It does not infer missing attempts or require contiguous attempt numbers, and it performs no retry, scheduling, authorization, execution, compensation, or policy mutation.
+
+
+## Execution Policy & Attempt History Integration
+
+Execution outcome policy assessment now has an explicit history-aware boundary. The observed execution outcome must be consistent with immutable attempt history before retry policy assessment is produced, and the assessment uses the observed history count rather than an independently supplied attempt count. This remains non-executing: no retry is scheduled or performed.

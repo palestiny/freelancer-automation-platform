@@ -463,3 +463,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Attempt History Consistency
 
 **Status:** V1 evidence-consistency validation implemented and CI-verified. Outcome/history identity and latest-attempt agreement are explicit; missing attempt numbers remain evidence rather than inferred state.
+
+
+### Execution Policy & Attempt History Integration
+
+**Status:** V1 history-consistent retry assessment implemented and CI-verified. Outcome/history mismatches block policy assessment; actual retry orchestration remains outside the domain boundary.
