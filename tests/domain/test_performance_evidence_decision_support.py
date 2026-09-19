@@ -180,7 +180,7 @@ def test_temporal_context_mismatch_is_explicit():
     mismatched = StatisticalEvidenceComposition(
         business_id=evidence.business_id, metric_name=evidence.metric_name, unit=evidence.unit,
         method=evidence.method, observation_ids=evidence.observation_ids, eligible=evidence.eligible,
-        reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha,
+        reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha, mean_difference=evidence.mean_difference,
         first_window=PerformanceWindow(datetime(2026, 1, 20), datetime(2026, 1, 27)),
         second_window=PerformanceWindow(datetime(2026, 1, 27), datetime(2026, 2, 3)),
         current_evidence_quality=evidence.current_evidence_quality,
