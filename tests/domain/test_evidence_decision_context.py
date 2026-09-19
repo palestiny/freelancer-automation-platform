@@ -60,3 +60,68 @@ def test_evidence_quality_is_bounded(value):
             current_evidence_quality=value,
             baseline_evidence_quality=75,
         )
+
+
+@pytest.mark.parametrize(
+    "field",
+    ["statistical_observation_ids", "current_observation_ids", "baseline_observation_ids"],
+)
+def test_observation_lineage_ids_must_be_non_empty_strings(field):
+    values = {
+        "statistical_observation_ids": ("s1",),
+        "current_observation_ids": ("c1",),
+        "baseline_observation_ids": ("b1",),
+    }
+    values[field] = ("",)
+
+    with pytest.raises(ValueError):
+        EvidenceDecisionContext(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=values["statistical_observation_ids"],
+            current_observation_ids=values["current_observation_ids"],
+            baseline_observation_ids=values["baseline_observation_ids"],
+            source_references=("trend:1",),
+            current_evidence_quality=80,
+            baseline_evidence_quality=75,
+        )
+
+
+def test_source_references_must_be_non_empty_strings():
+    with pytest.raises(ValueError):
+        EvidenceDecisionContext(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("s1",),
+            current_observation_ids=("c1",),
+            baseline_observation_ids=("b1",),
+            source_references=("",),
+            current_evidence_quality=80,
+            baseline_evidence_quality=75,
+        )
+
+
+def test_context_identity_fields_must_be_strings():
+    with pytest.raises((TypeError, ValueError)):
+        EvidenceDecisionContext(
+            business_id=None,
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("s1",),
+            current_observation_ids=("c1",),
+            baseline_observation_ids=("b1",),
+            source_references=("trend:1",),
+            current_evidence_quality=80,
+            baseline_evidence_quality=75,
+        )
