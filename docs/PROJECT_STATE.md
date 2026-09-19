@@ -616,3 +616,8 @@ V1 includes a bounded downstream evidence-composition layer combining determinis
 ## Performance Evidence Support Hardening
 
 The evidence-composition result now preserves the two explicit statistical comparison windows in addition to observation lineage, preventing temporal context from being lost between statistical analysis and downstream evidence composition.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer exposes descriptive direction alongside statistical evidence status, preserves disagreement, and does not convert the combination into a score, recommendation, policy mutation, learning mutation, portfolio action, or execution.
