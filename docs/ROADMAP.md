@@ -371,3 +371,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 2 — Economic Health & Stability Evidence
 
 **Status:** V1 descriptive evidence implemented and CI-verified. Profitability and stability are now measurable from realized outcomes without a universal health score or automatic business posture.
+
+
+### Economic Health Window Hardening
+
+**Status:** Completed and CI-verified. Economic health evidence is now explicitly window-scoped and lineage-safe.
