@@ -611,3 +611,8 @@ It does not produce a universal score, ranking, business posture, recommendation
 ## Performance Evidence Decision Support
 
 V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Performance Evidence Support Hardening
+
+The evidence-composition result now preserves the two explicit statistical comparison windows in addition to observation lineage, preventing temporal context from being lost between statistical analysis and downstream evidence composition.
