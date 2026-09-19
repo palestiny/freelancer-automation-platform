@@ -330,3 +330,70 @@ def test_ambiguous_state_save_failure_is_not_reported_as_ambiguous():
     assert result.scheduled is False
     assert result.failure == "state_persistence_failed"
     assert result.command.state is RetryCommandState.CLAIMED
+
+class RaisingRevalidator:
+    def revalidate(self, command):
+        raise RuntimeError("revalidation failed")
+
+def test_revalidation_exception_requires_manual_review_without_scheduling():
+    store = Store()
+    result = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=Scheduler(SchedulerAcknowledgementStatus.ACCEPTED),
+        authorization_revalidator=RaisingRevalidator(),
+    )
+    assert result.scheduled is False
+    assert result.failure == "authorization_revalidation_failed"
+    assert result.command.state is RetryCommandState.REQUIRES_MANUAL_REVIEW
+
+
+class InvalidClaimStateStore(Store):
+    def claim(self, command_id):
+        self.command = self.command.transition_to(RetryCommandState.CLAIMED)
+        return self.command.transition_to(RetryCommandState.SCHEDULED, scheduling_id="preexisting")
+
+
+def test_invalid_claim_state_cannot_reach_revalidation_or_scheduler():
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    revalidator = Revalidator(authorization())
+    result = orchestrate_retry(
+        command=command(),
+        store=InvalidClaimStateStore(),
+        scheduler=scheduler,
+        authorization_revalidator=revalidator,
+    )
+    assert result.scheduled is False
+    assert result.failure == "claim_state_invalid"
+    assert revalidator.calls == 0
+    assert scheduler.calls == 0
+
+
+class MismatchSaveFailureStore(Store):
+    def save(self, command):
+        raise RuntimeError("save failed")
+
+
+def test_scheduler_command_mismatch_with_state_save_failure_is_explicit():
+    result = orchestrate_retry(
+        command=command(),
+        store=MismatchSaveFailureStore(),
+        scheduler=MismatchingScheduler(),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "state_persistence_failed"
+    assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+
+
+def test_ambiguous_ack_with_state_save_failure_is_explicit():
+    result = orchestrate_retry(
+        command=command(),
+        store=MismatchSaveFailureStore(),
+        scheduler=Scheduler(SchedulerAcknowledgementStatus.AMBIGUOUS),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "state_persistence_failed"
+    assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+
