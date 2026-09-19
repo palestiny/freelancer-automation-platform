@@ -65,3 +65,8 @@ def test_decided_at_must_be_datetime():
 def test_evidence_ids_must_be_tuple():
     with pytest.raises(TypeError):
         _record(evidence_ids=["e1", "e2"])
+
+
+def test_decided_at_must_be_timezone_aware():
+    with pytest.raises(ValueError):
+        _record(decided_at=datetime(2026, 9, 19))
