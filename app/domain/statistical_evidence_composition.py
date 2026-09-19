@@ -31,13 +31,13 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
-    mean_difference: float | None
     first_window: PerformanceWindow
     second_window: PerformanceWindow
     current_evidence_quality: float
     baseline_evidence_quality: float
     current_source_reliability: SourceReliabilityAssessment
     baseline_source_reliability: SourceReliabilityAssessment
+    mean_difference: float | None
 
     def __post_init__(self) -> None:
         for name in ("business_id", "metric_name", "unit", "method"):
@@ -179,9 +179,9 @@ def _compose(
         reason=reason,
         interpretation=interpretation,
         alpha=comparison.alpha,
-        mean_difference=comparison.mean_difference,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
+        mean_difference=comparison.mean_difference,
         current_evidence_quality=current_evidence_quality,
         baseline_evidence_quality=baseline_evidence_quality,
         current_source_reliability=current_source_reliability,
