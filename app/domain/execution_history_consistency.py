@@ -19,6 +19,22 @@ class ExecutionHistoryConsistency:
     attempt_count: int
     status: ExecutionHistoryConsistencyStatus
 
+    def __post_init__(self) -> None:
+        if not self.request_id.strip() or not self.idempotency_key.strip():
+            raise ValueError("request_id and idempotency_key cannot be empty")
+        if isinstance(self.attempt_count, bool) or not isinstance(self.attempt_count, int):
+            raise TypeError("attempt_count must be an integer")
+        if self.attempt_count < 0:
+            raise ValueError("attempt_count cannot be negative")
+        if self.status is ExecutionHistoryConsistencyStatus.EMPTY_HISTORY:
+            if self.attempt_count != 0:
+                raise ValueError("empty history must have zero attempts")
+        elif self.status in (
+            ExecutionHistoryConsistencyStatus.CONSISTENT,
+            ExecutionHistoryConsistencyStatus.LATEST_ATTEMPT_MISMATCH,
+        ) and self.attempt_count == 0:
+            raise ValueError("attempt-bearing consistency states must report at least one attempt")
+
 
 def assess_execution_history_consistency(
     *,

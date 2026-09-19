@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from app.domain.execution_attempt_history import ExecutionAttempt, ExecutionAttemptHistory
 from app.domain.execution_outcome import ExecutionOutcome, ExecutionOutcomeStatus
 from app.domain.execution_history_consistency import (
+    ExecutionHistoryConsistency,
     ExecutionHistoryConsistencyStatus,
     assess_execution_history_consistency,
 )
@@ -57,3 +58,31 @@ def test_empty_history_is_explicit():
     history = ExecutionAttemptHistory("r1", "idem-1")
     result = assess_execution_history_consistency(outcome=_outcome(), history=history)
     assert result.status is ExecutionHistoryConsistencyStatus.EMPTY_HISTORY
+
+
+def test_consistency_result_rejects_negative_attempt_count():
+    try:
+        ExecutionHistoryConsistency(
+            "r1",
+            "idem-1",
+            -1,
+            ExecutionHistoryConsistencyStatus.EMPTY_HISTORY,
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("negative attempt count must be rejected")
+
+
+def test_consistency_result_rejects_zero_attempts_for_non_empty_state():
+    try:
+        ExecutionHistoryConsistency(
+            "r1",
+            "idem-1",
+            0,
+            ExecutionHistoryConsistencyStatus.CONSISTENT,
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("non-empty states must report an attempt")
