@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from math import isfinite
 
 
 @dataclass(frozen=True)
@@ -13,6 +14,9 @@ class CapacitySnapshot:
     reserved_hours: float = 0.0
 
     def __post_init__(self) -> None:
+        for name in ("total_hours", "committed_hours", "reserved_hours"):
+            if not isfinite(getattr(self, name)):
+                raise ValueError(f"{name} must be finite")
         if self.period_end <= self.period_start:
             raise ValueError("period_end must be after period_start")
         if self.total_hours <= 0:
