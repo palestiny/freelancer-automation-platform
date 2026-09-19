@@ -795,3 +795,8 @@ V1 now has an explicit provider-independent boundary for claiming scheduled retr
 ## Retry Execution Outcome Handoff
 
 V1 now consumes an observed ExecutionOutcome for an EXECUTION_IN_PROGRESS retry command and closes the retry state deterministically: success completes the command; non-success outcomes enter manual review. Identity mismatch and persistence failure remain explicit non-recorded failures. No automatic retry, scheduling, compensation, authorization mutation, or provider call is introduced.
+
+
+## Retry Worker Dispatch Boundary
+
+V1 worker dispatch is now implemented as an application boundary for one scheduled retry command at a time. It atomically claims work, revalidates authorization/request identity, dispatches only prepared requests through the existing ExecutionPort, records observed outcomes through the existing retry outcome handoff, and preserves explicit failure/manual-review states. It does not implement a worker loop, queue framework, lease renewal, provider selection, automatic retry, compensation, or authorization mutation.
