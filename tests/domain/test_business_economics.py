@@ -107,3 +107,26 @@ def test_zero_revenue_has_no_defined_margin():
     )
 
     assert estimate.expected_margin is None
+
+@pytest.mark.parametrize("field", [
+    "expected_revenue",
+    "expected_effort_hours",
+    "platform_fee",
+    "capability_cost",
+    "operating_cost",
+    "revision_allowance",
+    "success_confidence",
+])
+def test_non_finite_estimate_values_are_rejected(field):
+    kwargs = dict(
+        expected_revenue=100.0,
+        expected_effort_hours=2.0,
+        platform_fee=1.0,
+        capability_cost=1.0,
+        operating_cost=1.0,
+        revision_allowance=1.0,
+        success_confidence=0.8,
+    )
+    kwargs[field] = float("nan")
+    with pytest.raises(ValueError, match="finite"):
+        EconomicEstimate(**kwargs)
