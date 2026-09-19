@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from app.domain.execution_attempt_history import ExecutionAttempt, ExecutionAttemptHistory
 from app.domain.execution_outcome import ExecutionOutcome, ExecutionOutcomeStatus
 from app.domain.execution_history_consistency import (
+    ExecutionHistoryConsistency,
     ExecutionHistoryConsistencyStatus,
     assess_execution_history_consistency,
 )
