@@ -39,5 +39,7 @@ def test_preserves_change_without_detection():
 def test_ineligible_inference_not_upgraded():
     assert derive_performance_evidence_state(evidence(10, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE, False)) is PerformanceEvidenceState.INSUFFICIENT_INFERENTIAL_EVIDENCE
 
-def test_no_change_is_explicit():
-    assert derive_performance_evidence_state(evidence(0, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)) is PerformanceEvidenceState.NO_MATERIAL_DESCRIPTIVE_CHANGE
+def test_no_change_with_statistical_detection_is_rejected_by_support_contract():
+    import pytest
+    with pytest.raises(ValueError):
+        evidence(0, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)
