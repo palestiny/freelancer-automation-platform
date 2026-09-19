@@ -27,6 +27,7 @@ The domain validates structure and lineage only.
 2. A decision must reference at least one evidence artifact.
 3. Evidence references are opaque IDs; the record does not reinterpret them.
 4. Duplicate evidence references are rejected.
+5. Decision timestamps must be timezone-aware so audit ordering is unambiguous.
 5. Empty statements/rationales are rejected.
 6. No policy, lifecycle, learning signal, portfolio posture, capital allocation, or execution state is mutated.
 7. No score, ranking, recommendation, or automatic decision is produced.
