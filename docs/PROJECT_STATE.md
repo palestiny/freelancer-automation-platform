@@ -625,3 +625,8 @@ The current V1 performance evidence decision-support boundary is hardened and se
 ## Phase 2 — Economic Performance History
 
 V1 now has an explicit actual-vs-expected economic performance foundation. Economic estimates remain immutable expectations; realized outcomes are separate evidence with derived profit, margin, and revenue/cost/profit/effort variances. History is isolated by business and preserves outcome lineage. No scoring, forecasting, capital allocation, or financial execution is introduced.
+
+
+## Phase 2 — Economic Performance Aggregation
+
+V1 now includes explicit-window aggregation of realized economic outcomes. The aggregate preserves business identity, time window, outcome lineage, realized revenue/cost/profit/effort averages, and actual-vs-expected variance averages. Empty windows remain missing evidence rather than zero economics. No economic scoring, forecasting, capital allocation, or execution is introduced.

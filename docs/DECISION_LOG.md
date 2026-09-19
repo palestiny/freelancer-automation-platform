@@ -769,3 +769,8 @@ The current V1 evidence-composition layer is a reporting/decision-support bounda
 ### D-124 — Economic Estimates and Realized Outcomes Remain Separate
 
 Expected economics remain immutable estimate evidence. Realized revenue, cost, and effort are recorded as separate business-scoped outcomes. Derived variances are actual minus expected; this boundary does not score, forecast, allocate capital, mutate policy, or execute financial actions.
+
+
+### D-125 — Economic Performance Aggregation Remains a Derived Evidence View
+
+Economic performance aggregation uses explicit windows and preserves raw outcome lineage. Missing windows remain absent rather than zero-filled. Aggregation does not score businesses, forecast outcomes, allocate capital, mutate policy, or execute financial actions.

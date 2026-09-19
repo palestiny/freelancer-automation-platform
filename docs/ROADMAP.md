@@ -361,3 +361,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 2 — Actual-vs-Expected Economic Performance
 
 **Status:** V1 economic performance history foundation implemented and CI-verified. Estimates remain separate from realized outcomes; profitability and variance can now be represented as historical evidence. Aggregation, economic health history, opportunity cost, and execution remain future slices.
+
+
+### Phase 2 — Economic Performance Aggregation
+
+**Status:** V1 deterministic historical aggregation implemented and CI-verified. Raw realized outcomes remain authoritative; aggregates are derived views only. Economic health/stability policy remains a separate future slice.
