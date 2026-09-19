@@ -86,6 +86,19 @@ def test_descriptive_change_without_statistical_detection_is_not_suppressed():
     assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
 
 
+def test_opposite_statistical_direction_is_preserved_as_conflict():
+    result = compose_performance_evidence(
+        trend=_trend(-10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.DECLINING
+    assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
+    assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+
+
 def test_ineligible_statistical_evidence_remains_unavailable():
     result = compose_performance_evidence(
         trend=_trend(10.0),
