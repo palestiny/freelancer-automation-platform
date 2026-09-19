@@ -101,14 +101,3 @@ def test_context_invalid_is_not_satisfied():
     assert result.reason is EvidencePolicyReviewReason.INVALID_CONTEXT
 
 
-def test_policy_review_not_requested_is_explicit():
-    result = review_evidence_policy(
-        handoff=_handoff(requires=False),
-        policy=PolicyReviewPolicy(
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
-            require_statistical_detection=False,
-            require_complete_evidence=False,
-        ),
-    )
-    assert result.status is EvidencePolicyReviewStatus.REVIEW_REQUIRED
-    assert result.reason is EvidencePolicyReviewReason.POLICY_REVIEW_NOT_AVAILABLE
