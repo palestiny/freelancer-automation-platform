@@ -191,3 +191,37 @@ def test_scheduler_acceptance_with_ack_persistence_failure_is_ambiguous():
     assert result.failure == "scheduler_acknowledgement_persistence_ambiguous"
     assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
     assert store.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+
+
+def test_manual_review_command_is_never_scheduled():
+    store = Store()
+    manual = RetryCommand(**{**command().__dict__, "action": RetryCommandAction.MANUAL_REVIEW})
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    result = orchestrate_retry(command=manual, store=store, scheduler=scheduler, authorization_revalidator=Revalidator(authorization()))
+    assert result.scheduled is False
+    assert result.failure == "manual_review_not_schedulable"
+    assert scheduler.calls == 0
+
+
+def test_same_idempotency_identity_with_different_command_id_is_rejected():
+    store = Store()
+    first = command()
+    first_result = orchestrate_retry(command=first, store=store, scheduler=Scheduler(SchedulerAcknowledgementStatus.ACCEPTED), authorization_revalidator=Revalidator(authorization()))
+    conflicting = RetryCommand(**{**first.__dict__, "command_id": "cmd-2"})
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    result = orchestrate_retry(command=conflicting, store=store, scheduler=scheduler, authorization_revalidator=Revalidator(authorization()))
+    assert first_result.scheduled is True
+    assert result.scheduled is False
+    assert result.failure == "idempotency_conflict"
+    assert scheduler.calls == 0
+
+
+def test_autonomy_change_blocks_scheduler():
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    current = authorization()
+    changed = ActionAuthorization(**{**current.__dict__, "requested_autonomy": AutonomyLevel.L3_EXECUTE_WITH_APPROVAL})
+    result = orchestrate_retry(command=command(), store=Store(), scheduler=scheduler, authorization_revalidator=Revalidator(changed))
+    assert result.scheduled is False
+    assert result.failure == "authorization_autonomy_changed"
+    assert result.command.state is RetryCommandState.REQUIRES_MANUAL_REVIEW
+    assert scheduler.calls == 0
