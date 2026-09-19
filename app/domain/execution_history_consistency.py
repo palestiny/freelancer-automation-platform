@@ -29,8 +29,11 @@ class ExecutionHistoryConsistency:
         if self.status is ExecutionHistoryConsistencyStatus.EMPTY_HISTORY:
             if self.attempt_count != 0:
                 raise ValueError("empty history must have zero attempts")
-        elif self.attempt_count == 0:
-            raise ValueError("non-empty consistency states must report at least one attempt")
+        elif self.status in (
+            ExecutionHistoryConsistencyStatus.CONSISTENT,
+            ExecutionHistoryConsistencyStatus.LATEST_ATTEMPT_MISMATCH,
+        ) and self.attempt_count == 0:
+            raise ValueError("attempt-bearing consistency states must report at least one attempt")
 
 
 def assess_execution_history_consistency(
