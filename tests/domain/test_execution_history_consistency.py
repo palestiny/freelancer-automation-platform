@@ -38,10 +38,10 @@ def test_identity_mismatch_is_explicit():
     assert result.status is ExecutionHistoryConsistencyStatus.IDENTITY_MISMATCH
 
 
-def test_count_is_history_length_not_inferred():
+def test_history_length_is_reported_without_inference():
     history = ExecutionAttemptHistory("r1", "idem-1", (_attempt(1),))
     result = assess_execution_history_consistency(outcome=_outcome(), history=history)
-    assert result.status is ExecutionHistoryConsistencyStatus.ATTEMPT_COUNT_MISMATCH
+    assert result.status is ExecutionHistoryConsistencyStatus.LATEST_ATTEMPT_MISMATCH
     assert result.attempt_count == 1
 
 
