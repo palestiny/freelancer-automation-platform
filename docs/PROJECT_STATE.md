@@ -705,3 +705,8 @@ V1 includes a non-executing recovery handoff derived from execution-outcome poli
 ## Performance Evidence Provenance Hardening
 
 The performance evidence decision-support artifact now keeps statistical direction unavailable whenever the statistical evidence itself is unavailable or ineligible. Raw statistical observation lineage remains preserved independently. This prevents downstream consumers from treating an ineligible inferential result as an actionable directional conclusion.
+
+
+## Provider Execution Adapter Port
+
+V1 now has an application-layer ExecutionPort between authorized execution requests and future provider adapters. Only PREPARED AuthorizedExecutionRequest values may cross the dispatch boundary; provider results are translated into the existing provider-independent ExecutionOutcome artifact. No concrete provider integration, retry engine, scheduler, queue, credentials, or external side effect is introduced by this boundary.
