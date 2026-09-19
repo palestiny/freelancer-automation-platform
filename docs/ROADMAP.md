@@ -433,3 +433,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Execution Recovery Handoff
 
 **Status:** V1 non-executing recovery handoff implemented and CI-verified. Recovery remains an orchestration concern; this domain artifact does not schedule or execute retries.
+
+
+### Provider Execution Adapter Port
+
+**Status:** V1 application-layer port implemented and CI-verified. It dispatches only prepared authorized requests and translates adapter results into ExecutionOutcome. Concrete provider integration remains a separate future boundary.
