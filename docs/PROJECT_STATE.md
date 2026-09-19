@@ -620,3 +620,8 @@ V1 includes a bounded downstream evidence-composition layer combining determinis
 ## Evidence Composition Closure
 
 The current V1 performance evidence decision-support boundary is hardened and semantically closed. It preserves descriptive direction, inferential detection, statistical difference direction, and observation lineage as separate evidence. It does not infer business improvement from statistical significance and does not produce decisions or actions.
+
+
+## Phase 2 — Economic Performance History
+
+V1 now has an explicit actual-vs-expected economic performance foundation. Economic estimates remain immutable expectations; realized outcomes are separate evidence with derived profit, margin, and revenue/cost/profit/effort variances. History is isolated by business and preserves outcome lineage. No scoring, forecasting, capital allocation, or financial execution is introduced.
