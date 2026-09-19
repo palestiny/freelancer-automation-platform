@@ -184,3 +184,57 @@ def test_result_rejects_invalid_evidence_quality():
             current_source_reliability=_eligible(),
             baseline_source_reliability=_eligible(),
         )
+
+def test_result_rejects_non_finite_mean_difference():
+    import math
+    import pytest
+
+    source = _stat(
+        interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+    )
+    with pytest.raises(ValueError):
+        StatisticalEvidenceComposition(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            method="welch_two_sample_t_test",
+            observation_ids=("b1", "c1"),
+            eligible=True,
+            reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
+            alpha=0.05,
+            mean_difference=math.nan,
+            first_window=source.first_window,
+            second_window=source.second_window,
+            current_evidence_quality=80,
+            baseline_evidence_quality=80,
+            current_source_reliability=source.current_source_reliability,
+            baseline_source_reliability=source.baseline_source_reliability,
+        )
+
+
+def test_result_rejects_blank_observation_ids():
+    import pytest
+
+    source = _stat(
+        interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+    )
+    with pytest.raises(ValueError):
+        StatisticalEvidenceComposition(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            method="welch_two_sample_t_test",
+            observation_ids=("b1", ""),
+            eligible=True,
+            reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
+            alpha=0.05,
+            mean_difference=1.0,
+            first_window=source.first_window,
+            second_window=source.second_window,
+            current_evidence_quality=80,
+            baseline_evidence_quality=80,
+            current_source_reliability=source.current_source_reliability,
+            baseline_source_reliability=source.baseline_source_reliability,
+        )
