@@ -635,3 +635,8 @@ V1 now includes explicit-window aggregation of realized economic outcomes. The a
 ## Phase 2 — Economic Health & Stability Evidence
 
 V1 now exposes descriptive economic health/stability evidence from realized outcomes: profitability rate, profit range, sample profit variability, average margin where available, and profit per effort hour where available. This is evidence only; it does not score, rank, forecast, allocate capital, mutate policy, or execute financial actions.
+
+
+## Economic Health Window Hardening
+
+Economic health evidence now requires an explicit start-inclusive/end-exclusive window and preserves that window in the evidence artifact. This closes the previous mismatch between the approved design gate and the implementation boundary.
