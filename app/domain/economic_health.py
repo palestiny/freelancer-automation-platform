@@ -1,12 +1,15 @@
 from dataclasses import dataclass
 from math import sqrt
 
+from .economic_performance_aggregation import EconomicPerformanceWindow
+
 from .economic_performance import EconomicPerformanceHistory
 
 
 @dataclass(frozen=True)
 class EconomicHealthEvidence:
     business_id: str
+    window: EconomicPerformanceWindow
     outcome_ids: tuple[str, ...]
     outcome_count: int
     profitable_outcome_count: int
@@ -36,11 +39,11 @@ class EconomicHealthEvidence:
 
 def calculate_economic_health(
     history: EconomicPerformanceHistory,
+    window: EconomicPerformanceWindow,
 ) -> EconomicHealthEvidence | None:
-    if not history.outcomes:
+    outcomes = tuple(o for o in history.ordered_outcomes if window.contains(o.observed_at))
+    if not outcomes:
         return None
-
-    outcomes = tuple(history.ordered_outcomes)
     profits = tuple(o.actual_profit for o in outcomes)
     margins = tuple(o.actual_margin for o in outcomes if o.actual_margin is not None)
     profit_per_hour = tuple(
@@ -61,6 +64,7 @@ def calculate_economic_health(
 
     return EconomicHealthEvidence(
         business_id=history.business_id,
+        window=window,
         outcome_ids=tuple(o.id for o in outcomes),
         outcome_count=count,
         profitable_outcome_count=profitable,
