@@ -730,3 +730,8 @@ V1 now composes the existing prepared execution request, provider execution port
 ### Execution Attempt History
 
 **Status:** V1 immutable execution-attempt evidence implemented and CI-verified. Each provider attempt preserves request/idempotency identity, explicit attempt number, outcome, timestamp, and optional external reference. Retry scheduling and execution remain outside the domain.
+
+
+## Execution Attempt History Consistency
+
+V1 now validates that an observed ExecutionOutcome is consistent with its immutable ExecutionAttemptHistory. The boundary preserves request/idempotency identity, reports observed attempt count, and validates latest-attempt agreement. It does not infer missing attempts or require contiguous attempt numbers, and it performs no retry, scheduling, authorization, execution, compensation, or policy mutation.
