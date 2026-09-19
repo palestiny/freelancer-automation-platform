@@ -56,7 +56,7 @@ def _stat(*, interpretation, eligible=True):
     )
 
 
-def test_aligned_improvement_is_explicit():
+def test_statistical_detection_does_not_claim_directional_alignment():
     result = compose_performance_evidence(
         trend=_trend(10.0),
         statistical_evidence=_stat(
@@ -212,3 +212,16 @@ def test_context_invalid_preserves_lineage_for_diagnostics():
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
     assert result.inferential_status is InferentialStatus.UNAVAILABLE
     assert result.statistical_observation_ids == ("b1", "b2", "c1", "c2")
+
+
+def test_declining_change_with_statistical_detection_preserves_both_evidence_types():
+    result = compose_performance_evidence(
+        trend=_trend(-10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.DECLINING
+    assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
