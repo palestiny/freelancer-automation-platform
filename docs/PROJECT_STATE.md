@@ -139,7 +139,7 @@ Phase 16 — Operational Measurement & Learning Integration is implemented throu
 
 The current boundary remains domain-only. Statistical inference, persistence, provider integration, automatic experiment execution, automatic policy mutation, and financial execution remain outside the implementation.
 
-Phase 17's first statistical slice is implemented and hardened through explicit applicability, validation precedence, lineage uniqueness, confidence-level validation, and standard-library numerical regression coverage. Additional statistical methods remain gated by dedicated use cases. No forecasting, causal inference, persistence, provider integration, policy mutation, or external execution was introduced.
+Phase 17's current statistical surface is implemented and hardened through Student's t mean uncertainty and Welch historical mean comparison. A downstream evidence-composition layer now consumes statistical evidence alongside explicit evidence-quality and source-reliability context. No forecasting, causal inference, persistence, provider integration, policy mutation, or external execution was introduced.
 
 
 ## Opportunity Evaluation Model
