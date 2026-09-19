@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from math import isfinite
 
 
 @dataclass(frozen=True)
@@ -19,8 +20,12 @@ class EconomicEstimate:
     success_confidence: float = 1.0
 
     def __post_init__(self) -> None:
+        if not isfinite(self.expected_revenue):
+            raise ValueError("expected_revenue must be finite")
         if self.expected_revenue < 0:
             raise ValueError("expected_revenue cannot be negative")
+        if not isfinite(self.expected_effort_hours):
+            raise ValueError("expected_effort_hours must be finite")
         if self.expected_effort_hours <= 0:
             raise ValueError("expected_effort_hours must be greater than zero")
         if self.platform_fee < 0:
@@ -31,6 +36,8 @@ class EconomicEstimate:
             raise ValueError("operating_cost cannot be negative")
         if self.revision_allowance < 0:
             raise ValueError("revision_allowance cannot be negative")
+        if not isfinite(self.success_confidence):
+            raise ValueError("success_confidence must be finite")
         if not 0 <= self.success_confidence <= 1:
             raise ValueError("success_confidence must be between 0 and 1")
 
