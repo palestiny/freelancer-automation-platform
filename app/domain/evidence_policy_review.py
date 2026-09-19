@@ -17,7 +17,6 @@ class EvidencePolicyReviewReason(str, Enum):
     STATISTICAL_DETECTION_REQUIRED = "statistical_detection_required"
     EVIDENCE_INCOMPLETE = "evidence_incomplete"
     INVALID_CONTEXT = "invalid_context"
-    POLICY_REVIEW_NOT_AVAILABLE = "policy_review_not_available"
 
 
 @dataclass(frozen=True)
@@ -69,10 +68,6 @@ def review_evidence_policy(
     if handoff.status is EvidenceHandoffStatus.CONTEXT_INVALID:
         return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.INVALID_CONTEXT)
-
-    if not handoff.requires_policy_review:
-        return _result(handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
-                       EvidencePolicyReviewReason.POLICY_REVIEW_NOT_AVAILABLE)
 
     if policy.require_complete_evidence and handoff.status is EvidenceHandoffStatus.EVIDENCE_INCOMPLETE:
         return _result(handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
