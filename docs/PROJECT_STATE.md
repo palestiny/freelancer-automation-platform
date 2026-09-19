@@ -640,3 +640,8 @@ V1 now exposes descriptive economic health/stability evidence from realized outc
 ## Economic Health Window Hardening
 
 Economic health evidence now requires an explicit start-inclusive/end-exclusive window and preserves that window in the evidence artifact. This closes the previous mismatch between the approved design gate and the implementation boundary.
+
+
+## Economic Stability Policy
+
+V1 now has an explicit, configurable stability-eligibility policy over economic-health evidence. It evaluates observation sufficiency, profitable-outcome rate, average actual profit, and profit variability. The result is explainable eligibility evidence only; it does not rank businesses, assign universal scores, select portfolio postures, forecast, allocate capital, mutate policy, or execute financial actions.
