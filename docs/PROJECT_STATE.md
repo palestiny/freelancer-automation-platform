@@ -613,15 +613,4 @@ The performance evidence decision-support layer was hardened so statistical dete
 
 
 ## Performance Evidence Decision Support
-
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Explicit Evidence Decision Records
-
-V1 now has a provider-independent `EvidenceDecisionRecord` for recording an explicit decision against preserved evidence references. It records the decision maker, timestamp, outcome, statement, rationale, and evidence lineage. It never generates the decision, mutates policy, executes an action, or allocates capital.
-
-
-## Explicit Evidence Decision Recording
-
-`EvidenceDecisionRecord` is implemented as a non-generating domain artifact. It records an explicitly supplied outcome, statement, rationale, decision maker, timestamp, and evidence IDs. It validates structure and lineage only; it does not recommend, authorize, mutate policy, allocate capital, or execute actions.
+The platform has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
