@@ -745,3 +745,8 @@ Execution outcome policy assessment now has an explicit history-aware boundary. 
 ## History-Consistent Execution Recovery
 
 V1 recovery handoff can now be composed only after immutable execution attempt history is verified consistent with the observed outcome. The composition preserves history-derived attempt count and existing retry/manual-review semantics while remaining non-executing.
+
+
+## History-Aware Execution Coordination
+
+V1 application coordination now derives execution attempt numbers from immutable attempt history, records the provider outcome as an explicit attempt, and then performs history-consistent policy assessment and recovery handoff. Callers no longer provide an independent attempt count in this boundary. No retry, scheduling, authorization, compensation, or additional external action is introduced.
