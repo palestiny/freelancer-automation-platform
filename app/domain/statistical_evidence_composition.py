@@ -30,6 +30,7 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
+    mean_difference: float | None
     first_window: PerformanceWindow
     second_window: PerformanceWindow
     current_evidence_quality: float
@@ -55,6 +56,8 @@ class StatisticalEvidenceComposition:
             if not 0 <= value <= 100:
                 raise ValueError(f"{name} must be between 0 and 100")
 
+        if self.mean_difference is not None and isinstance(self.mean_difference, bool):
+            raise TypeError("mean_difference must be numeric or None")
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
         if len(set(self.observation_ids)) != len(self.observation_ids):
@@ -165,6 +168,7 @@ def _compose(
         reason=reason,
         interpretation=interpretation,
         alpha=comparison.alpha,
+        mean_difference=comparison.mean_difference,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
         current_evidence_quality=current_evidence_quality,
