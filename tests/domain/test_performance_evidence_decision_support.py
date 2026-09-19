@@ -288,3 +288,16 @@ def test_opposite_statistical_direction_is_explicit_conflict():
         business_id="b1",
     )
     assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+
+
+def test_result_rejects_duplicate_statistical_observation_ids():
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    import pytest
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=("x", "x"),
+        )
