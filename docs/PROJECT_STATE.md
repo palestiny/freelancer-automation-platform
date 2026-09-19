@@ -594,11 +594,6 @@ The second Phase 17 statistical use case is now implemented and verified: a prov
 Phase 17's current V1 statistical-method surface is closed. It contains Student's t mean uncertainty and Welch's two-sample historical mean comparison. Both are provider-independent evidence artifacts with explicit assumptions, statuses, context, lineage, and non-executing boundaries. Further statistical methods require a concrete downstream consumer and dedicated design gate.
 
 
-## Current Statistical Surface Closure
-
-Phase 17 closure review is approved. The current statistical surface contains two bounded methods: Student's t mean uncertainty and Welch's two-sample historical mean comparison. No third method is authorized without a concrete consumer/use case and dedicated design gate.
-
-
 ## Phase 17 — Statistical Evidence Consumer
 
 The first downstream consumer of the closed statistical surface is now implemented as a provider-independent evidence-composition boundary.
@@ -620,17 +615,12 @@ The performance evidence decision-support layer was hardened so statistical dete
 
 ## Performance Evidence Decision Support
 
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Performance Evidence Decision Support
-
-V1 now includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
+V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
 
 
 ## Reconciliation Note
 
-Performance evidence decision support is implemented and CI-verified on main. This document records that state explicitly for future sessions.
+Performance evidence decision support is implemented and CI-verified on main.
 
 
 ## Performance Evidence Decision Support
