@@ -757,3 +757,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-122 — Statistical Detection Does Not Establish Directional Alignment
 
 The evidence composition layer must not label descriptive and inferential evidence as aligned merely because a statistical difference is detected. Direction is derived from the descriptive trend, while statistical detection remains a separate inferential status.
+
+
+### D-123 — Statistical Evidence Composition Preserves Temporal Context
+
+A downstream statistical evidence artifact must preserve the first and second comparison windows alongside observation lineage so consumers cannot accidentally compose evidence from mismatched periods.
