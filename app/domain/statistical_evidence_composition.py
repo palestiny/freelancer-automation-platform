@@ -3,7 +3,6 @@ from enum import Enum
 
 from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
-from .performance_history import PerformanceWindow
 from .statistical_mean_comparison import MeanComparisonResult, MeanComparisonStatus
 
 
@@ -33,8 +32,6 @@ class StatisticalEvidenceComposition:
     alpha: float
     first_window: PerformanceWindow
     second_window: PerformanceWindow
-    first_window: PerformanceWindow
-    second_window: PerformanceWindow
 
     def __post_init__(self) -> None:
         if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
@@ -43,10 +40,10 @@ class StatisticalEvidenceComposition:
             raise ValueError("method cannot be empty")
         if not 0 < self.alpha < 1:
             raise ValueError("alpha must be between zero and one")
-        if self.first_window.end > self.second_window.start:
-            raise ValueError("statistical evidence windows must not overlap")
         if self.first_window is None or self.second_window is None:
             raise ValueError("statistical evidence windows cannot be None")
+        if self.first_window.end > self.second_window.start:
+            raise ValueError("statistical evidence windows must not overlap")
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
         if len(set(self.observation_ids)) != len(self.observation_ids):
