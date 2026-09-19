@@ -183,3 +183,41 @@ def test_duplicate_logical_command_with_different_command_id_is_rejected():
 
     with pytest.raises(ValueError, match="command identity conflict"):
         s.create_or_get(command("cmd-2"))
+
+
+def test_concurrent_create_or_get_deduplicates_same_logical_retry(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+
+    path = str(tmp_path / "concurrent-store.sqlite3")
+    command_value = command()
+
+    def create_once():
+        return SQLiteRetryCommandStore(path).create_or_get(command_value).command_id
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        command_ids = list(executor.map(lambda _: create_once(), range(8)))
+
+    assert command_ids == ["cmd-1"] * 8
+
+
+def test_concurrent_create_or_get_rejects_conflicting_command_identity(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+
+    path = str(tmp_path / "conflicting-store.sqlite3")
+    commands = [command(command_id=f"cmd-{index}") for index in range(8)]
+
+    def create_once(value):
+        try:
+            return ("accepted", SQLiteRetryCommandStore(path).create_or_get(value).command_id)
+        except ValueError as exc:
+            return ("conflict", str(exc))
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        results = list(executor.map(create_once, commands))
+
+    accepted = [result for result in results if result[0] == "accepted"]
+    conflicts = [result for result in results if result[0] == "conflict"]
+
+    assert len(accepted) == 1
+    assert len(conflicts) == 7
+    assert all("command identity conflict" in result[1] for result in conflicts)
