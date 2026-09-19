@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from math import isfinite
 
 from .business_economics import EconomicEstimate
 
@@ -21,6 +22,8 @@ class EconomicPerformanceOutcome:
                 raise ValueError(f"{name} cannot be empty")
         for name in ("actual_revenue", "actual_cost", "actual_effort_hours"):
             value = getattr(self, name)
+            if not isfinite(value):
+                raise ValueError(f"{name} must be finite")
             if value < 0:
                 raise ValueError(f"{name} cannot be negative")
 
