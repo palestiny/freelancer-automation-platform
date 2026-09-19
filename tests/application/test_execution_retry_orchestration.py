@@ -58,3 +58,9 @@ def test_existing_scheduled_command_is_not_scheduled_again():
     result=schedule_retry_command(handoff=_handoff(),command_id='different',authorization_policy_id='policy-1',authorization_policy_version='v1',autonomy_bound='L3',created_at=datetime(2026,9,19,tzinfo=timezone.utc),store=store,scheduler=scheduler)
     assert result is existing
     assert scheduler.calls == []
+
+def test_accepted_acknowledgement_is_recorded_after_claim():
+    store=FakeStore(); scheduler=FakeScheduler()
+    result=schedule_retry_command(handoff=_handoff(),command_id='cmd-accepted',authorization_policy_id='policy-1',authorization_policy_version='v1',autonomy_bound='L3',created_at=datetime(2026,9,19,tzinfo=timezone.utc),store=store,scheduler=scheduler)
+    assert store.acks[0][0] == 'cmd-accepted'
+    assert result.scheduling_id == 'sched-1'
