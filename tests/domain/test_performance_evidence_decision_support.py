@@ -136,10 +136,6 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_difference_direction=DescriptiveDirection.IMPROVING,
             statistical_observation_ids=("x", "x"),
-            current_observation_ids=("c1",),
-            baseline_observation_ids=("b1",),
-            current_observation_ids=("c",),
-            baseline_observation_ids=("b",),
         )
 
 
@@ -169,10 +165,7 @@ def test_result_requires_nonempty_context_fields():
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
-            statistical_difference_direction=DescriptiveDirection.IMPROVING,
             statistical_observation_ids=("s1",),
-            current_observation_ids=("c1",),
-            baseline_observation_ids=("b1",),
         )
 
 
