@@ -42,6 +42,7 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+    statistical_difference_direction: DescriptiveDirection
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
 
@@ -121,6 +122,7 @@ def _result(
         inferential_status=inferential_status,
         posture=posture,
         statistical_observation_ids=statistical_evidence.observation_ids,
+        statistical_difference_direction=_difference_direction(statistical_evidence),
         current_observation_ids=trend.current_observation_ids,
         baseline_observation_ids=trend.baseline_observation_ids,
     )
@@ -150,3 +152,17 @@ def _inferential_status(
     ):
         return InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE
     return InferentialStatus.UNAVAILABLE
+
+
+def _difference_direction(evidence: StatisticalEvidenceComposition) -> DescriptiveDirection:
+    if evidence.mean_difference is None:
+        return DescriptiveDirection.UNAVAILABLE
+    if evidence.mean_difference > 0:
+        return DescriptiveDirection.IMPROVING
+    if evidence.mean_difference < 0:
+        return DescriptiveDirection.DECLINING
+    return DescriptiveDirection.NO_CHANGE
+
+
+def _directions_align(left: DescriptiveDirection, right: DescriptiveDirection) -> bool:
+    return left is right
