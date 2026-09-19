@@ -153,3 +153,41 @@ def test_duplicate_command_is_not_rescheduled():
     assert second.scheduled is False
     assert second.failure == "command_not_schedulable"
     assert second_scheduler.calls == 0
+
+
+class RaisingScheduler:
+    def schedule(self, command):
+        raise RuntimeError("scheduler outcome unknown")
+
+
+def test_scheduler_exception_is_treated_as_ambiguous_and_persisted():
+    store = Store()
+    result = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=RaisingScheduler(),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "scheduler_call_ambiguous"
+    assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+    assert store.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+
+
+class AcknowledgementPersistenceFailureStore(Store):
+    def record_scheduler_acknowledgement(self, command_id, acknowledgement):
+        raise RuntimeError("persistence failed")
+
+
+def test_scheduler_acceptance_with_ack_persistence_failure_is_ambiguous():
+    store = AcknowledgementPersistenceFailureStore()
+    result = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=Scheduler(SchedulerAcknowledgementStatus.ACCEPTED),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert result.scheduled is False
+    assert result.failure == "scheduler_acknowledgement_persistence_ambiguous"
+    assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+    assert store.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
