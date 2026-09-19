@@ -859,3 +859,8 @@ External execution is reached only through an explicit application-layer port af
 ### D-138 — Execution Adapter Results Must Be Runtime-Validated
 
 The execution adapter port rejects results that are not the explicit immutable ProviderExecutionResult contract and rejects invalid status/timestamp types before translating them into ExecutionOutcome. Runtime validation does not authorize, retry, schedule, compensate, or execute.
+
+
+### D-139 — Execution Adapter Observation Times Must Be Timezone-Aware
+
+Provider execution results must carry timezone-aware observation timestamps. This prevents ambiguous execution evidence at the adapter boundary without introducing provider-specific behavior or authorization/execution policy.
