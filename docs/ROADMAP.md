@@ -339,9 +339,6 @@ Next boundary: identify a concrete downstream consumer for statistical evidence 
 Next extension remains consumer-driven and requires a dedicated design gate if it changes the statistical surface or introduces a new decision-support semantic.
 
 
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
 
 
 ### Evidence Posture Hardening
@@ -349,9 +346,6 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 **Status:** Completed and CI-verified. Descriptive direction and statistical detection remain explicitly separate; no directional inference is created from statistical significance alone.
 
 
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. Future automation remains policy-gated.
 
 
 ### Evidence Decision Support
