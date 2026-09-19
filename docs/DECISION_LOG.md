@@ -834,3 +834,8 @@ An authorized action may produce a prepared execution request carrying explicit 
 ### D-135 — Execution Outcomes Are Provider-Independent Evidence
 
 Execution outcomes record what an external adapter reports for a prepared request. Unknown outcomes remain explicit, request identity and idempotency are preserved, and recording an outcome does not authorize, retry, compensate, bill, mutate policy, or execute further actions.
+
+
+### D-136 — Execution Outcome Assessment Is Non-Executing
+
+Execution outcomes are classified by explicit policy into accepted, retry-eligible, manual-review-required, or terminal failure. Retry eligibility never authorizes or performs a retry; request identity and idempotency remain preserved, and execution orchestration remains outside the domain.
