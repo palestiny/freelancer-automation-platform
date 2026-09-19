@@ -764,3 +764,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-123 — Evidence Composition Boundary Is Semantically Closed
 
 The current V1 evidence-composition layer is a reporting/decision-support boundary only. Descriptive direction and inferential detection remain separate, statistical difference direction is explicit, and lineage is preserved. New automated decisions or actions require a dedicated policy/design gate.
+
+
+### D-124 — Economic Estimates and Realized Outcomes Remain Separate
+
+Expected economics remain immutable estimate evidence. Realized revenue, cost, and effort are recorded as separate business-scoped outcomes. Derived variances are actual minus expected; this boundary does not score, forecast, allocate capital, mutate policy, or execute financial actions.
