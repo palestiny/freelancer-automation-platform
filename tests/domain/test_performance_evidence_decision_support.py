@@ -197,3 +197,17 @@ def test_result_rejects_duplicate_current_observation_ids():
             current_observation_ids=("c1", "c1"),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_evidence_composition_preserves_trend_windows():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.current_window_start == datetime(2026, 2, 1)
+    assert result.current_window_end == datetime(2026, 2, 8)
+    assert result.baseline_window_start == datetime(2026, 1, 25)
+    assert result.baseline_window_end == datetime(2026, 2, 1)
