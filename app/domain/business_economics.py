@@ -28,12 +28,20 @@ class EconomicEstimate:
             raise ValueError("expected_effort_hours must be finite")
         if self.expected_effort_hours <= 0:
             raise ValueError("expected_effort_hours must be greater than zero")
+        if not isfinite(self.platform_fee):
+            raise ValueError("platform_fee must be finite")
         if self.platform_fee < 0:
             raise ValueError("platform_fee cannot be negative")
+        if not isfinite(self.capability_cost):
+            raise ValueError("capability_cost must be finite")
         if self.capability_cost < 0:
             raise ValueError("capability_cost cannot be negative")
+        if not isfinite(self.operating_cost):
+            raise ValueError("operating_cost must be finite")
         if self.operating_cost < 0:
             raise ValueError("operating_cost cannot be negative")
+        if not isfinite(self.revision_allowance):
+            raise ValueError("revision_allowance must be finite")
         if self.revision_allowance < 0:
             raise ValueError("revision_allowance cannot be negative")
         if not isfinite(self.success_confidence):
