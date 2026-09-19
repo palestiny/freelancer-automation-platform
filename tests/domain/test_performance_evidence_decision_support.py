@@ -134,8 +134,8 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
-            statistical_difference_direction=DescriptiveDirection.UNAVAILABLE,
             statistical_observation_ids=("x", "x"),
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
