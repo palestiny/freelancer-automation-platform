@@ -356,3 +356,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Evidence Composition Boundary
 
 **Status:** Implemented and hardened. The current V1 boundary exposes descriptive performance direction and inferential statistical detection as separate evidence dimensions. It is intentionally non-decisioning; further automation requires an explicit policy/design gate.
+
+
+### Phase 2 — Actual-vs-Expected Economic Performance
+
+**Status:** V1 economic performance history foundation implemented and CI-verified. Estimates remain separate from realized outcomes; profitability and variance can now be represented as historical evidence. Aggregation, economic health history, opportunity cost, and execution remain future slices.
