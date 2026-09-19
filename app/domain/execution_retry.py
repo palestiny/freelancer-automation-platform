@@ -88,13 +88,18 @@ class RetryCommand:
         )
 
     @property
-    def identity(self) -> tuple[str, str, int, str]:
+    def deduplication_key(self) -> tuple[str, str, int]:
+        """Stable logical retry identity, independent of command envelope identity."""
         return (
             self.request_id,
             self.idempotency_key,
             self.attempt_number,
-            self.command_id,
         )
+
+    @property
+    def identity(self) -> tuple[str, str, int, str]:
+        """Full immutable command identity including its envelope identifier."""
+        return (*self.deduplication_key, self.command_id)
 
 
 @dataclass(frozen=True)
