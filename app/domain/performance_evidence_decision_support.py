@@ -49,9 +49,9 @@ class PerformanceEvidenceDecisionSupport:
     statistical_method: str = ""
     statistical_first_window: PerformanceWindow | None = None
     statistical_second_window: PerformanceWindow | None = None
-    statistical_difference_direction: DescriptiveDirection
-    current_observation_ids: tuple[str, ...]
-    baseline_observation_ids: tuple[str, ...]
+    statistical_difference_direction: DescriptiveDirection = DescriptiveDirection.UNAVAILABLE
+    current_observation_ids: tuple[str, ...] = ()
+    baseline_observation_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name in ("business_id", "metric_name", "unit"):
