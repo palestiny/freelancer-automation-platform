@@ -70,8 +70,16 @@ class PerformanceEvidenceDecisionSupport:
         ):
             if not ids:
                 raise ValueError(f"{name} cannot be empty")
+            if any(not isinstance(value, str) or not value.strip() for value in ids):
+                raise ValueError(f"{name} must contain non-empty strings")
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
+
+        if set(self.current_observation_ids) & set(self.baseline_observation_ids):
+            raise ValueError(
+                "current_observation_ids and baseline_observation_ids must be disjoint"
+            )
+
 
         for name, value in (("current_window_start", self.current_window_start), ("current_window_end", self.current_window_end), ("baseline_window_start", self.baseline_window_start), ("baseline_window_end", self.baseline_window_end)):
             if value is not None and not isinstance(value, datetime):

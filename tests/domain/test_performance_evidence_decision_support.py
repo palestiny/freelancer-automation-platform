@@ -248,3 +248,18 @@ def test_result_rejects_statistical_detection_with_no_descriptive_change():
             statistical_difference_direction=DescriptiveDirection.IMPROVING,
             current_observation_ids=("c1",), baseline_observation_ids=("b1",),
         )
+
+
+def test_result_rejects_overlapping_current_and_baseline_lineage():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=("shared",),
+            current_observation_ids=("shared",), baseline_observation_ids=("shared",),
+        )
+
