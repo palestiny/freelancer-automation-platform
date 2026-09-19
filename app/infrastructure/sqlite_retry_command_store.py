@@ -48,6 +48,8 @@ class SQLiteRetryCommandStore(RetryCommandStore):
         ).fetchone()
         if row is not None:
             existing = self._from_row(row)
+            if existing.command_id != command.command_id:
+                raise ValueError("command identity conflict for logical retry")
             return existing
 
         try:
@@ -70,7 +72,10 @@ class SQLiteRetryCommandStore(RetryCommandStore):
             ).fetchone()
             if row is None:
                 raise
-            return self._from_row(row)
+            existing = self._from_row(row)
+            if existing.command_id != command.command_id:
+                raise ValueError("command identity conflict for logical retry")
+            return existing
 
         return command
 
