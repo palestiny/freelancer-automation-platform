@@ -1,6 +1,6 @@
 # Design Gate — Execution Retry Orchestration & Scheduling
 
-**Status:** APPROVED — design resolved; runtime implementation remains blocked until the required persistence/scheduler boundary is explicitly introduced.
+**Status:** APPROVED — runtime-neutral orchestration boundary implemented and hardened; concrete infrastructure adapters remain a separate integration boundary.
 
 ## Purpose
 
@@ -62,7 +62,7 @@ The orchestration layer must not:
 
 ## Decision Gate
 
-No scheduler, queue, worker, retry loop, persistence model, or provider adapter changes should be implemented until these questions are resolved in a dedicated design review and RED tests define duplicate scheduling, stale authorization, ambiguous scheduler outcomes, concurrent claim, and terminal/manual-review protection.
+The runtime-neutral application orchestration boundary is now implemented against replaceable persistence, scheduler, and authorization ports. Concrete durable stores, scheduler/queue adapters, workers, retry loops, and provider execution adapters remain outside this increment and require their own integration design.
 
 
 ## Resolved Design Decisions
@@ -118,3 +118,8 @@ The next implementation increment is intentionally blocked until a persistence a
 - revalidation immediately before provider execution.
 
 No queue, worker, scheduler implementation, or provider adapter is introduced by this design-only change.
+
+
+## Runtime-Neutral Implementation Closure
+
+The application boundary now covers durable-command identity, claim semantics, authorization revalidation, scheduler acknowledgement classification, ambiguous-state handling, idempotency conflicts, persistence failure handling, and concurrent-claim protection through replaceable ports. No concrete infrastructure adapter is implied by this closure.
