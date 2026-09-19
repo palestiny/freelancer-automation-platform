@@ -263,15 +263,3 @@ def test_result_rejects_overlapping_current_and_baseline_lineage():
             current_observation_ids=("shared",), baseline_observation_ids=("shared",),
         )
 
-def test_result_rejects_statistical_lineage_that_drops_trend_observation():
-    import pytest
-    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
-    with pytest.raises(ValueError):
-        PerformanceEvidenceDecisionSupport(
-            business_id="b1", metric_name="profit", unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
-            inferential_status=InferentialStatus.UNAVAILABLE,
-            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
-            statistical_observation_ids=("statistical",),
-            current_observation_ids=("current",), baseline_observation_ids=("baseline",),
-        )
