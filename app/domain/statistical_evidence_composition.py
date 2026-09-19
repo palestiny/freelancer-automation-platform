@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from enum import Enum
 
 from .performance_history import PerformanceWindow
+
+from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
 from .statistical_mean_comparison import MeanComparisonResult, MeanComparisonStatus
 
@@ -36,6 +38,12 @@ class StatisticalEvidenceComposition:
     baseline_evidence_quality: float
     current_source_reliability: SourceReliabilityAssessment
     baseline_source_reliability: SourceReliabilityAssessment
+    first_window: PerformanceWindow
+    second_window: PerformanceWindow
+    current_evidence_quality: float
+    baseline_evidence_quality: float
+    current_source_reliability: SourceReliabilityAssessment
+    baseline_source_reliability: SourceReliabilityAssessment
 
     def __post_init__(self) -> None:
         if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
@@ -44,6 +52,14 @@ class StatisticalEvidenceComposition:
             raise ValueError("method cannot be empty")
         if not 0 < self.alpha < 1:
             raise ValueError("alpha must be between zero and one")
+        if self.first_window.end > self.second_window.start:
+            raise ValueError("statistical evidence windows cannot overlap")
+        for name, quality in ((
+            "current_evidence_quality", self.current_evidence_quality),
+            ("baseline_evidence_quality", self.baseline_evidence_quality),
+        ):
+            if not 0 <= quality <= 100:
+                raise ValueError(f"{name} must be between 0 and 100")
         if self.first_window.end > self.second_window.start:
             raise ValueError("statistical evidence windows must not overlap")
         for name, value in (("current_evidence_quality", self.current_evidence_quality), ("baseline_evidence_quality", self.baseline_evidence_quality)):

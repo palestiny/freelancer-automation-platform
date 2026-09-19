@@ -11,6 +11,7 @@ from app.domain.statistical_mean_comparison import (
     MeanComparisonStatus,
 )
 from app.domain.statistical_evidence_composition import (
+    StatisticalEvidenceComposition,
     StatisticalEvidenceEligibilityReason,
     StatisticalEvidenceInterpretation,
     compose_statistical_evidence,
@@ -135,3 +136,49 @@ def test_low_source_reliability_blocks_statistical_evidence():
 
     assert result.eligible is False
     assert result.reason is StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY
+
+
+def test_result_rejects_overlapping_windows():
+    import pytest
+    comparison = _result()
+    with pytest.raises(ValueError):
+        StatisticalEvidenceComposition(
+            business_id=comparison.business_id,
+            metric_name=comparison.metric_name,
+            unit=comparison.unit,
+            method=comparison.method,
+            observation_ids=("a", "b"),
+            eligible=True,
+            reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
+            alpha=0.05,
+            first_window=PerformanceWindow(datetime(2026, 1, 1), datetime(2026, 1, 10)),
+            second_window=PerformanceWindow(datetime(2026, 1, 9), datetime(2026, 1, 15)),
+            current_evidence_quality=80,
+            baseline_evidence_quality=80,
+            current_source_reliability=_eligible(),
+            baseline_source_reliability=_eligible(),
+        )
+
+
+def test_result_rejects_invalid_evidence_quality():
+    import pytest
+    comparison = _result()
+    with pytest.raises(ValueError):
+        StatisticalEvidenceComposition(
+            business_id=comparison.business_id,
+            metric_name=comparison.metric_name,
+            unit=comparison.unit,
+            method=comparison.method,
+            observation_ids=("a", "b"),
+            eligible=True,
+            reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
+            alpha=0.05,
+            first_window=comparison.first_window,
+            second_window=comparison.second_window,
+            current_evidence_quality=101,
+            baseline_evidence_quality=80,
+            current_source_reliability=_eligible(),
+            baseline_source_reliability=_eligible(),
+        )
