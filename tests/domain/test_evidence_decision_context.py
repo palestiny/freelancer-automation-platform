@@ -21,8 +21,10 @@ def _support():
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("a", "b", "c", "d"),
+        current_observation_ids=("c1", "c2"),
+        baseline_observation_ids=("b1", "b2"),
     )
 
 
@@ -34,7 +36,7 @@ def test_context_preserves_support_and_provenance():
         baseline_evidence_quality=75,
     )
     assert isinstance(result, EvidenceDecisionContext)
-    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     assert result.source_references == ("performance_trend:1", "statistical_evidence:2")
     assert result.statistical_observation_ids == ("a", "b", "c", "d")
 
