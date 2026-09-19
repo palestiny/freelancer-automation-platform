@@ -99,7 +99,7 @@ def compose_performance_evidence(
             descriptive is DescriptiveDirection.NO_CHANGE
             or not _directions_align(
                 descriptive,
-                statistical_evidence.statistical_difference_direction,
+                _difference_direction(statistical_evidence),
             )
         ):
             posture = CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
