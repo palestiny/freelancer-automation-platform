@@ -508,3 +508,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Durable Retry Scheduler Adapter
 
 **Status:** V1 SQLite scheduler adapter implemented and CI-verified, including scheduler identity and concurrency hardening. Worker execution and external provider execution remain separate boundaries.
+
+
+### Retry Execution Claim & Handoff
+
+**Status:** V1 claim boundary implemented and CI-verified. Scheduled retry commands can now produce an explicit execution handoff without executing a provider action. Completion/outcome handling remains the next separate boundary.
