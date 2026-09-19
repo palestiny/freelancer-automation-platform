@@ -37,6 +37,8 @@ class EvidenceDecisionRecord:
 
         if not isinstance(self.decided_at, datetime):
             raise TypeError("decided_at must be a datetime")
+        if self.decided_at.tzinfo is None or self.decided_at.utcoffset() is None:
+            raise ValueError("decided_at must be timezone-aware")
 
         if not isinstance(self.evidence_ids, tuple):
             raise TypeError("evidence_ids must be a tuple")
