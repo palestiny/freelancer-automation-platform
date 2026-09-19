@@ -1,19 +1,20 @@
 from dataclasses import dataclass
 
-from .execution_coordinator import ExecutionCoordinationResult
 from .execution_port import ExecutionPort, dispatch_execution
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest
 from app.domain.execution_attempt_history import ExecutionAttempt, ExecutionAttemptHistory
-from app.domain.execution_outcome_policy import ExecutionOutcomePolicy
+from app.domain.execution_outcome import ExecutionOutcome
+from app.domain.execution_outcome_policy import ExecutionOutcomeAssessment, ExecutionOutcomePolicy
+from app.domain.execution_recovery import ExecutionRecoveryHandoff
 from app.domain.execution_policy_history import assess_execution_outcome_with_history
 
 
 @dataclass(frozen=True)
 class HistoryAwareExecutionCoordinationResult:
-    outcome: object
+    outcome: ExecutionOutcome
     history: ExecutionAttemptHistory
-    policy_assessment: object
-    recovery_handoff: object
+    policy_assessment: ExecutionOutcomeAssessment
+    recovery_handoff: ExecutionRecoveryHandoff
 
 
 def coordinate_execution_with_history(
