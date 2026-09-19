@@ -50,23 +50,24 @@ def orchestrate_retry(
             failure="command_not_schedulable",
         )
 
+    claimed = store.claim(existing.command_id)
+    if claimed is None:
+        return RetryOrchestrationResult(command=existing, scheduled=False, failure="claim_conflict")
+    existing = claimed
+
     authorization = authorization_revalidator.revalidate(existing)
     if authorization.status is not ActionAuthorizationStatus.AUTHORIZED:
-        return RetryOrchestrationResult(
-            command=_state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW),
-            scheduled=False,
-            failure="authorization_revalidation_failed",
-        )
+        updated = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW)
+        store.save(updated)
+        return RetryOrchestrationResult(command=updated, scheduled=False, failure="authorization_revalidation_failed")
 
     if (
         authorization.policy_id != existing.authorization_policy_id
         or authorization.policy_version != existing.authorization_policy_version
     ):
-        return RetryOrchestrationResult(
-            command=_state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW),
-            scheduled=False,
-            failure="authorization_policy_changed",
-        )
+        updated = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW)
+        store.save(updated)
+        return RetryOrchestrationResult(command=updated, scheduled=False, failure="authorization_policy_changed")
 
     acknowledgement = scheduler.schedule(existing)
     if acknowledgement.command_id != existing.command_id:
@@ -77,23 +78,17 @@ def orchestrate_retry(
         )
 
     if acknowledgement.status is SchedulerAcknowledgementStatus.ACCEPTED:
-        scheduled = _state(existing, RetryCommandState.SCHEDULED, acknowledgement.scheduling_id)
+        scheduled = store.record_scheduler_acknowledgement(existing.command_id, acknowledgement)
         return RetryOrchestrationResult(command=scheduled, scheduled=True)
 
     if acknowledgement.status is SchedulerAcknowledgementStatus.REJECTED:
         rejected = _state(existing, RetryCommandState.REQUIRES_MANUAL_REVIEW, acknowledgement.scheduling_id)
-        return RetryOrchestrationResult(
-            command=rejected,
-            scheduled=False,
-            failure="scheduler_rejected",
-        )
+        store.save(rejected)
+        return RetryOrchestrationResult(command=rejected, scheduled=False, failure="scheduler_rejected")
 
     ambiguous = _state(existing, RetryCommandState.SCHEDULING_AMBIGUOUS, acknowledgement.scheduling_id)
-    return RetryOrchestrationResult(
-        command=ambiguous,
-        scheduled=False,
-        failure="scheduler_acknowledgement_ambiguous",
-    )
+    store.save(ambiguous)
+    return RetryOrchestrationResult(command=ambiguous, scheduled=False, failure="scheduler_acknowledgement_ambiguous")
 
 
 def _state(
