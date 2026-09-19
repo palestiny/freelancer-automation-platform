@@ -894,3 +894,8 @@ Recovery intent must be derived from the history-consistent execution policy ass
 ### D-140 — Immutable Attempt History Is Authoritative During Execution Coordination
 
 The history-aware coordinator derives the next attempt number from immutable execution history, records the provider outcome as an explicit attempt, and performs policy/recovery assessment only after history consistency is established. Callers must not provide a separate attempt count for this boundary. No retry, scheduling, authorization, compensation, or external side effect is introduced.
+
+
+### D-122 — History-Aware Coordination Results Use Concrete Domain Types
+
+The history-aware coordination boundary must expose concrete provider-independent result types rather than generic object values. This is a type-safety hardening only; it does not authorize, retry, schedule, compensate, or execute additional actions.
