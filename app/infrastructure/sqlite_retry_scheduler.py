@@ -32,6 +32,9 @@ class SQLiteRetryScheduler(RetrySchedulerPort):
         self._connection.commit()
 
     def schedule(self, command: RetryCommand) -> SchedulerAcknowledgement:
+        if command.action.value != "retry":
+            raise ValueError("only retry commands can be scheduled")
+
         row = self._connection.execute(
             """
             SELECT scheduling_id, scheduled_at
@@ -40,6 +43,16 @@ class SQLiteRetryScheduler(RetrySchedulerPort):
             """,
             command.deduplication_key,
         ).fetchone()
+
+        if row is not None:
+            existing = self._connection.execute(
+                "SELECT command_id FROM retry_schedule WHERE scheduling_id = ?",
+                (row[0],),
+            ).fetchone()
+            if existing is None:
+                raise RuntimeError("retry schedule identity is inconsistent")
+            if existing[0] != command.command_id:
+                raise ValueError("command identity conflict for retry schedule")
 
         if row is None:
             scheduling_id = f"schedule-{uuid4().hex}"
@@ -72,6 +85,14 @@ class SQLiteRetryScheduler(RetrySchedulerPort):
                     """,
                     command.deduplication_key,
                 ).fetchone()
+                if row is None:
+                    raise RuntimeError("retry schedule insert conflicted without a durable record")
+                existing = self._connection.execute(
+                    "SELECT command_id FROM retry_schedule WHERE scheduling_id = ?",
+                    (row[0],),
+                ).fetchone()
+                if existing is None or existing[0] != command.command_id:
+                    raise ValueError("command identity conflict for retry schedule")
             else:
                 row = (scheduling_id, scheduled_at.isoformat())
 
