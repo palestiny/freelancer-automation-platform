@@ -64,7 +64,7 @@ def prepared_request():
 
 def raw_outcome(status="succeeded"):
     return {
-        "request_id":"req-1", "idempotency_key":"idem-1", "status":status,
+        "request_id":"req-1", "idempotency_key":"idem-1", "status":ExecutionOutcomeStatus(status),
         "outcome_code":status, "observed_at":datetime(2026,9,20,1,tzinfo=timezone.utc),
     }
 
