@@ -764,3 +764,10 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-123 — Evidence Decision Records Are Explicit, Not Generated
 
 The platform may record an externally supplied decision against evidence, but the domain must not generate the decision, infer authorization, mutate policy, allocate capital, or execute an action from the record.
+
+
+### D-124 — Evidence Decision Context Validates Structural Lineage
+
+**Status:** COMMITTED
+
+EvidenceDecisionContext must reject malformed identity fields, non-string or blank observation/source identifiers, non-tuple lineage collections, and duplicate references. This is structural validation only; it does not infer decisions, authorization, policy changes, or execution.
