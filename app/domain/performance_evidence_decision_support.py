@@ -62,6 +62,14 @@ class PerformanceEvidenceDecisionSupport:
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
 
+        if (
+            self.inferential_status is InferentialStatus.UNAVAILABLE
+            and self.statistical_difference_direction is not DescriptiveDirection.UNAVAILABLE
+        ):
+            raise ValueError(
+                "statistical_difference_direction must be unavailable when inferential evidence is unavailable"
+            )
+
 
 def compose_performance_evidence(
     *,

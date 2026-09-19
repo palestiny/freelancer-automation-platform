@@ -22,7 +22,11 @@ def _support(
         inferential_status=inferential,
         posture=posture,
         statistical_observation_ids=("a", "b"),
-        statistical_difference_direction=DescriptiveDirection.IMPROVING,
+        statistical_difference_direction=(
+            DescriptiveDirection.UNAVAILABLE
+            if inferential is InferentialStatus.UNAVAILABLE
+            else DescriptiveDirection.IMPROVING
+        ),
         current_observation_ids=("c",),
         baseline_observation_ids=("b",),
     )
