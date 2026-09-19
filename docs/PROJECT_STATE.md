@@ -775,3 +775,8 @@ The first consumer-facing performance evidence policy state boundary is implemen
 ## Retry Orchestration Runtime-Neutral Closure
 
 The retry orchestration application boundary is implemented and hardened against duplicate command identity, persistence failures, scheduler ambiguity, acknowledgement persistence failure, authorization drift, claim conflicts, and race-sensitive state transitions. Concrete scheduler, durable-store, worker, retry-loop, and provider adapters remain outside the domain/application contract.
+
+
+## Durable Retry Command Store
+
+V1 SQLite persistence adapter is implemented and CI-verified for the existing RetryCommandStore port. Logical retry identity is durable, duplicate commands are deduplicated, claims are atomic within SQLite transaction semantics, scheduler acknowledgements are persisted, and domain state-transition invariants remain authoritative. Scheduler/worker/provider infrastructure remains separate.
