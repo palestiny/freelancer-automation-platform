@@ -670,3 +670,8 @@ A non-executing handoff artifact now separates composed performance evidence fro
 ## Evidence-to-Decision Handoff Hardening
 
 The handoff contract now preserves descriptive direction, inferential status, combined posture, and separate current/baseline/statistical observation lineage. It explicitly marks valid evidence as requiring policy review while preventing context-invalid evidence from entering that review boundary. The handoff still authorizes no action.
+
+
+## Evidence Policy Review
+
+The first policy-review consumer is now implemented as an explicit, immutable, provider-independent evaluation boundary. It evaluates only supplied evidence against an explicitly configured policy: allowed descriptive directions, optional statistical-detection requirement, and optional evidence-completeness requirement. Results are deterministic and non-executing. Policy review does not authorize, recommend, rank, mutate state, or execute actions.

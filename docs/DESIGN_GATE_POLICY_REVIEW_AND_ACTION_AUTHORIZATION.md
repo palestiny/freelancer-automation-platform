@@ -1,6 +1,6 @@
 # Design Gate — Policy Review & Action Authorization
 
-**Status:** PROPOSED — design only; no runtime policy or action authorization is implemented.
+**Status:** REFERENCE / PARTIALLY SUPERSEDED. The broader policy-review/action-authorization questions remain open; the narrower V1 policy-review boundary is implemented in `docs/DESIGN_GATE_EVIDENCE_POLICY_REVIEW.md`. Action authorization remains a separate future gate.
 
 ## Why This Boundary Exists
 
@@ -89,6 +89,10 @@ This proposal does not implement:
 - external API execution
 - generic policy-engine infrastructure
 - AI-based policy decisions
+
+## Current Narrow V1 Boundary
+
+The first implementation intentionally resolves only policy evaluation: explicit allowed directions, optional statistical-detection requirement, and optional evidence-completeness requirement. It does not implement authorization or execution. The broader questions below remain for the dedicated action-authorization design gate.
 
 ## Design Exit Criteria
 
