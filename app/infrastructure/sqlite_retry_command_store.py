@@ -93,13 +93,20 @@ class SQLiteRetryCommandStore(RetryCommandStore):
             cursor = self._connection.execute(
                 """
                 UPDATE retry_commands
-                SET state = ?
-                WHERE command_id = ? AND state = ?
+                SET state = CASE state
+                    WHEN ? THEN ?
+                    WHEN ? THEN ?
+                END
+                WHERE command_id = ? AND state IN (?, ?)
                 """,
                 (
+                    RetryCommandState.CREATED.value,
                     RetryCommandState.CLAIMED.value,
+                    RetryCommandState.SCHEDULED.value,
+                    RetryCommandState.EXECUTION_IN_PROGRESS.value,
                     command_id,
                     RetryCommandState.CREATED.value,
+                    RetryCommandState.SCHEDULED.value,
                 ),
             )
             if cursor.rowcount != 1:

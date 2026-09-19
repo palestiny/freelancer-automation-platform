@@ -221,3 +221,32 @@ def test_concurrent_create_or_get_rejects_conflicting_command_identity(tmp_path)
     assert len(accepted) == 1
     assert len(conflicts) == 7
     assert all("command identity conflict" in result[1] for result in conflicts)
+
+def test_atomic_execution_claim_transitions_scheduled_to_execution_in_progress():
+    s = store()
+    original = s.create_or_get(command())
+    assert s.claim(original.command_id) is not None
+    scheduled = s.record_scheduler_acknowledgement(
+        original.command_id,
+        SchedulerAcknowledgement(
+            command_id=original.command_id,
+            scheduling_id="schedule-exec",
+            status=SchedulerAcknowledgementStatus.ACCEPTED,
+            observed_at=datetime(2026, 9, 20, 1, tzinfo=timezone.utc),
+        ),
+    )
+    assert scheduled.state is RetryCommandState.SCHEDULED
+
+    execution_claim = s.claim(original.command_id)
+
+    assert execution_claim is not None
+    assert execution_claim.state is RetryCommandState.EXECUTION_IN_PROGRESS
+    assert execution_claim.scheduling_id == "schedule-exec"
+    assert s.claim(original.command_id) is None
+
+
+def test_execution_claim_requires_scheduled_state_after_initial_claim():
+    s = store()
+    original = s.create_or_get(command())
+    assert s.claim(original.command_id) is not None
+    assert s.claim(original.command_id) is None
