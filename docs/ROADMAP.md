@@ -518,3 +518,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Retry Execution Outcome Handoff
 
 **Status:** V1 outcome handoff implemented and CI-verified. Successful execution can close a retry command; non-success outcomes go to manual review without automatic retry. Further retry policy remains a separate boundary.
+
+
+### Retry Worker Dispatch Boundary
+
+**Status:** V1 single-command worker dispatch implemented and CI-verified. Claim, revalidation, provider dispatch, and outcome handoff are explicit; worker loop/infrastructure and automatic retry remain separate boundaries.
