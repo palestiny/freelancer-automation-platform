@@ -77,15 +77,14 @@ def test_provider_failure_transitions_claimed_command_to_manual_review():
 
 
 def test_provider_failure_persistence_failure_remains_explicit():
-    base, base_store = _scheduled_store()
     store = _FailingManualReviewStore(":memory:")
-    store.create_or_get(base_store.get(base.command_id))
-    store.claim(base.command_id)
+    created = store.create_or_get(_command())
+    store.claim(created.command_id)
     from app.domain.execution_retry import SchedulerAcknowledgement, SchedulerAcknowledgementStatus
     command = store.record_scheduler_acknowledgement(
-        base.command_id,
+        created.command_id,
         SchedulerAcknowledgement(
-            command_id=base.command_id,
+            command_id=created.command_id,
             scheduling_id="schedule-provider",
             status=SchedulerAcknowledgementStatus.ACCEPTED,
             observed_at=datetime(2026, 9, 20, 1, tzinfo=timezone.utc),
