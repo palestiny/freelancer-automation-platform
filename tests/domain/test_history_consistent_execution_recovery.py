@@ -85,6 +85,7 @@ def test_manual_review_is_preserved_as_manual_review():
         status=ExecutionOutcomeStatus.UNKNOWN,
         outcome_code="unknown_result",
         observed_at=outcome_time(),
+        external_reference="p-1",
     )
     history = ExecutionAttemptHistory(
         request_id="req-1",
