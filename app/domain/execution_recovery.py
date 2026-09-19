@@ -48,10 +48,13 @@ def create_execution_recovery_handoff(
 ) -> ExecutionRecoveryHandoff:
     if assessment.status is ExecutionOutcomeAssessmentStatus.RETRY_ELIGIBLE:
         mode = ExecutionRecoveryMode.RETRY
+        reason = ExecutionRecoveryReason.RETRY_ELIGIBLE
     elif assessment.status is ExecutionOutcomeAssessmentStatus.MANUAL_REVIEW_REQUIRED:
         mode = ExecutionRecoveryMode.MANUAL_REVIEW
+        reason = ExecutionRecoveryReason.MANUAL_REVIEW_REQUIRED
     else:
         mode = ExecutionRecoveryMode.NONE
+        reason = ExecutionRecoveryReason.NO_RECOVERY_REQUIRED
 
     return ExecutionRecoveryHandoff(
         request_id=assessment.request_id,
