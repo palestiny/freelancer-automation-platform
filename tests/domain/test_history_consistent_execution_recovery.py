@@ -7,8 +7,8 @@ from app.domain.execution_outcome_policy import (
     ExecutionOutcomeAssessmentStatus,
     ExecutionOutcomePolicy,
 )
-from app.domain.execution_recovery import (
-    ExecutionRecoveryMode,
+from app.domain.execution_recovery import ExecutionRecoveryMode
+from app.domain.history_consistent_execution_recovery import (
     create_execution_recovery_handoff_with_history,
 )
 
