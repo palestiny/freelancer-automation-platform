@@ -819,3 +819,8 @@ A valid evidence handoff preserves descriptive direction, inferential status, po
 ### D-132 — Policy Review Is Explicit and Non-Executing
 
 Evidence policy review evaluates supplied evidence against an explicit immutable policy and returns a deterministic policy status/reason without authorizing or executing an action. Policy identity/configuration is caller-supplied; no default policy, automatic policy selection, ranking, recommendation, or mutation is introduced.
+
+
+### D-133 — Authorization Is Separate From Execution and Bounded by Explicit Autonomy
+
+Authorization requires a policy-satisfied review, preserves policy identity/version and autonomy bounds, and returns an explicit authorization status. L3 requires human approval. Irreversible external and financial actions are safety-blocked by this V1 domain boundary. No execution or external side effect occurs.
