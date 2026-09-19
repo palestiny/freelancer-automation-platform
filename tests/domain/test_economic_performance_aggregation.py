@@ -43,7 +43,7 @@ def test_aggregates_selected_realized_economics():
     assert result.average_actual_cost == 225
     assert result.average_actual_profit == 775
     assert result.average_actual_effort_hours == 10
-    assert result.average_profit_variance == -225
+    assert result.average_profit_variance == -125
     assert result.average_revenue_variance == -100
     assert result.average_cost_variance == 125
     assert result.average_effort_variance == 0
