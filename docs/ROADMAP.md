@@ -403,3 +403,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 **Status:** Contract aligned with the approved design gate and CI-verified. The handoff preserves full evidence context and lineage and explicitly separates policy review from authorization/execution.
 
 **Next boundary:** policy review itself requires a dedicated policy/design gate before implementation.
+
+
+### Evidence Policy Review
+
+**Status:** V1 policy-evaluation consumer implemented and CI-verified. Policy satisfaction is explicitly separated from authorization and execution. The next action-authorization boundary remains gated by a dedicated design decision.
