@@ -780,3 +780,8 @@ The retry orchestration application boundary is implemented and hardened against
 ## Durable Retry Command Store
 
 V1 SQLite persistence adapter is implemented and CI-verified for the existing RetryCommandStore port. Logical retry identity is durable, duplicate commands are deduplicated, claims are atomic within SQLite transaction semantics, scheduler acknowledgements are persisted, and domain state-transition invariants remain authoritative. Scheduler/worker/provider infrastructure remains separate.
+
+
+## Durable Retry Scheduler
+
+V1 SQLite retry scheduling is now a concrete adapter behind the existing RetrySchedulerPort. Scheduler identity is durable and provider-independent, duplicate logical scheduling is reconciled explicitly, and concurrent scheduling is hardened against SQLite locking/race behavior. Scheduler acknowledgement remains evidence; it does not execute a worker or provider action.
