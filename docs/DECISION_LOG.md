@@ -869,3 +869,8 @@ Provider execution results must carry timezone-aware observation timestamps. Thi
 ### D-122 — Execution Coordination Is Non-Executing Application Composition
 
 The coordinator composes existing authorization/request, provider execution, outcome policy, and recovery artifacts. It does not own provider selection, retries, scheduling, compensation, authorization, or policy mutation. External side effects remain behind the ExecutionPort implementation.
+
+
+### D-122 — Execution Attempts Are Immutable Evidence
+
+Repeated provider execution attempts are preserved as explicit evidence with request identity, idempotency identity, and attempt number. The attempt history does not infer retry policy or perform scheduling/execution.

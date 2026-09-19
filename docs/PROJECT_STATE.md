@@ -725,3 +725,8 @@ Provider execution results now require timezone-aware observation timestamps. Th
 ## Execution Coordination & Outcome Handoff
 
 V1 now composes the existing prepared execution request, provider execution port, execution outcome policy, and recovery handoff in one application-layer coordination boundary. The coordinator preserves provider-independent evidence and does not select providers, retry, schedule, compensate, authorize, mutate policy, or execute external actions beyond invoking the supplied ExecutionPort.
+
+
+### Execution Attempt History
+
+**Status:** V1 immutable execution-attempt evidence implemented and CI-verified. Each provider attempt preserves request/idempotency identity, explicit attempt number, outcome, timestamp, and optional external reference. Retry scheduling and execution remain outside the domain.
