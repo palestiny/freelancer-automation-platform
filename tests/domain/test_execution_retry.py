@@ -88,3 +88,11 @@ def test_retry_command_rejects_invalid_transition():
         pass
     else:
         raise AssertionError("invalid transition must fail")
+
+
+def test_retry_command_deduplication_key_excludes_command_envelope_id():
+    command = _command(command_id="cmd-1")
+    equivalent = _command(command_id="cmd-2")
+    assert command.deduplication_key == ("req-1", "idem-1", 2)
+    assert command.deduplication_key == equivalent.deduplication_key
+    assert command.identity != equivalent.identity
