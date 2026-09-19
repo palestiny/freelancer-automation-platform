@@ -19,7 +19,7 @@ def derive_performance_evidence_state(evidence: PerformanceEvidenceDecisionSuppo
         return PerformanceEvidenceState.INSUFFICIENT_INFERENTIAL_EVIDENCE
     if evidence.descriptive_direction is DescriptiveDirection.NO_CHANGE:
         return PerformanceEvidenceState.NO_MATERIAL_DESCRIPTIVE_CHANGE
-    if evidence.inferential_status is InferentialStatus.NO_STATISTICAL_DIFFERENCE_DETECTED:
+    if evidence.inferential_status is InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE:
         return PerformanceEvidenceState.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
     if evidence.descriptive_direction is DescriptiveDirection.IMPROVING:
         return PerformanceEvidenceState.SUPPORTS_IMPROVEMENT
