@@ -20,6 +20,8 @@ class ProviderExecutionResult:
             raise TypeError('status must be an ExecutionOutcomeStatus')
         if not isinstance(self.observed_at, datetime):
             raise TypeError('observed_at must be a datetime')
+        if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
+            raise ValueError('observed_at must be timezone-aware')
         for name in ("request_id", "idempotency_key", "outcome_code"):
             if not isinstance(getattr(self, name), str) or not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
