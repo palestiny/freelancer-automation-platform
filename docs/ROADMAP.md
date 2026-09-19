@@ -386,3 +386,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Economic Stability Evidence Support
 
 **Status:** V1 consumer implemented and CI-verified. Economic health metrics and stability-policy eligibility can now be consumed together without collapsing them into a score or automatic business/portfolio action.
+
+
+### Phase 2 — Capacity Opportunity Cost Evidence
+
+**Status:** V1 bounded evidence artifact implemented and CI-verified. Opportunity cost is represented without automatic allocation, ranking, capital movement, or execution.
