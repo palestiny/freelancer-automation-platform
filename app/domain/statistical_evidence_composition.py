@@ -31,12 +31,9 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
-    first_window: object | None = None
-    second_window: object | None = None
-    mean_difference: float | None = None
-    mean_difference: float | None
     first_window: PerformanceWindow
     second_window: PerformanceWindow
+    mean_difference: float | None = None
     current_evidence_quality: float
     baseline_evidence_quality: float
     current_source_reliability: SourceReliabilityAssessment
@@ -184,7 +181,6 @@ def _compose(
         alpha=comparison.alpha,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
-        mean_difference=comparison.mean_difference,
         mean_difference=comparison.mean_difference,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
