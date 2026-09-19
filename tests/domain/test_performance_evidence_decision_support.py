@@ -47,6 +47,7 @@ def _stat(*, interpretation, eligible=True):
         ),
         interpretation=interpretation,
         alpha=0.05,
+        mean_difference=10.0,
         first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
         second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
         current_evidence_quality=80,
@@ -82,6 +83,7 @@ def test_descriptive_change_without_statistical_detection_is_not_suppressed():
     )
     assert result.descriptive_direction is DescriptiveDirection.DECLINING
     assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
+    assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
 
 
 def test_ineligible_statistical_evidence_remains_unavailable():
@@ -132,6 +134,7 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
             statistical_observation_ids=("x", "x"),
             current_observation_ids=("c",),
             baseline_observation_ids=("b",),
@@ -164,6 +167,7 @@ def test_result_requires_nonempty_context_fields():
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
             statistical_observation_ids=("s1",),
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
@@ -176,7 +180,7 @@ def test_temporal_context_mismatch_is_explicit():
     mismatched = StatisticalEvidenceComposition(
         business_id=evidence.business_id, metric_name=evidence.metric_name, unit=evidence.unit,
         method=evidence.method, observation_ids=evidence.observation_ids, eligible=evidence.eligible,
-        reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha,
+        reason=evidence.reason, interpretation=evidence.interpretation, alpha=evidence.alpha, mean_difference=evidence.mean_difference,
         first_window=PerformanceWindow(datetime(2026, 1, 20), datetime(2026, 1, 27)),
         second_window=PerformanceWindow(datetime(2026, 1, 27), datetime(2026, 2, 3)),
         current_evidence_quality=evidence.current_evidence_quality,
@@ -225,3 +229,14 @@ def test_declining_change_with_statistical_detection_preserves_both_evidence_typ
     assert result.descriptive_direction is DescriptiveDirection.DECLINING
     assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
     assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+
+
+def test_opposite_statistical_direction_is_not_called_alignment():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
