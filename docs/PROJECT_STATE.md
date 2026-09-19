@@ -675,3 +675,8 @@ The handoff contract now preserves descriptive direction, inferential status, co
 ## Evidence Policy Review
 
 The first policy-review consumer is now implemented as an explicit, immutable, provider-independent evaluation boundary. It evaluates only supplied evidence against an explicitly configured policy: allowed descriptive directions, optional statistical-detection requirement, and optional evidence-completeness requirement. Results are deterministic and non-executing. Policy review does not authorize, recommend, rank, mutate state, or execute actions.
+
+
+## Action Authorization & Progressive Autonomy
+
+V1 now has an explicit authorization artifact between policy review and execution. Authorization preserves policy identity/version, requested and maximum autonomy, action class, status, and human-approval requirement. L3 execution-with-approval is explicitly human-gated. Irreversible external and financial action classes are safety-blocked in this domain slice. No execution is performed.
