@@ -214,9 +214,7 @@ def test_result_rejects_non_finite_mean_difference():
 def test_result_rejects_blank_observation_ids():
     import pytest
 
-    source = _stat(
-        interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
-    )
+    source_reliability = _eligible()
     with pytest.raises(ValueError):
         StatisticalEvidenceComposition(
             business_id="b1",
@@ -229,10 +227,10 @@ def test_result_rejects_blank_observation_ids():
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
             mean_difference=1.0,
-            first_window=source.first_window,
-            second_window=source.second_window,
+            first_window=_window(),
+            second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80,
             baseline_evidence_quality=80,
-            current_source_reliability=source.current_source_reliability,
-            baseline_source_reliability=source.baseline_source_reliability,
+            current_source_reliability=source_reliability,
+            baseline_source_reliability=source_reliability,
         )
