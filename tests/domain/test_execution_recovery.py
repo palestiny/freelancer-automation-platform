@@ -65,3 +65,28 @@ def test_recovery_reason_must_match_mode():
             reason=ExecutionRecoveryReason.NO_RECOVERY_REQUIRED,
             source_status=ExecutionOutcomeAssessmentStatus.RETRY_ELIGIBLE,
         )
+
+
+def test_source_status_must_match_recovery_mode():
+    with pytest.raises(ValueError):
+        ExecutionRecoveryHandoff(
+            request_id="r1",
+            idempotency_key="i1",
+            attempt_count=1,
+            mode=ExecutionRecoveryMode.RETRY,
+            reason=ExecutionRecoveryReason.RETRY_ELIGIBLE,
+            source_status=ExecutionOutcomeAssessmentStatus.TERMINAL_FAILURE,
+        )
+
+
+def test_no_recovery_accepts_terminal_or_accepted_source_status():
+    for status in (ExecutionOutcomeAssessmentStatus.ACCEPTED, ExecutionOutcomeAssessmentStatus.TERMINAL_FAILURE):
+        result = ExecutionRecoveryHandoff(
+            request_id="r1",
+            idempotency_key="i1",
+            attempt_count=1,
+            mode=ExecutionRecoveryMode.NONE,
+            reason=ExecutionRecoveryReason.NO_RECOVERY_REQUIRED,
+            source_status=status,
+        )
+        assert result.mode is ExecutionRecoveryMode.NONE
