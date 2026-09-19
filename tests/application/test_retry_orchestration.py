@@ -398,3 +398,43 @@ def test_ambiguous_ack_with_state_save_failure_is_explicit():
     assert result.failure == "state_persistence_failed"
     assert result.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
 
+
+class ClaimConflictStore(Store):
+    def claim(self, command_id):
+        return None
+
+def test_claim_conflict_never_revalidates_or_schedules():
+    scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    revalidator = Revalidator(authorization())
+    result = orchestrate_retry(
+        command=command(),
+        store=ClaimConflictStore(),
+        scheduler=scheduler,
+        authorization_revalidator=revalidator,
+    )
+    assert result.scheduled is False
+    assert result.failure == "claim_conflict"
+    assert revalidator.calls == 0
+    assert scheduler.calls == 0
+
+
+def test_partial_ambiguous_command_cannot_be_scheduled_again():
+    store = Store()
+    first = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=RaisingScheduler(),
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert first.command.state is RetryCommandState.SCHEDULING_AMBIGUOUS
+    second_scheduler = Scheduler(SchedulerAcknowledgementStatus.ACCEPTED)
+    second = orchestrate_retry(
+        command=command(),
+        store=store,
+        scheduler=second_scheduler,
+        authorization_revalidator=Revalidator(authorization()),
+    )
+    assert second.scheduled is False
+    assert second.failure == "command_not_schedulable"
+    assert second_scheduler.calls == 0
+
