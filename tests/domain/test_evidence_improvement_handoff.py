@@ -12,14 +12,14 @@ from app.domain.evidence_improvement_handoff import (
 )
 
 
-def _support(*, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED, posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT):
+def _support(*, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED , posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT):
     return PerformanceEvidenceDecisionSupport(
         business_id="b1",
         metric_name="profit",
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=inferential,
-        posture=posture,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
     )
 
