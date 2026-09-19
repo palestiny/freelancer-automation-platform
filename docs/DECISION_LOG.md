@@ -926,3 +926,8 @@ Retry orchestration commands preserve request identity, provider idempotency ide
 ### D-122 — Performance Evidence States Are Non-Decisioning
 
 The performance evidence policy state is an evidence classification for downstream consumers. It must not be interpreted as an automatic recommendation or execution instruction, and it preserves insufficient inference and descriptive/inferential disagreement explicitly.
+
+
+### D-122 — Retry Orchestration Runtime-Neutral Boundary Is Implemented
+
+The retry orchestration application boundary may coordinate durable command identity, atomic claiming through a port, authorization revalidation, scheduler acknowledgements, and explicit failure states. Concrete persistence, scheduler/queue, worker, retry-loop, and provider adapters remain outside the current boundary.

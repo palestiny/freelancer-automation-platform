@@ -487,7 +487,7 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 
 ### Execution Retry Orchestration & Scheduling
 
-**Status:** Design gate defined and CI-verified; implementation is intentionally blocked until authorization revalidation, durable idempotency, stale-command handling, ambiguous scheduler outcomes, concurrency/claiming, and persistence guarantees are explicitly decided.
+**Status:** Runtime-neutral orchestration implemented and CI-verified. Authorization revalidation, durable idempotency contracts, stale-context protection, ambiguous scheduler outcomes, concurrency/claiming semantics, and persistence failure handling are covered by the current application boundary. Concrete infrastructure adapters remain a separate integration phase.
 
 
 ### Execution Retry Command & Scheduler Ports
