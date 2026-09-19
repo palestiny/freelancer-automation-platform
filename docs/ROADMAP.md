@@ -361,3 +361,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 17 — Explicit Evidence Decision Records
 
 **Status:** V1 implemented and CI-verified. The domain can preserve an explicit evidence-backed decision without generating the decision or executing any resulting action.
+
+
+### Phase 17 — Evidence Decision Context Validation
+
+**Status:** V1 hardening implemented. Evidence decision context now validates identity fields, lineage collection shape, non-empty string identifiers, duplicate references, and evidence-quality bounds before an explicit decision can be bound to the context. No recommendation, authorization, policy mutation, or execution was introduced.
