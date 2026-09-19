@@ -784,3 +784,8 @@ V1 economic health/stability evidence exposes profitability and profit variabili
 ### D-127 — Economic Health Evidence Requires an Explicit Window
 
 Economic health/stability evidence must be computed over an explicit start-inclusive/end-exclusive window and preserve that window. This prevents implicit all-history comparisons and keeps the evidence boundary deterministic.
+
+
+### D-128 — Stable Profitability Is an Explicit Policy Eligibility Result
+
+Stable profitability is assessed from economic-health evidence using explicit policy thresholds for observation sufficiency, profitable-outcome rate, average profit, and profit variability. The result is explainable eligibility evidence, not a universal score or automatic portfolio posture.
