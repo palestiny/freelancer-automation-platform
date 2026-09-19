@@ -946,3 +946,8 @@ The SQLite retry scheduler persists logical scheduling identity and returns expl
 ### D-122 — Retry Execution Claim Is Separate From Execution
 
 A scheduled retry command may transition to EXECUTION_IN_PROGRESS through an explicit claim and produce a provider-independent handoff. The claim does not imply provider execution, completion, or success. Persistence/race failures remain explicit and non-executing.
+
+
+### D-123 — Retry Execution Outcomes Do Not Automatically Retry
+
+Observed retry execution outcomes are consumed only to close the current command state. Success is terminal completion; non-success is explicit manual review. Automatic retry, compensation, and subsequent scheduling remain outside this boundary.

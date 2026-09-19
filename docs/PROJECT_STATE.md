@@ -790,3 +790,8 @@ V1 SQLite retry scheduling is now a concrete adapter behind the existing RetrySc
 ## Retry Execution Claim & Handoff
 
 V1 now has an explicit provider-independent boundary for claiming scheduled retry work into EXECUTION_IN_PROGRESS and producing a RetryExecutionHandoff. Claiming is not execution; no provider, worker loop, queue, or external side effect is introduced. Completion/failure outcome handling remains a separate boundary.
+
+
+## Retry Execution Outcome Handoff
+
+V1 now consumes an observed ExecutionOutcome for an EXECUTION_IN_PROGRESS retry command and closes the retry state deterministically: success completes the command; non-success outcomes enter manual review. Identity mismatch and persistence failure remain explicit non-recorded failures. No automatic retry, scheduling, compensation, authorization mutation, or provider call is introduced.
