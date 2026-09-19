@@ -844,3 +844,8 @@ Execution outcomes are classified by explicit policy into accepted, retry-eligib
 ### D-137 — Recovery Handoff Does Not Execute Recovery
 
 Execution-outcome policy may produce a retry-eligible or manual-review assessment. A separate recovery handoff can preserve that intent, but it never schedules, retries, compensates, authorizes, or performs an external action.
+
+
+### D-122 — Statistical Direction Requires Eligible Inferential Evidence
+
+A downstream performance evidence artifact may expose statistical direction only when the statistical evidence is eligible. Ineligible or unavailable statistical evidence must preserve raw lineage but expose no inferential direction.
