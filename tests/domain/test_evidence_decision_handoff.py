@@ -2,13 +2,13 @@ from app.domain.performance_evidence_decision_support import CombinedEvidencePos
 from app.domain.evidence_decision_handoff import EvidenceHandoffStatus, handoff_evidence_for_review
 
 def _support(posture, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED):
-    return PerformanceEvidenceDecisionSupport(business_id='b1', metric_name='profit', unit='EGP', descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=inferential, posture=posture, statistical_observation_ids=('a','b'))
+    return PerformanceEvidenceDecisionSupport(business_id='b1', metric_name='profit', unit='EGP', descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=inferential, posture=posture, statistical_observation_ids=('a','b'), statistical_difference_direction=DescriptiveDirection.IMPROVING, current_observation_ids=('c',), baseline_observation_ids=('b',))
 
 def test_aligned_evidence_is_ready_for_review():
-    assert handoff_evidence_for_review(_support(CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT)).status is EvidenceHandoffStatus.READY_FOR_REVIEW
+    assert handoff_evidence_for_review(_support(CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION)).status is EvidenceHandoffStatus.READY_FOR_REVIEW
 
 def test_change_without_statistical_detection_is_reviewable():
-    r=handoff_evidence_for_review(_support(CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION, InferentialStatus.NO_STATISTICAL_DIFFERENCE_DETECTED))
+    r=handoff_evidence_for_review(_support(CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION, InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE))
     assert r.status is EvidenceHandoffStatus.READY_FOR_REVIEW
 
 def test_missing_inferential_evidence_is_incomplete():
