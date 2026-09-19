@@ -349,15 +349,4 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 
 
 ### Evidence Decision Support
-
 **Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
-
-
-### Explicit Evidence Decision Records
-
-**Status:** V1 implemented and CI-verified. The platform can now preserve explicit evidence-backed decisions without introducing automatic decision generation or execution.
-
-
-### Phase 17 — Explicit Evidence Decision Records
-
-**Status:** V1 implemented and CI-verified. The domain can preserve an explicit evidence-backed decision without generating the decision or executing any resulting action.
