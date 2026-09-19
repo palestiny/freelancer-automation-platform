@@ -5,6 +5,7 @@ from app.domain.execution_outcome_policy import (
 )
 from app.domain.execution_recovery import (
     ExecutionRecoveryMode,
+    ExecutionRecoveryReason,
     create_execution_recovery_handoff,
 )
 
@@ -49,3 +50,18 @@ def test_accepted_outcome_requires_no_recovery():
         assessment=_assessment(ExecutionOutcomeAssessmentStatus.ACCEPTED)
     )
     assert result.mode is ExecutionRecoveryMode.NONE
+
+
+def test_recovery_reason_must_match_mode():
+    import pytest
+    from app.domain.execution_recovery import ExecutionRecoveryHandoff
+
+    with pytest.raises(ValueError):
+        ExecutionRecoveryHandoff(
+            request_id="r1",
+            idempotency_key="i1",
+            attempt_count=1,
+            mode=ExecutionRecoveryMode.RETRY,
+            reason=ExecutionRecoveryReason.NO_RECOVERY_REQUIRED,
+            source_status=ExecutionOutcomeAssessmentStatus.RETRY_ELIGIBLE,
+        )
