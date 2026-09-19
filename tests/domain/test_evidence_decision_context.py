@@ -22,6 +22,7 @@ def _support():
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
         statistical_observation_ids=("a", "b", "c", "d"),
         current_observation_ids=("c1", "c2"),
         baseline_observation_ids=("b1", "b2"),
