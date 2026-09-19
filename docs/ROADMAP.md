@@ -391,3 +391,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 2 — Capacity Opportunity Cost Evidence
 
 **Status:** V1 bounded evidence artifact implemented and CI-verified. Opportunity cost is represented without automatic allocation, ranking, capital movement, or execution.
+
+
+### Evidence-to-Decision Support Handoff
+
+**Status:** V1 explicit non-executing handoff implemented and CI-verified. Policy review remains a separate future consumer; the handoff does not authorize action.
