@@ -655,3 +655,8 @@ Economic estimates and realized economic outcomes now reject non-finite numeric 
 ## Economic Stability Evidence Support
 
 A bounded consumer now composes economic health evidence with the explicit economic stability policy result. Profitability metrics, variability, eligibility, and outcome lineage remain separate and preserved. No universal score, portfolio posture, capital allocation, forecasting, policy mutation, or financial execution is introduced.
+
+
+## Capacity Opportunity Cost Evidence
+
+V1 now represents bounded opportunity-cost evidence for constrained capacity. The artifact preserves selected versus alternative expected profit and the derived foregone value without ranking alternatives or making allocation decisions.
