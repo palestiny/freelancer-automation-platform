@@ -750,14 +750,10 @@ The current Phase 17 V1 statistical surface is closed after implementing and har
 
 The first downstream statistical consumer must preserve statistical results as evidence artifacts and separately evaluate evidence quality and source reliability. V1 composition may report eligibility and bounded statistical interpretation, but must not collapse evidence into a universal score or mutate policy, learning, lifecycle, portfolio, or execution state.
 
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
 ### D-122 — Statistical Detection Does Not Establish Directional Alignment
 
 The evidence composition layer must not label descriptive and inferential evidence as aligned merely because a statistical difference is detected. Direction is derived from the descriptive trend, while statistical detection remains a separate inferential status.
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
