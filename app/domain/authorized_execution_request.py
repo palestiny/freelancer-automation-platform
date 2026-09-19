@@ -21,7 +21,8 @@ class AuthorizedExecutionRequest:
 
     def __post_init__(self) -> None:
         for name in ("request_id", "idempotency_key", "policy_id", "policy_version"):
-            if not getattr(self, name).strip():
+            value = getattr(self, name)
+            if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"{name} cannot be empty")
         if self.status is ExecutionRequestStatus.PREPARED and not self.idempotency_key.strip():
             raise ValueError("prepared requests require an idempotency key")
