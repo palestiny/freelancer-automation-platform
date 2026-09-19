@@ -23,18 +23,38 @@ class EvidenceDecisionContext:
     current_evidence_quality: float
     baseline_evidence_quality: float
 
-    def __post_init__(self):
-        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
-            raise ValueError("business_id, metric_name, and unit cannot be empty")
-        for name, ids in (("statistical_observation_ids", self.statistical_observation_ids), ("current_observation_ids", self.current_observation_ids), ("baseline_observation_ids", self.baseline_observation_ids)):
+    def __post_init__(self) -> None:
+        for name in ("business_id", "metric_name", "unit"):
+            value = getattr(self, name)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(f"{name} cannot be empty")
+
+        for name, ids in (
+            ("statistical_observation_ids", self.statistical_observation_ids),
+            ("current_observation_ids", self.current_observation_ids),
+            ("baseline_observation_ids", self.baseline_observation_ids),
+        ):
+            if not isinstance(ids, tuple):
+                raise TypeError(f"{name} must be a tuple")
             if not ids:
                 raise ValueError(f"{name} cannot be empty")
+            if any(not isinstance(value, str) or not value.strip() for value in ids):
+                raise ValueError(f"{name} must contain non-empty strings")
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
+
+        if not isinstance(self.source_references, tuple):
+            raise TypeError("source_references must be a tuple")
         if not self.source_references:
             raise ValueError("source_references cannot be empty")
+        if any(
+            not isinstance(value, str) or not value.strip()
+            for value in self.source_references
+        ):
+            raise ValueError("source_references must contain non-empty strings")
         if len(set(self.source_references)) != len(self.source_references):
             raise ValueError("source_references must be unique")
+
         for value in (self.current_evidence_quality, self.baseline_evidence_quality):
             if not 0 <= value <= 100:
                 raise ValueError("evidence quality must be between 0 and 100")
