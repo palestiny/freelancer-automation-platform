@@ -473,3 +473,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### History-Consistent Execution Recovery
 
 **Status:** V1 history-aware recovery handoff implemented and CI-verified. Inconsistent execution history blocks recovery intent creation; scheduling and external recovery execution remain outside the domain boundary.
+
+
+### History-Aware Execution Coordination
+
+**Status:** V1 implemented and CI-verified. Immutable attempt history is now the authoritative observed attempt-count source for the history-aware coordination boundary. External recovery remains non-executing.
