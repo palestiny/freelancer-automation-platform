@@ -1,3 +1,5 @@
+import pytest
+
 from app.domain.execution_outcome import ExecutionOutcomeStatus
 from app.domain.execution_outcome_policy import (
     ExecutionOutcomeAssessment,
