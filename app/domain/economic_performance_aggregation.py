@@ -52,7 +52,7 @@ def aggregate_economic_performance(
         return None
 
     def avg(values):
-        return sum(values) / len(values)
+        return sum(values) / len(selected)
 
     return EconomicPerformanceAggregate(
         business_id=history.business_id,
