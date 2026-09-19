@@ -779,3 +779,8 @@ Economic performance aggregation uses explicit windows and preserves raw outcome
 ### D-126 — Economic Health and Stability Are Descriptive Evidence
 
 V1 economic health/stability evidence exposes profitability and profit variability metrics from realized outcomes. It must not collapse them into a universal score, automatic business posture, forecast, capital allocation, policy mutation, or financial execution.
+
+
+### D-127 — Economic Health Evidence Requires an Explicit Window
+
+Economic health/stability evidence must be computed over an explicit start-inclusive/end-exclusive window and preserve that window. This prevents implicit all-history comparisons and keeps the evidence boundary deterministic.
