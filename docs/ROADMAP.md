@@ -513,3 +513,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Retry Execution Claim & Handoff
 
 **Status:** V1 claim boundary implemented and CI-verified. Scheduled retry commands can now produce an explicit execution handoff without executing a provider action. Completion/outcome handling remains the next separate boundary.
+
+
+### Retry Execution Outcome Handoff
+
+**Status:** V1 outcome handoff implemented and CI-verified. Successful execution can close a retry command; non-success outcomes go to manual review without automatic retry. Further retry policy remains a separate boundary.
