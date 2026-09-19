@@ -1,6 +1,6 @@
 # Design Gate — Policy Review & Action Authorization
 
-**Status:** REFERENCE / PARTIALLY SUPERSEDED. The broader policy-review/action-authorization questions remain open; the narrower V1 policy-review boundary is implemented in `docs/DESIGN_GATE_EVIDENCE_POLICY_REVIEW.md`. Action authorization remains a separate future gate.
+**Status:** REFERENCE / PARTIALLY RESOLVED. Policy review and the V1 authorization artifact are now implemented through dedicated narrower gates. Execution remains a separate future boundary.
 
 ## Why This Boundary Exists
 
