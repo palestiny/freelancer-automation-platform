@@ -789,3 +789,8 @@ Economic health/stability evidence must be computed over an explicit start-inclu
 ### D-128 — Stable Profitability Is an Explicit Policy Eligibility Result
 
 Stable profitability is assessed from economic-health evidence using explicit policy thresholds for observation sufficiency, profitable-outcome rate, average profit, and profit variability. The result is explainable eligibility evidence, not a universal score or automatic portfolio posture.
+
+
+### D-129 — Economic Numeric Inputs Must Be Finite
+
+Economic estimates and realized outcomes must reject NaN and infinite numeric inputs. Derived economic evidence must never be allowed to propagate non-finite source values.
