@@ -381,3 +381,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Phase 2 — Economic Stability Policy
 
 **Status:** V1 configurable eligibility policy implemented and CI-verified. Stable profitability is now expressible as an explicit policy result with deterministic reasons, without automatic portfolio action.
+
+
+### Economic Stability Evidence Support
+
+**Status:** V1 consumer implemented and CI-verified. Economic health metrics and stability-policy eligibility can now be consumed together without collapsing them into a score or automatic business/portfolio action.
