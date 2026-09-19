@@ -740,3 +740,8 @@ V1 now validates that an observed ExecutionOutcome is consistent with its immuta
 ## Execution Policy & Attempt History Integration
 
 Execution outcome policy assessment now has an explicit history-aware boundary. The observed execution outcome must be consistent with immutable attempt history before retry policy assessment is produced, and the assessment uses the observed history count rather than an independently supplied attempt count. This remains non-executing: no retry is scheduled or performed.
+
+
+## History-Consistent Execution Recovery
+
+V1 recovery handoff can now be composed only after immutable execution attempt history is verified consistent with the observed outcome. The composition preserves history-derived attempt count and existing retry/manual-review semantics while remaining non-executing.
