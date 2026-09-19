@@ -127,16 +127,10 @@ def test_context_mismatch_is_explicit():
     assert result.posture is CombinedEvidencePosture.CONTEXT_INVALID
 
 
-def test_zero_descriptive_change_is_not_called_aligned_with_statistical_detection():
-    result = compose_performance_evidence(
-        trend=_trend(0.0),
-        statistical_evidence=_stat(
-            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
-        ),
-        business_id="b1",
-    )
-    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
-    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+def test_zero_descriptive_change_with_statistical_detection_is_rejected():
+    import pytest
+    with pytest.raises(ValueError):
+        compose_performance_evidence(trend=_trend(0.0), statistical_evidence=_stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE), business_id="b1")
 
 
 def test_result_rejects_duplicate_statistical_observation_ids():
