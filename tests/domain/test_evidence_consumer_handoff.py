@@ -10,7 +10,7 @@ from app.domain.evidence_consumer_handoff import (
 )
 
 
-def _support(*, posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT):
+def _support(*, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION):
     return PerformanceEvidenceDecisionSupport(
         business_id="b1",
         metric_name="profit",
