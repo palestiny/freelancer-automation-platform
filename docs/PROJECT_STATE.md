@@ -623,6 +623,7 @@ The evidence-composition result now preserves the two explicit statistical compa
 The first decision-support composition layer exposes descriptive direction alongside statistical evidence status, preserves disagreement, and does not convert the combination into a score, recommendation, policy mutation, learning mutation, portfolio action, or execution.
 
 
+
 ## Performance Evidence Decision Support
 
 The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
