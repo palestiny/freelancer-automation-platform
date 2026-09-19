@@ -16,6 +16,10 @@ class ProviderExecutionResult:
     external_reference: str | None = None
 
     def __post_init__(self) -> None:
+        if not isinstance(self.status, ExecutionOutcomeStatus):
+            raise TypeError('status must be an ExecutionOutcomeStatus')
+        if not isinstance(self.observed_at, datetime):
+            raise TypeError('observed_at must be a datetime')
         for name in ("request_id", "idempotency_key", "outcome_code"):
             if not isinstance(getattr(self, name), str) or not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
@@ -33,6 +37,8 @@ def dispatch_execution(*, port: ExecutionPort, request: AuthorizedExecutionReque
     if request.status is not ExecutionRequestStatus.PREPARED:
         raise ValueError("execution dispatch requires a prepared execution request")
     raw = port.execute(request)
+    if not isinstance(raw, ProviderExecutionResult):
+        raise TypeError('execution port must return ProviderExecutionResult')
     if raw.request_id != request.request_id:
         raise ValueError("provider result request_id does not match execution request")
     if raw.idempotency_key != request.idempotency_key:
