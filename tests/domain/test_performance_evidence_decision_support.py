@@ -167,6 +167,7 @@ def test_result_requires_nonempty_context_fields():
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_difference_direction=DescriptiveDirection.IMPROVING,
             statistical_observation_ids=("s1",),
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
