@@ -28,13 +28,13 @@ def _outcome():
     )
 
 
-def _attempt(number=1, *, request_id="req-1"):
+def _attempt(number=1, *, request_id="req-1", status=ExecutionOutcomeStatus.FAILED, outcome_code="provider_failure"):
     return ExecutionAttempt(
         request_id=request_id,
         idempotency_key="idem-1",
         attempt_number=number,
-        status=ExecutionOutcomeStatus.FAILED,
-        outcome_code="provider_failure",
+        status=status,
+        outcome_code=outcome_code,
         observed_at=outcome_time(),
         external_reference="p-1",
     )
@@ -71,7 +71,7 @@ def test_inconsistent_history_blocks_recovery_handoff():
     result = create_execution_recovery_handoff_with_history(
         outcome=outcome,
         history=history,
-        policy=ExecutionOutcomePolicy(max_retries=3),
+        policy=ExecutionOutcomePolicy(retryable_outcome_codes=("provider_failure",), maximum_attempts=3),
     )
 
     assert result.handoff is None
@@ -89,7 +89,7 @@ def test_manual_review_is_preserved_as_manual_review():
     history = ExecutionAttemptHistory(
         request_id="req-1",
         idempotency_key="idem-1",
-        attempts=(_attempt(1),),
+        attempts=(_attempt(1, status=ExecutionOutcomeStatus.UNKNOWN, outcome_code="unknown_result"),),
     )
 
     result = create_execution_recovery_handoff_with_history(
