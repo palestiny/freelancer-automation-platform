@@ -12,7 +12,14 @@ def schedule_retry_command(*, handoff: ExecutionRecoveryHandoff, command_id: str
         return durable
     if durable.state is not RetryCommandState.CREATED:
         raise ValueError('retry command is not schedulable from its current state')
-    claimed = store.save(durable.transition_to(RetryCommandState.CLAIMED))
+    claimed = store.claim(durable.command_id)
+    if claimed is None:
+        current = store.get(durable.command_id)
+        if current is None:
+            raise ValueError("retry command disappeared during claim")
+        return current
+    if claimed.state is not RetryCommandState.CLAIMED:
+        raise ValueError("retry command store returned a non-claimed command")
     acknowledgement = scheduler.schedule(claimed)
     if acknowledgement.status is SchedulerAcknowledgementStatus.ACCEPTED:
         return store.record_scheduler_acknowledgement(claimed.command_id, acknowledgement)
