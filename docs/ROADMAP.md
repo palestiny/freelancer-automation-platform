@@ -396,3 +396,10 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Evidence-to-Decision Support Handoff
 
 **Status:** V1 explicit non-executing handoff implemented and CI-verified. Policy review remains a separate future consumer; the handoff does not authorize action.
+
+
+### Evidence-to-Decision Handoff Hardening
+
+**Status:** Contract aligned with the approved design gate and CI-verified. The handoff preserves full evidence context and lineage and explicitly separates policy review from authorization/execution.
+
+**Next boundary:** policy review itself requires a dedicated policy/design gate before implementation.
