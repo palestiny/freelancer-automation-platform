@@ -413,3 +413,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Action Authorization & Progressive Autonomy
 
 **Status:** V1 authorization artifact implemented and CI-verified. Authorization is separate from execution; autonomy limits, human approval, and safety blocks are explicit. Execution adapters remain a future boundary.
+
+
+### Authorized Execution Request Boundary
+
+**Status:** V1 non-executing request artifact implemented and CI-verified. Authorization can prepare an idempotent execution request, but no external execution occurs. Provider execution remains a future boundary.
