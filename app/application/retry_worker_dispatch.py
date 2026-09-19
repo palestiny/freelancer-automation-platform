@@ -74,10 +74,12 @@ def dispatch_one_retry(
     try:
         outcome = dispatch_execution(port=provider, request=request)
     except Exception:
-        return RetryWorkerDispatchResult(
+        return _manual_review(
             command=claimed,
+            store=store,
             status=RetryWorkerDispatchStatus.PROVIDER_FAILURE,
             failure="provider_execution_failed",
+            persistence_failure="provider_failure_persistence_failed",
         )
 
     recorded = record_retry_execution_outcome(
@@ -144,6 +146,7 @@ def _manual_review(
     store: RetryWorkerDispatchStore,
     status: RetryWorkerDispatchStatus,
     failure: str,
+    persistence_failure: str = "manual_review_persistence_failed",
 ) -> RetryWorkerDispatchResult:
     try:
         updated = store.save(command.transition_to(RetryCommandState.REQUIRES_MANUAL_REVIEW))
@@ -151,7 +154,7 @@ def _manual_review(
         return RetryWorkerDispatchResult(
             command=command,
             status=status,
-            failure="manual_review_persistence_failed",
+            failure=persistence_failure,
         )
     return RetryWorkerDispatchResult(
         command=updated,
