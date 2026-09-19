@@ -8,7 +8,7 @@ def schedule_retry_command(*, handoff: ExecutionRecoveryHandoff, command_id: str
         raise ValueError('only retry recovery handoffs can be scheduled')
     command = RetryCommand(command_id=command_id, request_id=handoff.request_id, idempotency_key=handoff.idempotency_key, attempt_number=handoff.attempt_count + 1, action=RetryCommandAction.RETRY, authorization_policy_id=authorization_policy_id, authorization_policy_version=authorization_policy_version, autonomy_bound=autonomy_bound, created_at=created_at)
     durable = store.create_or_get(command)
-    if durable.state in {RetryCommandState.SCHEDULED, RetryCommandState.COMPLETED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.REJECTED_STALE, RetryCommandState.SCHEDULING_AMBIGUOUS}:
+    if durable.state in {RetryCommandState.SCHEDULED, RetryCommandState.COMPLETED, RetryCommandState.REQUIRES_MANUAL_REVIEW, RetryCommandState.REJECTED_STALE, RetryCommandState.SCHEDULING_AMBIGUOUS, RetryCommandState.CLAIMED, RetryCommandState.REVALIDATION_REQUIRED, RetryCommandState.EXECUTION_IN_PROGRESS, RetryCommandState.CLAIM_CONFLICT}:
         return durable
     if durable.state is not RetryCommandState.CREATED:
         raise ValueError('retry command is not schedulable from its current state')
