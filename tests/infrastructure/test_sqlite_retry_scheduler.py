@@ -38,8 +38,8 @@ def test_schedule_is_idempotent_for_same_command():
 
 def test_different_attempts_have_distinct_schedule_identity():
     scheduler = SQLiteRetryScheduler(":memory:")
-    first = scheduler.schedule(command(attempt=1))
-    second = scheduler.schedule(command(attempt=2))
+    first = scheduler.schedule(command(command_id="cmd-1", attempt=1))
+    second = scheduler.schedule(command(command_id="cmd-2", attempt=2))
 
     assert second.scheduling_id != first.scheduling_id
 
