@@ -1303,3 +1303,8 @@ An accepted experiment review may produce an explicit authorization-preparation 
 ### D-124 — Controlled Experiment Allocation Is Explicit and Reproducible
 
 V1 experiment allocation uses an immutable explicit-weight plan and deterministic SHA-256 bucketing. The allocator produces a variant decision only; it does not persist assignments, execute providers, optimize allocation, or mutate experiment lifecycle.
+
+
+### D-182 — Controlled Experiment Allocation Decisions Preserve Deterministic Context
+
+A deterministic allocation decision must preserve experiment/subject/variant identity and its computed bucket. The artifact is non-executing and does not imply persistence, exposure, lifecycle mutation, reallocation, or optimization.

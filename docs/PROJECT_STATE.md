@@ -406,3 +406,8 @@ V1 now has a non-authorizing preparation boundary between an accepted controlled
 ## Controlled Experiment Allocation
 
 V1 now has a provider-independent deterministic allocation boundary. An immutable plan declares variants and explicit basis-point weights; SHA-256 deterministically maps a subject to one variant. Allocation produces a decision only and does not persist assignments, schedule exposure, execute providers, optimize allocation, or mutate experiment lifecycle.
+
+
+## Controlled Experiment Allocation Decision Hardening
+
+Allocation now exposes an immutable decision artifact preserving experiment identity, subject identity, selected variant, and deterministic bucket. The existing variant-returning API remains compatible. This artifact improves auditability without adding persistence, scheduling, execution, reallocation, or optimization.
