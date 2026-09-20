@@ -147,3 +147,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Retry Worker Crash / Recovery Reconciliation
 
 **Status:** V1 provider-independent reconciliation implemented and CI-verified. Unknown provider outcomes remain unknown, terminal commands are not reopened, and no automatic re-execution or provider polling is introduced.
+
+
+### Provider Execution Status Observation
+
+**Status:** V1 observation boundary implemented and CI-verified. Provider-specific status adapters, continuous polling, automatic reconciliation, and automatic re-execution remain outside this boundary.

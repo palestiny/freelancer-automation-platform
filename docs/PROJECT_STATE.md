@@ -180,3 +180,8 @@ A dedicated design gate defines the provider-independent reconciliation boundary
 The approved provider-independent crash/recovery reconciliation boundary is implemented. Ambiguous in-flight retry commands remain explicitly manual-review-only; terminal commands are not reopened; command/request/idempotency identity and attempt number are preserved; duplicate reconciliation is non-executing.
 
 Still outside this boundary: provider-status polling, automatic re-execution, automatic retry scheduling, distributed recovery, leases/heartbeats, automatic restart, and capital/portfolio actions.
+
+
+## Provider Execution Status Observation
+
+The execution runtime now exposes a provider-independent, non-executing status-observation port for ambiguous execution recovery. It preserves request/idempotency identity and timezone-aware observation evidence. It does not authorize, retry, schedule, poll continuously, mutate durable retry state, or execute provider actions.

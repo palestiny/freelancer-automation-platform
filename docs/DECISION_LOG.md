@@ -1098,3 +1098,8 @@ The first continuous-runtime increment uses explicit lifecycle states and stop r
 ### D-122 — Crash Recovery Never Authorizes Automatic Re-execution
 
 When a retry worker terminates while provider execution may be in flight, reconciliation preserves the ambiguous outcome and emits an explicit manual-reconciliation boundary. Durable terminal outcomes remain terminal. Reconciliation does not schedule, authorize, or perform a new provider request.
+
+
+### D-166 — Provider Execution Status Observation Is Evidence Only
+
+A provider status query may return an explicit execution status observation while preserving request and idempotency identity. The observation never authorizes, retries, schedules, mutates durable command state, or executes. Resolution of ambiguous execution remains a separate policy/design boundary.
