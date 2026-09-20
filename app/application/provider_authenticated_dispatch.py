@@ -39,6 +39,12 @@ def dispatch_with_credentials(
     if not isinstance(capability, ProviderCapability):
         raise TypeError("capability must be a ProviderCapability")
 
+    port = capability_registry.resolve(provider_key)
+    if not capability_registry.supports(provider_key, capability):
+        raise ValueError(
+            f"provider '{provider_key}' does not support capability '{capability.value}'"
+        )
+
     freshness = assess_execution_request_freshness(
         request=request,
         policy=freshness_policy,
@@ -46,12 +52,6 @@ def dispatch_with_credentials(
     )
     if freshness.status is not ExecutionRequestFreshnessStatus.FRESH:
         raise ValueError(f"execution request freshness rejected: {freshness.reason.value}")
-
-    port = capability_registry.resolve(provider_key)
-    if not capability_registry.supports(provider_key, capability):
-        raise ValueError(
-            f"provider '{provider_key}' does not support capability '{capability.value}'"
-        )
 
     resolution = resolve_provider_credential(
         resolver=credential_resolver,
