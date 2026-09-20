@@ -441,3 +441,8 @@ Exposure recording now has a provider-independent application boundary that reso
 ## Controlled Experiment Exposure Temporal Contract
 
 Exposure recording now enforces the cross-entity temporal invariant that an authoritative exposure timestamp cannot precede its assignment timestamp. This is application-boundary evidence-integrity validation only; it does not imply delivery, causality, lifecycle mutation, or execution.
+
+
+## Performance Evidence Decision Support
+
+A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.

@@ -1338,3 +1338,8 @@ The hardened exposure application boundary resolves the persisted assignment by 
 ### D-186 — Controlled Experiment Exposure Cannot Precede Assignment
 
 Authoritative experiment exposure evidence must satisfy exposed_at >= assigned_at. The cross-entity temporal invariant belongs at the application boundary and is evidence-integrity validation, not proof of delivery or causality.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.

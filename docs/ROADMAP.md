@@ -408,3 +408,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Exposure Temporal Contract
 
 **Status:** V1 temporal validity hardening implemented and CI-verified. Exposure cannot precede its authoritative assignment; delivery, causal inference, lifecycle mutation, and execution remain separate boundaries.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
