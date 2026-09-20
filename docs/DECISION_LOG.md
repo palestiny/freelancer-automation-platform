@@ -1268,3 +1268,8 @@ Experiment readiness validates context, lineage, per-variant usable observation 
 ### D-123 — Controlled Experiment Outcome Summaries Are Descriptive Evidence
 
 Experiment outcome summaries may aggregate ready observations by variant for one metric, but must not infer causality, calculate statistical significance, rank/select variants, mutate experiment lifecycle, or execute experiments.
+
+
+### D-124 — Controlled Experiment Variant Comparisons Are Neutral Descriptive Evidence
+
+Variant comparison may expose average differences between two explicitly selected variants, but must not imply better/worse, rank variants, select a winner, calculate significance, mutate experiment lifecycle, or execute actions.

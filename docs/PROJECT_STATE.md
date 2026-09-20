@@ -371,3 +371,8 @@ V1 now has an explicit non-executing readiness boundary for controlled experimen
 ## Controlled Experiment Outcome Summary
 
 V1 now provides a deterministic descriptive summary of ready experiment observations by variant. It preserves metric identity, per-variant counts/averages/ranges, evidence quality, and raw observation lineage. It does not infer causality, calculate statistical significance, select a winner, rank variants, mutate experiment lifecycle, or execute experiments.
+
+
+## Controlled Experiment Variant Comparison
+
+V1 now has a bounded descriptive comparison consumer for two declared experiment variants. It reports neutral average movement, preserves both variant identities and observation lineage, and never selects a winner, ranks variants, calculates significance, mutates experiment lifecycle, or executes actions.

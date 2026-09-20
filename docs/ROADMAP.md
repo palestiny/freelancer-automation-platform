@@ -338,3 +338,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Outcome Summary
 
 **Status:** V1 descriptive outcome summary implemented and CI-verified. Causal/statistical analysis and automatic experiment decisions remain separate boundaries.
+
+
+### Controlled Experiment Variant Comparison
+
+**Status:** V1 descriptive two-variant comparison implemented and CI-verified. Difference semantics remain neutral; ranking, winner selection, statistical significance, and automatic experiment decisions remain separate boundaries.
