@@ -80,6 +80,13 @@ class SQLiteRetryCommandStore(RetryCommandStore):
 
         return command
 
+    def next_scheduled(self) -> RetryCommand | None:
+        row = self._connection.execute(
+            "SELECT * FROM retry_commands WHERE state = ? ORDER BY created_at ASC, command_id ASC LIMIT 1",
+            (RetryCommandState.SCHEDULED.value,),
+        ).fetchone()
+        return None if row is None else self._from_row(row)
+
     def get(self, command_id: str) -> RetryCommand | None:
         row = self._connection.execute(
             "SELECT * FROM retry_commands WHERE command_id = ?",
