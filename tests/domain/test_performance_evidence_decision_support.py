@@ -41,6 +41,7 @@ def _stat(*, interpretation, eligible=True):
         method="welch_two_sample_t_test",
         observation_ids=("b1", "b2", "c1", "c2"),
         eligible=eligible,
+        mean_difference=-10.0 if interpretation is StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE else 0.0,
         reason=(
             StatisticalEvidenceEligibilityReason.ELIGIBLE
             if eligible else StatisticalEvidenceEligibilityReason.INSUFFICIENT_EVIDENCE_QUALITY
@@ -263,3 +264,23 @@ def test_result_rejects_overlapping_current_and_baseline_lineage():
             current_observation_ids=("shared",), baseline_observation_ids=("shared",),
         )
 
+
+
+def test_detected_statistical_decline_conflicts_with_improving_trend():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=StatisticalEvidenceComposition(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            method="welch_two_sample_t_test",
+            observation_ids=("b1", "b2", "c1", "c2"),
+            eligible=True,
+            reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
+            alpha=0.05,
+            mean_difference=10.0,
+        ),
+        business_id="b1",
+    )
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_DISAGREEMENT
