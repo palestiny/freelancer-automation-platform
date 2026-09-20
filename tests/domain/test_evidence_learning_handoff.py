@@ -2,6 +2,8 @@ import pytest
 
 from app.domain.performance_evidence_decision_support import (
     CombinedEvidencePosture,
+    DescriptiveDirection,
+    InferentialStatus,
     PerformanceEvidenceDecisionSupport,
 )
 from app.domain.evidence_learning_handoff import (
@@ -15,10 +17,13 @@ def _support(*, eligible=True):
         business_id="b1",
         metric_name="profit",
         unit="EGP",
-        descriptive_direction=__import__("app.domain.performance_evidence_decision_support", fromlist=["DescriptiveDirection"]).DescriptiveDirection.IMPROVING,
-        inferential_status=__import__("app.domain.performance_evidence_decision_support", fromlist=["InferentialStatus"]).InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED if eligible else __import__("app.domain.performance_evidence_decision_support", fromlist=["InferentialStatus"]).InferentialStatus.UNAVAILABLE,
-        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT if eligible else CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+        descriptive_direction=DescriptiveDirection.IMPROVING,
+        inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED if eligible else InferentialStatus.UNAVAILABLE,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION if eligible else CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
         statistical_observation_ids=("a", "b"),
+        current_observation_ids=("c",),
+        baseline_observation_ids=("d",),
+        statistical_difference_direction=DescriptiveDirection.IMPROVING if eligible else DescriptiveDirection.UNAVAILABLE,
     )
 
 
