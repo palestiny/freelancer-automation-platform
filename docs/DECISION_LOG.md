@@ -1193,3 +1193,8 @@ An authorization artifact must retain the observation lineage from the policy re
 ### D-172 — Prepared Execution Requests Preserve Authorization Evidence Lineage
 
 Preparation copies reviewed observation lineage from the authoritative authorization into the immutable prepared request. Callers cannot replace the lineage at preparation time. This is traceability only and does not authorize, execute, retry, schedule, or mutate policy.
+
+
+### D-126 — Prepared Execution Freshness Is an Explicit Safety Precondition
+
+Prepared execution requests must expose an explicit preparation timestamp when freshness is assessed. Freshness uses an explicit maximum-age policy and explicit as-of time, rejects stale/future/non-prepared requests without mutation, and never re-authorizes or executes requests.
