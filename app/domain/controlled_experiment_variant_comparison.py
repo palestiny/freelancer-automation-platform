@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from .controlled_experiment_summary import ControlledExperimentOutcomeSummary
+from .controlled_experiment_outcome_summary import ControlledExperimentOutcomeSummary
 
 
 class ExperimentVariantComparisonStatus(str, Enum):
