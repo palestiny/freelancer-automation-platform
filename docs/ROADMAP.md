@@ -60,7 +60,7 @@ Expected-vs-actual measurement, business performance history, windows, aggregati
 
 Authorization, autonomy bounds, human-approval requirements, safety blocks, execution preparation, provider-independent outcomes, recovery policy, execution coordination, retry policy, durable retry infrastructure, worker dispatch, and provider-failure handling exist.
 
-**Next slice:** finite retry worker runtime loop.
+**Next slice:** repeated invocation / operational lifecycle only if a concrete deployment boundary requires it; the finite runtime invocation is implemented.
 
 ## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
 **Status: STRATEGIC DIRECTION**
@@ -100,7 +100,7 @@ The pipeline deliberately separates evidence, policy, authorization, and executi
 
 ## Current Runtime Boundary
 
-The latest approved design is the finite retry worker runtime loop. Implementation must preserve durable command identity, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and observable failure.
+The finite retry worker runtime invocation is implemented. It preserves durable command identity, deterministic scheduled-work selection, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and observable failure. Continuous worker lifecycle remains a separate future boundary.
 
 ## Future Strategic Work
 
