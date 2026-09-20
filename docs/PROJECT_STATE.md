@@ -305,3 +305,8 @@ V1 authenticated provider dispatch now requires an explicit prepared-request fre
 ## Evidence → Learning Handoff
 
 The platform now has an explicit non-executing handoff from eligible composed performance evidence to either policy review or experiment. The handoff preserves business/metric/unit identity and statistical observation lineage. It does not mutate policy, lifecycle, portfolio, or execution state.
+
+
+## Business Learning Memory
+
+V1 now has an immutable provider-independent business learning-memory artifact created only from eligible evidence-to-learning handoffs. It preserves business/metric/unit context, handoff category, statement, source handoff identity, observation lineage, explicit timestamp, and evidence quality. It does not persist, rank, score, infer causality, mutate policy, or execute actions.
