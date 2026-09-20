@@ -287,3 +287,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Performance Evidence Direction Hardening
 
 **Status:** Implemented and CI-verified. Evidence movement is now neutral at the evidence layer; favorable/unfavorable interpretation remains an explicit policy concern.
+
+
+### Metric Direction Policy
+
+**Status:** V1 explicit metric-polarity interpretation policy implemented and CI-verified. Evidence remains neutral; favorable/unfavorable interpretation requires explicit policy.
