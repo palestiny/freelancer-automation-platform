@@ -418,3 +418,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Exposure Idempotency
 
 **Status:** V1 retry-safe exposure persistence implemented and CI-verified. Identical retries are idempotent; conflicting reuse is rejected. Scheduling, delivery, causal inference, lifecycle mutation, and execution remain separate.
+
+
+### Retry Worker Runtime Boundary Hardening
+
+**Status:** V1 boundary validation hardened and CI-verified. Malformed source/dispatch values and dispatch identity mismatches fail explicitly without adding retry loops or distributed execution semantics.
