@@ -134,3 +134,36 @@ def test_claim_persistence_failure_is_failed_not_blocked():
     runtime = run_retry_worker_once(source=source, dispatch=dispatcher)
     assert runtime.outcome is RetryWorkerRuntimeOutcome.FAILED
     assert runtime.failure == "dispatch_claim_failed"
+
+
+def test_invalid_work_source_value_is_failed_at_runtime_boundary():
+    source = Source(value=object())
+    dispatcher = Dispatcher()
+    runtime = run_retry_worker_once(source=source, dispatch=dispatcher)
+    assert runtime.outcome is RetryWorkerRuntimeOutcome.FAILED
+    assert runtime.failure == "invalid_scheduled_work"
+    assert dispatcher.calls == 0
+
+
+def test_invalid_dispatch_result_is_failed_at_runtime_boundary():
+    cmd = command()
+    source = Source(cmd)
+    dispatcher = Dispatcher(result=object())
+    runtime = run_retry_worker_once(source=source, dispatch=dispatcher)
+    assert runtime.outcome is RetryWorkerRuntimeOutcome.FAILED
+    assert runtime.failure == "invalid_dispatch_result"
+
+
+def test_dispatch_result_identity_mismatch_is_failed():
+    cmd = command()
+    other = command(command_id="other")
+    source = Source(cmd)
+    dispatcher = Dispatcher(
+        result=RetryWorkerDispatchResult(
+            command=other,
+            status=RetryWorkerDispatchStatus.COMPLETED,
+        )
+    )
+    runtime = run_retry_worker_once(source=source, dispatch=dispatcher)
+    assert runtime.outcome is RetryWorkerRuntimeOutcome.FAILED
+    assert runtime.failure == "dispatch_result_identity_mismatch"

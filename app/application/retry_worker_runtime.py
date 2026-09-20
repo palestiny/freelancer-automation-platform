@@ -42,6 +42,12 @@ def run_retry_worker_once(
     if command is None:
         return RetryWorkerRuntimeResult(outcome=RetryWorkerRuntimeOutcome.IDLE)
 
+    if not isinstance(command, RetryCommand):
+        return RetryWorkerRuntimeResult(
+            outcome=RetryWorkerRuntimeOutcome.FAILED,
+            failure="invalid_scheduled_work",
+        )
+
     if command.state is not RetryCommandState.SCHEDULED:
         return RetryWorkerRuntimeResult(
             outcome=RetryWorkerRuntimeOutcome.FAILED,
@@ -56,6 +62,21 @@ def run_retry_worker_once(
             outcome=RetryWorkerRuntimeOutcome.FAILED,
             command=command,
             failure="dispatch_failed",
+        )
+
+    if not isinstance(dispatch_result, RetryWorkerDispatchResult):
+        return RetryWorkerRuntimeResult(
+            outcome=RetryWorkerRuntimeOutcome.FAILED,
+            command=command,
+            failure="invalid_dispatch_result",
+        )
+
+    if dispatch_result.command.command_id != command.command_id:
+        return RetryWorkerRuntimeResult(
+            outcome=RetryWorkerRuntimeOutcome.FAILED,
+            command=command,
+            dispatch_result=dispatch_result,
+            failure="dispatch_result_identity_mismatch",
         )
 
     if dispatch_result.status is RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED:
