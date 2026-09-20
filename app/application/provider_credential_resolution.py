@@ -50,7 +50,7 @@ class CredentialResolutionResult:
         cls,
         failure: CredentialResolutionFailure,
     ) -> "CredentialResolutionResult":
-        return cls(success=False, failure=failure)
+        return cls(success=False, failure_reason=failure)
 
 
 class ProviderCredentialResolver(Protocol):
