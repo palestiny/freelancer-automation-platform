@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from .controlled_experiment_evidence_synthesis import ExperimentEvidenceSynthesis, ExperimentEvidenceSynthesisStatus
+
 
 class ExperimentHypothesisDirection(str, Enum):
     INCREASES = "increases"
@@ -39,43 +41,42 @@ class ControlledExperimentHypothesisPolicyResult:
     observation_ids: tuple[str, ...]
 
 
-def evaluate_experiment_hypothesis(*, synthesis: dict, policy: ControlledExperimentHypothesisPolicy) -> ControlledExperimentHypothesisPolicyResult:
-    required = (
-        "experiment_id",
-        "metric_name",
-        "descriptive_direction",
-        "statistical_difference_detected",
-        "evidence_eligible",
-        "observation_ids",
-    )
-    if any(key not in synthesis for key in required):
-        return ControlledExperimentHypothesisPolicyResult(
-            policy.experiment_id,
-            policy.metric_name,
-            policy.direction,
-            HypothesisPolicyOutcome.POLICY_INAPPLICABLE,
-            tuple(synthesis.get("observation_ids", ())),
-        )
-    if synthesis["experiment_id"] != policy.experiment_id or synthesis["metric_name"] != policy.metric_name:
+def evaluate_experiment_hypothesis(
+    *,
+    synthesis: ExperimentEvidenceSynthesis,
+    policy: ControlledExperimentHypothesisPolicy,
+) -> ControlledExperimentHypothesisPolicyResult:
+    if not isinstance(synthesis, ExperimentEvidenceSynthesis):
+        raise TypeError("synthesis must be an ExperimentEvidenceSynthesis")
+
+    if (
+        synthesis.experiment_id != policy.experiment_id
+        or synthesis.metric_name != policy.metric_name
+    ):
         outcome = HypothesisPolicyOutcome.POLICY_INAPPLICABLE
-    elif not synthesis["evidence_eligible"]:
+    elif synthesis.status in (
+        ExperimentEvidenceSynthesisStatus.CONTEXT_INVALID,
+        ExperimentEvidenceSynthesisStatus.STATISTICAL_EVIDENCE_UNAVAILABLE,
+    ):
         outcome = HypothesisPolicyOutcome.INSUFFICIENT_EVIDENCE
     else:
-        direction = synthesis["descriptive_direction"]
-        detected = synthesis["statistical_difference_detected"]
-        aligned = (
-            direction == "increased" and policy.direction is ExperimentHypothesisDirection.INCREASES
-        ) or (
-            direction == "decreased" and policy.direction is ExperimentHypothesisDirection.DECREASES
+        difference = synthesis.descriptive_difference
+        aligned = difference is not None and (
+            (difference > 0 and policy.direction is ExperimentHypothesisDirection.INCREASES)
+            or (difference < 0 and policy.direction is ExperimentHypothesisDirection.DECREASES)
         )
-        if not aligned or (policy.require_statistical_difference and not detected):
+        if not aligned or (
+            policy.require_statistical_difference
+            and synthesis.statistical_detected is not True
+        ):
             outcome = HypothesisPolicyOutcome.DOES_NOT_SUPPORT_HYPOTHESIS
         else:
             outcome = HypothesisPolicyOutcome.SUPPORTS_HYPOTHESIS
+
     return ControlledExperimentHypothesisPolicyResult(
-        policy.experiment_id,
-        policy.metric_name,
-        policy.direction,
-        outcome,
-        tuple(synthesis["observation_ids"]),
+        experiment_id=policy.experiment_id,
+        metric_name=policy.metric_name,
+        direction=policy.direction,
+        outcome=outcome,
+        observation_ids=synthesis.observation_ids,
     )
