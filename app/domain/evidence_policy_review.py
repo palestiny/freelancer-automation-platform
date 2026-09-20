@@ -80,7 +80,7 @@ def review_evidence_policy(
                        EvidencePolicyReviewReason.EVIDENCE_INCOMPLETE)
 
     if handoff.descriptive_direction not in policy.allowed_directions:
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.DIRECTION_NOT_ALLOWED)
 
     if (
