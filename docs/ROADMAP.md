@@ -383,3 +383,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Assignment Persistence
 
 **Status:** V1 authoritative assignment persistence implemented and CI-verified. Assignment identity is unique, experiment/subject assignment is stable, and later observations can reference persisted assignment identity. Exposure scheduling and provider execution remain separate boundaries.
+
+
+### Controlled Experiment Exposure Evidence
+
+**Status:** V1 exposure confirmation evidence implemented and CI-verified. Assignment and exposure are now distinct persisted artifacts; delivery scheduling and provider execution remain separate boundaries.

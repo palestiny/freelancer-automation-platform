@@ -416,3 +416,8 @@ Allocation now exposes an immutable decision artifact preserving experiment iden
 ## Controlled Experiment Assignment Persistence
 
 V1 now persists authoritative experiment assignments behind a provider-independent application repository port, with a SQLite reference adapter. Allocation decisions remain deterministic inputs; persistence gives observations a stable assignment identity. The boundary does not schedule exposure, execute providers, reallocate, optimize allocation, or mutate experiment lifecycle.
+
+
+## Controlled Experiment Exposure Evidence
+
+V1 now distinguishes assignment from actual exposure through an immutable exposure evidence artifact persisted behind a replaceable application repository port. Exposure requires an existing assignment context and preserves experiment/subject/variant identity. Recording exposure is evidence capture only; it does not schedule, deliver, execute, reallocate, optimize, or mutate experiment lifecycle.

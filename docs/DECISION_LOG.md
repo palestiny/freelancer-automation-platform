@@ -1313,3 +1313,8 @@ A deterministic allocation decision must preserve experiment/subject/variant ide
 ### D-183 — Controlled Experiment Assignment Persistence Is Authoritative Evidence Lineage
 
 Persisted experiment assignments provide the stable identity required by later observations. A subject may have at most one assignment per experiment in V1. Persistence does not imply exposure, execution, lifecycle mutation, reallocation, or optimization.
+
+
+### D-184 — Controlled Experiment Exposure Is Separate From Assignment
+
+An assignment records deterministic allocation; exposure records explicit evidence that the assigned variant was exposed. Exposure persistence preserves assignment context but does not imply delivery execution, lifecycle mutation, reallocation, or optimization.
