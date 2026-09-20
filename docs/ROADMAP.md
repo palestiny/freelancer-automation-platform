@@ -222,3 +222,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider Credential Resolution
 
 **Status:** V1 application/infrastructure resolver boundary implemented and CI-verified. Secret stores, rotation/refresh, provider authentication, authorization, and provider execution remain separate boundaries.
+
+
+### Provider-Authenticated Execution Dispatch
+
+**Status:** V1 application boundary implemented and CI-verified. Capability verification and credential resolution now precede authenticated adapter invocation. Provider-specific authentication, secret stores, refresh/rotation, fallback, and concrete provider integrations remain separate boundaries.
