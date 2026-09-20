@@ -1,3 +1,7 @@
+from app.domain.controlled_experiment_evidence_synthesis import (
+    ExperimentEvidenceSynthesis,
+    ExperimentEvidenceSynthesisStatus,
+)
 from app.domain.controlled_experiment_hypothesis_policy import (
     ControlledExperimentHypothesisPolicy,
     ExperimentHypothesisDirection,
