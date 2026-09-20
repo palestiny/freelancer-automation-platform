@@ -232,3 +232,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Evidence-to-Decision Policy Boundary
 
 **Status:** V1 explicit policy evaluation foundation implemented. Decision support remains non-executing and policy inputs remain explicit; executable automation requires a separate authorization/execution gate.
+
+
+### Evidence-to-Decision Policy Lineage
+
+**Status:** V1 lineage hardening implemented and CI-verified. Policy outcomes now preserve the evidence identity and observation IDs that support them.
