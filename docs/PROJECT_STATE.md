@@ -233,3 +233,8 @@ V1 now provides explicit provider-key registration and resolution above the exis
 ## Provider Capability Registry — Current State
 
 V1 now declares provider capabilities explicitly and resolves them by provider key without executing providers. Capability metadata is provider-independent and non-ranking. Provider calls, credentials, health routing, fallback, and automatic capability selection remain outside this boundary.
+
+
+## Capability-Aware Provider Dispatch — Current State
+
+The execution boundary now verifies an explicitly declared provider capability before entering the existing authorized execution dispatch. Unsupported capabilities are rejected without invoking the adapter. Capability checks are preconditions, not authorization, and do not infer, rank, select fallback providers, or manage credentials.
