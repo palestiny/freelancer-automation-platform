@@ -1123,3 +1123,8 @@ The application recovery coordinator may compose one provider status observation
 ### D-122 — Evidence Review Handoff Is Non-Authorizing
 
 The handoff from composed evidence to review is an immutable, non-executing boundary. It preserves evidence and lineage while explicitly preventing authorization or policy mutation.
+
+
+### D-122 — Review Decisions Do Not Imply Authorization
+
+Evidence review outcomes are explicit decision artifacts. ACCEPT records a review decision but does not authorize policy mutation, provider execution, payment, capital movement, or other external side effects. Reviewer identity, rationale, review target, and evidence lineage remain preserved.
