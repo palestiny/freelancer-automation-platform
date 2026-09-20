@@ -1,7 +1,6 @@
-from app.domain.authorized_execution_request import AuthorizedExecutionRequest
-
-
 from __future__ import annotations
+
+from app.domain.authorized_execution_request import AuthorizedExecutionRequest
 
 
 def validate_provider_execution_result(
