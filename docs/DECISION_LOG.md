@@ -1233,3 +1233,8 @@ The evidence layer records metric movement without assuming that increases are b
 ### D-122 — Metric Polarity Is Explicit Policy
 
 Performance evidence uses neutral movement semantics. Favorable/unfavorable interpretation requires an explicit metric polarity policy and must not be inferred from metric names or raw movement.
+
+
+### D-176 — Metric Polarity Is Applied Only at Evidence Interpretation
+
+Metric movement remains neutral at the evidence layer. Favorable/unfavorable interpretation may be produced only when an explicit metric polarity policy is supplied; missing policy must not be inferred from metric names or movement. This boundary does not authorize recommendation or execution.
