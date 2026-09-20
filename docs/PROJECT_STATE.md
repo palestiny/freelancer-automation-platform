@@ -290,3 +290,8 @@ Prepared execution requests now preserve the current, baseline, and statistical 
 ## Prepared Execution Request Freshness
 
 A provider-independent freshness assessment now provides an explicit safety precondition for prepared execution requests. It uses the request preparation timestamp, an explicit versionable maximum-age policy, and an explicit as-of timestamp. Stale, missing, future, and non-prepared states remain explicit and non-mutating. Freshness does not re-authorize, retry, schedule, or execute a request.
+
+
+## Performance Evidence Decision Support
+
+A bounded downstream evidence-composition layer combines deterministic performance trend direction with the existing statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.

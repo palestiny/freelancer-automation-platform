@@ -257,3 +257,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Prepared Execution Request Freshness
 
 **Status:** V1 explicit non-mutating freshness assessment implemented and CI-verified. Freshness is a safety precondition only; re-authorization, retry, scheduling, and provider execution remain separate boundaries.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. Future automation requires an explicit policy/design gate.
