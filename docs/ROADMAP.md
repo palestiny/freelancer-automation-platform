@@ -217,3 +217,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider Credential Reference
 
 **Status:** V1 opaque credential-reference contract implemented and CI-verified. Secret resolution and concrete provider authentication remain separate infrastructure/integration boundaries.
+
+
+### Provider Credential Resolution
+
+**Status:** V1 application/infrastructure resolver boundary implemented and CI-verified. Secret stores, rotation/refresh, provider authentication, authorization, and provider execution remain separate boundaries.

@@ -248,3 +248,10 @@ The statistical evidence composition artifact now preserves the Welch comparison
 ## Provider Credential Reference — Current State
 
 V1 now has an opaque provider credential reference boundary. The domain can identify which provider credential should be resolved without carrying secret material. Secret storage, resolution, token refresh, rotation, and provider-specific authentication remain outside the domain.
+
+
+## Provider Credential Resolution — Current State
+
+The approved application/infrastructure credential-resolution boundary is implemented and CI-verified. Opaque provider credential references can now be resolved through a replaceable resolver port with explicit success/failure semantics and provider/reference binding. Credential material remains outside domain entities, no fallback or ranking is performed, and resolution does not authorize or execute provider actions.
+
+Concrete secret stores, rotation, refresh, and provider-specific authentication remain infrastructure/integration concerns.

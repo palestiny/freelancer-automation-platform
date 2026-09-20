@@ -1158,3 +1158,8 @@ The statistical evidence composition artifact must preserve the explicit Welch c
 ### D-125 — Provider Credentials Cross Boundaries Only as Opaque References
 
 The domain may preserve provider key plus an opaque credential reference, but never raw secret material. Secret storage and resolution remain outside the domain and require separate infrastructure decisions.
+
+
+### D-122 — Provider Credential Resolution Is a Non-Authorizing Infrastructure Boundary
+
+Credential references may cross the application boundary for explicit provider-bound resolution, but resolved secret material must not enter domain entities. Resolution failure is explicit; no fallback, ranking, authorization, or provider execution is implied.
