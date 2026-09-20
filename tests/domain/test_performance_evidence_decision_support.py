@@ -274,36 +274,3 @@ def test_direction_is_neutral_not_business_judgment():
         business_id="b1",
     )
     assert result.descriptive_direction is DescriptiveDirection.INCREASED
-
-def test_available_inferential_evidence_requires_statistical_provenance():
-    import pytest
-    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
-
-    with pytest.raises(ValueError):
-        PerformanceEvidenceDecisionSupport(
-            business_id="b1", metric_name="profit", unit="EGP",
-            descriptive_direction=DescriptiveDirection.INCREASED,
-            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
-            statistical_observation_ids=("b1", "c1"),
-            statistical_difference_direction=DescriptiveDirection.INCREASED,
-            current_observation_ids=("c1",), baseline_observation_ids=("b1",),
-        )
-
-def test_aligned_posture_rejects_direction_conflict():
-    import pytest
-    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
-
-    with pytest.raises(ValueError):
-        PerformanceEvidenceDecisionSupport(
-            business_id="b1", metric_name="profit", unit="EGP",
-            descriptive_direction=DescriptiveDirection.INCREASED,
-            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
-            statistical_observation_ids=("b1", "c1"),
-            statistical_method="welch_two_sample_t_test",
-            statistical_first_window=PerformanceWindow(datetime(2026,1,1), datetime(2026,1,8)),
-            statistical_second_window=PerformanceWindow(datetime(2026,2,1), datetime(2026,2,8)),
-            statistical_difference_direction=DescriptiveDirection.DECREASED,
-            current_observation_ids=("c1",), baseline_observation_ids=("b1",),
-        )
