@@ -1,8 +1,9 @@
-from typing import Protocol
+from typing import Protocol, runtime_checkable
 
 from app.domain.business_performance import BusinessPerformanceObservation
 
 
+@runtime_checkable
 class PerformanceObservationRepository(Protocol):
     def save(self, observation: BusinessPerformanceObservation) -> None:
         ...
