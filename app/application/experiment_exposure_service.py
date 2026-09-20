@@ -68,25 +68,6 @@ def record_persisted_experiment_exposure(
             f"{existing_by_assignment.id!r}"
         )
 
-    existing_by_id = exposure_repository.get(exposure_id)
-    if existing_by_id is not None:
-        if (
-            existing_by_id.assignment_id == assignment.id
-            and existing_by_id.experiment_id == assignment.experiment_id
-            and existing_by_id.subject_id == assignment.subject_id
-            and existing_by_id.variant == assignment.variant
-            and existing_by_id.exposed_at == exposed_at
-        ):
-            return existing_by_id
-        raise ValueError(f"exposure_id {exposure_id!r} conflicts with existing exposure")
-
-    existing_by_assignment = exposure_repository.get_by_assignment(assignment.id)
-    if existing_by_assignment is not None:
-        raise ValueError(
-            f"assignment_id {assignment.id!r} already has exposure "
-            f"{existing_by_assignment.id!r}"
-        )
-
     exposure = ExperimentExposure(
         id=exposure_id,
         assignment_id=assignment.id,
