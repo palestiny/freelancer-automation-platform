@@ -1318,3 +1318,8 @@ Persisted experiment assignments provide the stable identity required by later o
 ### D-184 — Controlled Experiment Exposure Is Separate From Assignment
 
 An assignment records deterministic allocation; exposure records explicit evidence that the assigned variant was exposed. Exposure persistence preserves assignment context but does not imply delivery execution, lifecycle mutation, reallocation, or optimization.
+
+
+### D-122 — Experiment Observation Requires Exposure-Compatible Lineage
+
+Downstream experiment evidence must not treat assignment as proof of exposure. A metric observation may be considered exposure-compatible only when experiment, assignment, subject, and variant identities match an actual exposure and the observation timestamp is at or after exposure. This is lineage validation, not causal inference.
