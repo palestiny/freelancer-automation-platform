@@ -13,6 +13,14 @@ def record_experiment_observation(
     exposure_repository: ExperimentExposureRepository,
     observation: ExperimentObservation,
 ) -> ExperimentObservation:
+    existing = repository.get(observation.id)
+    if existing is not None:
+        if existing == observation:
+            return existing
+        raise ValueError(
+            f"observation {observation.id!r} conflicts with existing observation"
+        )
+
     exposure = exposure_repository.get_by_assignment(observation.assignment_id)
     if exposure is None:
         raise ValueError(
