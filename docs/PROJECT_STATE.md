@@ -173,3 +173,10 @@ Still outside the boundary: automatic restart, distributed workers, worker pools
 ## Next Engineering Boundary — Crash / Recovery Reconciliation
 
 A dedicated design gate defines the provider-independent reconciliation boundary for ambiguous in-flight retry commands. The next implementation must preserve unknown outcomes, immutable attempt lineage, request/idempotency identity, and explicit manual reconciliation without automatic re-execution.
+
+
+## Retry Worker Crash / Recovery Reconciliation — Current State
+
+The approved provider-independent crash/recovery reconciliation boundary is implemented. Ambiguous in-flight retry commands remain explicitly manual-review-only; terminal commands are not reopened; command/request/idempotency identity and attempt number are preserved; duplicate reconciliation is non-executing.
+
+Still outside this boundary: provider-status polling, automatic re-execution, automatic retry scheduling, distributed recovery, leases/heartbeats, automatic restart, and capital/portfolio actions.

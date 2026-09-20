@@ -1093,3 +1093,8 @@ The finite externally bounded retry-worker invocation must remain the authoritat
 ### D-165 — Retry Worker Lifecycle Is Explicit and Observable
 
 The first continuous-runtime increment uses explicit lifecycle states and stop reasons around the existing finite invocation. Safe stop boundaries prevent new claims, failures terminate explicitly without automatic restart, and lifecycle observations remain immutable evidence. Distributed concurrency, automatic restart, and crash recovery require separate design decisions.
+
+
+### D-122 — Crash Recovery Never Authorizes Automatic Re-execution
+
+When a retry worker terminates while provider execution may be in flight, reconciliation preserves the ambiguous outcome and emits an explicit manual-reconciliation boundary. Durable terminal outcomes remain terminal. Reconciliation does not schedule, authorize, or perform a new provider request.
