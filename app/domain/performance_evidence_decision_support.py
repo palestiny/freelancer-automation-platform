@@ -42,6 +42,30 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        for name in ("business_id", "metric_name", "unit"):
+            if not getattr(self, name).strip():
+                raise ValueError(f"{name} cannot be empty")
+        if any(not observation_id.strip() for observation_id in self.statistical_observation_ids):
+            raise ValueError("statistical_observation_ids cannot contain empty values")
+        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
+            raise ValueError("statistical_observation_ids must be unique")
+        if (
+            self.inferential_status is InferentialStatus.UNAVAILABLE
+            and self.posture is not CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE
+            and self.posture is not CombinedEvidencePosture.CONTEXT_INVALID
+        ):
+            raise ValueError("unavailable inference requires an unavailable or invalid-context posture")
+        if (
+            self.descriptive_direction is DescriptiveDirection.NO_CHANGE
+            and self.posture not in (
+                CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE,
+                CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+                CombinedEvidencePosture.CONTEXT_INVALID,
+            )
+        ):
+            raise ValueError("no-change direction has an incompatible posture")
     current_observation_ids: tuple[str, ...]
     baseline_observation_ids: tuple[str, ...]
 
