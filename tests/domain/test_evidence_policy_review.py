@@ -49,6 +49,8 @@ def test_direction_mismatch_is_explicit():
     result = review_evidence_policy(
         handoff=_handoff(direction=DescriptiveDirection.DECLINING),
         policy=PolicyReviewPolicy(
+            policy_id="policy-1",
+            version="1",
             allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
             require_statistical_detection=False,
             require_complete_evidence=False,
@@ -62,6 +64,8 @@ def test_statistical_detection_requirement_is_explicit():
     result = review_evidence_policy(
         handoff=_handoff(inferential=InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE),
         policy=PolicyReviewPolicy(
+            policy_id="policy-1",
+            version="1",
             allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
             require_statistical_detection=True,
             require_complete_evidence=False,
@@ -78,6 +82,8 @@ def test_incomplete_evidence_requires_review_when_policy_requires_complete_evide
             inferential=InferentialStatus.UNAVAILABLE,
         ),
         policy=PolicyReviewPolicy(
+            policy_id="policy-1",
+            version="1",
             allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
             require_statistical_detection=False,
             require_complete_evidence=True,
@@ -94,6 +100,8 @@ def test_context_invalid_is_not_satisfied():
             requires=False,
         ),
         policy=PolicyReviewPolicy(
+            policy_id="policy-1",
+            version="1",
             allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
             require_statistical_detection=False,
             require_complete_evidence=False,
