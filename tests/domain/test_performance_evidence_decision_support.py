@@ -174,3 +174,26 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("x", "x"),
         )
+
+def test_result_rejects_duplicate_statistical_observation_ids():
+    import pytest
+    with pytest.raises(ValueError, match="must be unique"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+            statistical_observation_ids=("x", "x"),
+        )
+
+
+def test_result_rejects_empty_statistical_observation_id():
+    import pytest
+    with pytest.raises(ValueError, match="cannot contain empty"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+            statistical_observation_ids=("",),
+        )
