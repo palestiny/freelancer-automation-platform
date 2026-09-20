@@ -271,3 +271,40 @@ def test_source_reliability_reason_requires_an_ineligible_source():
             current_source_reliability=_eligible(), baseline_source_reliability=_eligible(),
             mean_difference=10.0,
         )
+
+
+def test_duplicate_observation_ids_across_windows_are_rejected():
+    comparison = _result()
+    comparison = MeanComparisonResult(
+        business_id=comparison.business_id,
+        metric_name=comparison.metric_name,
+        unit=comparison.unit,
+        first_window=comparison.first_window,
+        second_window=comparison.second_window,
+        first_observation_ids=("same", "b"),
+        second_observation_ids=("same", "d"),
+        sample_size_first=2,
+        sample_size_second=2,
+        mean_first=100.0,
+        mean_second=90.0,
+        mean_difference=10.0,
+        t_statistic=2.5,
+        degrees_of_freedom=2.0,
+        p_value=0.05,
+        alpha=0.05,
+        method="welch_two_sample_t_test",
+        rejects_null=False,
+        status=MeanComparisonStatus.APPLICABLE,
+    )
+    try:
+        compose_statistical_evidence(
+            comparison=comparison,
+            current_evidence_quality=80,
+            baseline_evidence_quality=80,
+            current_source_reliability=_eligible(),
+            baseline_source_reliability=_eligible(),
+        )
+    except ValueError as exc:
+        assert "unique across both windows" in str(exc)
+    else:
+        raise AssertionError("expected duplicate lineage rejection")
