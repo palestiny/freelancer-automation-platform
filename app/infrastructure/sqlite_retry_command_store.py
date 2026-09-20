@@ -147,6 +147,36 @@ class SQLiteRetryCommandStore(RetryCommandStore):
         updated = current.transition_to(target, scheduling_id=acknowledgement.scheduling_id)
         return self.save(updated)
 
+    def transition_if_current(
+        self,
+        command_id: str,
+        expected_state: RetryCommandState,
+        target_state: RetryCommandState,
+    ) -> RetryCommand | None:
+        current = self.get(command_id)
+        if current is None:
+            raise KeyError(command_id)
+        if current.state is not expected_state:
+            return None
+        if not current.can_transition_to(target_state):
+            raise ValueError(
+                f"invalid retry command transition: {current.state.value} -> {target_state.value}"
+            )
+
+        cursor = self._connection.execute(
+            """
+            UPDATE retry_commands
+            SET state = ?
+            WHERE command_id = ? AND state = ?
+            """,
+            (target_state.value, command_id, expected_state.value),
+        )
+        if cursor.rowcount != 1:
+            self._connection.rollback()
+            return None
+        self._connection.commit()
+        return self.get(command_id)
+
     def save(self, command: RetryCommand) -> RetryCommand:
         current = self.get(command.command_id)
         if current is None:
