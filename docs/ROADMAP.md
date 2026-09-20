@@ -60,7 +60,7 @@ Expected-vs-actual measurement, business performance history, windows, aggregati
 
 Authorization, autonomy bounds, human-approval requirements, safety blocks, execution preparation, provider-independent outcomes, recovery policy, execution coordination, retry policy, durable retry infrastructure, worker dispatch, and provider-failure handling exist.
 
-**Next slice:** crash/recovery reconciliation for ambiguous in-flight execution; continuous single-worker lifecycle is implemented.
+**Current runtime slice:** crash/recovery reconciliation, provider status observation, durable assessment application, and single-observation coordination are implemented and CI-verified.
 
 ## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
 **Status: STRATEGIC DIRECTION**
@@ -100,7 +100,7 @@ The pipeline deliberately separates evidence, policy, authorization, and executi
 
 ## Current Runtime Boundary
 
-The bounded retry worker batch invocation is implemented. It preserves durable command identity, deterministic scheduled-work selection, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and ordered per-invocation results. Continuous worker lifecycle remains a separate future boundary.
+The retry runtime boundary now includes bounded worker invocation, continuous single-worker lifecycle, crash/recovery reconciliation, provider status observation, deterministic assessment, atomic expected-state application, and single-observation coordination. Distributed workers, queue frameworks, automatic restart, polling, and automatic re-execution remain outside scope.
 
 ## Future Strategic Work
 
@@ -172,3 +172,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Performance Evidence Decision Support — Current State
 
 **Status:** V1 descriptive + inferential evidence composition is implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
+
+
+### Runtime State Reconciliation
+
+**Status:** Current runtime documentation reconciled with the implemented lifecycle and crash/recovery boundaries. Future runtime work must not reopen completed lifecycle/reconciliation slices without a new requirement.
