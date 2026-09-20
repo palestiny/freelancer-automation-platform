@@ -5,6 +5,7 @@ import pytest
 from app.application.execution_port import ProviderExecutionResult
 from app.application.provider_adapter_conformance import validate_provider_execution_result
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
+from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.execution_outcome import ExecutionOutcomeStatus
 
 
@@ -12,8 +13,10 @@ def request():
     return AuthorizedExecutionRequest(
         request_id="req-1",
         idempotency_key="idem-1",
-        capability_id="cap-1",
-        payload={"x": 1},
+        action_class=ActionClass.REVERSIBLE_EXTERNAL,
+        autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        policy_id="policy-1",
+        policy_version="1",
         status=ExecutionRequestStatus.PREPARED,
     )
 
