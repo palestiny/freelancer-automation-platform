@@ -73,3 +73,5 @@ def test_mismatched_variant_is_rejected():
         exposure=_exposure(),
     )
     assert result.status is ExposureLineageStatus.INVALID_CONTEXT
+
+# Regression suite covers context and temporal exposure lineage.
