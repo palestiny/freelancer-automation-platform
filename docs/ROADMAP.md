@@ -272,3 +272,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Evidence → Learning Handoff
 
 **Status:** V1 explicit handoff implemented and CI-verified. Statistical evidence can now reach a controlled policy-review or experiment boundary without automatic policy mutation.
+
+
+### Business Learning Memory
+
+**Status:** V1 immutable learning-memory artifact implemented and CI-verified. Persistence, querying, retention, cross-business aggregation, and automatic policy mutation remain separate boundaries.
