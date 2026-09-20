@@ -155,3 +155,5 @@ def test_list_by_experiment_is_chronological():
     )
     observations.close()
     exposures.close()
+
+# Persistence tests intentionally require exposure-compatible lineage.
