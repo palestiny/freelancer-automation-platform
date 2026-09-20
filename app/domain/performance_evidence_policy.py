@@ -37,9 +37,9 @@ def assess_performance_evidence_policy(
         state = PerformanceEvidencePolicyState.NO_CHANGE_EVIDENCE
     elif support.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION:
         state = PerformanceEvidencePolicyState.DESCRIPTIVE_CHANGE_ONLY
-    elif support.descriptive_direction.value == "improving":
+    elif support.descriptive_direction.value in ("increased", "improving"):
         state = PerformanceEvidencePolicyState.SUPPORTS_IMPROVEMENT
-    elif support.descriptive_direction.value == "declining":
+    elif support.descriptive_direction.value in ("decreased", "declining"):
         state = PerformanceEvidencePolicyState.SUPPORTS_DECLINE
     else:
         state = PerformanceEvidencePolicyState.EVIDENCE_INSUFFICIENT

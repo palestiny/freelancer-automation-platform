@@ -12,7 +12,7 @@ from app.domain.evidence_policy_review import (
 )
 
 
-def _handoff(*, status=EvidenceHandoffStatus.READY_FOR_REVIEW, direction=DescriptiveDirection.IMPROVING,
+def _handoff(*, status=EvidenceHandoffStatus.READY_FOR_REVIEW, direction=DescriptiveDirection.INCREASED,
              inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED, requires=True):
     return EvidenceDecisionHandoff(
         business_id="b1",
@@ -35,7 +35,7 @@ def test_policy_satisfied_when_explicit_conditions_match():
         policy=PolicyReviewPolicy(
             policy_id="policy-1",
             version="1",
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
+            allowed_directions=frozenset({DescriptiveDirection.INCREASED}),
             require_statistical_detection=True,
             require_complete_evidence=True,
         ),
@@ -47,11 +47,11 @@ def test_policy_satisfied_when_explicit_conditions_match():
 
 def test_direction_mismatch_is_explicit():
     result = review_evidence_policy(
-        handoff=_handoff(direction=DescriptiveDirection.DECLINING),
+        handoff=_handoff(direction=DescriptiveDirection.DECREASED),
         policy=PolicyReviewPolicy(
             policy_id="policy-1",
             version="1",
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
+            allowed_directions=frozenset({DescriptiveDirection.INCREASED}),
             require_statistical_detection=False,
             require_complete_evidence=False,
         ),
@@ -66,7 +66,7 @@ def test_statistical_detection_requirement_is_explicit():
         policy=PolicyReviewPolicy(
             policy_id="policy-1",
             version="1",
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
+            allowed_directions=frozenset({DescriptiveDirection.INCREASED}),
             require_statistical_detection=True,
             require_complete_evidence=False,
         ),
@@ -84,7 +84,7 @@ def test_incomplete_evidence_requires_review_when_policy_requires_complete_evide
         policy=PolicyReviewPolicy(
             policy_id="policy-1",
             version="1",
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
+            allowed_directions=frozenset({DescriptiveDirection.INCREASED}),
             require_statistical_detection=False,
             require_complete_evidence=True,
         ),
@@ -102,7 +102,7 @@ def test_context_invalid_is_not_satisfied():
         policy=PolicyReviewPolicy(
             policy_id="policy-1",
             version="1",
-            allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
+            allowed_directions=frozenset({DescriptiveDirection.INCREASED}),
             require_statistical_detection=False,
             require_complete_evidence=False,
         ),

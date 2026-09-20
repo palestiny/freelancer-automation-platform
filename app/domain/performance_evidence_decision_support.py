@@ -11,6 +11,9 @@ from .statistical_evidence_composition import (
 
 
 class DescriptiveDirection(str, Enum):
+    INCREASED = "increased"
+    DECREASED = "decreased"
+    # Backward-compatible legacy semantics; new evidence production uses neutral names.
     IMPROVING = "improving"
     DECLINING = "declining"
     NO_CHANGE = "no_change"
@@ -204,9 +207,9 @@ def _result(
 
 def _descriptive_direction(trend: PerformanceTrend) -> DescriptiveDirection:
     if trend.absolute_change > 0:
-        return DescriptiveDirection.IMPROVING
+        return DescriptiveDirection.INCREASED
     if trend.absolute_change < 0:
-        return DescriptiveDirection.DECLINING
+        return DescriptiveDirection.DECREASED
     return DescriptiveDirection.NO_CHANGE
 
 
@@ -234,9 +237,9 @@ def _difference_direction(
     if evidence.mean_difference is None:
         return DescriptiveDirection.UNAVAILABLE
     if evidence.mean_difference > 0:
-        return DescriptiveDirection.IMPROVING
+        return DescriptiveDirection.INCREASED
     if evidence.mean_difference < 0:
-        return DescriptiveDirection.DECLINING
+        return DescriptiveDirection.DECREASED
     return DescriptiveDirection.NO_CHANGE
 
 
