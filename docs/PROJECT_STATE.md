@@ -228,3 +228,8 @@ The approved provider-adapter conformance boundary is implemented. A reusable no
 ## Provider Adapter Registry — Current State
 
 V1 now provides explicit provider-key registration and resolution above the existing provider-independent execution port. Duplicate keys and unknown providers are rejected explicitly. The registry performs no provider ranking, fallback, credential management, health routing, or execution.
+
+
+## Provider Capability Registry — Current State
+
+V1 now declares provider capabilities explicitly and resolves them by provider key without executing providers. Capability metadata is provider-independent and non-ranking. Provider calls, credentials, health routing, fallback, and automatic capability selection remain outside this boundary.
