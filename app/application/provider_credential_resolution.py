@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Protocol
 
@@ -13,7 +13,7 @@ class CredentialResolutionResult:
     success: bool
     provider_key: str | None = None
     credential_reference: str | None = None
-    material: str | None = None
+    material: str | None = field(default=None, repr=False)
     failure_reason: CredentialResolutionFailure | None = None
 
     def __post_init__(self) -> None:
