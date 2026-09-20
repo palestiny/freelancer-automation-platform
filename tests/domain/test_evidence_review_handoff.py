@@ -22,6 +22,8 @@ def _support() -> PerformanceEvidenceDecisionSupport:
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("a", "b", "c"),
+        current_observation_ids=("c",),
+        baseline_observation_ids=("a", "b"),
     )
 
 
