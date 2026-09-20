@@ -20,7 +20,7 @@ def _support() -> PerformanceEvidenceDecisionSupport:
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("a", "b", "c"),
     )
 
