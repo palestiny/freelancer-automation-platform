@@ -51,7 +51,7 @@ def _request():
         request_id="req-1",
         idempotency_key="idem-1",
         action_class=ActionClass.SEND_MESSAGE,
-        autonomy_level=AutonomyLevel.L3,
+        autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
         policy_id="policy-1",
         policy_version="1",
         status=ExecutionRequestStatus.PREPARED,
