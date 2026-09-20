@@ -313,3 +313,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Performance Evidence Persistence
 
 **Status:** V1 durable persistence boundary implemented and CI-verified. Authoritative performance observations are persisted through an application repository port with a reference SQLite adapter; derived evidence remains outside this persistence slice.
+
+
+### Performance Observation Application Service
+
+**Status:** V1 application use-case boundary implemented and CI-verified. It delegates authoritative observation persistence through the application port and keeps derived analysis outside the write/read service.
