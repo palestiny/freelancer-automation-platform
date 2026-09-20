@@ -227,3 +227,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider-Authenticated Execution Dispatch
 
 **Status:** V1 application boundary implemented and CI-verified. Capability verification and credential resolution now precede authenticated adapter invocation. Provider-specific authentication, secret stores, refresh/rotation, fallback, and concrete provider integrations remain separate boundaries.
+
+
+### Evidence-to-Decision Policy Boundary
+
+**Status:** V1 explicit policy evaluation foundation implemented. Decision support remains non-executing and policy inputs remain explicit; executable automation requires a separate authorization/execution gate.
