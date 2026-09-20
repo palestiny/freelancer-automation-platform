@@ -498,3 +498,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Performance Evidence Policy State
 
 **Status:** V1 evidence-state boundary implemented and verified. Downstream automation remains explicitly outside this boundary.
+
+
+### Performance Evidence Policy Assessment
+
+**Status:** V1 implemented and CI-verified. Evidence states are explicit and non-executing; automatic action remains outside this boundary.
