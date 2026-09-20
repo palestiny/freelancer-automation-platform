@@ -1078,3 +1078,8 @@ Each finite retry runtime invocation may produce an immutable observation contai
 ### D-163 — Retry Worker Batch Invocation Is Explicitly Bounded
 
 V1 may repeat the authoritative single-command worker invocation only within an explicit positive invocation limit. IDLE, BLOCKED, and FAILED stop the batch. The batch does not introduce polling, sleeping, queues, leases, heartbeats, concurrency, or daemon lifecycle semantics.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
