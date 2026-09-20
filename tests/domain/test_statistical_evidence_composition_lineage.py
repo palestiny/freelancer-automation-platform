@@ -2,6 +2,7 @@ from datetime import datetime
 import pytest
 
 from app.domain.performance_history import PerformanceWindow
+from app.domain.performance_reliability import SourceReliabilityAssessment, SourceReliabilityReason
 from app.domain.statistical_evidence_composition import (
     StatisticalEvidenceComposition,
     StatisticalEvidenceEligibilityReason,
@@ -27,6 +28,10 @@ def _base(**kwargs):
         mean_difference=10.0,
         first_window=_window(1, 8),
         second_window=_window(8, 15),
+        current_evidence_quality=80,
+        baseline_evidence_quality=80,
+        current_source_reliability=SourceReliabilityAssessment(eligible=True, reason=SourceReliabilityReason.ELIGIBLE, minimum_reliability=80),
+        baseline_source_reliability=SourceReliabilityAssessment(eligible=True, reason=SourceReliabilityReason.ELIGIBLE, minimum_reliability=80),
     )
     values.update(kwargs)
     return StatisticalEvidenceComposition(**values)
