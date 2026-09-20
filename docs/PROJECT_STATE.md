@@ -243,3 +243,8 @@ The execution boundary now verifies an explicitly declared provider capability b
 ## Statistical Evidence Lineage Hardening
 
 The statistical evidence composition artifact now preserves the Welch comparison windows and mean difference alongside method identity and observation lineage. Existing evidence-quality and source-reliability eligibility semantics remain unchanged. The artifact remains non-executing and non-decisioning.
+
+
+## Provider Credential Reference — Current State
+
+V1 now has an opaque provider credential reference boundary. The domain can identify which provider credential should be resolved without carrying secret material. Secret storage, resolution, token refresh, rotation, and provider-specific authentication remain outside the domain.

@@ -212,3 +212,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Statistical Evidence Lineage Hardening
 
 **Status:** V1 lineage hardening implemented and CI-verified. Welch comparison windows and mean difference are preserved in the downstream statistical evidence artifact.
+
+
+### Provider Credential Reference
+
+**Status:** V1 opaque credential-reference contract implemented and CI-verified. Secret resolution and concrete provider authentication remain separate infrastructure/integration boundaries.

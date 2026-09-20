@@ -1153,3 +1153,8 @@ A provider must explicitly declare the required capability before the existing e
 ### D-122 — Statistical Evidence Composition Preserves Welch Context
 
 The statistical evidence composition artifact must preserve the explicit Welch comparison windows and mean difference so downstream consumers do not reconstruct inferential context from incomplete evidence. This does not change statistical interpretation or authorization semantics.
+
+
+### D-125 — Provider Credentials Cross Boundaries Only as Opaque References
+
+The domain may preserve provider key plus an opaque credential reference, but never raw secret material. Secret storage and resolution remain outside the domain and require separate infrastructure decisions.
