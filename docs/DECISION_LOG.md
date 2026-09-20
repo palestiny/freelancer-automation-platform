@@ -1228,3 +1228,8 @@ Evidence-to-learning handoffs require an explicit immutable identity. Learning m
 ### D-122 — Performance Evidence Direction Is Neutral
 
 The evidence layer records metric movement without assuming that increases are beneficial or decreases are harmful. Metric polarity belongs to an explicit policy boundary. Legacy direction values remain compatible during migration.
+
+
+### D-122 — Metric Polarity Is Explicit Policy
+
+Performance evidence uses neutral movement semantics. Favorable/unfavorable interpretation requires an explicit metric polarity policy and must not be inferred from metric names or raw movement.
