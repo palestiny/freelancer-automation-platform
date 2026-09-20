@@ -421,3 +421,8 @@ V1 now persists authoritative experiment assignments behind a provider-independe
 ## Controlled Experiment Exposure Evidence
 
 V1 now distinguishes assignment from actual exposure through an immutable exposure evidence artifact persisted behind a replaceable application repository port. Exposure requires an existing assignment context and preserves experiment/subject/variant identity. Recording exposure is evidence capture only; it does not schedule, deliver, execute, reallocate, optimize, or mutate experiment lifecycle.
+
+
+## Controlled Experiment Exposure-to-Outcome Linkage
+
+V1 now has an explicit temporal evidence-linkage artifact connecting a recorded exposure to an outcome observation. The boundary preserves experiment, assignment, exposure, subject, variant, timestamps, and outcome lineage. Temporal linkage is provenance only and does not establish causality or trigger analysis, lifecycle changes, policy changes, authorization, or execution.

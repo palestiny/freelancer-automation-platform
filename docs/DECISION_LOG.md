@@ -1318,3 +1318,8 @@ Persisted experiment assignments provide the stable identity required by later o
 ### D-184 — Controlled Experiment Exposure Is Separate From Assignment
 
 An assignment records deterministic allocation; exposure records explicit evidence that the assigned variant was exposed. Exposure persistence preserves assignment context but does not imply delivery execution, lifecycle mutation, reallocation, or optimization.
+
+
+### D-122 — Exposure-to-Outcome Linkage Is Provenance, Not Causality
+
+A controlled-experiment exposure may be explicitly linked to a later outcome observation when identity and temporal constraints are satisfied. The linkage preserves provenance but must not be interpreted as causal attribution or automatically trigger experiment decisions.
