@@ -1223,3 +1223,8 @@ Learning memory records eligible evidence handoffs as immutable business-owned a
 ### D-175 — Learning Handoff Identity Is Explicit and Preserved
 
 Evidence-to-learning handoffs require an explicit immutable identity. Learning memory must preserve that exact handoff identity as source lineage; a memory entry ID must never stand in for the source handoff identity.
+
+
+### D-122 — Performance Evidence Direction Is Neutral
+
+The evidence layer records metric movement without assuming that increases are beneficial or decreases are harmful. Metric polarity belongs to an explicit policy boundary. Legacy direction values remain compatible during migration.
