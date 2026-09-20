@@ -426,3 +426,8 @@ V1 now distinguishes assignment from actual exposure through an immutable exposu
 ## Controlled Experiment Exposure-to-Outcome Linkage
 
 V1 now has an explicit temporal evidence-linkage artifact connecting a recorded exposure to an outcome observation. The boundary preserves experiment, assignment, exposure, subject, variant, timestamps, and outcome lineage. Temporal linkage is provenance only and does not establish causality or trigger analysis, lifecycle changes, policy changes, authorization, or execution.
+
+
+## Controlled Experiment Observation Exposure Lineage
+
+V1 now validates that experiment metric observations are exposure-compatible before authoritative persistence. Experiment, assignment, subject, and variant identity must match an actual exposure and the observation timestamp must not precede exposure. This is attribution-safety evidence only; it does not infer causality or select experiment outcomes.
