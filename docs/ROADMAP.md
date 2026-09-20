@@ -207,3 +207,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Capability-Aware Provider Dispatch
 
 **Status:** V1 explicit capability precondition implemented and CI-verified. Provider capability checks occur before authorized execution dispatch; fallback, ranking, inference, and provider selection remain outside scope.
+
+
+### Statistical Evidence Lineage Hardening
+
+**Status:** V1 lineage hardening implemented and CI-verified. Welch comparison windows and mean difference are preserved in the downstream statistical evidence artifact.
