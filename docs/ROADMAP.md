@@ -197,3 +197,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider Adapter Registry
 
 **Status:** V1 explicit provider-key registration/resolution implemented and CI-verified. Concrete provider integrations remain separate provider-specific design and integration work.
+
+
+### Provider Capability Registry
+
+**Status:** V1 explicit capability declaration and lookup implemented and CI-verified. Capability metadata remains non-executing and non-ranking; concrete provider integrations remain a separate boundary.
