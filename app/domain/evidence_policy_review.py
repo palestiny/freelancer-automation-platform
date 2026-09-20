@@ -87,7 +87,7 @@ def review_evidence_policy(
         policy.require_statistical_detection
         and handoff.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
     ):
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.STATISTICAL_DETECTION_REQUIRED)
 
     return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_SATISFIED,
