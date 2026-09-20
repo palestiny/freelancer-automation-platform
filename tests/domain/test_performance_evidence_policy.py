@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.domain.performance_evidence_decision_support import (
     CombinedEvidencePosture,
     DescriptiveDirection,
@@ -16,15 +18,27 @@ def _support(posture, direction=DescriptiveDirection.IMPROVING):
         metric_name="profit",
         unit="EGP",
         descriptive_direction=direction,
-        inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+        inferential_status=(
+            InferentialStatus.UNAVAILABLE
+            if posture is CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE
+            else InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+        ),
         posture=posture,
-        statistical_observation_ids=("a", "b"),
+        statistical_observation_ids=("s1", "s2"),
+        current_window_start=datetime(2026, 2, 1),
+        current_window_end=datetime(2026, 2, 8),
+        baseline_window_start=datetime(2026, 1, 25),
+        baseline_window_end=datetime(2026, 2, 1),
+        current_observation_ids=("c1",),
+        baseline_observation_ids=("b1",),
     )
 
 
 def test_aligned_improvement_supports_improvement():
     result = assess_performance_evidence_policy(
-        support=_support(CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT)
+        support=_support(
+            CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+        )
     )
     assert result.state is PerformanceEvidencePolicyState.SUPPORTS_IMPROVEMENT
 
@@ -32,7 +46,7 @@ def test_aligned_improvement_supports_improvement():
 def test_aligned_decline_supports_decline():
     result = assess_performance_evidence_policy(
         support=_support(
-            CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+            CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             DescriptiveDirection.DECLINING,
         )
     )
@@ -41,7 +55,9 @@ def test_aligned_decline_supports_decline():
 
 def test_descriptive_only_change_is_not_presented_as_statistically_supported():
     result = assess_performance_evidence_policy(
-        support=_support(CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION)
+        support=_support(
+            CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
+        )
     )
     assert result.state is PerformanceEvidencePolicyState.DESCRIPTIVE_CHANGE_ONLY
 
