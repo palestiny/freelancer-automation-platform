@@ -357,3 +357,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Performance Evidence Decision Support
 
 **Status:** V1 descriptive + inferential evidence composition is implemented and verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
+
+
+### Performance Evidence Decision Support — Reconciled State
+
+**Status:** V1 descriptive + inferential composition is implemented and CI-verified. Future automation remains a separate policy/authorization boundary.
