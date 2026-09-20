@@ -1,11 +1,15 @@
-from app.application.execution_port import ProviderExecutionResult
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest
+
+
+from __future__ import annotations
 
 
 def validate_provider_execution_result(
     request: AuthorizedExecutionRequest,
-    result: ProviderExecutionResult,
+    result: object,
 ) -> None:
+    from app.application.execution_port import ProviderExecutionResult
+
     if not isinstance(result, ProviderExecutionResult):
         raise TypeError("provider result must be a ProviderExecutionResult")
 
