@@ -3,7 +3,7 @@ from typing import Protocol
 from .capability_aware_provider_dispatch import ProviderCapability
 from .execution_port import ProviderExecutionResult, validate_provider_execution_result
 from .provider_capability_registry import ProviderCapabilityRegistry
-from .execution_request_freshness import (
+from app.domain.execution_request_freshness import (
     ExecutionRequestFreshnessPolicy,
     ExecutionRequestFreshnessStatus,
     assess_execution_request_freshness,
