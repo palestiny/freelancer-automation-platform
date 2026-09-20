@@ -11,6 +11,7 @@ from app.domain.evidence_learning_handoff import EvidenceHandoffType, EvidenceLe
 
 def _handoff():
     return EvidenceLearningHandoff(
+        handoff_id="handoff-1",
         business_id="b1",
         metric_name="profit",
         unit="EGP",
@@ -37,7 +38,7 @@ def test_memory_entry_preserves_handoff_lineage_and_context():
         unit="EGP",
         category=EvidenceHandoffType.POLICY_REVIEW,
         statement="Review the operating assumption against observed evidence.",
-        source_handoff_id="mem-1",
+        source_handoff_id="handoff-1",
         observation_ids=("obs-1", "obs-2"),
         recorded_at=recorded_at,
         evidence_quality=80,
