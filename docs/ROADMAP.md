@@ -1,530 +1,119 @@
 # Roadmap
 
 ## Phase 0 — Product & Architecture
+**Status: ESTABLISHED**
 
-Define product boundaries, domain model, economics, architecture, security, integration strategy, observability, experimentation, and engineering workflow.
-
-**Status:** Economic Opportunity OS direction approved; modular-monolith and provider-independent domain boundaries established.
+Economic Opportunity OS direction, modular-monolith architecture, provider-independent domain boundaries, replaceable AI/capability integrations, evidence taxonomy, progressive autonomy, and safety boundaries are established.
 
 ## Phase 1 — Opportunity Intelligence
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- marketplace-independent opportunity contracts
-- opportunity types
-- normalization
-- six-dimensional evaluation where applicable
-- configurable policy
-- evidence and uncertainty
-- persistence
-- API/dashboard exposure
-
-**Status:** Domain foundations and TDD coverage implemented. Persistence/API/UI remain future slices.
+Marketplace-independent opportunity contracts, opportunity types, six-dimensional evaluation, evidence/uncertainty, and configurable policy foundations exist. Persistence, API, UI, and real marketplace adapters remain future application slices.
 
 ## Phase 2 — Business Economics & Resource Economics
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- economic estimates
-- actual-vs-expected economics
-- resource cost model
-- capacity representation
-- profit and margin reporting
-- risk-adjusted economics
-- opportunity cost
-- economic health metrics and history
-
-**Status:** EconomicEstimate, EconomicProfile, ResourceUsage, ResourceKind, and human-time CapacitySnapshot foundations implemented. Actual-vs-expected history, opportunity cost, and historical economics remain future slices.
+Economic estimates, economic profiles, resource usage, human-time capacity, realized economic evidence, economic health/stability evidence, and bounded opportunity-cost evidence exist. Portfolio allocation and financial execution remain outside scope.
 
 ## Phase 3 — Market Intelligence & Demand Discovery
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- market observations
-- demand signals
-- competitor/trend observations
-- source provenance
-- evidence quality
-- demand-to-opportunity transformation
-
-**Status:** Initial provider-independent MarketObservation and DemandSignal foundation implemented. Source normalization, trend detection, competitor analysis, and persistence remain future slices.
+Market observations and demand signals exist with provenance/evidence quality. Normalization, trend intelligence, competitor intelligence, and persistence remain future slices.
 
 ## Phase 4 — Business Model & Venture Discovery
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- business-model hypotheses
-- multiple models per demand signal
-- venture thesis
-- venture evaluation
-- venture lifecycle
-- low-touch recurring-revenue attributes
-
-**Status:** Domain foundations implemented.
+Business-model hypotheses, venture evaluation/lifecycle, and recurring-revenue/automation attributes exist.
 
 ## Phase 5 — Venture Validation & Experimentation
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- validation experiment model
-- cheapest credible validation path
-- measurable hypotheses
-- controlled variants
-- experiment outcomes
-- explicit promotion/rejection
-
-**Status:** Provider-independent validation experiment foundation implemented. External execution, statistical methodology, scheduling, and automated promotion remain future work.
+Validation experiments, explicit variants, measurable results, and explicit promotion/rejection decisions exist. External experiment execution remains future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
+**Status: STRATEGIC DESIGN ONLY**
 
-Build:
-- economic posture rules
-- opportunity prioritization
-- capacity-aware allocation
-- capital constraints
-- opportunity cost
-- portfolio objectives
-- evidence-adjusted capital allocation
-- human approval controls
-- protection of stable profitable assets
-
-**Status:** Design direction exists; portfolio allocation and capital execution are intentionally not implemented.
-
-No automatic capital movement until explicit policy and safety design are approved.
+Portfolio posture, allocation policy, opportunity prioritization, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 
 ## Phase 7 — Revenue Engine
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- demand acquisition
-- offer design
-- pricing
-- conversion
-- delivery
-- retention
-- expansion
-- recurring revenue
-
-**Status:** Provider-independent RevenueContract and RevenueEvent foundation implemented. Payment execution, reconciliation, invoicing, and automatic pricing remain future work.
+Revenue contracts and realized revenue events exist. Payment execution, reconciliation, invoicing, and automatic pricing remain future work.
 
 ## Phase 8 — Capability & Project Execution
+**Status: PARTIAL / FOUNDATIONS IN PLACE**
 
-Build:
-- capability registry
-- capability selection
-- execution planning
-- task execution
-- verification
-- delivery preparation
-- execution monitoring
-
-**Status:** Core capability/execution orchestration is not yet implemented. Provider-independent domain foundations exist elsewhere in the roadmap; this phase remains future implementation work.
+Capability/execution contracts and the current generic execution boundary exist, but full marketplace/provider capability execution remains future work.
 
 ## Phase 9 — Client Communication & Service Operations
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- communication state machine
-- requirement clarification
-- negotiation support
-- feedback interpretation
-- revision planning
-- redelivery
-- client success
-
-**Status:** Provider-independent SocialPresence, IncomingMessage, ResponseDraft, authorization, escalation, and SentMessage foundation implemented. External delivery remains future work.
+Provider-independent presence, incoming messages, classification, drafts, authorization, escalation, and sent-message contracts exist. External delivery remains future work.
 
 ## Phase 10 — Measurement, Business Memory & Learning
+**Status: OPERATIONAL FOUNDATION IMPLEMENTED**
 
-Build:
-- expected vs actual metrics
-- variance analysis
-- revenue/cost/margin tracking
-- delivery time
-- acceptance and revision metrics
-- capability performance
-- venture/business performance
-- business memory
-- learning signals
-
-**Status:** Phase 16 now contains the dedicated outcome/measurement/learning foundation. Phase 10 remains the broader cross-domain measurement/memory destination; the implemented Phase 16 work is the first operational foundation for that direction.
+Expected-vs-actual measurement, business performance history, windows, aggregation, trend/baseline comparison, evidence quality, source reliability, learning signals, and improvement handoffs exist.
 
 ## Phase 11 — Progressive Autonomy
+**Status: V1 EXECUTION BOUNDARIES IMPLEMENTED**
 
-Build:
-- policy versioning
-- autonomy levels
-- approval workflows
-- controlled optimization
-- safe automation boundaries
-- auditability
+Authorization, autonomy bounds, human-approval requirements, safety blocks, execution preparation, provider-independent outcomes, recovery policy, execution coordination, retry policy, durable retry infrastructure, worker dispatch, and provider-failure handling exist.
 
-**Status:** Autonomy boundaries and approval principles are established. Full policy/versioning/approval infrastructure remains future work.
+**Next slice:** finite retry worker runtime loop.
 
 ## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
+**Status: STRATEGIC DIRECTION**
 
-Add:
-- multiple marketplace adapters
-- productized/managed services
-- SaaS/API businesses
-- games and digital products
-- partnerships/acquisitions
-- investment research
-- web/Windows/mobile interfaces
-
-**Status:** Strategic direction approved. Adapters and interfaces remain future work.
-
-Interfaces must not duplicate business logic.
+Marketplace adapters, multi-business interfaces, Windows/mobile/web interfaces, and broader business types remain future application slices. Business isolation is already a domain invariant.
 
 ## Phase 13 — Marketing & Growth Automation
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- positioning and offer definition
-- campaign domain and policy
-- organic/paid channel planning
-- content/post planning
-- authorized social presence
-- lead acquisition
-- customer/comment monitoring
-- policy-bound response handling
-- campaign measurement
-- CAC, conversion, revenue, and ROAS analysis
-- controlled campaign experiments
-- campaign-to-business economic learning
-
-**Status:** Campaign, communication, and campaign-optimization foundations implemented. External advertising/social integrations and real spend remain future work.
+Campaigns, measurable performance, optimization policy, communication boundaries, and non-executing recommendations exist. External ad/social integrations and real spend remain future work.
 
 ## Phase 14 — Business Operations & Multi-Business Execution
+**Status: FOUNDATION IMPLEMENTED**
 
-Build:
-- business identity and lifecycle
-- operational cycles
-- work item lifecycle
-- explicit business ownership/isolation
-- provider-independent execution meaning
-- operational outcome evidence
-
-**Status:** Business, OperationalCycle, and WorkItem foundations implemented. Scheduling, workers, external execution, and cross-business optimization remain future work.
+Business identity, lifecycle, operational cycles, work items, outcomes, and business isolation exist. General scheduling and production worker infrastructure remain future work.
 
 ## Phase 15 — Campaign Optimization & Budget Policy
+**Status: FOUNDATION IMPLEMENTED**
 
-Build controlled optimization around measured campaign performance:
-- optimization policy
-- evidence sufficiency
-- budget adjustment recommendations
-- pause/continue recommendations
-- hard budget limits
-- explicit authorization boundaries
-
-**Status:** Provider-independent recommendation foundation implemented. External execution and automatic spend remain future work.
+Evidence-gated optimization recommendations, budget limits, and authorization boundaries exist. Automatic spend remains outside the current boundary.
 
 ## Phase 16 — Operational Measurement & Learning Integration
+**Status: CLOSED FOR CURRENT DETERMINISTIC SURFACE**
 
-Build the missing bridge between operating businesses and the learning loop:
-- work-item outcome observations
-- expected-vs-actual operational measurements
-- business performance history
-- variance analysis
-- learning signals
-- evidence-linked improvement recommendations
-- explicit policy/experiment handoff
-
-**Status:** Provider-independent operational outcome, measurement, learning-signal, improvement-handoff, historical aggregation, trend/baseline comparison, evidence eligibility, provenance, source-reliability, evidence-aware operational learning, and the first statistical evidence capabilities are implemented across Phases 16–17. Persistence and external execution remain future work.
+Performance history, explicit windows, historical aggregation, trend comparison, baseline eligibility, provenance compatibility, source reliability, and evidence-aware operational learning are implemented and hardened.
 
 ## Phase 17 — Statistical Learning & Inference
+**Status: CLOSED FOR CURRENT V1 METHOD SURFACE**
 
-Build statistical evidence capabilities only through concrete, independently gated use cases.
+Student's t mean uncertainty and Welch's two-sample historical mean comparison are implemented and hardened. The statistical surface is extended only by concrete downstream use cases with dedicated design gates.
 
-**Status:** CLOSED for the current V1 statistical-method boundary. Student's t mean uncertainty and Welch's two-sample historical mean comparison are implemented and hardened. Further methods require a concrete downstream consumer and dedicated design gate.
+## Current Cross-Phase Pipeline
 
-### Phase 17 — Statistical Learning & Inference
+**Observe → Normalize → Measure → Compare → Infer → Compose Evidence → Handoff → Review Policy → Authorize → Prepare → Execute → Observe Outcome → Recover / Learn**
 
-**Status:** CLOSED for the current V1 statistical-method boundary.
+The pipeline deliberately separates evidence, policy, authorization, and execution.
 
-Implemented and verified:
-- Student's t mean uncertainty for an explicit historical mean.
-- Welch's two-sample historical mean comparison for two explicit non-overlapping windows.
-- explicit applicability and validation precedence.
-- unique observation lineage and method provenance.
-- standard-library numerical hardening and regression coverage.
+## Current Runtime Boundary
 
-No forecasting, causal inference, anomaly detection, automatic method selection, policy mutation, portfolio allocation, persistence, or external execution is included.
+The latest approved design is the finite retry worker runtime loop. Implementation must preserve durable command identity, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and observable failure.
 
-**Next boundary:** identify a concrete downstream consumer of statistical evidence before adding another statistical method or automatic integration.
+## Future Strategic Work
 
-## Guiding Rule
+- production marketplace/provider adapters
+- persistence/API/UI integration
+- broader business-model execution
+- business memory and cross-domain learning
+- controlled experimentation infrastructure
+- portfolio posture and allocation policy
+- progressive autonomy beyond the current bounded execution runtime
 
-The roadmap grows the platform from a measurable freelance laboratory into a multi-business economic operating system without prematurely implementing every future capability.
+## Engineering Rule
 
-Each increment is complete only when applicable design, RED/GREEN TDD, review/refactoring, documentation, tests, commit/push, and project-state update are completed and verified.
+**UNDERSTAND → MAP → DESIGN → TRADE-OFFS → DECIDE → RED → GREEN → HARDEN → DOCUMENT → CI → MERGE → RECONCILE**
 
-
-### Phase 16 — Business Performance History Foundation
-
-Phase 16 includes normalized business performance history, deterministic windows, historical aggregation, descriptive trend comparison, baseline eligibility, provenance compatibility, source reliability, and evidence-aware operational learning. Persistence and statistical inference remain future work.
-
-### Phase 16 — Deterministic Performance Windows
-
-Added `PerformanceWindow`, explicit start-inclusive/end-exclusive selection, and rolling-window construction. These primitives support deterministic historical evidence; statistical inference is implemented separately in Phase 17.
-### Phase 16 — Historical Performance Aggregation
-
-The Phase 16 foundation now includes deterministic per-metric aggregation inside explicit performance windows. Aggregates preserve raw observation identifiers and separate actual summaries from expected-derived summaries. Generic V1 aggregation intentionally avoids universal summation semantics. Statistical inference is implemented separately in Phase 17; persistence and automated external learning remain future work.
-
-### Phase 16 — Evidence & Baseline Policy
-
-Build:
-- evidence-aware baseline eligibility
-- minimum observation requirements
-- evidence-quality thresholds
-- explicit baseline freshness
-- explainable baseline rejection
-
-**Status:** V1 deterministic evidence-aware baseline eligibility foundation implemented. Automatic baseline selection remains future work; statistical inference is implemented separately in Phase 17.
-
-### Phase 16 — Performance Trend & Baseline Analysis
-
-Added a deterministic comparison foundation for explicit current and baseline windows. Comparisons report descriptive average changes and preserve observation provenance. Forecasting, seasonality, anomaly detection, and policy decisions remain future work; bounded significance testing is implemented separately in Phase 17.
-
-### Phase 16 — Bounded Performance Comparison Policy
-
-Build:
-- baseline eligibility enforcement
-- current evidence sufficiency
-- temporal window ordering
-- explicit comparison rejection reasons
-- descriptive trend handoff
-
-**Status:** V1 deterministic comparison-policy foundation implemented. Forecasting remains future work; statistical inference is implemented separately in Phase 17.
-
-### Phase 16 — Performance Evidence Provenance
-
-Build:
-- preserve source-type provenance in historical aggregates
-- require compatible provenance context for descriptive comparisons
-- retain raw observation identifiers as authoritative lineage
-- keep provenance separate from source-reliability scoring
-
-**Status:** V1 provenance-preserving aggregation foundation implemented. Source reliability scoring is implemented separately; causal attribution remains future work.
-
-### Phase 16 — Performance Source Reliability Policy
-
-The Measurement & Learning foundation now includes a provider-independent source-reliability policy. Reliability is explicitly policy-derived and remains separate from observation-level evidence quality. Mixed-source aggregates use the weakest configured source reliability, and missing source configuration blocks eligibility. No provider ranking, causal inference, automatic action, or policy mutation is introduced.
-
-### Phase 16 — Baseline Reliability Integration
-
-Baseline eligibility can now optionally incorporate the explicit source-reliability policy. Source reliability is an additional evidence gate alongside observation count, observation-level evidence quality, and freshness; failures remain explainable.
-
-### Phase 16 — Current Evidence Source Reliability
-
-Comparison policy can now optionally require explicit source reliability for current evidence. This complements baseline reliability without duplicating its logic; current observation sufficiency and evidence quality remain separate requirements.
-
-### Phase 16 — Evidence-Aware Operational Learning
-
-Operational learning now requires an explicit minimum average evidence-quality threshold in addition to repeated observations and material variance. The default preserves the existing evidence baseline, and learning remains a non-executing evidence signal.
-
-### Phase 16 — Closure Review
-
-Current foundation is complete for the deterministic evidence/measurement slice. Before introducing statistical inference, persistence, or external execution, review semantic duplication, policy composition, provenance invariants, and test coverage as a dedicated design gate.
-
-
-### Phase 16 — Closure Review Completed
-
-**Status:** CLOSED for the deterministic domain slice. Semantic policy composition, provenance, temporal boundaries, evidence lineage, and test coverage were reviewed. No additional cross-domain abstraction was justified. Statistical inference, persistence, and external execution remain future capabilities requiring dedicated design gates.
-
-
-## Phase 17 — Statistical Learning & Inference
-
-**Status:** CLOSED for the current V1 statistical-method boundary. Two narrow statistical use cases are implemented and verified: Student's t mean uncertainty and Welch's two-sample historical mean comparison.
-
-Next boundary: identify a concrete downstream consumer for statistical evidence before adding another method or automatic integration.
-
-
-### Phase 17 — Statistical Evidence Composition Consumer
-
-**Status:** V1 downstream consumer implemented and verified. Existing Welch statistical evidence can now be composed with explicit evidence-quality and source-reliability gates without universal scoring or automatic action.
-
-Next extension remains consumer-driven and requires a dedicated design gate if it changes the statistical surface or introduces a new decision-support semantic.
-
-
-
-
-### Evidence Posture Hardening
-
-**Status:** Completed and CI-verified. Descriptive direction and statistical detection remain explicitly separate; no directional inference is created from statistical significance alone.
-
-
-
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
-
-
-### Evidence Composition Boundary
-
-**Status:** Implemented and hardened. The current V1 boundary exposes descriptive performance direction and inferential statistical detection as separate evidence dimensions. It is intentionally non-decisioning; further automation requires an explicit policy/design gate.
-
-
-### Phase 2 — Actual-vs-Expected Economic Performance
-
-**Status:** V1 economic performance history foundation implemented and CI-verified. Estimates remain separate from realized outcomes; profitability and variance can now be represented as historical evidence. Aggregation, economic health history, opportunity cost, and execution remain future slices.
-
-
-### Phase 2 — Economic Performance Aggregation
-
-**Status:** V1 deterministic historical aggregation implemented and CI-verified. Raw realized outcomes remain authoritative; aggregates are derived views only. Economic health/stability policy remains a separate future slice.
-
-
-### Phase 2 — Economic Health & Stability Evidence
-
-**Status:** V1 descriptive evidence implemented and CI-verified. Profitability and stability are now measurable from realized outcomes without a universal health score or automatic business posture.
-
-
-### Economic Health Window Hardening
-
-**Status:** Completed and CI-verified. Economic health evidence is now explicitly window-scoped and lineage-safe.
-
-
-### Phase 2 — Economic Stability Policy
-
-**Status:** V1 configurable eligibility policy implemented and CI-verified. Stable profitability is now expressible as an explicit policy result with deterministic reasons, without automatic portfolio action.
-
-
-### Economic Stability Evidence Support
-
-**Status:** V1 consumer implemented and CI-verified. Economic health metrics and stability-policy eligibility can now be consumed together without collapsing them into a score or automatic business/portfolio action.
-
-
-### Phase 2 — Capacity Opportunity Cost Evidence
-
-**Status:** V1 bounded evidence artifact implemented and CI-verified. Opportunity cost is represented without automatic allocation, ranking, capital movement, or execution.
-
-
-### Evidence-to-Decision Support Handoff
-
-**Status:** V1 explicit non-executing handoff implemented and CI-verified. Policy review remains a separate future consumer; the handoff does not authorize action.
-
-
-### Evidence-to-Decision Handoff Hardening
-
-**Status:** Contract aligned with the approved design gate and CI-verified. The handoff preserves full evidence context and lineage and explicitly separates policy review from authorization/execution.
-
-**Next boundary:** policy review itself requires a dedicated policy/design gate before implementation.
-
-
-### Evidence Policy Review
-
-**Status:** V1 policy-evaluation consumer implemented and CI-verified. Policy satisfaction is explicitly separated from authorization and execution. The next action-authorization boundary remains gated by a dedicated design decision.
-
-
-### Action Authorization & Progressive Autonomy
-
-**Status:** V1 authorization artifact implemented and CI-verified. Authorization is separate from execution; autonomy limits, human approval, and safety blocks are explicit. Execution adapters remain a future boundary.
-
-
-### Authorized Execution Request Boundary
-
-**Status:** V1 non-executing request artifact implemented and CI-verified. Authorization can prepare an idempotent execution request, but no external execution occurs. Provider execution remains a future boundary.
-
-
-### Authorized Execution Outcome Contract
-
-**Status:** V1 provider-independent outcome artifact implemented and CI-verified. External provider execution, retry, scheduling, compensation, and side effects remain outside the domain boundary.
-
-
-### Execution Outcome Policy
-
-**Status:** V1 policy assessment implemented and CI-verified. Retry eligibility is evidence/policy output only; actual retry, scheduling, compensation, and provider execution remain outside the domain boundary.
-
-
-### Execution Recovery Handoff
-
-**Status:** V1 non-executing recovery handoff implemented and CI-verified. Recovery remains an orchestration concern; this domain artifact does not schedule or execute retries.
-
-
-### Provider Execution Adapter Port
-
-**Status:** V1 application-layer port implemented and CI-verified. It dispatches only prepared authorized requests and translates adapter results into ExecutionOutcome. Concrete provider integration remains a separate future boundary.
-
-
-### Execution Adapter Runtime Contract Hardening
-
-**Status:** V1 runtime result validation implemented and CI-verified. Untyped or malformed provider results cannot cross into the provider-independent outcome boundary.
-
-
-### Execution Adapter Timestamp Contract Hardening
-
-**Status:** Completed and CI-verified. Provider result timestamps are explicitly timezone-aware before translation into execution outcomes.
-
-
-### Execution Coordination & Outcome Handoff
-
-**Status:** V1 application coordination implemented and CI-verified. Prepared execution requests now have an explicit composition path through provider outcome assessment and recovery handoff without introducing orchestration side effects.
-
-
-### Execution Attempt History
-
-**Status:** V1 provider-independent attempt evidence implemented and verified. Repeated execution observations are now representable without introducing retry scheduling or provider-specific orchestration.
-
-
-### Execution Attempt History Consistency
-
-**Status:** V1 evidence-consistency validation implemented and CI-verified. Outcome/history identity and latest-attempt agreement are explicit; missing attempt numbers remain evidence rather than inferred state.
-
-
-### Execution Policy & Attempt History Integration
-
-**Status:** V1 history-consistent retry assessment implemented and CI-verified. Outcome/history mismatches block policy assessment; actual retry orchestration remains outside the domain boundary.
-
-
-### History-Consistent Execution Recovery
-
-**Status:** V1 history-aware recovery handoff implemented and CI-verified. Inconsistent execution history blocks recovery intent creation; scheduling and external recovery execution remain outside the domain boundary.
-
-
-### History-Aware Execution Coordination
-
-**Status:** V1 implemented and CI-verified. Immutable attempt history is now the authoritative observed attempt-count source for the history-aware coordination boundary. External recovery remains non-executing.
-
-
-### History-Aware Execution Result Contract Hardening
-
-**Status:** Completed and CI-verified. Coordination outputs now use concrete provider-independent domain types; behavioral and execution boundaries remain unchanged.
-
-
-### Execution Retry Orchestration & Scheduling
-
-**Status:** Runtime-neutral orchestration implemented and CI-verified. Authorization revalidation, durable idempotency contracts, stale-context protection, ambiguous scheduler outcomes, concurrency/claiming semantics, and persistence failure handling are covered by the current application boundary. Concrete infrastructure adapters remain a separate integration phase.
-
-
-### Execution Retry Command & Scheduler Ports
-
-**Status:** V1 provider-independent command and port contracts implemented and CI-verified. Concrete persistence/scheduler adapters and workers remain separate integration boundaries.
-
-
-### Performance Evidence Policy State
-
-**Status:** V1 evidence-state boundary implemented and verified. Downstream automation remains explicitly outside this boundary.
-
-
-### Durable Retry Command Persistence
-
-**Status:** V1 SQLite RetryCommandStore implemented and CI-verified. Concrete scheduler, worker, queue, and provider adapters remain separate integration boundaries.
-
-
-### Durable Retry Scheduler Adapter
-
-**Status:** V1 SQLite scheduler adapter implemented and CI-verified, including scheduler identity and concurrency hardening. Worker execution and external provider execution remain separate boundaries.
-
-
-### Retry Execution Claim & Handoff
-
-**Status:** V1 claim boundary implemented and CI-verified. Scheduled retry commands can now produce an explicit execution handoff without executing a provider action. Completion/outcome handling remains the next separate boundary.
-
-
-### Retry Execution Outcome Handoff
-
-**Status:** V1 outcome handoff implemented and CI-verified. Successful execution can close a retry command; non-success outcomes go to manual review without automatic retry. Further retry policy remains a separate boundary.
-
-
-### Retry Worker Dispatch Boundary
-
-**Status:** V1 single-command worker dispatch implemented and CI-verified. Claim, revalidation, provider dispatch, and outcome handoff are explicit; worker loop/infrastructure and automatic retry remain separate boundaries.
-
-
-### Retry Worker Provider Failure Handoff
-
-**Status:** V1 provider-failure handoff implemented and CI-verified. Provider exceptions transition successfully persisted claims to manual review; persistence failures remain explicit. Automatic retry, compensation, and rescheduling remain separate boundaries.
+No new infrastructure or policy is introduced merely because a lower-level capability exists.

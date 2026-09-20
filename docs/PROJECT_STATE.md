@@ -1,35 +1,12 @@
 # Project State
 
-## Current Phase
+## Current Status
 
-**Phase 17 — Statistical Learning & Inference (Current V1 Statistical Surface Closed)
+**Current delivery boundary: Progressive Autonomy → Execution Runtime**
 
-Phase 16 deterministic measurement and learning scope is closed. Phase 17's current V1 statistical surface is closed after two bounded statistical use cases: Student's t mean uncertainty and Welch's two-sample historical mean comparison. Further statistical methods require a concrete downstream consumer and dedicated design gate.
+The repository has completed provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing, business operations, deterministic measurement/learning, bounded statistical inference, evidence composition, policy review, authorization, execution preparation, execution outcomes, recovery assessment, execution coordination, immutable attempt history, retry policy, durable retry persistence/scheduling, execution claims, retry outcomes, and single-command worker dispatch.
 
-The project has completed the provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing optimization, and multi-business operations. The operational outcomes → measurement → learning bridge is now implemented as a provider-independent domain foundation.
-
-## Verified Test / CI State
-
-- The repository contains one canonical GitHub Actions CI workflow: `.github/workflows/ci.yml`.
-- CI run **277** for PR #17 completed successfully with the full test suite: 206 passed. PR #18 documentation reconciliation was then verified by CI run **279**, which also completed successfully. The merged PR is now in `main`; a post-merge `main` workflow result has not been independently exposed by the current repository workflow interface.
-- CI is intentionally dependency-minimal at this stage: it installs pytest directly because the repository currently has no `requirements.txt` or `pyproject.toml`.
-
-## Implemented Domain Foundations
-
-- Opportunity types and evidence taxonomy.
-- Six-dimensional Opportunity Evaluation foundations.
-- Business Model Hypothesis.
-- Venture evaluation and lifecycle.
-- EconomicEstimate and EconomicProfile.
-- ResourceUsage and human-time CapacitySnapshot.
-- MarketObservation and DemandSignal.
-- ValidationExperiment and ExperimentResult.
-- RevenueContract and RevenueEvent.
-- SocialPresence, IncomingMessage, ResponseDraft, authorization, and SentMessage.
-- MarketingCampaign and CampaignPerformanceSnapshot.
-- CampaignOptimizationPolicy and non-executing optimization recommendations.
-- Business lifecycle.
-- OperationalCycle and WorkItem lifecycle.
+The latest merged runtime work is the **retry worker runtime-loop design boundary**. A concrete background daemon/queue framework is not yet implemented.
 
 ## Current Product Direction
 
@@ -37,14 +14,26 @@ The platform is an **Economic Opportunity OS / Business Automation OS**.
 
 Freelancing is the first laboratory, not the permanent architectural boundary.
 
-The broader loop is:
-
 **Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
 
-## Opportunity Evaluation
+The architecture remains a modular monolith with provider-independent domain contracts and replaceable adapters.
 
-The original six dimensions remain committed for applicable opportunity contexts:
+## Architecture Rules
 
+- AI is a replaceable capability, not the domain owner.
+- Marketplace, marketing, payment, execution, persistence, and infrastructure integrations remain replaceable adapters/ports.
+- External observations, normalized evidence, derived analysis, hypotheses, decisions, authorization, and execution outcomes remain separate semantic layers.
+- Learning produces evidence/recommendations; it does not silently mutate policy.
+- Authorization is separate from execution.
+- Execution preparation is separate from execution.
+- Execution outcomes are observations, not automatic retry instructions.
+- Retry policy is separate from retry orchestration.
+- Retry orchestration is separate from provider execution.
+- Financial execution and automatic capital movement remain outside the current product boundary.
+
+## Opportunity Intelligence
+
+The applicable six dimensions remain:
 1. Eligibility
 2. Requirement Fit
 3. Estimated Effort
@@ -52,18 +41,11 @@ The original six dimensions remain committed for applicable opportunity contexts
 5. Client / Project Risk
 6. Success Confidence
 
-Criterion-level evidence and uncertainty remain mandatory.
+Criterion-level evidence and uncertainty are preserved. Overall outcomes are QUALIFIED, NOT_QUALIFIED, or REVIEW_REQUIRED.
 
-Overall outcomes:
+## Economic Model
 
-- QUALIFIED
-- NOT_QUALIFIED
-- REVIEW_REQUIRED
-
-## Economic Health
-
-Economic quality is represented as a vector rather than a universal master score:
-
+Economic quality remains multidimensional rather than a universal master score:
 - Profitability
 - Profit Potential
 - Profit Stability
@@ -75,733 +57,94 @@ Economic quality is represented as a vector rather than a universal master score
 - Scalability
 - Evidence Quality
 
-Scores are derived assessments supported by evidence/metrics. Stable profitable businesses remain representable as economically valuable assets even when growth upside is modest.
+Expected economics and realized outcomes remain separate. Economic evidence is explicit-window, lineage-preserving, and non-executing.
 
-## Resource Economics & Capacity
+## Evidence & Measurement
 
-V1 explicitly models:
+The epistemic taxonomy remains:
 
-- resource kind
-- quantity
-- monetary unit cost
-- total resource cost
-- human-time capacity
-- committed/reserved/remaining hours
-- utilization
+**FACT → OBSERVATION → ESTIMATE → ASSUMPTION → HYPOTHESIS → FORECAST → EXPERIMENT_RESULT**
 
-Resource cost and capacity remain separate concepts.
+Operational evidence preserves business ownership, metric/unit identity, explicit windows, expected-vs-actual values, source identity/provenance, observation lineage, evidence quality, and optional source reliability.
 
-## Market Intelligence & Validation
+Deterministic trend/baseline comparison is separate from statistical inference.
 
-The current discovery/validation boundaries are:
+## Statistical Surface
 
-**External Observation → Demand Signal → Opportunity Hypothesis**
-
-and:
-
-**Venture Thesis → Hypothesis → Experiment → Result → Evidence → Explicit Decision**
-
-Experiment results do not silently rewrite policy, economics, venture lifecycle, or portfolio posture.
-
-## Revenue
-
-The revenue boundary is:
-
-**Business Model → Revenue Contract → Realized Revenue Event → Economic Measurement → Learning**
-
-Actual revenue remains distinct from expected revenue. Payment execution remains outside the domain.
-
-## Communication & Growth
-
-Communication:
-
-**Presence → Incoming Message → Classification → Response Draft → Authorization → Sent Message → Learning**
-
-Marketing:
-
-**Campaign → Performance Observation → Optimization Policy → Recommendation → Authorization → External Execution → New Observation**
-
-Recommendations do not execute external actions. Budget limits are hard constraints.
-
-## Business Operations
-
-Operations:
-
-**Business → Operational Cycle → Work Item → Outcome Observation → Measurement / Learning**
-
-Business identity is separate from operational state. Each operational cycle and work item belongs to exactly one business.
-
-Scheduling, workers, provider APIs, credentials, payment execution, automatic capital movement, and AI model selection remain outside the domain.
-
-## Current Implementation Slice
-
-Phase 16 — Operational Measurement & Learning Integration is implemented through deterministic performance history, explicit windows, aggregation, descriptive trend comparison, baseline eligibility, provenance compatibility, source-reliability policy, and evidence-aware operational learning.
-
-The current boundary remains domain-only. Statistical inference, persistence, provider integration, automatic experiment execution, automatic policy mutation, and financial execution remain outside the implementation.
-
-Phase 17's statistical surface is closed and now has bounded downstream consumers: statistical evidence composition, descriptive/inferential performance evidence composition, and explicit evidence decision recording. These consumers preserve evidence lineage and do not generate or execute decisions.
-
-
-## Opportunity Evaluation Model
-
-The original six Opportunity Intelligence dimensions remain committed for their applicable opportunity context:
-
-1. Eligibility
-2. Requirement Fit
-3. Estimated Effort
-4. Economic Fit
-5. Client / Project Risk
-6. Success Confidence
-
-Criterion-level evidence and uncertainty remain mandatory.
-
-Overall outcomes:
-
-- QUALIFIED
-- NOT_QUALIFIED
-- REVIEW_REQUIRED
-
-Numeric scoring is not required for the first Opportunity Intelligence slice.
-
-## Economic Health Model
-
-Economic quality is represented separately from the six-dimensional Opportunity Evaluation model.
-
-The V1 Economic Profile contains bounded 0–100 scores for:
-
-1. Profitability
-2. Profit Potential
-3. Profit Stability
-4. Demand Stability
-5. Safety
-6. Recurring Revenue
-7. Automation
-8. Capital Efficiency
-9. Scalability
-10. Evidence Quality
-
-The platform deliberately does **not** collapse these into a universal master score.
-
-Scores are derived assessments. Future scoring policies may change formulas, thresholds, evidence requirements, time windows, and baselines without changing business or opportunity identity.
-
-A stable profitable business must be representable as an economically valuable asset even when its theoretical growth upside is modest.
-
-Future portfolio postures may include:
-
-- PROTECT
-- MAINTAIN
-- OPTIMIZE_CAREFULLY
-- GROW
-- HARVEST
-- TURNAROUND
-- EXIT
-
-These are policy-derived actions, not intrinsic business properties.
-
-## Resource Economics & Capacity
-
-V1 now has explicit domain foundations for resource consumption and human-time capacity.
-
-Resource usage captures:
-
-- resource kind
-- quantity
-- monetary unit cost
-- derived total cost
-
-Supported resource kinds:
-
-- HUMAN_TIME
-- CAPABILITY_USAGE
-- INFRASTRUCTURE
-- COMMUNICATION
-- MARKETPLACE_FEE
-- REVIEW_TIME
-
-Capacity snapshots capture:
-
-- planning period
-- total human-time hours
-- committed hours
-- reserved hours
-- remaining hours
-- utilization
-
-Capacity remains operational constraint data. It is not itself a profitability or economic-health score.
-
-## Broader Opportunity Model
-
-Supported opportunity types now include:
-
-- Freelance
-- Service
-- Product
-- SaaS
-- Game
-- Digital Asset
-- Recurring Revenue
-- Partnership
-- Investment
-- Acquisition
-
-These are not forced into one universal evaluation algorithm.
-
-## Venture Evaluation
-
-The broader venture model evaluates:
-
-- Market Demand
-- Market Size
-- Competition
-- Capital Requirement
-- Time to Revenue
-- Recurring Revenue Potential
-- Automation Potential
-- Scalability
-- Risk
-- Evidence Quality
-- Strategic Fit
-- Exit / Expansion Potential
-
-The evaluation remains evidence-aware and explainable.
-
-## Evidence Model
-
-The domain distinguishes:
-
-FACT → OBSERVATION → ESTIMATE → ASSUMPTION → HYPOTHESIS → FORECAST → EXPERIMENT_RESULT
-
-These labels represent epistemic status, not a ranking of value.
-
-## Business Model Discovery
-
-The domain can represent multiple business-model hypotheses for the same opportunity, including service, productized service, managed service, SaaS, API, digital product, game, white-label, subscription, and partnership models.
-
-Recurring revenue and automation intensity are explicit attributes.
-
-## Venture Pipeline
-
-**DISCOVERED → RESEARCHING → THESIS_CREATED → ECONOMICALLY_EVALUATED → VALIDATION_REQUIRED → MVP → EARLY_REVENUE → PROVEN → SCALE**
-
-A venture can be killed through explicit lifecycle transitions.
-
-## Current Implementation Boundary
-
-Still domain-only:
-
-- domain models
-- domain services
-- domain value objects
-- domain tests
-
-Still outside the current slice:
-
-- marketplace SDKs
-- real marketplace credentials
-- persistence
-- HTTP/API
-- UI
-- AI provider dependencies
-- financial execution
-- automatic capital movement
-
-## Next Design Gates
-
-1. Identify a concrete downstream consumer for the existing statistical evidence surface.
-2. Persistence/API when required by a concrete application boundary.
-3. Portfolio posture and allocation policy as a future strategic domain.
-
-## Learning Loop
-
-**Expected → Actual → Variance → Learning Signal → Controlled Policy/Experiment Improvement**
-
-Learning must not silently rewrite policy.
-
-## Project Health Rule
-
-A meaningful increment is done only after applicable design, RED/GREEN TDD, review, refactoring, documentation, passing tests, commit/push, and project-state update.
-
-
-## Marketing & Growth Direction
-
-The platform now explicitly supports the thesis that existing competitive markets can contain valid opportunities. Competition is an evaluation input, not an automatic rejection rule.
-
-A validated Service, Game, SaaS, Product, Digital Asset, or other business can move into a growth loop:
-
-**Build → Market → Sell → Operate → Measure → Learn → Experiment**
-
-The first provider-independent marketing campaign foundation is implemented:
-
-- campaign objectives
-- controlled channels
-- lifecycle state
-- budget limit
-- authorization state
-- performance snapshot
-- CTR
-- conversion rate
-- CAC
-- ROAS
-
-No real ad spend, social credentials, account creation, provider APIs, or automatic public communication are implemented in the current domain-only slice.
-
-## Current Next Design Gates
-
-1. Phase 17 statistical learning/inference use-case definition and design closure.
-2. Persistence / API only when a concrete product boundary requires it.
-3. Portfolio posture and allocation policy remains a future strategic domain.
-
-## Current Implementation Addition
-
-`app/domain/marketing_campaign.py` is the provider-independent foundation for campaign lifecycle and measurable campaign performance.
-
-## Market Intelligence & Demand Discovery
-
-The first Market Intelligence foundation is now implemented.
-
-Provider-independent domain objects represent:
-
-- external market observations
-- source provenance
-- observation time
-- evidence quality
-- derived demand signals
-- demand strength
-- supporting observation count
-
-The boundary is explicit:
-
-**External Observation → Demand Signal → Opportunity Hypothesis**
-
-Market observations do not become business truth automatically, and existing competitive demand remains valid input for opportunity discovery.
-
-## Updated Current Next Design Gates
-
-1. Venture Validation / Experimentation.
-2. Revenue Engine / Recurring Revenue.
-3. Social Presence & Customer Communication.
-4. Campaign Optimization & Budget Policy.
-5. Portfolio posture and allocation policy.
-6. Market Intelligence normalization, trend, and source-reliability follow-up.
-
-## Venture Validation & Experimentation
-
-The validation foundation now represents a measurable, bounded experiment independently of any provider.
-
-A ValidationExperiment preserves:
-
-- hypothesis
-- objective
-- success criterion
-- controlled variants
-- budget limit
-- explicit lifecycle
-
-ExperimentResult preserves:
-
-- outcome: VALIDATED / INVALIDATED / INCONCLUSIVE
-- observed measurement
-- success-criterion status
-- evidence statement
-- explicit decision: PROMOTE / REJECT / CONTINUE_TESTING
-
-An experiment result is evidence and does not silently mutate venture lifecycle, economics, policy, or portfolio posture.
-
-External execution, statistical inference, spending, scheduling, and persistence remain outside this slice.
-
-
-## Revenue Engine / Recurring Revenue
-
-The V1 revenue foundation now separates expected business-model economics from realized revenue observations.
+Phase 17 is closed for the current V1 statistical-method boundary.
 
 Implemented:
+- Student's t mean uncertainty
+- Welch's two-sample historical mean comparison
+- explicit applicability and validation precedence
+- standard-library numerical implementation
+- unique observation lineage
+- statistical evidence composition
 
-- RevenueContract
-- explicit ONE_TIME / RECURRING revenue type
-- explicit recurring periods
-- RevenueEvent for realized revenue
-- provider-independent currency and amount representation
+No additional statistical method is currently authorized without a concrete consumer/use case and dedicated design gate.
 
-Payment execution, refunds, reconciliation, invoicing, and automatic pricing remain outside the current domain slice.
+## Decision-Support Surface
 
+The current evidence pipeline is:
 
-## Social Presence & Customer Communication
+**Descriptive Evidence + Statistical Evidence → Evidence Composition → Evidence Handoff → Policy Review → Authorization → Execution Preparation → Execution → Outcome / Recovery Evidence**
 
-Implemented the provider-independent communication foundation:
+Decision-support remains non-executing. It does not create universal scores, rankings, automatic portfolio actions, policy mutation, or external side effects.
 
-- SocialPresence
-- IncomingMessage
-- MessageClassification
-- ResponseDraft
-- explicit response authorization
-- escalation requirement
-- SentMessage
+Descriptive direction and inferential detection remain separate. Disagreement is preserved rather than hidden.
 
-External account creation, credentials, publishing, and message delivery remain outside the domain.
+## Execution & Retry Surface
 
+The current runtime-neutral execution boundary includes:
+- prepared authorized execution requests
+- provider-independent execution outcomes
+- outcome policy assessment
+- recovery handoffs
+- application-layer ExecutionPort
+- execution coordination
+- immutable execution-attempt history
+- history-consistent retry assessment
+- retry command identity
+- replaceable durable retry persistence
+- replaceable durable retry scheduling
+- atomic execution claim
+- retry outcome handoff
+- single-command worker dispatch
+- provider failure → manual review
 
-## Operational Measurement & Learning
+The latest approved boundary is a **finite retry worker runtime loop**. It is not yet a background service, queue framework, or continuously running daemon.
 
-The first operational learning foundation is now implemented:
+## Current Domain / Infrastructure Boundary
 
-**Work Item → Outcome Observation → Operational Measurement → Variance → Learning Signal → Improvement Recommendation**
+Implemented:
+- domain models, value objects, policies, evidence artifacts, and tests
+- application-layer execution coordination/ports
+- concrete SQLite retry persistence/scheduling adapters
+- bounded single-command worker dispatch
+- explicit runtime-loop design contract
 
-Implemented domain objects:
+Still outside the current boundary:
+- real marketplace/provider integrations and credentials
+- UI/dashboard
+- production background daemon/queue infrastructure
+- distributed leases/worker pools
+- automatic retry beyond the explicitly designed runtime loop
+- payment execution
+- automatic capital movement
+- portfolio allocation execution
+- AI provider selection/execution policy
+- cross-business resource optimization
 
-- WorkItemOutcomeObservation
-- OperationalMeasurement
-- BusinessPerformanceSnapshot
-- LearningSignal
-- ImprovementRecommendation
+## Current Next Engineering Boundary
 
-The domain preserves expected and actual values separately, derives variance, enforces business ownership, and requires an explicit policy-review or experiment handoff for improvement recommendations.
+Before implementing a continuous worker runtime, the approved runtime-loop contract must be reconciled against termination semantics, bounded work consumption, idle behavior, command ordering, repeated invocation, failure visibility, authorization/policy revalidation, concurrency, duplicate-claim safety, and observability.
 
-Learning remains evidence/recommendation, not silent policy mutation.
+No queue framework or daemon semantics should be introduced implicitly.
 
-Repeated-variance learning policy and multi-source evidence are now implemented. Historical persistence, scheduling, statistical inference, automatic experiment execution, provider integrations, and financial execution remain future work.
+## Documentation Integrity Rule
 
+This file is the canonical current-state summary. Historical implementation details belong in the decision log and dedicated design gates, not as repeated chronological appendices here.
 
-## Current Implementation Addition — Business Performance History
+## Completion Rule
 
-The Phase 16 foundation now includes a normalized business-level performance history:
-
-**Operational / Revenue / Campaign Evidence → BusinessPerformanceObservation → BusinessPerformanceHistory → Variance / Learning**
-
-The normalized observation preserves source type/source identifier, business ownership, metric/unit, optional expected value, actual value, observation time, and evidence quality. Variance is derived only when an expectation exists.
-
-BusinessPerformanceHistory enforces single-business isolation and provides deterministic chronological ordering, metric/unit filtering, and latest-observation access.
-
-This is a normalized evidence view, not a replacement for source domains and not a policy or execution mechanism.
-
-Those evidence/provenance, baseline, and bounded comparison foundations are now implemented. The next engineering work is a Phase 16 closure review before introducing statistical learning or infrastructure.
-
-## Current Implementation Addition — Evidence-Aware Measurement Learning
-
-Operational measurements now carry bounded evidence quality. Repeated-variance learning derives the resulting LearningSignal evidence quality from the average quality of its contributing measurements.
-
-The implementation therefore no longer relies on the previous neutral evidence baseline. Rich provenance and more advanced evidence aggregation remain future policy/design work.
-
-The latest implementation slices remain domain-only. CI has been verified green on the relevant pull-request runs; no claim is made about an unexposed post-merge run.
-
-## Current Implementation Addition — Performance Windows
-
-Phase 16 now has deterministic time-window primitives for business performance history. Window selection is explicit and does not infer trends, aggregate across businesses, or mutate policy.
-## Current Measurement Addition — Historical Aggregation
-
-The current Phase 16 foundation now includes deterministic historical aggregation through `app/domain/performance_aggregation.py`.
-
-The aggregate is:
-- business/metric/unit scoped
-- restricted to an explicit performance window
-- traceable to source observation IDs
-- based on actual count/average/minimum/maximum
-- based on expected values only where expectations exist
-- evidence-quality aware
-
-Missing expectations are not converted to zero, and zero expectations do not create relative variance. No provider, persistence, statistical inference, or automatic policy mutation has been introduced.
-
-## Immediate Next Slice
-
-Trend comparison and evidence-aware baseline eligibility are now implemented. The next measurement slice is a bounded comparison/learning policy over eligible baselines, still deterministic and without premature statistical inference.
-
-## Current Measurement Addition — Performance Trend & Baseline
-
-Phase 16 now includes `app/domain/performance_trend.py`, providing a deterministic comparison between two compatible `PerformanceAggregate` instances.
-
-The comparison:
-- requires explicit current and baseline windows
-- preserves business, metric, and unit identity
-- reports current/baseline averages
-- derives absolute change
-- derives relative change only when the baseline average is non-zero
-- preserves source observation identifiers
-- carries evidence quality for both windows
-
-A missing window produces no comparison. The result is descriptive evidence, not a forecast, recommendation, or policy decision.
-
-Statistical inference remains deliberately deferred.
-
-
-## Current Measurement Addition — Evidence & Baseline Policy
-
-The Measurement & Learning domain now includes an explicit evidence-aware baseline eligibility policy. A supplied historical aggregate can be assessed against minimum observation count, minimum average evidence quality, and explicit maximum age. Future baselines are rejected, and every ineligible result has a deterministic reason. The policy does not select baselines, forecast, mutate policy, or execute actions.
-
-Eligible historical evidence is now consumed by the bounded comparison policy. Statistical inference remains deliberately deferred.
-
-## Current Measurement Addition — Bounded Performance Comparison
-
-Phase 16 now includes an explicit comparison-policy foundation. A comparison first requires an eligible baseline, then checks current observation count and evidence quality, business/metric/unit compatibility, and non-overlapping temporal windows.
-
-A successful result is the existing descriptive PerformanceTrend. Rejected comparisons return an explicit reason. No forecasting, statistical inference, ranking, scoring, policy mutation, or external execution was introduced.
-
-The evidence/provenance enrichment and bounded comparison slices are now implemented. Statistical learning remains deliberately deferred until its own design gate.
-
-## Current Measurement Addition — Performance Evidence Provenance
-
-Phase 16 now preserves source-type provenance in PerformanceAggregate alongside raw observation identifiers. A comparison rejects current/baseline aggregates with incompatible source provenance, preventing identical metric/unit labels from silently crossing evidence domains.
-
-Raw observations remain authoritative. This slice does not introduce source-reliability scoring, causal attribution, statistical inference, persistence, provider integration, or automatic policy mutation.
-
-## Current Measurement Addition — Performance Source Reliability Policy
-
-Phase 16 now has an explicit `PerformanceSourceReliabilityPolicy` and `SourceReliabilityAssessment` foundation. Source reliability is policy-derived and separate from observation-level evidence quality. Mixed-source aggregates are assessed conservatively using the weakest configured source reliability, while missing source configuration blocks eligibility with an explicit reason.
-
-This remains a provider-independent eligibility input. It does not rank providers, infer causality, forecast, mutate policy, or execute external actions.
-
-The latest Phase 16 reliability changes were verified through the merged pull-request CI lineage; no unexposed post-merge workflow is assumed green.
-
-## Current Measurement Addition — Baseline Reliability Integration
-
-Baseline eligibility now optionally consumes `PerformanceSourceReliabilityPolicy`. This preserves the distinction between source reliability and observation-level evidence quality while making reliability a real eligibility gate. Existing baseline policies without source reliability retain their prior behavior.
-
-The comparison layer continues to consume `BaselineEligibility` without duplicating reliability logic.
-
-## Current Measurement Addition — Current Evidence Source Reliability
-
-`PerformanceComparisonPolicy` now optionally requires source reliability for current aggregates. Current reliability is an additional gate beside observation sufficiency and evidence quality, with explicit missing/insufficient rejection reasons. Baseline reliability remains owned by `PerformanceBaselinePolicy`.
-
-## Current Measurement Addition — Evidence-Aware Operational Learning
-
-`OperationalLearningPolicy` now includes `minimum_average_evidence_quality`. Learning signals require sufficient evidence quality as well as minimum observations and material average relative variance. The default threshold remains 50 to preserve the existing measurement evidence baseline. The policy does not mutate source measurements or execute actions.
-
-## Current Measurement Addition — Provenance Compatibility Hardening
-
-Performance comparison now treats source-type provenance as an unordered set of evidence domains rather than an ordered tuple. Compatibility still requires exact source-domain membership. Reliability assessment state is also validated so the eligibility flag cannot contradict its reason.
-
-
-## Phase 16 Closure Review — Closed
-
-Phase 16 deterministic measurement and evidence scope has completed its semantic closure review. Policy ownership, provenance compatibility, temporal boundaries, evidence lineage, and test coverage were reviewed without introducing a premature generic evidence abstraction. The deterministic domain boundary is now considered closed. Statistical inference, persistence, provider integration, and external execution require separate future design gates.
-
-
-## Next Design Gate — Phase 17 Statistical Learning & Inference
-
-Phase 16 deterministic measurement/evidence scope is closed. The next candidate capability is statistical learning and inference, but implementation is intentionally blocked until a concrete statistical use case, assumptions, insufficient-data behavior, and evidence/provenance semantics are defined in `docs/DESIGN_GATE_PHASE_17_STATISTICAL_LEARNING_AND_INFERENCE.md`.
-
-
-## Current Implementation Addition — Phase 17 Statistical Mean Uncertainty Hardening
-
-The first Phase 17 statistical use case is now hardened. Applicability is explicitly consumer-declared; invalid context and invalid values take precedence over applicability failure; observation IDs must be unique; confidence levels are validated; and Student's t numerical evaluation has standard-library regression coverage.
-
-
-## Current Implementation Addition — Phase 17 Historical Mean Comparison
-
-The second Phase 17 statistical use case is now implemented and verified: a provider-independent two-sided Welch's two-sample t-test compares means from two explicit, non-overlapping historical windows for the same business/metric/unit. V1 uses alpha 0.05, requires at least two observations per window, preserves both observation lineages, and keeps applicability consumer-declared. The result remains evidence only and does not mutate policy, learning, business state, or execution.
-
-
-## Phase 17 Closure — Current Statistical Method Boundary
-
-Phase 17's current V1 statistical-method surface is closed. It contains Student's t mean uncertainty and Welch's two-sample historical mean comparison. Both are provider-independent evidence artifacts with explicit assumptions, statuses, context, lineage, and non-executing boundaries. Further statistical methods require a concrete downstream consumer and dedicated design gate.
-
-
-## Phase 17 — Statistical Evidence Consumer
-
-The first downstream consumer of the closed statistical surface is now implemented as a provider-independent evidence-composition boundary.
-
-StatisticalEvidenceComposition consumes the existing Welch historical mean comparison together with explicit current/baseline evidence quality and source-reliability assessments. It produces explicit evidence eligibility, explicit eligibility reason, bounded statistical interpretation, and preserved method identity and observation lineage.
-
-It does not produce a universal score, ranking, business posture, recommendation, policy mutation, learning mutation, portfolio action, or external execution.
-
-
-
-
-## Evidence Posture Hardening
-
-The performance evidence decision-support layer was hardened so statistical detection is never described as directional alignment. V1 reports descriptive direction and inferential detection as separate evidence dimensions; a statistically detected difference does not establish that the change is improving or declining.
-
-
-
-
-## Performance Evidence Decision Support
-
-V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Evidence Composition Closure
-
-The current V1 performance evidence decision-support boundary is hardened and semantically closed. It preserves descriptive direction, inferential detection, statistical difference direction, and observation lineage as separate evidence. It does not infer business improvement from statistical significance and does not produce decisions or actions.
-
-
-## Phase 2 — Economic Performance History
-
-V1 now has an explicit actual-vs-expected economic performance foundation. Economic estimates remain immutable expectations; realized outcomes are separate evidence with derived profit, margin, and revenue/cost/profit/effort variances. History is isolated by business and preserves outcome lineage. No scoring, forecasting, capital allocation, or financial execution is introduced.
-
-
-## Phase 2 — Economic Performance Aggregation
-
-V1 now includes explicit-window aggregation of realized economic outcomes. The aggregate preserves business identity, time window, outcome lineage, realized revenue/cost/profit/effort averages, and actual-vs-expected variance averages. Empty windows remain missing evidence rather than zero economics. No economic scoring, forecasting, capital allocation, or execution is introduced.
-
-
-## Phase 2 — Economic Health & Stability Evidence
-
-V1 now exposes descriptive economic health/stability evidence from realized outcomes: profitability rate, profit range, sample profit variability, average margin where available, and profit per effort hour where available. This is evidence only; it does not score, rank, forecast, allocate capital, mutate policy, or execute financial actions.
-
-
-## Economic Health Window Hardening
-
-Economic health evidence now requires an explicit start-inclusive/end-exclusive window and preserves that window in the evidence artifact. This closes the previous mismatch between the approved design gate and the implementation boundary.
-
-
-## Economic Stability Policy
-
-V1 now has an explicit, configurable stability-eligibility policy over economic-health evidence. It evaluates observation sufficiency, profitable-outcome rate, average actual profit, and profit variability. The result is explainable eligibility evidence only; it does not rank businesses, assign universal scores, select portfolio postures, forecast, allocate capital, mutate policy, or execute financial actions.
-
-
-## Economic Numeric Validity Hardening
-
-Economic estimates and realized economic outcomes now reject non-finite numeric values before derived economics are calculated. This prevents NaN/infinite contamination of profitability, variance, stability, and downstream evidence.
-
-
-## Economic Stability Evidence Support
-
-A bounded consumer now composes economic health evidence with the explicit economic stability policy result. Profitability metrics, variability, eligibility, and outcome lineage remain separate and preserved. No universal score, portfolio posture, capital allocation, forecasting, policy mutation, or financial execution is introduced.
-
-
-## Capacity Opportunity Cost Evidence
-
-V1 now represents bounded opportunity-cost evidence for constrained capacity. The artifact preserves selected versus alternative expected profit and the derived foregone value without ranking alternatives or making allocation decisions.
-
-
-## Evidence-to-Decision Support Handoff
-
-A non-executing handoff artifact now separates composed performance evidence from future policy review. Valid evidence may require policy review, while context-invalid evidence is blocked from the handoff. No action is authorized by this boundary.
-
-
-## Evidence-to-Decision Handoff Hardening
-
-The handoff contract now preserves descriptive direction, inferential status, combined posture, and separate current/baseline/statistical observation lineage. It explicitly marks valid evidence as requiring policy review while preventing context-invalid evidence from entering that review boundary. The handoff still authorizes no action.
-
-
-## Evidence Policy Review
-
-The first policy-review consumer is now implemented as an explicit, immutable, provider-independent evaluation boundary. It evaluates only supplied evidence against an explicitly configured policy: allowed descriptive directions, optional statistical-detection requirement, and optional evidence-completeness requirement. Results are deterministic and non-executing. Policy review does not authorize, recommend, rank, mutate state, or execute actions.
-
-
-## Action Authorization & Progressive Autonomy
-
-V1 now has an explicit authorization artifact between policy review and execution. Authorization preserves policy identity/version, requested and maximum autonomy, action class, status, and human-approval requirement. L3 execution-with-approval is explicitly human-gated. Irreversible external and financial action classes are safety-blocked in this domain slice. No execution is performed.
-
-
-## Authorized Execution Request Boundary
-
-V1 now separates authorization from execution with a non-executing AuthorizedExecutionRequest artifact. Only an AUTHORIZED action can become PREPARED. Rejected authorization states cannot cross this boundary. Request identity and idempotency key are explicit, while provider credentials, queues, workers, scheduling, network calls, and external side effects remain outside the domain.
-
-
-## Authorized Execution Outcome
-
-The execution boundary now includes a provider-independent outcome artifact. A prepared authorized request may be represented as succeeded, failed, rejected, or unknown after an adapter reports an outcome. The domain records the evidence only; provider calls, retries, scheduling, compensation, billing, policy mutation, and external side effects remain outside the domain.
-
-
-## Execution Outcome Policy
-
-V1 now has a provider-independent, non-executing execution-outcome policy assessment. Observed outcomes can be classified as accepted, retry-eligible, manual-review-required, or terminal failure using explicit retry-code and attempt limits. The assessment preserves request identity and idempotency and does not retry, schedule, compensate, authorize, mutate policy, or execute.
-
-
-## Execution Recovery Handoff
-
-V1 includes a non-executing recovery handoff derived from execution-outcome policy assessment. Retry-eligible outcomes can be represented as a retry handoff, unknown outcomes require manual review, and accepted/terminal outcomes produce no recovery mode. The handoff preserves request identity and idempotency and performs no scheduling, retry, compensation, provider call, or external side effect.
-
-
-## Performance Evidence Provenance Hardening
-
-The performance evidence decision-support artifact now keeps statistical direction unavailable whenever the statistical evidence itself is unavailable or ineligible. Raw statistical observation lineage remains preserved independently. This prevents downstream consumers from treating an ineligible inferential result as an actionable directional conclusion.
-
-
-## Provider Execution Adapter Port
-
-V1 now has an application-layer ExecutionPort between authorized execution requests and future provider adapters. Only PREPARED AuthorizedExecutionRequest values may cross the dispatch boundary; provider results are translated into the existing provider-independent ExecutionOutcome artifact. No concrete provider integration, retry engine, scheduler, queue, credentials, or external side effect is introduced by this boundary.
-
-
-## Execution Adapter Runtime Contract Hardening
-
-The provider execution port now rejects untyped adapter results and malformed status/timestamp values before request identity validation and outcome creation. The boundary remains provider-independent and non-authorizing.
-
-
-## Execution Adapter Timestamp Contract Hardening
-
-Provider execution results now require timezone-aware observation timestamps. This makes execution evidence temporally unambiguous at the adapter boundary while preserving the existing non-authorizing, provider-independent outcome contract.
-
-
-## Execution Coordination & Outcome Handoff
-
-V1 now composes the existing prepared execution request, provider execution port, execution outcome policy, and recovery handoff in one application-layer coordination boundary. The coordinator preserves provider-independent evidence and does not select providers, retry, schedule, compensate, authorize, mutate policy, or execute external actions beyond invoking the supplied ExecutionPort.
-
-
-### Execution Attempt History
-
-**Status:** V1 immutable execution-attempt evidence implemented and CI-verified. Each provider attempt preserves request/idempotency identity, explicit attempt number, outcome, timestamp, and optional external reference. Retry scheduling and execution remain outside the domain.
-
-
-## Execution Attempt History Consistency
-
-V1 now validates that an observed ExecutionOutcome is consistent with its immutable ExecutionAttemptHistory. The boundary preserves request/idempotency identity, reports observed attempt count, and validates latest-attempt agreement. It does not infer missing attempts or require contiguous attempt numbers, and it performs no retry, scheduling, authorization, execution, compensation, or policy mutation.
-
-
-## Execution Policy & Attempt History Integration
-
-Execution outcome policy assessment now has an explicit history-aware boundary. The observed execution outcome must be consistent with immutable attempt history before retry policy assessment is produced, and the assessment uses the observed history count rather than an independently supplied attempt count. This remains non-executing: no retry is scheduled or performed.
-
-
-## History-Consistent Execution Recovery
-
-V1 recovery handoff can now be composed only after immutable execution attempt history is verified consistent with the observed outcome. The composition preserves history-derived attempt count and existing retry/manual-review semantics while remaining non-executing.
-
-
-## History-Aware Execution Coordination
-
-V1 application coordination now derives execution attempt numbers from immutable attempt history, records the provider outcome as an explicit attempt, and then performs history-consistent policy assessment and recovery handoff. Callers no longer provide an independent attempt count in this boundary. No retry, scheduling, authorization, compensation, or additional external action is introduced.
-
-
-## History-Aware Execution Result Contract Hardening
-
-The history-aware execution coordination result now exposes concrete provider-independent domain types for outcome, policy assessment, and recovery handoff. This removes an avoidable type-safety gap without changing coordination behavior or execution boundaries.
-
-
-## Execution Retry Orchestration Design Boundary
-
-A design-only gate is now approved for review as the next execution boundary. It defines scheduling/idempotency/revalidation concerns while keeping retry orchestration outside the domain. No scheduler, queue, worker, retry loop, or persistence implementation has been introduced.
-
-
-## Retry Orchestration Command Boundary
-
-The first runtime-neutral retry orchestration contracts are implemented and CI-verified. Durable retry command identity, explicit lifecycle/status values, scheduler acknowledgements, and replaceable persistence/scheduler protocols now exist. Concrete persistence, scheduler, worker, and retry-loop adapters remain outside this increment.
-
-
-## Performance Evidence Policy State
-
-The first consumer-facing performance evidence policy state boundary is implemented and CI-verified. It derives explicit evidence states from the existing descriptive trend and inferential evidence without producing recommendations, scores, rankings, policy mutation, learning mutation, portfolio actions, or execution.
-
-
-## Retry Orchestration Runtime-Neutral Closure
-
-The retry orchestration application boundary is implemented and hardened against duplicate command identity, persistence failures, scheduler ambiguity, acknowledgement persistence failure, authorization drift, claim conflicts, and race-sensitive state transitions. Concrete scheduler, durable-store, worker, retry-loop, and provider adapters remain outside the domain/application contract.
-
-
-## Durable Retry Command Store
-
-V1 SQLite persistence adapter is implemented and CI-verified for the existing RetryCommandStore port. Logical retry identity is durable, duplicate commands are deduplicated, claims are atomic within SQLite transaction semantics, scheduler acknowledgements are persisted, and domain state-transition invariants remain authoritative. Scheduler/worker/provider infrastructure remains separate.
-
-
-## Durable Retry Scheduler
-
-V1 SQLite retry scheduling is now a concrete adapter behind the existing RetrySchedulerPort. Scheduler identity is durable and provider-independent, duplicate logical scheduling is reconciled explicitly, and concurrent scheduling is hardened against SQLite locking/race behavior. Scheduler acknowledgement remains evidence; it does not execute a worker or provider action.
-
-
-## Retry Execution Claim & Handoff
-
-V1 now has an explicit provider-independent boundary for claiming scheduled retry work into EXECUTION_IN_PROGRESS and producing a RetryExecutionHandoff. Claiming is not execution; no provider, worker loop, queue, or external side effect is introduced. Completion/failure outcome handling remains a separate boundary.
-
-
-## Retry Execution Outcome Handoff
-
-V1 now consumes an observed ExecutionOutcome for an EXECUTION_IN_PROGRESS retry command and closes the retry state deterministically: success completes the command; non-success outcomes enter manual review. Identity mismatch and persistence failure remain explicit non-recorded failures. No automatic retry, scheduling, compensation, authorization mutation, or provider call is introduced.
-
-
-## Retry Worker Dispatch Boundary
-
-V1 worker dispatch is now implemented as an application boundary for one scheduled retry command at a time. It atomically claims work, revalidates authorization/request identity, dispatches only prepared requests through the existing ExecutionPort, records observed outcomes through the existing retry outcome handoff, and preserves explicit failure/manual-review states. It does not implement a worker loop, queue framework, lease renewal, provider selection, automatic retry, compensation, or authorization mutation.
-
-
-## Retry Worker Provider Failure Boundary
-
-A claimed retry command that encounters a provider exception now attempts an explicit transition to REQUIRES_MANUAL_REVIEW. If that transition cannot be persisted, the application returns an explicit provider-failure persistence error and preserves the in-memory EXECUTION_IN_PROGRESS state; it does not fabricate an execution outcome or retry automatically.
+A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
