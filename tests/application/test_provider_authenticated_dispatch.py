@@ -1,9 +1,10 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
 from app.application.provider_capability_registry import ProviderCapability
 from app.application.execution_port import ProviderExecutionResult
+from app.domain.execution_request_freshness import ExecutionRequestFreshnessPolicy
 from app.application.provider_authenticated_dispatch import (
     dispatch_with_credentials,
 )
@@ -55,6 +56,7 @@ def _request():
         policy_id="policy-1",
         policy_version="1",
         status=ExecutionRequestStatus.PREPARED,
+        prepared_at=datetime(2026, 9, 20, 12, tzinfo=timezone.utc),
     )
 
 
@@ -85,6 +87,8 @@ def test_dispatch_resolves_credential_and_executes_authenticated_adapter():
         capability=ProviderCapability.SEND_MESSAGE,
         credential_reference="cred-1",
         request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
     )
 
     assert result.status is ExecutionOutcomeStatus.SUCCEEDED
@@ -104,6 +108,8 @@ def test_unsupported_capability_rejects_before_credential_resolution():
             capability=ProviderCapability.SUBMIT_PROPOSAL,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert resolver.calls == []
@@ -122,6 +128,8 @@ def test_failed_credential_resolution_rejects_before_provider_execution():
             capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert resolver.calls == [("provider-a", "cred-1")]
@@ -146,6 +154,8 @@ def test_resolution_provider_binding_is_required():
             capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert adapter.calls == []
