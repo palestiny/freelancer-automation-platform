@@ -81,3 +81,10 @@ def test_policy_version_mismatch_cannot_authorize():
         human_approval_granted=True,
     )
     assert result.status is ActionAuthorizationStatus.NOT_AUTHORIZED
+
+
+def test_authorization_preserves_review_evidence_lineage():
+    result = authorize_action(review=_review(), action_class=ActionClass.REVERSIBLE_EXTERNAL, requested_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, maximum_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, policy_id="policy-1", policy_version="1", human_approval_granted=True)
+    assert result.current_observation_ids == ("c1",)
+    assert result.baseline_observation_ids == ("b1",)
+    assert result.statistical_observation_ids == ("s1", "s2")
