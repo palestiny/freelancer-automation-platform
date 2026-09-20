@@ -770,3 +770,8 @@ The first runtime-neutral retry orchestration contracts are implemented and CI-v
 ## Performance Evidence Policy State
 
 The first consumer-facing performance evidence policy state boundary is implemented and CI-verified. It derives explicit evidence states from the existing descriptive trend and inferential evidence without producing recommendations, scores, rankings, policy mutation, learning mutation, portfolio actions, or execution.
+
+
+## Performance Evidence Policy Assessment
+
+V1 now maps the existing descriptive/inferential evidence composition into explicit non-executing evidence states. The assessment preserves uncertainty and provenance and does not mutate policy, learning, lifecycle, portfolio, or execution state.
