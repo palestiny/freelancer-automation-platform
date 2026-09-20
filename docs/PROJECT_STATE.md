@@ -426,3 +426,4 @@ V1 now distinguishes assignment from actual exposure through an immutable exposu
 ## Controlled Experiment Observation Exposure Lineage
 
 V1 now validates that experiment metric observations are attributable to an actual exposure context before downstream experiment evidence uses them. Validation preserves observation/exposure identities and explicitly rejects mismatched context or observations occurring before exposure. This is attribution-safety evidence only; it does not infer causality or select experiment outcomes.
+
