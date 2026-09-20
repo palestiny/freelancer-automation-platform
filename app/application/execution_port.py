@@ -4,6 +4,7 @@ from datetime import datetime
 
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
 from app.domain.execution_outcome import ExecutionOutcome, ExecutionOutcomeStatus
+from app.application.provider_adapter_conformance import validate_provider_execution_result
 
 
 @dataclass(frozen=True)
@@ -39,12 +40,7 @@ def dispatch_execution(*, port: ExecutionPort, request: AuthorizedExecutionReque
     if request.status is not ExecutionRequestStatus.PREPARED:
         raise ValueError("execution dispatch requires a prepared execution request")
     raw = port.execute(request)
-    if not isinstance(raw, ProviderExecutionResult):
-        raise TypeError('execution port must return ProviderExecutionResult')
-    if raw.request_id != request.request_id:
-        raise ValueError("provider result request_id does not match execution request")
-    if raw.idempotency_key != request.idempotency_key:
-        raise ValueError("provider result idempotency_key does not match execution request")
+    validate_provider_execution_result(request, raw)
     return ExecutionOutcome(
         request_id=raw.request_id,
         idempotency_key=raw.idempotency_key,
