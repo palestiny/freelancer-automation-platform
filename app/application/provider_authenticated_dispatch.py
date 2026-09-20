@@ -3,6 +3,11 @@ from typing import Protocol
 from .capability_aware_provider_dispatch import ProviderCapability
 from .execution_port import ProviderExecutionResult, validate_provider_execution_result
 from .provider_capability_registry import ProviderCapabilityRegistry
+from .execution_request_freshness import (
+    ExecutionRequestFreshnessPolicy,
+    ExecutionRequestFreshnessStatus,
+    assess_execution_request_freshness,
+)
 from .provider_credential_resolution import (
     CredentialResolutionResult,
     ProviderCredentialResolver,
@@ -28,7 +33,17 @@ def dispatch_with_credentials(
     capability: ProviderCapability,
     credential_reference: str,
     request: AuthorizedExecutionRequest,
+    freshness_policy: ExecutionRequestFreshnessPolicy,
+    as_of,
 ):
+    freshness = assess_execution_request_freshness(
+        request=request,
+        policy=freshness_policy,
+        as_of=as_of,
+    )
+    if freshness.status is not ExecutionRequestFreshnessStatus.FRESH:
+        raise ValueError(f"execution request freshness rejected: {freshness.reason.value}")
+
     if not isinstance(capability, ProviderCapability):
         raise TypeError("capability must be a ProviderCapability")
 
