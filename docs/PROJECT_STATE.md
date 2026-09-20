@@ -436,3 +436,8 @@ V1 now validates that experiment metric observations are exposure-compatible bef
 ## Controlled Experiment Exposure Assignment Authority
 
 Exposure recording now has a provider-independent application boundary that resolves the authoritative persisted assignment before creating exposure evidence. The older caller-supplied service remains compatible; the hardened boundary prevents an unpersisted or fabricated assignment from becoming authoritative exposure lineage.
+
+
+## Controlled Experiment Exposure Temporal Contract
+
+Exposure recording now enforces the cross-entity temporal invariant that an authoritative exposure timestamp cannot precede its assignment timestamp. This is application-boundary evidence-integrity validation only; it does not imply delivery, causality, lifecycle mutation, or execution.
