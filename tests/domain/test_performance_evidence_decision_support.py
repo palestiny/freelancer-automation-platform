@@ -168,3 +168,17 @@ def test_result_rejects_statistical_detection_with_no_descriptive_change():
             statistical_difference_direction=DescriptiveDirection.IMPROVING,
             current_observation_ids=("c1",), baseline_observation_ids=("b1",),
         )
+
+
+def test_result_rejects_partial_performance_window_boundaries():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.INCREASED, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start=datetime(2026, 2, 1), current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+
+
+def test_result_rejects_missing_statistical_method_when_inference_is_available():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.INCREASED, inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION, statistical_observation_ids=("x",), statistical_difference_direction=DescriptiveDirection.INCREASED, current_observation_ids=("c1",), baseline_observation_ids=("b1",))
