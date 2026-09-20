@@ -1273,3 +1273,8 @@ Experiment outcome summaries may aggregate ready observations by variant for one
 ### D-124 — Controlled Experiment Variant Comparisons Are Neutral Descriptive Evidence
 
 Variant comparison may expose average differences between two explicitly selected variants, but must not imply better/worse, rank variants, select a winner, calculate significance, mutate experiment lifecycle, or execute actions.
+
+
+### D-122 — Controlled Experiment Statistical Comparison Reuses Welch Without Winner Selection
+
+The first inferential controlled-experiment consumer uses the existing Welch two-sample method for exactly two declared variants. The result remains an evidence artifact with explicit applicability and lineage. Statistical significance does not select a winner, establish causality, mutate experiment lifecycle, or authorize execution.
