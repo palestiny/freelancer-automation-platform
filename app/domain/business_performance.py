@@ -46,6 +46,11 @@ class BusinessPerformanceObservation:
         ):
             raise TypeError("actual_value must be numeric")
 
+        if not isinstance(self.observed_at, datetime):
+            raise TypeError("observed_at must be a datetime")
+        if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
+            raise ValueError("observed_at must be timezone-aware")
+
         if not isinstance(self.evidence_quality, int) or isinstance(
             self.evidence_quality, bool
         ):

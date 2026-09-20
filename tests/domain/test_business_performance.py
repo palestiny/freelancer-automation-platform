@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -9,7 +9,7 @@ from app.domain.business_performance import (
 )
 
 
-NOW = datetime(2026, 1, 1, 12, 0, 0)
+NOW = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
 
 
 def observation(
@@ -121,3 +121,22 @@ def test_empty_history_has_no_latest_observation():
 def test_evidence_quality_is_bounded():
     with pytest.raises(ValueError):
         observation("o1", 12, evidence_quality=101)
+
+
+def test_observed_at_must_be_timezone_aware():
+    from datetime import datetime, timezone
+    import pytest
+
+    with pytest.raises(ValueError, match="timezone-aware"):
+        BusinessPerformanceObservation(
+            id="obs-naive",
+            business_id="biz-1",
+            source_type=PerformanceSourceType.OPERATIONAL,
+            source_id="work-1",
+            metric_name="profit",
+            unit="EGP",
+            expected_value=100,
+            actual_value=120,
+            observed_at=datetime(2026, 9, 20),
+            evidence_quality=80,
+        )

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -21,7 +21,7 @@ def item(id: str, at: datetime) -> BusinessPerformanceObservation:
 
 
 def test_window_is_start_inclusive_and_end_exclusive():
-    start = datetime(2026, 1, 1)
+    start = datetime(2026, 1, 1, tzinfo=timezone.utc)
     window = PerformanceWindow(start=start, end=start + timedelta(days=1))
 
     assert window.contains(start)
@@ -35,7 +35,7 @@ def test_window_rejects_invalid_period():
 
 
 def test_history_can_be_scoped_to_a_time_window():
-    start = datetime(2026, 1, 1)
+    start = datetime(2026, 1, 1, tzinfo=timezone.utc)
     history = BusinessPerformanceHistory(
         business_id="business-1",
         observations=(
@@ -50,10 +50,10 @@ def test_history_can_be_scoped_to_a_time_window():
 
 
 def test_rolling_window_ends_at_requested_time():
-    end = datetime(2026, 1, 10)
+    end = datetime(2026, 1, 10, tzinfo=timezone.utc)
     window = rolling_window(end=end, duration=timedelta(days=7))
 
-    assert window.start == datetime(2026, 1, 3)
+    assert window.start == datetime(2026, 1, 3, tzinfo=timezone.utc)
     assert window.end == end
 
 
