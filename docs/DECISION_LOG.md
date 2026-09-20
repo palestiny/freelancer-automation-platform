@@ -1198,3 +1198,8 @@ Preparation copies reviewed observation lineage from the authoritative authoriza
 ### D-126 — Prepared Execution Freshness Is an Explicit Safety Precondition
 
 Prepared execution requests must expose an explicit preparation timestamp when freshness is assessed. Freshness uses an explicit maximum-age policy and explicit as-of time, rejects stale/future/non-prepared requests without mutation, and never re-authorizes or executes requests.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
