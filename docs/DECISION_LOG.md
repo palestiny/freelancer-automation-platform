@@ -1288,3 +1288,8 @@ The first controlled-experiment synthesis layer combines neutral descriptive mov
 ### D-180 — Controlled Experiment Hypothesis Evaluation Is Non-Selecting
 
 An explicit experiment hypothesis may be evaluated against eligible descriptive and inferential evidence, but the policy result must not select/rank variants, infer causality, change allocation, mutate experiment lifecycle, or execute actions.
+
+
+### D-181 — Experiment Hypothesis Results Require an Explicit Review Handoff
+
+Controlled-experiment hypothesis-policy results may be wrapped in an immutable review handoff with explicit identity and preserved observation lineage. The handoff is non-executing and must not select winners, change allocation, mutate lifecycle, or authorize execution.

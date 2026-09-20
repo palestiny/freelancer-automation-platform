@@ -358,3 +358,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Hypothesis Policy
 
 **Status:** V1 explicit hypothesis-policy evaluation implemented and CI-verified. Winner selection, allocation changes, experiment lifecycle mutation, and execution remain separate boundaries.
+
+
+## Controlled Experiment Policy Review Handoff
+
+V1 now has an explicit non-executing handoff from experiment hypothesis-policy evaluation to downstream review. The handoff preserves experiment/metric/direction, exact policy outcome, explicit handoff identity, and observation lineage. It does not authorize or execute actions.
