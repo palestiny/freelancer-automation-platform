@@ -403,3 +403,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Exposure Assignment Authority
 
 **Status:** V1 lineage hardening implemented and CI-verified. Exposure creation can resolve the authoritative persisted assignment before recording exposure; execution, scheduling, causal inference, and lifecycle mutation remain separate.
+
+
+### Controlled Experiment Exposure Temporal Contract
+
+**Status:** V1 temporal validity hardening implemented and CI-verified. Exposure cannot precede its authoritative assignment; delivery, causal inference, lifecycle mutation, and execution remain separate boundaries.
