@@ -208,3 +208,8 @@ V1 includes a bounded downstream evidence-composition layer combining determinis
 ## Current Runtime State Reconciliation
 
 The canonical runtime boundary now includes lifecycle control and recovery coordination. Older sections that describe lifecycle or crash/recovery as the next engineering boundary are historical and should not be treated as open work. The next unresolved implementation target should come from an explicitly unresolved product/infrastructure boundary rather than repeating completed runtime work.
+
+
+## Evidence Review Handoff — Current State
+
+V1 now has an explicit non-executing handoff from composed performance evidence to policy or human review. The handoff preserves descriptive/inferential evidence and observation lineage, but never authorizes or mutates policy or execution.
