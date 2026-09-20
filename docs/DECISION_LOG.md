@@ -1118,3 +1118,8 @@ A non-mutating retry recovery assessment may be applied to durable state only th
 ### D-169 — Retry Status Reconciliation Coordination Is Single-Observation and Non-Retrying
 
 The application recovery coordinator may compose one provider status observation, deterministic reconciliation assessment, and atomic durable state application. It must not poll, schedule, re-execute the provider, or convert confirmed failure into an automatic retry. Ambiguous outcomes remain unchanged and terminal commands are not reopened.
+
+
+### D-122 — Evidence Review Handoff Is Non-Authorizing
+
+The handoff from composed evidence to review is an immutable, non-executing boundary. It preserves evidence and lineage while explicitly preventing authorization or policy mutation.
