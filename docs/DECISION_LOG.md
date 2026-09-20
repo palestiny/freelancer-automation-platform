@@ -1263,3 +1263,8 @@ Experiment assignments and observations are explicit immutable evidence artifact
 ### D-122 — Controlled Experiment Readiness Is Evidence Sufficiency, Not Analysis
 
 Experiment readiness validates context, lineage, per-variant usable observation counts, and evidence quality. It does not infer causality, calculate statistical significance, select a winner, mutate experiment lifecycle, or execute an experiment.
+
+
+### D-123 — Controlled Experiment Outcome Summaries Are Descriptive Evidence
+
+Experiment outcome summaries may aggregate ready observations by variant for one metric, but must not infer causality, calculate statistical significance, rank/select variants, mutate experiment lifecycle, or execute experiments.
