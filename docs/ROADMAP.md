@@ -282,3 +282,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Learning Lineage Hardening
 
 **Status:** V1 handoff identity and memory source-lineage hardening implemented and CI-verified. No learning-policy or execution behavior changed.
+
+
+### Performance Evidence Direction Hardening
+
+**Status:** Implemented and CI-verified. Evidence movement is now neutral at the evidence layer; favorable/unfavorable interpretation remains an explicit policy concern.
