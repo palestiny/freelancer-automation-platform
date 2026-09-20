@@ -396,3 +396,8 @@ V1 now has an explicit non-executing policy consumer for controlled-experiment e
 ## Controlled Experiment Policy Review Handoff
 
 V1 now has an explicit non-executing handoff from experiment hypothesis-policy evaluation to downstream review. The handoff preserves experiment/metric/direction, exact policy outcome, explicit handoff identity, and observation lineage. It does not authorize or execute actions.
+
+
+## Controlled Experiment Authorization Preparation
+
+V1 now has a non-authorizing preparation boundary between an accepted controlled-experiment review decision and the existing generic action-authorization boundary. The preparation artifact preserves review/policy/experiment/metric/lineage context and requires explicit requested action class and autonomy. It does not grant authorization or execute anything.

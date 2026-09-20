@@ -363,3 +363,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ## Controlled Experiment Policy Review Handoff
 
 V1 now has an explicit non-executing handoff from experiment hypothesis-policy evaluation to downstream review. The handoff preserves experiment/metric/direction, exact policy outcome, explicit handoff identity, and observation lineage. It does not authorize or execute actions.
+
+
+### Controlled Experiment Authorization Preparation
+
+**Status:** V1 non-authorizing preparation artifact implemented and CI-verified. Generic action authorization remains a separate explicit boundary; execution is unchanged.

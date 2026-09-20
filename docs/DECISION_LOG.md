@@ -1293,3 +1293,8 @@ An explicit experiment hypothesis may be evaluated against eligible descriptive 
 ### D-181 — Experiment Hypothesis Results Require an Explicit Review Handoff
 
 Controlled-experiment hypothesis-policy results may be wrapped in an immutable review handoff with explicit identity and preserved observation lineage. The handoff is non-executing and must not select winners, change allocation, mutate lifecycle, or authorize execution.
+
+
+### D-122 — Controlled Experiment Review Acceptance Does Not Imply Authorization
+
+An accepted experiment review may produce an explicit authorization-preparation artifact, but authorization remains a separate policy boundary. Requested action class and autonomy are caller-declared, not inferred from experiment evidence, and the preparation artifact never authorizes or executes.
