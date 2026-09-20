@@ -9,7 +9,7 @@ from app.domain.business_performance import (
 )
 
 
-NOW = datetime(2026, 1, 1, 12, 0, 0)
+NOW = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
 
 
 def observation(
