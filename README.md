@@ -174,14 +174,12 @@ Still outside the current slice:
 
 - marketplace SDKs
 - real credentials
-- persistence
-- HTTP/API
-- UI
+- production persistence/API/UI integration beyond the current domain/runtime slices
+- real marketplace/provider credentials and concrete provider integrations
 - AI provider dependencies
 - financial execution
 - automatic capital movement
-- scheduling/calendar integration
-- actual-vs-expected historical measurement
+- production scheduling/calendar integration
 
 ## Engineering Process
 
@@ -242,7 +240,7 @@ Experiments support:
 
 Validation results become evidence. They do not silently change venture state, policy, economics, or portfolio posture.
 
-External execution, real spending, customer communication, statistical inference, persistence, and scheduling remain outside the current domain-only slice.
+External experiment execution, real spending, and provider integrations remain outside the current provider-independent domain boundary.
 
 
 ## Revenue & Recurring Economics
@@ -291,4 +289,15 @@ The first operational learning bridge is now implemented:
 
 The foundation preserves expected and actual values separately, derives variance, keeps measurement explicitly owned by a business, and requires improvement recommendations to hand off explicitly to policy review or experimentation.
 
-Learning is evidence and recommendation, not silent policy mutation. Historical aggregation, persistence, statistical inference, and external execution remain future work.
+Learning is evidence and recommendation, not silent policy mutation. Historical aggregation, statistical inference, evidence composition, policy review, authorization, and bounded execution/recovery foundations are now implemented; production provider integrations and broader application infrastructure remain separate boundaries.
+
+
+## Current Architecture Boundary
+
+The implemented system now extends beyond a domain-only prototype. Provider-independent evidence composition, policy review, authorization, prepared execution, freshness checks, capability/credential boundaries, provider execution ports, outcome observation, recovery assessment/application, retry-worker lifecycle foundations, and learning handoffs are implemented and CI-verified.
+
+The canonical separation remains:
+
+**Evidence → Policy Review → Authorization → Prepared Execution → Safety/Capability/Credential Preconditions → Provider Execution → Outcome Observation → Recovery / Learning**
+
+Concrete provider integrations, production application interfaces, distributed/background infrastructure, and financial execution remain explicit future boundaries rather than implicit dependencies of the domain.
