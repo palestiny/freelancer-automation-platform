@@ -167,3 +167,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Retry Status Reconciliation Coordination
 
 **Status:** V1 application coordination implemented and CI-verified. One provider status observation is composed with deterministic assessment and atomic state application; no polling, automatic retry, or provider re-execution is introduced.
+
+
+### Performance Evidence Decision Support — Current State
+
+**Status:** V1 descriptive + inferential evidence composition is implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
