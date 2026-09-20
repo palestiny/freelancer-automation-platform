@@ -325,3 +325,8 @@ Performance evidence production now uses neutral movement semantics: INCREASED, 
 ## Metric Direction Policy
 
 V1 now separates neutral evidence movement from favorable/unfavorable interpretation. Metric polarity is an explicit provider-independent policy; raw evidence remains unchanged and missing polarity is not inferred from metric names.
+
+
+## Metric Direction Interpretation
+
+The existing metric-polarity policy is now explicitly consumed by performance evidence decision support. Raw movement remains neutral; favorable/unfavorable interpretation is consumer-provided policy and missing polarity remains not interpretable. No recommendation or execution semantics were added.
