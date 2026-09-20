@@ -1243,3 +1243,8 @@ Metric movement remains neutral at the evidence layer. Favorable/unfavorable int
 ### D-177 — Authoritative Performance Observations Are the First Persistence Slice
 
 The first persistence boundary stores normalized BusinessPerformanceObservation records behind an application repository contract. Derived aggregates, trends, statistical evidence, and learning artifacts remain recomputable and are not required to be persisted in V1. The reference SQLite adapter does not commit production database selection.
+
+
+### D-178 — Performance Observation Use Cases Depend on the Application Repository Port
+
+Recording and retrieval of authoritative performance observations are exposed through a provider-independent application service. Infrastructure adapters remain replaceable, and the service does not perform derived analysis or execution.
