@@ -11,10 +11,14 @@ class DecisionSupportOutcome(str, Enum):
 
 @dataclass(frozen=True)
 class EvidenceToDecisionPolicy:
+    policy_id: str
+    version: str
     minimum_evidence_quality: float = 60
     require_statistical_difference: bool = False
 
     def __post_init__(self) -> None:
+        if not self.policy_id.strip() or not self.version.strip():
+            raise ValueError("policy_id and version cannot be empty")
         if not 0 <= self.minimum_evidence_quality <= 100:
             raise ValueError("minimum_evidence_quality must be between 0 and 100")
         if not isinstance(self.require_statistical_difference, bool):
@@ -25,6 +29,14 @@ class EvidenceToDecisionPolicy:
 class EvidenceDecisionSupport:
     outcome: DecisionSupportOutcome
     policy: EvidenceToDecisionPolicy
+
+    @property
+    def policy_id(self) -> str:
+        return self.policy.policy_id
+
+    @property
+    def policy_version(self) -> str:
+        return self.policy.version
 
 
 def evaluate_evidence_to_decision(
