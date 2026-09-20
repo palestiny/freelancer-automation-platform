@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 from .action_authorization import ActionAuthorization, ActionAuthorizationStatus, ActionClass, AutonomyLevel
@@ -18,6 +19,7 @@ class AuthorizedExecutionRequest:
     policy_id: str
     policy_version: str
     status: ExecutionRequestStatus
+    prepared_at: datetime | None = None
     current_observation_ids: tuple[str, ...] = ()
     baseline_observation_ids: tuple[str, ...] = ()
     statistical_observation_ids: tuple[str, ...] = ()
@@ -29,6 +31,8 @@ class AuthorizedExecutionRequest:
                 raise ValueError(f"{name} cannot be empty")
         if self.status is ExecutionRequestStatus.PREPARED and not self.idempotency_key.strip():
             raise ValueError("prepared requests require an idempotency key")
+        if self.prepared_at is not None and self.prepared_at.tzinfo is None:
+            raise ValueError("prepared_at must be timezone-aware")
         for name, ids in (("current_observation_ids", self.current_observation_ids), ("baseline_observation_ids", self.baseline_observation_ids), ("statistical_observation_ids", self.statistical_observation_ids)):
             if len(set(ids)) != len(ids):
                 raise ValueError(f"{name} must be unique")
