@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from math import isclose
 
 import pytest
@@ -11,7 +11,7 @@ from app.domain.statistical_mean_comparison import (
     compare_historical_means,
 )
 
-START = datetime(2026, 1, 1)
+START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 
 
 def item(id: str, actual: float, *, business_id: str = "business-1", at: datetime = START):
