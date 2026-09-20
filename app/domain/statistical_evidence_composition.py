@@ -1,8 +1,6 @@
 from dataclasses import dataclass
-
-from .performance_history import PerformanceWindow
-from math import isfinite
 from enum import Enum
+from math import isfinite
 
 from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
@@ -33,9 +31,6 @@ class StatisticalEvidenceComposition:
     reason: StatisticalEvidenceEligibilityReason
     interpretation: StatisticalEvidenceInterpretation
     alpha: float
-    mean_difference: float | None = None
-    first_window: PerformanceWindow | None = None
-    second_window: PerformanceWindow | None = None
     first_window: PerformanceWindow
     second_window: PerformanceWindow
     current_evidence_quality: float
@@ -71,11 +66,6 @@ class StatisticalEvidenceComposition:
                 raise TypeError("mean_difference must be numeric or None")
             if not isfinite(self.mean_difference):
                 raise ValueError("mean_difference must be finite")
-
-        if self.mean_difference is not None and not isinstance(self.mean_difference, (int, float)):
-            raise TypeError("mean_difference must be numeric or None")
-        if self.first_window is not None and self.second_window is not None and self.second_window.start < self.first_window.end:
-            raise ValueError("statistical windows must not overlap")
 
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
@@ -214,9 +204,6 @@ def _compose(
         reason=reason,
         interpretation=interpretation,
         alpha=comparison.alpha,
-        mean_difference=comparison.mean_difference,
-        first_window=comparison.first_window,
-        second_window=comparison.second_window,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
         mean_difference=comparison.mean_difference,
