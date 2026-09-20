@@ -926,3 +926,8 @@ Retry orchestration commands preserve request identity, provider idempotency ide
 ### D-122 — Performance Evidence States Are Non-Decisioning
 
 The performance evidence policy state is an evidence classification for downstream consumers. It must not be interpreted as an automatic recommendation or execution instruction, and it preserves insufficient inference and descriptive/inferential disagreement explicitly.
+
+
+### D-122 — Performance Evidence State Is Non-Executing
+
+The evidence policy assessment may classify existing evidence into explicit states, but classification is not policy mutation and must not trigger automatic action, learning mutation, portfolio action, or execution.
