@@ -117,3 +117,8 @@ The finite retry worker runtime invocation is implemented. It preserves durable 
 **UNDERSTAND → MAP → DESIGN → TRADE-OFFS → DECIDE → RED → GREEN → HARDEN → DOCUMENT → CI → MERGE → RECONCILE**
 
 No new infrastructure or policy is introduced merely because a lower-level capability exists.
+
+
+### Retry Runtime Observability
+
+**Status:** V1 immutable invocation observation implemented and CI-verified. This records finite runtime outcomes without introducing a metrics backend, daemon, queue, or automatic recovery.

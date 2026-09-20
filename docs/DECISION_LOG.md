@@ -1068,3 +1068,8 @@ A provider exception after an execution claim must not silently leave the comman
 ### D-124 — Finite Retry Worker Invocation Is Externally Bounded
 
 The first runtime implementation consumes at most one durable scheduled retry command per invocation and then stops. It delegates authorization, claim, provider dispatch, and outcome handling to existing authoritative boundaries. Runtime repetition, daemon lifecycle, queues, leases, heartbeats, and worker-pool concurrency require separate design decisions.
+
+
+### D-122 — Finite Retry Runtime Observability Is an Evidence Artifact
+
+Each finite retry runtime invocation may produce an immutable observation containing explicit timestamps, outcome, command identity, dispatch status, and failure code. The observation is descriptive evidence only and does not trigger retries, alerts, policy mutation, or execution.

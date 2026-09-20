@@ -124,6 +124,7 @@ Implemented:
 - explicit runtime-loop design contract
 - finite retry worker runtime invocation
 - deterministic SQLite scheduled-work source
+- immutable retry runtime invocation observations
 
 Still outside the current boundary:
 - real marketplace/provider integrations and credentials
@@ -139,7 +140,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-Before implementing a continuous worker runtime, the finite invocation must be evaluated for repeated invocation semantics, observability, and any future lifecycle/concurrency requirements. The current invocation remains externally controlled and consumes at most one command.
+Before implementing a continuous worker runtime, repeated invocation semantics and lifecycle/concurrency requirements still require a dedicated design gate. V1 invocation observability is now explicit through an immutable observation artifact; no metrics backend or daemon is implied. The current invocation remains externally controlled and consumes at most one command.
 
 No queue framework or daemon semantics should be introduced implicitly.
 

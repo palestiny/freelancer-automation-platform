@@ -1,6 +1,6 @@
 # Design Gate — Retry Runtime Observability
 
-**Status:** APPROVED — V1 invocation observation only.
+**Status:** APPROVED — V1 invocation observation only; implemented and CI-verified.
 
 ## Purpose
 
