@@ -33,6 +33,8 @@ def test_policy_satisfied_when_explicit_conditions_match():
     result = review_evidence_policy(
         handoff=_handoff(),
         policy=PolicyReviewPolicy(
+            policy_id="policy-1",
+            version="1",
             allowed_directions=frozenset({DescriptiveDirection.IMPROVING}),
             require_statistical_detection=True,
             require_complete_evidence=True,
