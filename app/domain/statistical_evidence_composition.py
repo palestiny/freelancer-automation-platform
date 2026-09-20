@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from math import isfinite
 from enum import Enum
+from math import isfinite
 
 from .performance_history import PerformanceWindow
 from .performance_reliability import SourceReliabilityAssessment
