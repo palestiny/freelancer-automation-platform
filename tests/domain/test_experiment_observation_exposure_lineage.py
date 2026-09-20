@@ -39,6 +39,8 @@ def test_matching_exposure_context_is_valid():
         exposure=_exposure(),
     )
     assert result.status is ExposureLineageStatus.VALID
+    assert result.observation_id == "observation-1"
+    assert result.exposure_id == "exposure-1"
 
 
 def test_observation_before_exposure_is_rejected():
@@ -75,3 +77,21 @@ def test_mismatched_variant_is_rejected():
     assert result.status is ExposureLineageStatus.INVALID_CONTEXT
 
 # Regression suite covers context and temporal exposure lineage.
+
+
+def test_subject_mismatch_is_rejected():
+    result = validate_observation_exposure_lineage(
+        observation=_observation(subject_id="subject-2"),
+        exposure=_exposure(),
+    )
+    assert result.status is ExposureLineageStatus.INVALID_CONTEXT
+
+
+def test_observation_at_exact_exposure_time_is_valid():
+    result = validate_observation_exposure_lineage(
+        observation=_observation(
+            observed_at=datetime(2026, 9, 20, 10, tzinfo=timezone.utc)
+        ),
+        exposure=_exposure(),
+    )
+    assert result.status is ExposureLineageStatus.VALID
