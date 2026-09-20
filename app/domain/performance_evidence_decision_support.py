@@ -75,6 +75,8 @@ def compose_performance_evidence(
 ) -> PerformanceEvidenceDecisionSupport:
     if not business_id.strip():
         raise ValueError("business_id cannot be empty")
+    if not statistical_evidence.observation_ids:
+        raise ValueError("statistical evidence must preserve observation lineage")
 
     if (
         statistical_evidence.business_id != business_id
