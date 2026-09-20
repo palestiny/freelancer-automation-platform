@@ -275,3 +275,8 @@ Decision-support policy results now preserve explicit evidence identity and obse
 ## Policy Identity Binding — Current State
 
 The review-to-authorization boundary now preserves the exact policy ID/version used during evidence policy review. Authorization rejects mismatched policy identity or version, preventing a satisfied review from being rebound to a different policy context.
+
+
+## Action Authorization Evidence Lineage
+
+Authorization artifacts now preserve the exact current, baseline, and statistical observation IDs carried by the reviewed evidence. This strengthens traceability without changing authorization semantics or enabling execution.
