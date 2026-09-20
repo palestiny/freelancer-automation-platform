@@ -157,3 +157,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Retry Status Reconciliation Assessment
 
 **Status:** V1 non-mutating assessment implemented and CI-verified. Durable state application, provider polling, automatic retry, and automatic execution remain outside the boundary.
+
+
+### Retry Status Assessment State Application
+
+**Status:** V1 durable application implemented and CI-verified. State mutation uses expected-state compare-and-set; ambiguous outcomes, terminal commands, and stale concurrent applications do not trigger automatic re-execution.
