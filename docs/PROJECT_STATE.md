@@ -391,3 +391,8 @@ V1 now composes the existing neutral two-variant descriptive comparison with the
 ## Controlled Experiment Hypothesis Policy
 
 V1 now has an explicit non-executing policy consumer for controlled-experiment evidence synthesis. A declared directional hypothesis can be evaluated against eligible descriptive and Welch inferential evidence. The result preserves experiment/metric/observation context and reports support, non-support, insufficient evidence, or policy inapplicability. It does not select a winner, rank variants, change allocation, mutate lifecycle, or execute.
+
+
+## Controlled Experiment Policy Review Handoff
+
+V1 now has an explicit non-executing handoff from experiment hypothesis-policy evaluation to downstream review. The handoff preserves experiment/metric/direction, exact policy outcome, explicit handoff identity, and observation lineage. It does not authorize or execute actions.
