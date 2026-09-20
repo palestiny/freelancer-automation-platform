@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from math import isclose
 
 import pytest
@@ -7,7 +7,7 @@ from app.domain.business_performance import BusinessPerformanceObservation, Perf
 from app.domain.performance_history import PerformanceWindow
 from app.domain.statistical_mean_uncertainty import MeanUncertaintyResult, MeanUncertaintyStatus, calculate_mean_uncertainty
 
-START = datetime(2026, 1, 1)
+START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 
 def item(id: str, actual: float, *, at: datetime = START) -> BusinessPerformanceObservation:
     return BusinessPerformanceObservation(
