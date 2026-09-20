@@ -308,3 +308,8 @@ The current implemented pipeline is:
 **Evidence → Policy Review → Authorization → Prepared Execution → Freshness → Capability/Credential Checks → Provider Execution Port → Outcome Observation → Recovery Assessment → Atomic State Application → Learning / Review Evidence**
 
 The next unresolved boundary remains deliberately unselected until a concrete requirement/design gate is established. Candidate areas include provider integrations, production persistence/API/UI, controlled experimentation infrastructure, production background runtime infrastructure, broader business-model execution, cross-domain learning, and progressive autonomy.
+
+
+### Performance Evidence Persistence
+
+**Status:** V1 durable persistence boundary implemented and CI-verified. Authoritative performance observations are persisted through an application repository port with a reference SQLite adapter; derived evidence remains outside this persistence slice.
