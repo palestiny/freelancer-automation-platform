@@ -39,7 +39,7 @@ def test_handoff_preserves_composed_evidence_and_lineage():
     assert handoff.unit == "EGP"
     assert handoff.descriptive_direction is DescriptiveDirection.IMPROVING
     assert handoff.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
-    assert handoff.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+    assert handoff.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     assert handoff.observation_ids == ("a", "b", "c")
 
 
