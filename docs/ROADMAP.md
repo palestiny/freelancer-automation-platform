@@ -247,3 +247,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Action Authorization Evidence Lineage
 
 **Status:** V1 lineage hardening implemented and CI-verified. Authorization remains separate from execution and preserves the reviewed evidence context.
+
+
+### Prepared Execution Request Evidence Lineage
+
+**Status:** V1 traceability hardening implemented and CI-verified. Authorization evidence lineage is preserved into prepared execution requests; execution semantics are unchanged.
