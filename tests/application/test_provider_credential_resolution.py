@@ -51,7 +51,7 @@ def test_resolution_failure_is_explicit_without_fallback():
         credential_reference="cred-2",
     )
     assert result.success is False
-    assert result.failure is CredentialResolutionFailure.NOT_FOUND
+    assert result.failure_reason is CredentialResolutionFailure.NOT_FOUND
     assert result.material is None
 
 
