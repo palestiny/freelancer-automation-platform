@@ -310,3 +310,8 @@ The platform now has an explicit non-executing handoff from eligible composed pe
 ## Business Learning Memory
 
 V1 now has an immutable provider-independent business learning-memory artifact created only from eligible evidence-to-learning handoffs. It preserves business/metric/unit context, handoff category, statement, source handoff identity, observation lineage, explicit timestamp, and evidence quality. It does not persist, rank, score, infer causality, mutate policy, or execute actions.
+
+
+## Learning Lineage Hardening
+
+Evidence learning handoffs now carry an explicit immutable handoff identity. Business learning memory preserves that exact source handoff identity rather than substituting the memory entry ID. This closes the source-lineage gap without changing learning semantics.

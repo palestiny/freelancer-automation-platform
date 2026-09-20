@@ -1218,3 +1218,8 @@ Eligible composed performance evidence may be handed off explicitly to policy re
 ### D-174 — Business Learning Memory Is Immutable Evidence, Not Policy
 
 Learning memory records eligible evidence handoffs as immutable business-owned artifacts with preserved observation lineage. Memory must not rank, score, infer causality, mutate policy, or execute actions.
+
+
+### D-175 — Learning Handoff Identity Is Explicit and Preserved
+
+Evidence-to-learning handoffs require an explicit immutable identity. Learning memory must preserve that exact handoff identity as source lineage; a memory entry ID must never stand in for the source handoff identity.
