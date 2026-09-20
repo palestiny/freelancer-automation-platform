@@ -29,13 +29,17 @@ def _controller(results, *, wakeups=None, stop=None):
 
 
 def test_starts_runs_and_stops_explicitly():
-    controller, stopped = _controller(
-        [
-            RetryWorkerRuntimeResult(RetryWorkerRuntimeOutcome.DISPATCHED),
-        ],
-    )
+    stopped = {"value": False}
 
-    stopped["value"] = True
+    def invoke():
+        stopped["value"] = True
+        return RetryWorkerRuntimeResult(RetryWorkerRuntimeOutcome.DISPATCHED)
+
+    controller = RetryWorkerLifecycleController(
+        invoke_once=invoke,
+        wait_for_wakeup=lambda: True,
+        stop_requested=lambda: stopped["value"],
+    )
     result = controller.run()
 
     assert result.state is RetryWorkerLifecycleState.STOPPED
