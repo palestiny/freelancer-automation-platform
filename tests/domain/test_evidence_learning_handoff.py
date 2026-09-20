@@ -29,11 +29,13 @@ def _support(*, eligible=True):
 
 def test_eligible_evidence_creates_explicit_policy_review_handoff():
     result = create_evidence_learning_handoff(
+        handoff_id="handoff-1",
         evidence=_support(),
         handoff_type=EvidenceHandoffType.POLICY_REVIEW,
         target="profit expectation",
         statement="Historical evidence should be reviewed against the current operating policy.",
     )
+    assert result.handoff_id == "handoff-1"
     assert result.business_id == "b1"
     assert result.handoff_type is EvidenceHandoffType.POLICY_REVIEW
     assert result.observation_ids == ("a", "b")
@@ -42,8 +44,20 @@ def test_eligible_evidence_creates_explicit_policy_review_handoff():
 def test_ineligible_evidence_cannot_be_handed_off():
     with pytest.raises(ValueError, match="eligible"):
         create_evidence_learning_handoff(
+            handoff_id="handoff-2",
             evidence=_support(eligible=False),
             handoff_type=EvidenceHandoffType.EXPERIMENT,
             target="profit expectation",
             statement="Test a revised operating assumption.",
+        )
+
+
+def test_handoff_requires_explicit_identity():
+    with pytest.raises(ValueError, match="handoff_id"):
+        create_evidence_learning_handoff(
+            handoff_id=" ",
+            evidence=_support(),
+            handoff_type=EvidenceHandoffType.POLICY_REVIEW,
+            target="profit expectation",
+            statement="Review evidence.",
         )
