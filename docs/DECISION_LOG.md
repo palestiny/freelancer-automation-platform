@@ -1063,3 +1063,8 @@ Worker dispatch may consume one scheduled retry command through atomic claim, au
 
 A provider exception after an execution claim must not silently leave the command unresolved. V1 attempts a manual-review transition. If persistence fails, the system reports the persistence failure without fabricating an outcome or performing automatic retry/compensation.
 
+
+
+### D-124 — Finite Retry Worker Invocation Is Externally Bounded
+
+The first runtime implementation consumes at most one durable scheduled retry command per invocation and then stops. It delegates authorization, claim, provider dispatch, and outcome handling to existing authoritative boundaries. Runtime repetition, daemon lifecycle, queues, leases, heartbeats, and worker-pool concurrency require separate design decisions.
