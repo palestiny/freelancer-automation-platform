@@ -18,6 +18,9 @@ class AuthorizedExecutionRequest:
     policy_id: str
     policy_version: str
     status: ExecutionRequestStatus
+    current_observation_ids: tuple[str, ...] = ()
+    baseline_observation_ids: tuple[str, ...] = ()
+    statistical_observation_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name in ("request_id", "idempotency_key", "policy_id", "policy_version"):
@@ -26,6 +29,11 @@ class AuthorizedExecutionRequest:
                 raise ValueError(f"{name} cannot be empty")
         if self.status is ExecutionRequestStatus.PREPARED and not self.idempotency_key.strip():
             raise ValueError("prepared requests require an idempotency key")
+        for name, ids in (("current_observation_ids", self.current_observation_ids), ("baseline_observation_ids", self.baseline_observation_ids), ("statistical_observation_ids", self.statistical_observation_ids)):
+            if len(set(ids)) != len(ids):
+                raise ValueError(f"{name} must be unique")
+            if any(not isinstance(value, str) or not value.strip() for value in ids):
+                raise ValueError(f"{name} must contain non-empty strings")
 
 
 def prepare_execution_request(*, request_id: str, idempotency_key: str,
@@ -43,4 +51,7 @@ def prepare_execution_request(*, request_id: str, idempotency_key: str,
         policy_id=authorization.policy_id,
         policy_version=authorization.policy_version,
         status=status,
+        current_observation_ids=authorization.current_observation_ids,
+        baseline_observation_ids=authorization.baseline_observation_ids,
+        statistical_observation_ids=authorization.statistical_observation_ids,
     )
