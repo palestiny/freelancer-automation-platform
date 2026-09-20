@@ -368,3 +368,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Authorization Preparation
 
 **Status:** V1 non-authorizing preparation artifact implemented and CI-verified. Generic action authorization remains a separate explicit boundary; execution is unchanged.
+
+
+### Controlled Experiment Allocation
+
+**Status:** V1 deterministic allocation foundation implemented and CI-verified. Assignment persistence, scheduling/exposure enforcement, provider execution, reallocation, and optimization remain separate boundaries.
