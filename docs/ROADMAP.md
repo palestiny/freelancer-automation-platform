@@ -337,13 +337,3 @@ Next boundary: identify a concrete downstream consumer for statistical evidence 
 **Status:** V1 downstream consumer implemented and verified. Existing Welch statistical evidence can now be composed with explicit evidence-quality and source-reliability gates without universal scoring or automatic action.
 
 Next extension remains consumer-driven and requires a dedicated design gate if it changes the statistical surface or introduces a new decision-support semantic.
-
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
-
-
-### Performance Evidence Support Hardening
-
-Temporal statistical context is explicitly preserved by the evidence-composition artifact; downstream consumers can validate that descriptive and inferential windows refer to the same comparison.
