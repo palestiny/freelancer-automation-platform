@@ -5,7 +5,7 @@ from app.domain.action_authorization import ActionAuthorizationStatus, ActionCla
 
 def _review(status=EvidencePolicyReviewStatus.POLICY_SATISFIED):
     return EvidencePolicyReview(
-        business_id="b1", metric_name="profit", unit="EGP", status=status,
+        business_id="b1", metric_name="profit", unit="EGP", policy_id="policy-1", policy_version="1", status=status,
         reason=EvidencePolicyReviewReason.SATISFIED if status is EvidencePolicyReviewStatus.POLICY_SATISFIED else EvidencePolicyReviewReason.DIRECTION_NOT_ALLOWED,
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
@@ -54,4 +54,30 @@ def test_unsatisfied_policy_cannot_authorize():
     result = authorize_action(review=_review(EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED), action_class=ActionClass.REVERSIBLE_EXTERNAL,
         requested_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, maximum_autonomy=AutonomyLevel.L5_OPTIMIZE_WITHIN_POLICY,
         policy_id="policy-1", policy_version="1", human_approval_granted=True)
+    assert result.status is ActionAuthorizationStatus.NOT_AUTHORIZED
+
+
+def test_policy_identity_mismatch_cannot_authorize():
+    result = authorize_action(
+        review=_review(),
+        action_class=ActionClass.REVERSIBLE_EXTERNAL,
+        requested_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        maximum_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        policy_id="different-policy",
+        policy_version="1",
+        human_approval_granted=True,
+    )
+    assert result.status is ActionAuthorizationStatus.NOT_AUTHORIZED
+
+
+def test_policy_version_mismatch_cannot_authorize():
+    result = authorize_action(
+        review=_review(),
+        action_class=ActionClass.REVERSIBLE_EXTERNAL,
+        requested_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        maximum_autonomy=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
+        policy_id="policy-1",
+        policy_version="2",
+        human_approval_granted=True,
+    )
     assert result.status is ActionAuthorizationStatus.NOT_AUTHORIZED

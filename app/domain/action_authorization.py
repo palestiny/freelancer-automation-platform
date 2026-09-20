@@ -56,6 +56,8 @@ def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
         raise ValueError("policy_id and policy_version cannot be empty")
     if not isinstance(human_approval_granted, bool):
         raise TypeError("human_approval_granted must be bool")
+    if review.policy_id != policy_id or review.policy_version != policy_version:
+        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if review.status is not EvidencePolicyReviewStatus.POLICY_SATISFIED:
         return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if action_class in {ActionClass.IRREVERSIBLE_EXTERNAL, ActionClass.FINANCIAL}:

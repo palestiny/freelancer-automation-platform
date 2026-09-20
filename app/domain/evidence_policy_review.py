@@ -21,11 +21,15 @@ class EvidencePolicyReviewReason(str, Enum):
 
 @dataclass(frozen=True)
 class PolicyReviewPolicy:
+    policy_id: str
+    version: str
     allowed_directions: frozenset[DescriptiveDirection]
     require_statistical_detection: bool
     require_complete_evidence: bool
 
     def __post_init__(self) -> None:
+        if not self.policy_id.strip() or not self.version.strip():
+            raise ValueError("policy_id and version cannot be empty")
         if not self.allowed_directions:
             raise ValueError("allowed_directions cannot be empty")
         if not isinstance(self.require_statistical_detection, bool):
@@ -39,6 +43,8 @@ class EvidencePolicyReview:
     business_id: str
     metric_name: str
     unit: str
+    policy_id: str
+    policy_version: str
     status: EvidencePolicyReviewStatus
     reason: EvidencePolicyReviewReason
     descriptive_direction: DescriptiveDirection
@@ -48,7 +54,7 @@ class EvidencePolicyReview:
     statistical_observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        for name in ("business_id", "metric_name", "unit"):
+        for name in ("business_id", "metric_name", "unit", "policy_id", "policy_version"):
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
         for name, ids in (
@@ -66,33 +72,35 @@ def review_evidence_policy(
     policy: PolicyReviewPolicy,
 ) -> EvidencePolicyReview:
     if handoff.status is EvidenceHandoffStatus.CONTEXT_INVALID:
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.INVALID_CONTEXT)
 
     if policy.require_complete_evidence and handoff.status is EvidenceHandoffStatus.EVIDENCE_INCOMPLETE:
-        return _result(handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
                        EvidencePolicyReviewReason.EVIDENCE_INCOMPLETE)
 
     if handoff.descriptive_direction not in policy.allowed_directions:
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.DIRECTION_NOT_ALLOWED)
 
     if (
         policy.require_statistical_detection
         and handoff.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
     ):
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.STATISTICAL_DETECTION_REQUIRED)
 
-    return _result(handoff, EvidencePolicyReviewStatus.POLICY_SATISFIED,
+    return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_SATISFIED,
                    EvidencePolicyReviewReason.SATISFIED)
 
 
-def _result(handoff, status, reason):
+def _result(policy, handoff, status, reason):
     return EvidencePolicyReview(
         business_id=handoff.business_id,
         metric_name=handoff.metric_name,
         unit=handoff.unit,
+        policy_id=policy.policy_id,
+        policy_version=policy.version,
         status=status,
         reason=reason,
         descriptive_direction=handoff.descriptive_direction,
