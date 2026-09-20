@@ -2,6 +2,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
+from .metric_direction_policy import (
+    MetricDirectionInterpretation,
+    MetricDirectionPolicy,
+    interpret_metric_direction,
+)
 from .performance_history import PerformanceWindow
 from .performance_trend import PerformanceTrend
 from .statistical_evidence_composition import (
@@ -60,6 +65,7 @@ class PerformanceEvidenceDecisionSupport:
     statistical_difference_direction: DescriptiveDirection = DescriptiveDirection.UNAVAILABLE
     current_observation_ids: tuple[str, ...] = ()
     baseline_observation_ids: tuple[str, ...] = ()
+    metric_direction_interpretation: MetricDirectionInterpretation = MetricDirectionInterpretation.NOT_INTERPRETABLE
 
     def __post_init__(self) -> None:
         for name in ("business_id", "metric_name", "unit"):
@@ -127,6 +133,7 @@ def compose_performance_evidence(
     trend: PerformanceTrend,
     statistical_evidence: StatisticalEvidenceComposition,
     business_id: str,
+    metric_direction_policy: MetricDirectionPolicy | None = None,
 ) -> PerformanceEvidenceDecisionSupport:
     if not business_id.strip():
         raise ValueError("business_id cannot be empty")
@@ -144,6 +151,9 @@ def compose_performance_evidence(
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.CONTEXT_INVALID,
             statistical_evidence=statistical_evidence,
+            metric_direction_interpretation=interpret_metric_direction(
+                direction=_descriptive_direction(trend), policy=metric_direction_policy
+            ),
         )
 
     descriptive = _descriptive_direction(trend)
@@ -168,6 +178,9 @@ def compose_performance_evidence(
         inferential_status=inferential,
         posture=posture,
         statistical_evidence=statistical_evidence,
+        metric_direction_interpretation=interpret_metric_direction(
+            direction=descriptive, policy=metric_direction_policy
+        ),
     )
 
 
@@ -178,6 +191,7 @@ def _result(
     inferential_status: InferentialStatus,
     posture: CombinedEvidencePosture,
     statistical_evidence: StatisticalEvidenceComposition,
+    metric_direction_interpretation: MetricDirectionInterpretation,
 ) -> PerformanceEvidenceDecisionSupport:
     difference_direction = (
         _difference_direction(statistical_evidence)
@@ -202,6 +216,7 @@ def _result(
         statistical_difference_direction=difference_direction,
         current_observation_ids=trend.current_observation_ids,
         baseline_observation_ids=trend.baseline_observation_ids,
+        metric_direction_interpretation=metric_direction_interpretation,
     )
 
 
