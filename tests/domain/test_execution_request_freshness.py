@@ -74,3 +74,10 @@ def test_non_prepared_request_is_not_fresh():
         as_of=datetime(2026, 9, 20, 12, tzinfo=timezone.utc),
     )
     assert result.reason is ExecutionRequestFreshnessReason.NOT_PREPARED
+
+
+def test_naive_prepared_timestamp_is_rejected():
+    from pytest import raises
+
+    with raises(ValueError):
+        _request(prepared_at=datetime(2026, 9, 20, 12))
