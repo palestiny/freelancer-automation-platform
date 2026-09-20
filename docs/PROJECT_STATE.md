@@ -401,3 +401,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ## Controlled Experiment Authorization Preparation
 
 V1 now has a non-authorizing preparation boundary between an accepted controlled-experiment review decision and the existing generic action-authorization boundary. The preparation artifact preserves review/policy/experiment/metric/lineage context and requires explicit requested action class and autonomy. It does not grant authorization or execute anything.
+
+
+## Controlled Experiment Allocation
+
+V1 now has a provider-independent deterministic allocation boundary. An immutable plan declares variants and explicit basis-point weights; SHA-256 deterministically maps a subject to one variant. Allocation produces a decision only and does not persist assignments, schedule exposure, execute providers, optimize allocation, or mutate experiment lifecycle.

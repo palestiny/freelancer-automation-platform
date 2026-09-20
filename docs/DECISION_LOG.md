@@ -1298,3 +1298,8 @@ Controlled-experiment hypothesis-policy results may be wrapped in an immutable r
 ### D-122 — Controlled Experiment Review Acceptance Does Not Imply Authorization
 
 An accepted experiment review may produce an explicit authorization-preparation artifact, but authorization remains a separate policy boundary. Requested action class and autonomy are caller-declared, not inferred from experiment evidence, and the preparation artifact never authorizes or executes.
+
+
+### D-124 — Controlled Experiment Allocation Is Explicit and Reproducible
+
+V1 experiment allocation uses an immutable explicit-weight plan and deterministic SHA-256 bucketing. The allocator produces a variant decision only; it does not persist assignments, execute providers, optimize allocation, or mutate experiment lifecycle.
