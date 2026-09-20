@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import pytest
 
@@ -56,6 +56,7 @@ def _request():
         policy_id="policy-1",
         policy_version="1",
         status=ExecutionRequestStatus.PREPARED,
+        prepared_at=datetime(2026, 9, 20, 12, tzinfo=timezone.utc),
     )
 
 
@@ -107,6 +108,8 @@ def test_unsupported_capability_rejects_before_credential_resolution():
             capability=ProviderCapability.SUBMIT_PROPOSAL,
             credential_reference="cred-1",
             request=_request(),
+            freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+            as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert resolver.calls == []
