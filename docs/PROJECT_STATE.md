@@ -315,3 +315,8 @@ V1 now has an immutable provider-independent business learning-memory artifact c
 ## Learning Lineage Hardening
 
 Evidence learning handoffs now carry an explicit immutable handoff identity. Business learning memory preserves that exact source handoff identity rather than substituting the memory entry ID. This closes the source-lineage gap without changing learning semantics.
+
+
+## Performance Evidence Direction Semantics
+
+Performance evidence production now uses neutral movement semantics: INCREASED, DECREASED, and NO_CHANGE. The evidence layer does not infer whether a movement is favorable or unfavorable because metric polarity varies by metric. Existing explicit policy consumers retain compatibility with legacy IMPROVING/DECLINING values during migration.
