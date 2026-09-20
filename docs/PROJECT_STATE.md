@@ -190,3 +190,8 @@ The execution runtime now exposes a provider-independent, non-executing status-o
 ## Retry Status Reconciliation Assessment
 
 A provider status observation can now be consumed with a durable retry command to produce a deterministic, non-mutating recovery assessment. Confirmed success can be identified as completion; confirmed failure/rejection requires manual review; unknown remains ambiguous; terminal commands are never reopened. Applying the assessment to durable state remains a separate boundary.
+
+
+## Retry Status Assessment State Application
+
+The retry recovery pipeline now has an explicit durable-state application boundary. A previously computed recovery assessment can transition a retry command only when the expected durable state still matches. The transition is atomic at the SQLite persistence boundary and preserves immutable command identity. Ambiguous and no-reconciliation assessments remain non-mutating; confirmed failure resolves to manual review rather than automatic retry.
