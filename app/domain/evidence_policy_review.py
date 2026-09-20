@@ -21,11 +21,15 @@ class EvidencePolicyReviewReason(str, Enum):
 
 @dataclass(frozen=True)
 class PolicyReviewPolicy:
+    policy_id: str
+    version: str
     allowed_directions: frozenset[DescriptiveDirection]
     require_statistical_detection: bool
     require_complete_evidence: bool
 
     def __post_init__(self) -> None:
+        if not self.policy_id.strip() or not self.version.strip():
+            raise ValueError("policy_id and version cannot be empty")
         if not self.allowed_directions:
             raise ValueError("allowed_directions cannot be empty")
         if not isinstance(self.require_statistical_detection, bool):
@@ -39,6 +43,8 @@ class EvidencePolicyReview:
     business_id: str
     metric_name: str
     unit: str
+    policy_id: str
+    policy_version: str
     status: EvidencePolicyReviewStatus
     reason: EvidencePolicyReviewReason
     descriptive_direction: DescriptiveDirection
@@ -48,7 +54,7 @@ class EvidencePolicyReview:
     statistical_observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        for name in ("business_id", "metric_name", "unit"):
+        for name in ("business_id", "metric_name", "unit", "policy_id", "policy_version"):
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
         for name, ids in (
@@ -93,6 +99,8 @@ def _result(handoff, status, reason):
         business_id=handoff.business_id,
         metric_name=handoff.metric_name,
         unit=handoff.unit,
+        policy_id=policy.policy_id,
+        policy_version=policy.version,
         status=status,
         reason=reason,
         descriptive_direction=handoff.descriptive_direction,
