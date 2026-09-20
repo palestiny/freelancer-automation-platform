@@ -170,17 +170,17 @@ def test_dispatch_result_identity_mismatch_is_failed():
 
 
 def test_invalid_dispatch_result_command_type_fails_at_runtime_boundary():
-    command = command()
+    cmd = command()
     dispatch_result = RetryWorkerDispatchResult(
         command=object(),
         status=RetryWorkerDispatchStatus.COMPLETED,
     )
 
     result = run_retry_worker_once(
-        source=_Source(command),
+        source=Source(cmd),
         dispatch=lambda _: dispatch_result,
     )
 
     assert result.outcome is RetryWorkerRuntimeOutcome.FAILED
     assert result.failure == "invalid_dispatch_result_command"
-    assert result.command == command
+    assert result.command == cmd
