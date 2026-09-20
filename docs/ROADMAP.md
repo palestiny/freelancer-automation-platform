@@ -348,3 +348,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Statistical Comparison
 
 **Status:** V1 inferential comparison implemented and CI-verified. Welch is reused as an approved statistical method; experiment-specific identity remains explicit. No winner selection, causal claim, lifecycle mutation, or execution is introduced.
+
+
+### Controlled Experiment Evidence Package
+
+**Status:** V1 review-ready evidence composition implemented and CI-verified. Winner selection, causal inference, lifecycle mutation, and experiment execution remain separate boundaries.
