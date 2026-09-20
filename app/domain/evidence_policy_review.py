@@ -72,11 +72,11 @@ def review_evidence_policy(
     policy: PolicyReviewPolicy,
 ) -> EvidencePolicyReview:
     if handoff.status is EvidenceHandoffStatus.CONTEXT_INVALID:
-        return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.INVALID_CONTEXT)
 
     if policy.require_complete_evidence and handoff.status is EvidenceHandoffStatus.EVIDENCE_INCOMPLETE:
-        return _result(handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
+        return _result(policy, handoff, EvidencePolicyReviewStatus.REVIEW_REQUIRED,
                        EvidencePolicyReviewReason.EVIDENCE_INCOMPLETE)
 
     if handoff.descriptive_direction not in policy.allowed_directions:
@@ -90,11 +90,11 @@ def review_evidence_policy(
         return _result(handoff, EvidencePolicyReviewStatus.POLICY_NOT_SATISFIED,
                        EvidencePolicyReviewReason.STATISTICAL_DETECTION_REQUIRED)
 
-    return _result(handoff, EvidencePolicyReviewStatus.POLICY_SATISFIED,
+    return _result(policy, handoff, EvidencePolicyReviewStatus.POLICY_SATISFIED,
                    EvidencePolicyReviewReason.SATISFIED)
 
 
-def _result(handoff, status, reason):
+def _result(policy, handoff, status, reason):
     return EvidencePolicyReview(
         business_id=handoff.business_id,
         metric_name=handoff.metric_name,
