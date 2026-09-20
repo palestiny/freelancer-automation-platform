@@ -36,9 +36,9 @@ class ActionAuthorization:
     maximum_autonomy: AutonomyLevel
     status: ActionAuthorizationStatus
     requires_human_approval: bool
-    current_observation_ids: tuple[str, ...]
-    baseline_observation_ids: tuple[str, ...]
-    statistical_observation_ids: tuple[str, ...]
+    current_observation_ids: tuple[str, ...] = ()
+    baseline_observation_ids: tuple[str, ...] = ()
+    statistical_observation_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip() or not self.policy_version.strip():
@@ -65,7 +65,7 @@ def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
     if review.policy_id != policy_id or review.policy_version != policy_version:
         return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if review.status is not EvidencePolicyReviewStatus.POLICY_SATISFIED:
-        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
+        return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if action_class in {ActionClass.IRREVERSIBLE_EXTERNAL, ActionClass.FINANCIAL}:
         return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.SAFETY_BLOCKED, False)
     if requested_autonomy.value > maximum_autonomy.value:
