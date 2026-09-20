@@ -50,7 +50,7 @@ def _request():
     return AuthorizedExecutionRequest(
         request_id="req-1",
         idempotency_key="idem-1",
-        action_class=ActionClass.SEND_MESSAGE,
+        action_class=ActionClass.REVERSIBLE_EXTERNAL,
         autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL,
         policy_id="policy-1",
         policy_version="1",
@@ -143,7 +143,7 @@ def test_resolution_provider_binding_is_required():
             capability_registry=_registry(adapter),
             credential_resolver=resolver,
             provider_key="provider-a",
-            capability=ProviderCapability.EXECUTE,
+            capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
         )
