@@ -59,10 +59,17 @@ def run_retry_worker_once(
         )
 
     if dispatch_result.status is RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED:
+        if dispatch_result.failure == "claim_conflict":
+            return RetryWorkerRuntimeResult(
+                outcome=RetryWorkerRuntimeOutcome.BLOCKED,
+                command=command,
+                dispatch_result=dispatch_result,
+            )
         return RetryWorkerRuntimeResult(
-            outcome=RetryWorkerRuntimeOutcome.BLOCKED,
+            outcome=RetryWorkerRuntimeOutcome.FAILED,
             command=command,
             dispatch_result=dispatch_result,
+            failure="dispatch_claim_failed",
         )
 
     return RetryWorkerRuntimeResult(
