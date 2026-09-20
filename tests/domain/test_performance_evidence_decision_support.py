@@ -161,3 +161,16 @@ def test_result_requires_nonempty_context_fields():
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_result_rejects_duplicate_statistical_observation_ids():
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    import pytest
+    with pytest.raises(ValueError, match="statistical_observation_ids must be unique"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=("x", "x"),
+        )
