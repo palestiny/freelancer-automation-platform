@@ -12,7 +12,7 @@ from app.domain.performance_evidence_policy import (
 )
 
 
-def _support(posture, direction=DescriptiveDirection.IMPROVING):
+def _support(posture, direction=DescriptiveDirection.INCREASED):
     return PerformanceEvidenceDecisionSupport(
         business_id="b1",
         metric_name="profit",
@@ -47,7 +47,7 @@ def test_aligned_decline_supports_decline():
     result = assess_performance_evidence_policy(
         support=_support(
             CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
-            DescriptiveDirection.DECLINING,
+            DescriptiveDirection.DECREASED,
         )
     )
     assert result.state is PerformanceEvidencePolicyState.SUPPORTS_DECLINE
