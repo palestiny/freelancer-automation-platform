@@ -1143,3 +1143,8 @@ Provider adapters are resolved only by an explicit provider key. The registry do
 ### D-122 — Provider Capabilities Are Explicit Declarations
 
 Provider capability metadata is declared explicitly at registration time and looked up by provider key. The registry does not infer capabilities dynamically, rank providers, select fallbacks, manage credentials, or execute provider actions.
+
+
+### D-123 — Provider Capability Is an Explicit Execution Precondition
+
+A provider must explicitly declare the required capability before the existing execution dispatch boundary is entered. Capability support does not authorize execution and does not imply ranking, fallback, health, credential, or policy behavior.
