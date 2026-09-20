@@ -1253,3 +1253,8 @@ Recording and retrieval of authoritative performance observations are exposed th
 ### D-122 — Authoritative Performance Observation Timestamps Are Timezone-Aware
 
 Performance observations must carry an explicit timezone-aware timestamp. The domain rejects naive values rather than inferring a timezone. Persistence preserves the explicit timestamp representation; temporal normalization remains outside this boundary.
+
+
+### D-179 — Controlled Experiment Evidence Is Provider-Independent and Non-Executing
+
+Experiment assignments and observations are explicit immutable evidence artifacts. Variant selection is caller-provided; the domain does not randomize, optimize, schedule, execute, infer causality, or calculate statistical significance. Experiment lifecycle mutation remains separate.

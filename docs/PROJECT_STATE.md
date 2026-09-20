@@ -356,3 +356,8 @@ A provider-independent application service now sits above the performance observ
 ## Performance Observation Temporal Contract
 
 Authoritative performance observations now require timezone-aware timestamps. This closes an ambiguity at the temporal domain boundary used by history, windows, freshness, baseline, trend, and statistical analysis. No implicit local-time/UTC inference or normalization is performed.
+
+
+## Controlled Experiment Evidence
+
+V1 now has provider-independent immutable experiment assignment and observation evidence. Assignments and observations preserve explicit experiment/subject/variant identity and timezone-aware timestamps. This boundary records evidence only; it does not randomize allocation, schedule work, execute providers, infer causality, calculate statistical significance, or mutate experiment lifecycle.
