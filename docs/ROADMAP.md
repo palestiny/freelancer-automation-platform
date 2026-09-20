@@ -202,3 +202,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider Capability Registry
 
 **Status:** V1 explicit capability declaration and lookup implemented and CI-verified. Capability metadata remains non-executing and non-ranking; concrete provider integrations remain a separate boundary.
+
+
+### Capability-Aware Provider Dispatch
+
+**Status:** V1 explicit capability precondition implemented and CI-verified. Provider capability checks occur before authorized execution dispatch; fallback, ranking, inference, and provider selection remain outside scope.
