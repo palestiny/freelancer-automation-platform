@@ -341,3 +341,8 @@ The current implementation boundary is now:
 **Evidence → Policy Review → Authorization → Prepared Execution → Freshness → Capability/Credential Checks → Provider Execution Port → Outcome Observation → Recovery Assessment → Atomic State Application → Learning / Review Evidence**
 
 The next unresolved product/infrastructure boundary is intentionally not selected by this state file. Candidate future boundaries remain concrete provider integrations, production persistence/API/UI integration, controlled experimentation infrastructure, production background runtime infrastructure, broader business-model execution, cross-domain learning, and progressive autonomy. Any selected boundary requires its own design gate and TDD increment.
+
+
+## Performance Evidence Persistence
+
+V1 authoritative performance observations now have a durable provider-independent application port and a reference SQLite adapter. Raw observations remain authoritative; aggregates, trends, statistical results, and learning artifacts remain derived and recomputable. Persistence does not interpret evidence or execute actions.
