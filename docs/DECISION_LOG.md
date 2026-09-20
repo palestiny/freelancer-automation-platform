@@ -1088,3 +1088,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-164 — Continuous Retry Runtime Requires an Explicit Lifecycle Boundary
 
 The finite externally bounded retry-worker invocation must remain the authoritative command-execution unit. A continuous runtime requires explicit lifecycle states, start/stop semantics, safe shutdown boundaries, single-worker concurrency, crash/recovery semantics, and lifecycle observability before implementation. Automatic restart and distributed worker coordination remain outside V1.
+
+
+### D-165 — Retry Worker Lifecycle Is Explicit and Observable
+
+The first continuous-runtime increment uses explicit lifecycle states and stop reasons around the existing finite invocation. Safe stop boundaries prevent new claims, failures terminate explicitly without automatic restart, and lifecycle observations remain immutable evidence. Distributed concurrency, automatic restart, and crash recovery require separate design decisions.
