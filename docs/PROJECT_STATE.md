@@ -431,3 +431,8 @@ V1 now has an explicit temporal evidence-linkage artifact connecting a recorded 
 ## Controlled Experiment Observation Exposure Lineage
 
 V1 now validates that experiment metric observations are exposure-compatible before authoritative persistence. Experiment, assignment, subject, and variant identity must match an actual exposure and the observation timestamp must not precede exposure. This is attribution-safety evidence only; it does not infer causality or select experiment outcomes.
+
+
+## Controlled Experiment Exposure Assignment Authority
+
+Exposure recording now has a provider-independent application boundary that resolves the authoritative persisted assignment before creating exposure evidence. The older caller-supplied service remains compatible; the hardened boundary prevents an unpersisted or fabricated assignment from becoming authoritative exposure lineage.
