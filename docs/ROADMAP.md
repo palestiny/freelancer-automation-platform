@@ -398,3 +398,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Observation Exposure Lineage
 
 **Status:** V1 exposure-compatible observation persistence is implemented and verified. Assignment, exposure, and metric observation remain distinct evidence artifacts; causal inference and experiment decisions remain separate boundaries.
+
+
+### Controlled Experiment Exposure Assignment Authority
+
+**Status:** V1 lineage hardening implemented and CI-verified. Exposure creation can resolve the authoritative persisted assignment before recording exposure; execution, scheduling, causal inference, and lifecycle mutation remain separate.
