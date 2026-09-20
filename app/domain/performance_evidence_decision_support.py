@@ -127,6 +127,35 @@ class PerformanceEvidenceDecisionSupport:
                 "statistical detection with no descriptive change must use NO_DESCRIPTIVE_CHANGE"
             )
 
+        if self.inferential_status is not InferentialStatus.UNAVAILABLE:
+            if not self.statistical_method.strip():
+                raise ValueError("statistical_method is required when inferential evidence is available")
+            if self.statistical_first_window is None or self.statistical_second_window is None:
+                raise ValueError("statistical windows are required when inferential evidence is available")
+
+        if (
+            self.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+            and self.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+        ):
+            raise ValueError("direction conflict requires statistical difference detection")
+
+        if (
+            self.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+            and (
+                self.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+                or self.descriptive_direction is DescriptiveDirection.NO_CHANGE
+                or self.statistical_difference_direction is DescriptiveDirection.UNAVAILABLE
+                or self.descriptive_direction is not self.statistical_difference_direction
+            )
+        ):
+            raise ValueError("aligned posture requires a detected statistical difference with matching directions")
+
+        if (
+            self.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+            and self.descriptive_direction is not DescriptiveDirection.NO_CHANGE
+        ):
+            raise ValueError("NO_DESCRIPTIVE_CHANGE posture requires a zero descriptive change")
+
 
 def compose_performance_evidence(
     *,
