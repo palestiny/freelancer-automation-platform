@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -8,7 +8,7 @@ from app.domain.performance_trend import PerformanceTrend, compare_performance
 from tests.domain.test_performance_aggregation import item
 
 
-START = datetime(2026, 1, 1)
+START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 
 
 def test_compare_performance_reports_absolute_and_relative_change():
