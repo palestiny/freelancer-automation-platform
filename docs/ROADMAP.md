@@ -318,3 +318,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Performance Observation Application Service
 
 **Status:** V1 application use-case boundary implemented and CI-verified. It delegates authoritative observation persistence through the application port and keeps derived analysis outside the write/read service.
+
+
+### Performance Observation Temporal Contract
+
+**Status:** V1 temporal validity hardening implemented and CI-verified. Naive authoritative observation timestamps are rejected; existing fixtures and temporal expectations were migrated to explicit UTC.
