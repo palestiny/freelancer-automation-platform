@@ -156,3 +156,8 @@ A meaningful increment is complete only after applicable design, RED/GREEN TDD, 
 ## Performance Evidence Decision Support
 
 The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Next Engineering Boundary — Retry Worker Lifecycle
+
+The finite retry-worker runtime boundary is implemented. The next approved design boundary is continuous runtime lifecycle semantics: explicit start/stop states, safe shutdown, single-worker concurrency, crash/recovery reconciliation, and lifecycle observability. Continuous runtime implementation must follow a dedicated TDD increment and must not introduce a daemon or queue framework implicitly.
