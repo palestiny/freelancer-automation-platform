@@ -1348,3 +1348,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-187 — Controlled Experiment Exposure Recording Is Retry-Safe
 
 Exposure persistence must be idempotent for an identical retry and must reject conflicting reuse of the authoritative exposure identity/context. Idempotency is evidence-integrity behavior only and does not imply delivery or causality.
+
+
+### D-122 — Retry Worker Runtime Validates Boundary Identity
+
+The bounded retry worker runtime must validate work-source and dispatch-result shapes at its application boundary and reject dispatcher results whose command identity differs from the selected command. These failures are explicit runtime failures and do not trigger automatic re-execution.
