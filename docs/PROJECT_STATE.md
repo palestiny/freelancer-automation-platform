@@ -2,11 +2,11 @@
 
 ## Current Status
 
-**Current delivery boundary: Progressive Autonomy → Execution Runtime**
+**Current delivery boundary: Progressive Autonomy → Execution Runtime → Recovery Coordination**
 
 The repository has completed provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing, business operations, deterministic measurement/learning, bounded statistical inference, evidence composition, policy review, authorization, execution preparation, execution outcomes, recovery assessment, execution coordination, immutable attempt history, retry policy, durable retry persistence/scheduling, execution claims, retry outcomes, and single-command worker dispatch.
 
-The latest merged runtime work is the **bounded retry worker batch invocation**. One externally controlled batch may perform a caller-bounded number of single-command invocations, stopping at IDLE, BLOCKED, FAILED, or the explicit invocation limit. A background daemon/queue framework is not implemented.
+The latest merged runtime work includes bounded retry execution, continuous single-worker lifecycle semantics, crash/recovery reconciliation, provider-status observation, deterministic reconciliation assessment, atomic expected-state state application, and single-observation recovery coordination. A background daemon/queue framework, distributed workers, and automatic re-execution are not implemented.
 
 ## Current Product Direction
 
@@ -112,7 +112,7 @@ The current runtime-neutral execution boundary includes:
 - single-command worker dispatch
 - provider failure → manual review
 
-The latest approved boundary is a **finite retry worker runtime loop**. It is not yet a background service, queue framework, or continuously running daemon.
+The latest approved boundary is a **single-worker recovery-aware runtime** with explicit lifecycle and reconciliation semantics. It is not a background service, queue framework, distributed worker system, or automatic-reexecution engine.
 
 ## Current Domain / Infrastructure Boundary
 
@@ -140,9 +140,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-The continuous single-worker lifecycle boundary is implemented and observable. The remaining runtime safety boundary is crash/recovery reconciliation for commands whose provider outcome may be unknown after process termination. No distributed worker or automatic restart semantics are implied.
-
-No queue framework or daemon semantics should be introduced implicitly.
+The continuous single-worker lifecycle and crash/recovery reconciliation boundaries are implemented and observable. Provider-status observation, deterministic assessment, atomic state application, and single-observation coordination are also implemented. No distributed worker, automatic restart, polling loop, or automatic re-execution semantics are implied.
 
 ## Documentation Integrity Rule
 
@@ -205,3 +203,8 @@ The provider-independent recovery path now has an explicit application coordinat
 ## Performance Evidence Decision Support — Current State
 
 V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Current Runtime State Reconciliation
+
+The canonical runtime boundary now includes lifecycle control and recovery coordination. Older sections that describe lifecycle or crash/recovery as the next engineering boundary are historical and should not be treated as open work. The next unresolved implementation target should come from an explicitly unresolved product/infrastructure boundary rather than repeating completed runtime work.
