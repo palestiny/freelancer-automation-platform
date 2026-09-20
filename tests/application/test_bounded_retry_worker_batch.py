@@ -70,7 +70,7 @@ def test_batch_stops_at_explicit_limit():
 def test_blocked_stops_batch_without_spinning():
     source = Source([command("a"), command("b")])
     dispatcher = Dispatcher([RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED])
-    result = run_retry_worker_batch(source=source, dispatch=dispatcher, max_invocations=5)
+    result = run_retry_worker_batch(source=source, dispatch=lambda cmd: RetryWorkerDispatchResult(command=cmd, status=RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED, failure="claim_conflict"), max_invocations=5)
 
     assert result.stop_reason is RetryWorkerBatchStopReason.BLOCKED
     assert result.invocation_count == 1
