@@ -13,6 +13,8 @@ def record_experiment_exposure(
 ) -> ExperimentExposure:
     if not exposure_id.strip():
         raise ValueError("exposure_id cannot be empty")
+    if exposed_at < assignment.assigned_at:
+        raise ValueError("exposed_at cannot be before assigned_at")
     exposure = ExperimentExposure(
         id=exposure_id,
         assignment_id=assignment.id,
@@ -44,6 +46,8 @@ def record_persisted_experiment_exposure(
     assignment = assignment_repository.get(assignment_id)
     if assignment is None:
         raise ValueError(f"assignment {assignment_id!r} does not exist")
+    if exposed_at < assignment.assigned_at:
+        raise ValueError("exposed_at cannot be before assigned_at")
 
     exposure = ExperimentExposure(
         id=exposure_id,
