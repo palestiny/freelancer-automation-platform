@@ -255,3 +255,8 @@ V1 now has an opaque provider credential reference boundary. The domain can iden
 The approved application/infrastructure credential-resolution boundary is implemented and CI-verified. Opaque provider credential references can now be resolved through a replaceable resolver port with explicit success/failure semantics and provider/reference binding. Credential material remains outside domain entities, no fallback or ranking is performed, and resolution does not authorize or execute provider actions.
 
 Concrete secret stores, rotation, refresh, and provider-specific authentication remain infrastructure/integration concerns.
+
+
+## Provider-Authenticated Execution Dispatch — Current State
+
+V1 now composes explicit provider capability verification with explicit credential resolution and an authenticated adapter contract before provider execution. Credential material remains application/integration-only and is never copied into domain execution state. Authentication remains separate from authorization; no fallback, retry, credential lifecycle, provider selection, or secret persistence is introduced.

@@ -1163,3 +1163,8 @@ The domain may preserve provider key plus an opaque credential reference, but ne
 ### D-122 — Provider Credential Resolution Is a Non-Authorizing Infrastructure Boundary
 
 Credential references may cross the application boundary for explicit provider-bound resolution, but resolved secret material must not enter domain entities. Resolution failure is explicit; no fallback, ranking, authorization, or provider execution is implied.
+
+
+### D-122 — Provider Authentication Precedes Provider Execution Without Becoming Authorization
+
+Provider execution may consume explicitly resolved credential material only after capability verification and provider/reference-bound credential resolution succeed. Authentication is not authorization; the boundary does not select fallbacks, mutate policy, retry, persist secrets, or execute credential lifecycle management.
