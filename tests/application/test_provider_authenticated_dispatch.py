@@ -87,8 +87,8 @@ def test_dispatch_resolves_credential_and_executes_authenticated_adapter():
         capability=ProviderCapability.SEND_MESSAGE,
         credential_reference="cred-1",
         request=_request(),
-        freshness_policy=ExecutionRequestFreshnessPolicy(),
-        as_of=datetime.now(timezone.utc),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
     )
 
     assert result.status is ExecutionOutcomeStatus.SUCCEEDED
@@ -108,6 +108,8 @@ def test_unsupported_capability_rejects_before_credential_resolution():
             capability=ProviderCapability.SUBMIT_PROPOSAL,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
             freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
             as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
@@ -128,6 +130,8 @@ def test_failed_credential_resolution_rejects_before_provider_execution():
             capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert resolver.calls == [("provider-a", "cred-1")]
@@ -152,6 +156,8 @@ def test_resolution_provider_binding_is_required():
             capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
+        as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert adapter.calls == []
