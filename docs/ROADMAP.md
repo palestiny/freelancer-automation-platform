@@ -177,3 +177,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Runtime State Reconciliation
 
 **Status:** Current runtime documentation reconciled with the implemented lifecycle and crash/recovery boundaries. Future runtime work must not reopen completed lifecycle/reconciliation slices without a new requirement.
+
+
+### Evidence Review Handoff
+
+**Status:** V1 non-executing review handoff implemented and CI-verified. Scheduling, notifications, persistence, authorization, and policy mutation remain separate boundaries.
