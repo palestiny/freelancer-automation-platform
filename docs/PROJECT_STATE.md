@@ -381,3 +381,8 @@ V1 now has a bounded descriptive comparison consumer for two declared experiment
 ## Controlled Experiment Statistical Comparison
 
 V1 now provides an explicit inferential evidence artifact for exactly two declared experiment variants using the already-approved Welch two-sample method. It preserves experiment/variant identity and observation lineage, keeps applicability explicit, and does not select winners, infer causality, mutate experiment lifecycle, or execute actions.
+
+
+## Controlled Experiment Evidence Synthesis
+
+V1 now composes the existing neutral two-variant descriptive comparison with the existing Welch inferential comparison. The synthesis preserves experiment/metric/variant identity and observation lineage, exposes descriptive and inferential evidence separately, and explicitly represents disagreement. It does not select a winner, rank variants, mutate experiment lifecycle, change allocation, or execute actions.
