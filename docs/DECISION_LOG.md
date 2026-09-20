@@ -1103,3 +1103,8 @@ When a retry worker terminates while provider execution may be in flight, reconc
 ### D-166 — Provider Execution Status Observation Is Evidence Only
 
 A provider status query may return an explicit execution status observation while preserving request and idempotency identity. The observation never authorizes, retries, schedules, mutates durable command state, or executes. Resolution of ambiguous execution remains a separate policy/design boundary.
+
+
+### D-167 — Retry Status Reconciliation Is an Assessment Before State Mutation
+
+Explicit provider status observations may produce a deterministic recovery assessment for an ambiguous retry command. The assessment preserves terminal states, treats unknown outcomes as ambiguous, and never mutates durable command state. Applying a resolution requires a separate design gate.
