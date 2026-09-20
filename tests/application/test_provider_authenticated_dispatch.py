@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from app.application.capability_aware_provider_dispatch import ProviderCapability
+from app.application.provider_capability_registry import ProviderCapability
 from app.application.execution_port import ProviderExecutionResult
 from app.application.provider_authenticated_dispatch import (
     dispatch_with_credentials,
@@ -13,10 +13,8 @@ from app.application.provider_credential_resolution import (
     CredentialResolutionResult,
     CredentialResolutionFailure,
 )
-from app.domain.authorized_execution_request import (
-    AuthorizedExecutionRequest,
-    ExecutionRequestStatus,
-)
+from app.domain.authorized_execution_request import AuthorizedExecutionRequest, ExecutionRequestStatus
+from app.domain.action_authorization import ActionClass, AutonomyLevel
 from app.domain.execution_outcome import ExecutionOutcomeStatus
 
 
@@ -52,6 +50,10 @@ def _request():
     return AuthorizedExecutionRequest(
         request_id="req-1",
         idempotency_key="idem-1",
+        action_class=ActionClass.SEND_MESSAGE,
+        autonomy_level=AutonomyLevel.L3,
+        policy_id="policy-1",
+        policy_version="1",
         status=ExecutionRequestStatus.PREPARED,
     )
 
@@ -117,7 +119,7 @@ def test_failed_credential_resolution_rejects_before_provider_execution():
             capability_registry=_registry(adapter),
             credential_resolver=resolver,
             provider_key="provider-a",
-            capability=ProviderCapability.EXECUTE,
+            capability=ProviderCapability.SEND_MESSAGE,
             credential_reference="cred-1",
             request=_request(),
         )
