@@ -161,3 +161,10 @@ The platform now has a bounded downstream evidence-composition layer that combin
 ## Next Engineering Boundary — Retry Worker Lifecycle
 
 The finite retry-worker runtime boundary is implemented. The next approved design boundary is continuous runtime lifecycle semantics: explicit start/stop states, safe shutdown, single-worker concurrency, crash/recovery reconciliation, and lifecycle observability. Continuous runtime implementation must follow a dedicated TDD increment and must not introduce a daemon or queue framework implicitly.
+
+
+## Retry Worker Lifecycle — Current State
+
+The approved continuous-runtime lifecycle increment is implemented at the application boundary. The lifecycle controller has explicit STARTING/RUNNING/STOPPING/STOPPED/STOPPED_WITH_ERROR states, explicit stop semantics, wake-up waiting, and bounded failure termination around the authoritative single-command invocation. Immutable lifecycle observations preserve runtime identity, timestamps, final state, stop reason, and transitions.
+
+Still outside the boundary: automatic restart, distributed workers, worker pools, leases/heartbeats, queue framework selection, crash-recovery reconciliation for in-flight provider execution, and external metrics/alerting infrastructure.

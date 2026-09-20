@@ -132,3 +132,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Continuous Retry Worker Lifecycle
 
 **Status:** DESIGN GATE APPROVED — lifecycle semantics defined; implementation intentionally not started in this documentation increment. The finite worker invocation remains authoritative until lifecycle implementation is independently tested and reconciled.
+
+
+### Retry Worker Runtime Lifecycle
+
+**Status:** V1 lifecycle controller and immutable lifecycle observation implemented and CI-verified. The continuous runtime remains single-worker and non-distributed; crash/recovery reconciliation and production deployment lifecycle are separate boundaries.
