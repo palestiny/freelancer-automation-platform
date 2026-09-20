@@ -238,3 +238,8 @@ V1 now declares provider capabilities explicitly and resolves them by provider k
 ## Capability-Aware Provider Dispatch — Current State
 
 The execution boundary now verifies an explicitly declared provider capability before entering the existing authorized execution dispatch. Unsupported capabilities are rejected without invoking the adapter. Capability checks are preconditions, not authorization, and do not infer, rank, select fallback providers, or manage credentials.
+
+
+## Statistical Evidence Lineage Hardening
+
+The statistical evidence composition artifact now preserves the Welch comparison windows and mean difference alongside method identity and observation lineage. Existing evidence-quality and source-reliability eligibility semantics remain unchanged. The artifact remains non-executing and non-decisioning.
