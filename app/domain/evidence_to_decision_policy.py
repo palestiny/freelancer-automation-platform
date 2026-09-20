@@ -29,6 +29,18 @@ class EvidenceToDecisionPolicy:
 class EvidenceDecisionSupport:
     outcome: DecisionSupportOutcome
     policy: EvidenceToDecisionPolicy
+    evidence_id: str
+    observation_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not self.evidence_id.strip():
+            raise ValueError("evidence_id cannot be empty")
+        if not self.observation_ids:
+            raise ValueError("observation_ids cannot be empty")
+        if any(not isinstance(value, str) or not value.strip() for value in self.observation_ids):
+            raise ValueError("observation_ids must contain non-empty strings")
+        if len(set(self.observation_ids)) != len(self.observation_ids):
+            raise ValueError("observation_ids must be unique")
 
     @property
     def policy_id(self) -> str:
@@ -41,11 +53,19 @@ class EvidenceDecisionSupport:
 
 def evaluate_evidence_to_decision(
     *,
+    evidence_id: str,
+    observation_ids: tuple[str, ...],
     evidence_eligible: bool,
     evidence_quality: float,
     statistical_difference_detected: bool | None,
     policy: EvidenceToDecisionPolicy,
 ) -> EvidenceDecisionSupport:
+    if not evidence_id.strip():
+        raise ValueError("evidence_id cannot be empty")
+    if not observation_ids:
+        raise ValueError("observation_ids cannot be empty")
+    if len(set(observation_ids)) != len(observation_ids):
+        raise ValueError("observation_ids must be unique")
     if not 0 <= evidence_quality <= 100:
         raise ValueError("evidence_quality must be between 0 and 100")
     if not isinstance(evidence_eligible, bool):
@@ -59,6 +79,8 @@ def evaluate_evidence_to_decision(
         return EvidenceDecisionSupport(
             outcome=DecisionSupportOutcome.INSUFFICIENT_EVIDENCE,
             policy=policy,
+            evidence_id=evidence_id,
+            observation_ids=observation_ids,
         )
 
     if policy.require_statistical_difference:
@@ -66,14 +88,20 @@ def evaluate_evidence_to_decision(
             return EvidenceDecisionSupport(
                 outcome=DecisionSupportOutcome.POLICY_INAPPLICABLE,
                 policy=policy,
+                evidence_id=evidence_id,
+                observation_ids=observation_ids,
             )
         if not statistical_difference_detected:
             return EvidenceDecisionSupport(
                 outcome=DecisionSupportOutcome.DOES_NOT_SUPPORT,
                 policy=policy,
+                evidence_id=evidence_id,
+                observation_ids=observation_ids,
             )
 
     return EvidenceDecisionSupport(
         outcome=DecisionSupportOutcome.SUPPORTS,
         policy=policy,
+        evidence_id=evidence_id,
+        observation_ids=observation_ids,
     )
