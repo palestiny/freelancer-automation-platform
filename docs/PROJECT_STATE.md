@@ -260,3 +260,8 @@ Concrete secret stores, rotation, refresh, and provider-specific authentication 
 ## Provider-Authenticated Execution Dispatch — Current State
 
 V1 now composes explicit provider capability verification with explicit credential resolution and an authenticated adapter contract before provider execution. Credential material remains application/integration-only and is never copied into domain execution state. Authentication remains separate from authorization; no fallback, retry, credential lifecycle, provider selection, or secret persistence is introduced.
+
+
+## Evidence-to-Decision Policy Boundary
+
+A bounded provider-independent policy evaluator now sits after evidence composition. It accepts an explicit versionable policy and evidence eligibility/quality inputs and returns a decision-support outcome only: SUPPORTS, DOES_NOT_SUPPORT, INSUFFICIENT_EVIDENCE, or POLICY_INAPPLICABLE. It does not execute, mutate business lifecycle, portfolio state, learning policy, or external systems.

@@ -1168,3 +1168,8 @@ Credential references may cross the application boundary for explicit provider-b
 ### D-122 — Provider Authentication Precedes Provider Execution Without Becoming Authorization
 
 Provider execution may consume explicitly resolved credential material only after capability verification and provider/reference-bound credential resolution succeed. Authentication is not authorization; the boundary does not select fallbacks, mutate policy, retry, persist secrets, or execute credential lifecycle management.
+
+
+### D-122 — Evidence-to-Decision Policy Must Be Explicit and Non-Executing
+
+Decision-support policy is an explicit input with bounded thresholds and optional statistical requirements. Insufficient evidence remains a distinct outcome and cannot become a positive/negative business decision. The evaluator does not mutate policy, lifecycle, portfolio, learning, or execution state.
