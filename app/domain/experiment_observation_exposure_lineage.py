@@ -13,6 +13,12 @@ class ExposureLineageStatus(str, Enum):
 @dataclass(frozen=True)
 class ExposureLineageValidation:
     status: ExposureLineageStatus
+    observation_id: str
+    exposure_id: str
+
+    def __post_init__(self) -> None:
+        if not self.observation_id.strip() or not self.exposure_id.strip():
+            raise ValueError("observation_id and exposure_id cannot be empty")
 
     @property
     def valid(self) -> bool:
@@ -30,9 +36,9 @@ def validate_observation_exposure_lineage(
         or observation.subject_id != exposure.subject_id
         or observation.variant != exposure.variant
     ):
-        return ExposureLineageValidation(status=ExposureLineageStatus.INVALID_CONTEXT)
+        return ExposureLineageValidation(status=ExposureLineageStatus.INVALID_CONTEXT, observation_id=observation.id, exposure_id=exposure.id)
 
     if observation.observed_at < exposure.exposed_at:
-        return ExposureLineageValidation(status=ExposureLineageStatus.BEFORE_EXPOSURE)
+        return ExposureLineageValidation(status=ExposureLineageStatus.BEFORE_EXPOSURE, observation_id=observation.id, exposure_id=exposure.id)
 
-    return ExposureLineageValidation(status=ExposureLineageStatus.VALID)
+    return ExposureLineageValidation(status=ExposureLineageStatus.VALID, observation_id=observation.id, exposure_id=exposure.id)
