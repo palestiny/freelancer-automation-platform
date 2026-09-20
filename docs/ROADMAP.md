@@ -242,3 +242,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Policy Identity Binding
 
 **Status:** V1 traceability/safety hardening implemented and CI-verified. Evidence policy review and action authorization now share an explicit immutable policy identity/version contract.
+
+
+### Action Authorization Evidence Lineage
+
+**Status:** V1 lineage hardening implemented and CI-verified. Authorization remains separate from execution and preserves the reviewed evidence context.
