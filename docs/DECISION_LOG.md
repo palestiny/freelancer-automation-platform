@@ -1183,3 +1183,8 @@ A non-executing policy evaluation result must preserve explicit evidence identit
 ### D-170 — Policy Identity Must Survive Review-to-Authorization Binding
 
 A satisfied evidence policy review can authorize only under the exact policy identity and version used for that review. Caller-supplied mismatches are explicitly rejected. This is traceability/safety hardening and does not change execution semantics.
+
+
+### D-171 — Action Authorization Preserves Reviewed Evidence Lineage
+
+An authorization artifact must retain the observation lineage from the policy review that produced it. This is traceability only and does not authorize additional action or mutate execution semantics.
