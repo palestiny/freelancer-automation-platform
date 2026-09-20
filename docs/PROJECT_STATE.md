@@ -270,3 +270,8 @@ A bounded provider-independent policy evaluator now sits after evidence composit
 ## Evidence-to-Decision Policy Lineage Hardening
 
 Decision-support policy results now preserve explicit evidence identity and observation lineage alongside policy identity/version. The policy boundary remains non-executing and does not mutate policy, lifecycle, learning, portfolio, or execution state.
+
+
+## Policy Identity Binding — Current State
+
+The review-to-authorization boundary now preserves the exact policy ID/version used during evidence policy review. Authorization rejects mismatched policy identity or version, preventing a satisfied review from being rebound to a different policy context.
