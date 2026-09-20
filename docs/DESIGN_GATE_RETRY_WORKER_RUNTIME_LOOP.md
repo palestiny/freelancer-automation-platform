@@ -1,6 +1,6 @@
 # Design Gate — Retry Worker Runtime Loop
 
-**Status:** APPROVED — V1 runtime-loop boundary only; implementation remains a separate follow-up.
+**Status:** APPROVED — V1 finite runtime invocation implemented.
 
 ## Purpose
 
@@ -48,3 +48,8 @@ A repeated loop, daemon, queue consumer, or background service is not part of V1
 ## Decision Gate
 
 This gate approves only a finite worker-runtime invocation contract. A long-running daemon, queue integration, lease/heartbeat, concurrency model, graceful shutdown, health checks, or deployment-specific worker service requires a separate design decision before implementation.
+
+
+## Implementation Status
+
+The finite invocation and concrete SQLite scheduled-work source are implemented and CI-verified. The implementation consumes at most one scheduled command per invocation and then stops. Continuous looping, daemon lifecycle, queue integration, leases, heartbeats, concurrency pools, and deployment-specific worker services remain outside this gate.
