@@ -1213,3 +1213,8 @@ An authenticated provider dispatch may invoke the provider only after capability
 ### D-122 — Evidence-to-Learning Handoff Is Explicit and Non-Executing
 
 Eligible composed performance evidence may be handed off explicitly to policy review or an experiment. The handoff preserves lineage and context and never silently changes policy, learning, lifecycle, portfolio, or execution state.
+
+
+### D-174 — Business Learning Memory Is Immutable Evidence, Not Policy
+
+Learning memory records eligible evidence handoffs as immutable business-owned artifacts with preserved observation lineage. Memory must not rank, score, infer causality, mutate policy, or execute actions.
