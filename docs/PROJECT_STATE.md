@@ -280,3 +280,8 @@ The review-to-authorization boundary now preserves the exact policy ID/version u
 ## Action Authorization Evidence Lineage
 
 Authorization artifacts now preserve the exact current, baseline, and statistical observation IDs carried by the reviewed evidence. This strengthens traceability without changing authorization semantics or enabling execution.
+
+
+## Prepared Execution Request Evidence Lineage
+
+Prepared execution requests now preserve the current, baseline, and statistical observation IDs carried by the authoritative action authorization. This is traceability hardening only; preparation remains non-executing and does not add freshness, retry, scheduling, or provider behavior.
