@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 import hashlib
 
-
 _ALLOCATION_BASIS_POINTS = 10_000
 
 
@@ -25,13 +24,58 @@ class ExperimentAllocationPlan:
             raise ValueError("variants cannot contain empty names")
         if len(set(self.variants)) != len(self.variants):
             raise ValueError("variants must be unique")
-        if any(
-            isinstance(weight, bool) or not isinstance(weight, int) or weight <= 0
-            for weight in self.allocation_weights
-        ):
+        if any(isinstance(weight, bool) or not isinstance(weight, int) or weight <= 0 for weight in self.allocation_weights):
             raise ValueError("allocation_weights must be positive integers")
         if sum(self.allocation_weights) != _ALLOCATION_BASIS_POINTS:
             raise ValueError("allocation_weights must sum to 10000")
+
+
+@dataclass(frozen=True)
+class ExperimentAllocationDecision:
+    experiment_id: str
+    subject_id: str
+    variant: str
+    bucket: int
+
+    def __post_init__(self) -> None:
+        if not self.experiment_id.strip():
+            raise ValueError("experiment_id cannot be empty")
+        if not self.subject_id.strip():
+            raise ValueError("subject_id cannot be empty")
+        if not self.variant.strip():
+            raise ValueError("variant cannot be empty")
+        if not isinstance(self.bucket, int) or isinstance(self.bucket, bool):
+            raise TypeError("bucket must be an integer")
+        if not 0 <= self.bucket < _ALLOCATION_BASIS_POINTS:
+            raise ValueError("bucket must be between 0 and 9999")
+
+
+def _allocation(plan: ExperimentAllocationPlan, subject_id: str) -> tuple[str, int]:
+    if not subject_id.strip():
+        raise ValueError("subject_id cannot be empty")
+    material = f"{plan.experiment_id}\\x00{subject_id}\\x00{plan.salt}".encode("utf-8")
+    digest = hashlib.sha256(material).digest()
+    bucket = int.from_bytes(digest[:8], "big") % _ALLOCATION_BASIS_POINTS
+    cumulative = 0
+    for variant, weight in zip(plan.variants, plan.allocation_weights):
+        cumulative += weight
+        if bucket < cumulative:
+            return variant, bucket
+    raise RuntimeError("allocation bucket fell outside the configured weights")
+
+
+def allocate_experiment(
+    *,
+    plan: ExperimentAllocationPlan,
+    subject_id: str,
+) -> ExperimentAllocationDecision:
+    variant, bucket = _allocation(plan, subject_id)
+    return ExperimentAllocationDecision(
+        experiment_id=plan.experiment_id,
+        subject_id=subject_id,
+        variant=variant,
+        bucket=bucket,
+    )
 
 
 def allocate_experiment_variant(
@@ -39,17 +83,4 @@ def allocate_experiment_variant(
     plan: ExperimentAllocationPlan,
     subject_id: str,
 ) -> str:
-    if not subject_id.strip():
-        raise ValueError("subject_id cannot be empty")
-
-    material = f"{plan.experiment_id}\x00{subject_id}\x00{plan.salt}".encode("utf-8")
-    digest = hashlib.sha256(material).digest()
-    bucket = int.from_bytes(digest[:8], "big") % _ALLOCATION_BASIS_POINTS
-
-    cumulative = 0
-    for variant, weight in zip(plan.variants, plan.allocation_weights):
-        cumulative += weight
-        if bucket < cumulative:
-            return variant
-
-    raise RuntimeError("allocation bucket fell outside the configured weights")
+    return allocate_experiment(plan=plan, subject_id=subject_id).variant
