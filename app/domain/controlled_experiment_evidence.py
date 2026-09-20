@@ -61,3 +61,21 @@ class ExperimentObservation:
             raise TypeError("evidence_quality must be an integer")
         if not 0 <= self.evidence_quality <= 100:
             raise ValueError("evidence_quality must be between 0 and 100")
+
+
+@dataclass(frozen=True)
+class ExperimentExposure:
+    id: str
+    assignment_id: str
+    experiment_id: str
+    subject_id: str
+    variant: str
+    exposed_at: datetime
+
+    def __post_init__(self) -> None:
+        for name in ("id", "assignment_id", "experiment_id", "subject_id", "variant"):
+            value = getattr(self, name)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(f"{name} cannot be empty")
+        if self.exposed_at.tzinfo is None or self.exposed_at.utcoffset() is None:
+            raise ValueError("exposed_at must be timezone-aware")
