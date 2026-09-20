@@ -142,3 +142,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Retry Worker Crash / Recovery Reconciliation
 
 **Status:** DESIGN GATE APPROVED — provider-independent ambiguous in-flight execution reconciliation defined. No provider status polling or automatic retry is included.
+
+
+### Retry Worker Crash / Recovery Reconciliation
+
+**Status:** V1 provider-independent reconciliation implemented and CI-verified. Unknown provider outcomes remain unknown, terminal commands are not reopened, and no automatic re-execution or provider polling is introduced.
