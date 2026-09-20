@@ -53,6 +53,8 @@ def assess_execution_request_freshness(
     policy: ExecutionRequestFreshnessPolicy,
     as_of: datetime,
 ) -> ExecutionRequestFreshnessAssessment:
+    if as_of.tzinfo is None:
+        raise ValueError("as_of must be timezone-aware")
     if request.status is not ExecutionRequestStatus.PREPARED:
         return ExecutionRequestFreshnessAssessment(
             status=ExecutionRequestFreshnessStatus.INELIGIBLE,
