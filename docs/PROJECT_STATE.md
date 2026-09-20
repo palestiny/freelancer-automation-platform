@@ -140,7 +140,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-Before implementing a continuous worker runtime, repeated invocation semantics and lifecycle/concurrency requirements still require a dedicated design gate. V1 invocation observability is now explicit through an immutable observation artifact; no metrics backend or daemon is implied. The current invocation remains externally controlled and consumes at most one command.
+The continuous single-worker lifecycle boundary is implemented and observable. The remaining runtime safety boundary is crash/recovery reconciliation for commands whose provider outcome may be unknown after process termination. No distributed worker or automatic restart semantics are implied.
 
 No queue framework or daemon semantics should be introduced implicitly.
 
@@ -168,3 +168,8 @@ The finite retry-worker runtime boundary is implemented. The next approved desig
 The approved continuous-runtime lifecycle increment is implemented at the application boundary. The lifecycle controller has explicit STARTING/RUNNING/STOPPING/STOPPED/STOPPED_WITH_ERROR states, explicit stop semantics, wake-up waiting, and bounded failure termination around the authoritative single-command invocation. Immutable lifecycle observations preserve runtime identity, timestamps, final state, stop reason, and transitions.
 
 Still outside the boundary: automatic restart, distributed workers, worker pools, leases/heartbeats, queue framework selection, crash-recovery reconciliation for in-flight provider execution, and external metrics/alerting infrastructure.
+
+
+## Next Engineering Boundary — Crash / Recovery Reconciliation
+
+A dedicated design gate defines the provider-independent reconciliation boundary for ambiguous in-flight retry commands. The next implementation must preserve unknown outcomes, immutable attempt lineage, request/idempotency identity, and explicit manual reconciliation without automatic re-execution.
