@@ -36,6 +36,9 @@ class ActionAuthorization:
     maximum_autonomy: AutonomyLevel
     status: ActionAuthorizationStatus
     requires_human_approval: bool
+    current_observation_ids: tuple[str, ...]
+    baseline_observation_ids: tuple[str, ...]
+    statistical_observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip() or not self.policy_version.strip():
@@ -46,6 +49,9 @@ class ActionAuthorization:
             raise ValueError("human approval required status must require approval")
         if self.status is ActionAuthorizationStatus.AUTHORIZED and self.requires_human_approval:
             raise ValueError("authorized status cannot still require human approval")
+        for ids in (self.current_observation_ids, self.baseline_observation_ids, self.statistical_observation_ids):
+            if len(set(ids)) != len(ids):
+                raise ValueError("authorization observation IDs must be unique")
 
 
 def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
@@ -57,7 +63,7 @@ def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
     if not isinstance(human_approval_granted, bool):
         raise TypeError("human_approval_granted must be bool")
     if review.policy_id != policy_id or review.policy_version != policy_version:
-        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
+        return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if review.status is not EvidencePolicyReviewStatus.POLICY_SATISFIED:
         return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if action_class in {ActionClass.IRREVERSIBLE_EXTERNAL, ActionClass.FINANCIAL}:
@@ -69,8 +75,11 @@ def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
     return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.AUTHORIZED, False)
 
 
-def _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, status, requires):
+def _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, status, requires):
     return ActionAuthorization(policy_id=policy_id, policy_version=policy_version,
                                action_class=action_class, requested_autonomy=requested_autonomy,
                                maximum_autonomy=maximum_autonomy, status=status,
-                               requires_human_approval=requires)
+                               requires_human_approval=requires,
+                               current_observation_ids=review.current_observation_ids,
+                               baseline_observation_ids=review.baseline_observation_ids,
+                               statistical_observation_ids=review.statistical_observation_ids)
