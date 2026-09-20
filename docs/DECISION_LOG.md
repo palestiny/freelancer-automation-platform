@@ -1128,3 +1128,8 @@ The handoff from composed evidence to review is an immutable, non-executing boun
 ### D-122 — Review Decisions Do Not Imply Authorization
 
 Evidence review outcomes are explicit decision artifacts. ACCEPT records a review decision but does not authorize policy mutation, provider execution, payment, capital movement, or other external side effects. Reviewer identity, rationale, review target, and evidence lineage remain preserved.
+
+
+### D-122 — Provider Adapter Conformance Is a Non-Executing Boundary
+
+Provider adapters must satisfy a common runtime contract for result type, request identity, idempotency identity, and timezone-aware observation. Conformance validation must not authorize, retry, schedule, or mutate execution state; provider-specific integrations remain separately designed and tested.
