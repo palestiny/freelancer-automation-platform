@@ -252,3 +252,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Prepared Execution Request Evidence Lineage
 
 **Status:** V1 traceability hardening implemented and CI-verified. Authorization evidence lineage is preserved into prepared execution requests; execution semantics are unchanged.
+
+
+### Prepared Execution Request Freshness
+
+**Status:** V1 explicit non-mutating freshness assessment implemented and CI-verified. Freshness is a safety precondition only; re-authorization, retry, scheduling, and provider execution remain separate boundaries.

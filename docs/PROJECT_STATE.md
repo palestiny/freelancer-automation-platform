@@ -285,3 +285,8 @@ Authorization artifacts now preserve the exact current, baseline, and statistica
 ## Prepared Execution Request Evidence Lineage
 
 Prepared execution requests now preserve the current, baseline, and statistical observation IDs carried by the authoritative action authorization. This is traceability hardening only; preparation remains non-executing and does not add freshness, retry, scheduling, or provider behavior.
+
+
+## Prepared Execution Request Freshness
+
+A provider-independent freshness assessment now provides an explicit safety precondition for prepared execution requests. It uses the request preparation timestamp, an explicit versionable maximum-age policy, and an explicit as-of timestamp. Stale, missing, future, and non-prepared states remain explicit and non-mutating. Freshness does not re-authorize, retry, schedule, or execute a request.
