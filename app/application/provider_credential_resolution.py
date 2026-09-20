@@ -14,7 +14,7 @@ class CredentialResolutionResult:
     provider_key: str | None = None
     credential_reference: str | None = None
     material: str | None = None
-    failure: CredentialResolutionFailure | None = None
+    failure_reason: CredentialResolutionFailure | None = None
 
     def __post_init__(self) -> None:
         if self.success:
@@ -22,12 +22,12 @@ class CredentialResolutionResult:
                 raise ValueError("successful resolution requires provider and reference")
             if self.material is None or not self.material:
                 raise ValueError("successful resolution requires credential material")
-            if self.failure is not None:
+            if self.failure_reason is not None:
                 raise ValueError("successful resolution cannot contain failure")
         else:
             if self.material is not None:
                 raise ValueError("failed resolution cannot carry credential material")
-            if self.failure is None:
+            if self.failure_reason is None:
                 raise ValueError("failed resolution requires a failure reason")
 
     @classmethod
