@@ -60,7 +60,7 @@ Expected-vs-actual measurement, business performance history, windows, aggregati
 
 Authorization, autonomy bounds, human-approval requirements, safety blocks, execution preparation, provider-independent outcomes, recovery policy, execution coordination, retry policy, durable retry infrastructure, worker dispatch, and provider-failure handling exist.
 
-**Next slice:** repeated invocation / operational lifecycle only if a concrete deployment boundary requires it; the finite runtime invocation is implemented.
+**Next slice:** crash/recovery reconciliation for ambiguous in-flight execution; continuous single-worker lifecycle is implemented.
 
 ## Phase 12 — Multi-Marketplace, Multi-Business & Interfaces
 **Status: STRATEGIC DIRECTION**
@@ -131,9 +131,14 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 
 ### Continuous Retry Worker Lifecycle
 
-**Status:** DESIGN GATE APPROVED — lifecycle semantics defined; implementation intentionally not started in this documentation increment. The finite worker invocation remains authoritative until lifecycle implementation is independently tested and reconciled.
+**Status:** V1 lifecycle controller and immutable lifecycle observation implemented and CI-verified. The continuous runtime remains single-worker and non-distributed; crash/recovery reconciliation is the next separate boundary.
 
 
 ### Retry Worker Runtime Lifecycle
 
 **Status:** V1 lifecycle controller and immutable lifecycle observation implemented and CI-verified. The continuous runtime remains single-worker and non-distributed; crash/recovery reconciliation and production deployment lifecycle are separate boundaries.
+
+
+### Retry Worker Crash / Recovery Reconciliation
+
+**Status:** DESIGN GATE APPROVED — provider-independent ambiguous in-flight execution reconciliation defined. No provider status polling or automatic retry is included.

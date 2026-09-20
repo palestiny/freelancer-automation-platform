@@ -1,6 +1,6 @@
 # Design Gate — Retry Worker Runtime Lifecycle
 
-**Status:** APPROVED — V1 lifecycle design only; continuous runtime implementation remains a separate implementation increment.
+**Status:** APPROVED — V1 lifecycle semantics implemented and verified; crash/recovery reconciliation remains a separate boundary.
 
 ## Purpose
 
@@ -10,7 +10,7 @@ Define the lifecycle semantics required before turning the finite, externally bo
 
 The current runtime can perform a caller-bounded batch of single-command invocations. It has no daemon, queue framework, lease, heartbeat, or worker-pool semantics.
 
-This gate defines those missing lifecycle semantics without implementing them.
+This gate defines those lifecycle semantics. The lifecycle controller, explicit stop/wakeup behavior, and immutable lifecycle observation are implemented. Crash/recovery reconciliation remains intentionally separate.
 
 ## V1 Lifecycle
 
@@ -94,12 +94,14 @@ Observability remains evidence only and must not trigger automatic restart or re
 
 ## Implementation Gate
 
-Implementation must be split into explicit increments:
-1. lifecycle command/state value objects and RED tests
-2. single-worker runtime controller around the existing finite invocation
+Implementation increments completed:
+1. lifecycle state semantics and RED tests
+2. single-worker runtime controller around the finite invocation
 3. explicit stop/wakeup mechanism
-4. crash/recovery reconciliation
-5. lifecycle observability
-6. integration hardening and CI
+4. lifecycle observability
+5. integration hardening and CI
 
-No daemon framework should be introduced before these contracts are tested.
+Remaining separate boundary:
+6. crash/recovery reconciliation for commands left in execution-in-progress state.
+
+No daemon framework or distributed runtime should be introduced implicitly.
