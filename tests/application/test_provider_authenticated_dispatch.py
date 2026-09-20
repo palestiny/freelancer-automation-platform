@@ -8,6 +8,7 @@ from app.application.provider_authenticated_dispatch import (
     dispatch_with_credentials,
 )
 from app.application.provider_capability_registry import ProviderCapabilityRegistry
+from app.application.execution_port import ExecutionPort
 from app.application.provider_credential_resolution import (
     CredentialResolutionResult,
     CredentialResolutionFailure,
@@ -19,9 +20,12 @@ from app.domain.authorized_execution_request import (
 from app.domain.execution_outcome import ExecutionOutcomeStatus
 
 
-class Adapter:
+class Adapter(ExecutionPort):
     def __init__(self):
         self.calls = []
+
+    def execute(self, request):
+        raise AssertionError("authenticated dispatch must be used")
 
     def execute_authenticated(self, request, credential_material):
         self.calls.append((request, credential_material))
@@ -53,12 +57,13 @@ def _request():
 
 
 def _registry(adapter):
-    return ProviderCapabilityRegistry(
-        registrations={
-            "provider-a": {ProviderCapability.EXECUTE},
-        },
-        adapters={"provider-a": adapter},
+    registry = ProviderCapabilityRegistry()
+    registry.register(
+        "provider-a",
+        adapter,
+        capabilities={ProviderCapability.SEND_MESSAGE},
     )
+    return registry
 
 
 def test_dispatch_resolves_credential_and_executes_authenticated_adapter():
@@ -75,7 +80,7 @@ def test_dispatch_resolves_credential_and_executes_authenticated_adapter():
         capability_registry=_registry(adapter),
         credential_resolver=resolver,
         provider_key="provider-a",
-        capability=ProviderCapability.EXECUTE,
+        capability=ProviderCapability.SEND_MESSAGE,
         credential_reference="cred-1",
         request=_request(),
     )
@@ -94,7 +99,7 @@ def test_unsupported_capability_rejects_before_credential_resolution():
             capability_registry=_registry(adapter),
             credential_resolver=resolver,
             provider_key="provider-a",
-            capability=ProviderCapability.SUBMIT,
+            capability=ProviderCapability.SUBMIT_PROPOSAL,
             credential_reference="cred-1",
             request=_request(),
         )
