@@ -72,7 +72,7 @@ def test_one_invocation_dispatches_exactly_one_command():
 def test_claim_conflict_is_blocked():
     cmd = command()
     source = Source(cmd)
-    dispatcher = Dispatcher(result(cmd, RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED))
+    dispatcher = Dispatcher(result=RetryWorkerDispatchResult(command=cmd, status=RetryWorkerDispatchStatus.CLAIM_NOT_ACQUIRED, failure="claim_conflict"))
 
     runtime = run_retry_worker_once(source=source, dispatch=dispatcher)
 
