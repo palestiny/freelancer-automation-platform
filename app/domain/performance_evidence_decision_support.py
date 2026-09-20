@@ -47,6 +47,7 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+    statistical_mean_difference: float | None
     current_window_start: datetime | None = None
     current_window_end: datetime | None = None
     baseline_window_start: datetime | None = None
