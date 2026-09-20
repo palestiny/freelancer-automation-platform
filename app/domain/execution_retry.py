@@ -136,6 +136,14 @@ class RetryCommandStore(Protocol):
     def save(self, command: RetryCommand) -> RetryCommand:
         ...
 
+    def transition_if_current(
+        self,
+        command_id: str,
+        expected_state: RetryCommandState,
+        target_state: RetryCommandState,
+    ) -> RetryCommand | None:
+        ...
+
 
 class RetrySchedulerPort(Protocol):
     def schedule(self, command: RetryCommand) -> SchedulerAcknowledgement:
