@@ -67,12 +67,12 @@ def authorize_action(*, review: EvidencePolicyReview, action_class: ActionClass,
     if review.status is not EvidencePolicyReviewStatus.POLICY_SATISFIED:
         return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if action_class in {ActionClass.IRREVERSIBLE_EXTERNAL, ActionClass.FINANCIAL}:
-        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.SAFETY_BLOCKED, False)
+        return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.SAFETY_BLOCKED, False)
     if requested_autonomy.value > maximum_autonomy.value:
-        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
+        return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.NOT_AUTHORIZED, False)
     if requested_autonomy is AutonomyLevel.L3_EXECUTE_WITH_APPROVAL and not human_approval_granted:
-        return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.HUMAN_APPROVAL_REQUIRED, True)
-    return _result(policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.AUTHORIZED, False)
+        return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.HUMAN_APPROVAL_REQUIRED, True)
+    return _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, ActionAuthorizationStatus.AUTHORIZED, False)
 
 
 def _result(review, policy_id, policy_version, action_class, requested_autonomy, maximum_autonomy, status, requires):
