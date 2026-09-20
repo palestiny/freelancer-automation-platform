@@ -1,10 +1,10 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
 from app.application.provider_capability_registry import ProviderCapability
-from app.domain.execution_request_freshness import ExecutionRequestFreshnessPolicy
 from app.application.execution_port import ProviderExecutionResult
+from app.domain.execution_request_freshness import ExecutionRequestFreshnessPolicy
 from app.application.provider_authenticated_dispatch import (
     dispatch_with_credentials,
 )
@@ -110,8 +110,6 @@ def test_unsupported_capability_rejects_before_credential_resolution():
             request=_request(),
         freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
         as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
-            freshness_policy=ExecutionRequestFreshnessPolicy(maximum_age=timedelta(minutes=30)),
-            as_of=datetime(2026, 9, 20, 12, 10, tzinfo=timezone.utc),
         )
 
     assert resolver.calls == []
