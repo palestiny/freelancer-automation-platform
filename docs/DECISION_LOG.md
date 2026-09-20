@@ -1083,3 +1083,8 @@ V1 may repeat the authoritative single-command worker invocation only within an 
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-164 — Continuous Retry Runtime Requires an Explicit Lifecycle Boundary
+
+The finite externally bounded retry-worker invocation must remain the authoritative command-execution unit. A continuous runtime requires explicit lifecycle states, start/stop semantics, safe shutdown boundaries, single-worker concurrency, crash/recovery semantics, and lifecycle observability before implementation. Automatic restart and distributed worker coordination remain outside V1.
