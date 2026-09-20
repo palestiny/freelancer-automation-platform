@@ -6,7 +6,7 @@
 
 The repository has completed provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing, business operations, deterministic measurement/learning, bounded statistical inference, evidence composition, policy review, authorization, execution preparation, execution outcomes, recovery assessment, execution coordination, immutable attempt history, retry policy, durable retry persistence/scheduling, execution claims, retry outcomes, and single-command worker dispatch.
 
-The latest merged runtime work is the **finite retry worker runtime invocation**. One invocation selects at most one durable scheduled command, delegates to the authoritative single-command dispatch boundary, reports an explicit runtime outcome, and stops. A background daemon/queue framework is not implemented.
+The latest merged runtime work is the **bounded retry worker batch invocation**. One externally controlled batch may perform a caller-bounded number of single-command invocations, stopping at IDLE, BLOCKED, FAILED, or the explicit invocation limit. A background daemon/queue framework is not implemented.
 
 ## Current Product Direction
 

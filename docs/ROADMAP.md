@@ -100,7 +100,7 @@ The pipeline deliberately separates evidence, policy, authorization, and executi
 
 ## Current Runtime Boundary
 
-The finite retry worker runtime invocation is implemented. It preserves durable command identity, deterministic scheduled-work selection, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and observable failure. Continuous worker lifecycle remains a separate future boundary.
+The bounded retry worker batch invocation is implemented. It preserves durable command identity, deterministic scheduled-work selection, atomic claims, authorization/policy revalidation, explicit failure states, bounded termination, and ordered per-invocation results. Continuous worker lifecycle remains a separate future boundary.
 
 ## Future Strategic Work
 
