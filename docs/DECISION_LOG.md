@@ -1278,3 +1278,8 @@ Variant comparison may expose average differences between two explicitly selecte
 ### D-122 — Controlled Experiment Statistical Comparison Reuses Welch Without Winner Selection
 
 The first inferential controlled-experiment consumer uses the existing Welch two-sample method for exactly two declared variants. The result remains an evidence artifact with explicit applicability and lineage. Statistical significance does not select a winner, establish causality, mutate experiment lifecycle, or authorize execution.
+
+
+### D-180 — Controlled Experiment Evidence Packaging Is Non-Decisioning
+
+The first cross-artifact experiment consumer packages readiness, descriptive comparison, and approved inferential evidence for review while preserving variant identity and lineage. It must not select a winner, infer causality, mutate experiment lifecycle, or execute.
