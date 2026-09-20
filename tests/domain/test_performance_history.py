@@ -53,7 +53,7 @@ def test_rolling_window_ends_at_requested_time():
     end = datetime(2026, 1, 10, tzinfo=timezone.utc)
     window = rolling_window(end=end, duration=timedelta(days=7))
 
-    assert window.start == datetime(2026, 1, 3)
+    assert window.start == datetime(2026, 1, 3, tzinfo=timezone.utc)
     assert window.end == end
 
 
