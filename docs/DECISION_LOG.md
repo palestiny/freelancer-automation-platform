@@ -1278,3 +1278,8 @@ Variant comparison may expose average differences between two explicitly selecte
 ### D-122 — Controlled Experiment Statistical Comparison Reuses Welch Without Winner Selection
 
 The first inferential controlled-experiment consumer uses the existing Welch two-sample method for exactly two declared variants. The result remains an evidence artifact with explicit applicability and lineage. Statistical significance does not select a winner, establish causality, mutate experiment lifecycle, or authorize execution.
+
+
+### D-122 — Controlled Experiment Evidence Synthesis Is Non-Selecting
+
+The first controlled-experiment synthesis layer combines neutral descriptive movement with the existing Welch inferential result while preserving disagreement. It must not select or rank variants, declare a business winner, mutate experiment lifecycle, optimize allocation, or execute actions.
