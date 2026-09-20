@@ -159,3 +159,16 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
+
+
+def test_empty_statistical_lineage_is_rejected():
+    from dataclasses import replace
+    from pytest import raises
+    evidence = _stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)
+    evidence = replace(evidence, observation_ids=())
+    with raises(ValueError, match="observation lineage"):
+        compose_performance_evidence(
+            trend=_trend(10.0),
+            statistical_evidence=evidence,
+            business_id="b1",
+        )
