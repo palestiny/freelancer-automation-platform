@@ -79,6 +79,31 @@ class StatisticalEvidenceComposition:
         ):
             raise ValueError("eligible state must match reason")
 
+        if self.reason is StatisticalEvidenceEligibilityReason.ELIGIBLE and (
+            not self.current_source_reliability.eligible
+            or not self.baseline_source_reliability.eligible
+        ):
+            raise ValueError(
+                "eligible evidence requires eligible current and baseline source reliability"
+            )
+
+        if (
+            self.reason is StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY
+            and self.current_source_reliability.eligible
+            and self.baseline_source_reliability.eligible
+        ):
+            raise ValueError(
+                "insufficient source reliability requires at least one ineligible source assessment"
+            )
+
+        if self.eligible and (
+            self.interpretation is StatisticalEvidenceInterpretation.STATISTICAL_RESULT_NOT_APPLICABLE
+            or self.mean_difference is None
+        ):
+            raise ValueError(
+                "eligible statistical evidence requires an applicable interpretation and mean difference"
+            )
+
 
 def compose_statistical_evidence(
     *,
