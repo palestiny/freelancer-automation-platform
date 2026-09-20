@@ -451,3 +451,8 @@ A bounded downstream evidence-composition layer now combines deterministic perfo
 ## Controlled Experiment Exposure Idempotency
 
 V1 exposure recording is now retry-safe at the authoritative persistence boundary. An identical retry returns the existing authoritative exposure; conflicting identity or assignment reuse is rejected explicitly. Idempotency prevents duplicate exposure evidence without implying delivery, causality, lifecycle mutation, reallocation, or execution.
+
+
+## Retry Worker Runtime Boundary Hardening
+
+The single-command worker runtime now explicitly rejects malformed work-source values, malformed dispatcher results, and dispatcher results whose command identity does not match the selected scheduled command. Boundary failures remain non-retrying runtime failures; this hardening does not introduce automatic re-execution or distributed worker semantics.
