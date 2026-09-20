@@ -1328,3 +1328,8 @@ A controlled-experiment exposure may be explicitly linked to a later outcome obs
 ### D-122 — Experiment Observation Requires Exposure-Compatible Lineage
 
 Downstream experiment evidence must not treat assignment as proof of exposure. A metric observation is authoritative only when experiment, assignment, subject, and variant identities match an actual exposure and the observation timestamp is at or after exposure. This is lineage validation, not causal inference.
+
+
+### D-185 — Controlled Experiment Exposure Must Resolve Authoritative Assignment
+
+The hardened exposure application boundary resolves the persisted assignment by identity before constructing exposure evidence. Caller-created assignment values are not treated as authoritative by this boundary. This is lineage safety only and does not imply exposure delivery or causal attribution.
