@@ -14,6 +14,7 @@ class EvidenceHandoffType(str, Enum):
 
 @dataclass(frozen=True)
 class EvidenceLearningHandoff:
+    handoff_id: str
     business_id: str
     metric_name: str
     unit: str
@@ -23,7 +24,7 @@ class EvidenceLearningHandoff:
     observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
+        if not self.handoff_id.strip() or not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
             raise ValueError("business_id, metric_name, and unit cannot be empty")
         if not self.target.strip() or not self.statement.strip():
             raise ValueError("target and statement cannot be empty")
@@ -33,6 +34,7 @@ class EvidenceLearningHandoff:
 
 def create_evidence_learning_handoff(
     *,
+    handoff_id: str,
     evidence: PerformanceEvidenceDecisionSupport,
     handoff_type: EvidenceHandoffType,
     target: str,
@@ -41,6 +43,7 @@ def create_evidence_learning_handoff(
     if evidence.inferential_status.value == "unavailable":
         raise ValueError("evidence must be eligible before handoff")
     return EvidenceLearningHandoff(
+        handoff_id=handoff_id,
         business_id=evidence.business_id,
         metric_name=evidence.metric_name,
         unit=evidence.unit,
