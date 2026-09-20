@@ -376,3 +376,8 @@ V1 now provides a deterministic descriptive summary of ready experiment observat
 ## Controlled Experiment Variant Comparison
 
 V1 now has a bounded descriptive comparison consumer for two declared experiment variants. It reports neutral average movement, preserves both variant identities and observation lineage, and never selects a winner, ranks variants, calculates significance, mutates experiment lifecycle, or executes actions.
+
+
+## Controlled Experiment Statistical Comparison
+
+V1 now provides an explicit inferential evidence artifact for exactly two declared experiment variants using the already-approved Welch two-sample method. It preserves experiment/variant identity and observation lineage, keeps applicability explicit, and does not select winners, infer causality, mutate experiment lifecycle, or execute actions.

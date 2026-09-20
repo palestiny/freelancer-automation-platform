@@ -343,3 +343,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Variant Comparison
 
 **Status:** V1 descriptive two-variant comparison implemented and CI-verified. Difference semantics remain neutral; ranking, winner selection, statistical significance, and automatic experiment decisions remain separate boundaries.
+
+
+### Controlled Experiment Statistical Comparison
+
+**Status:** V1 inferential comparison implemented and CI-verified. Welch is reused as an approved statistical method; experiment-specific identity remains explicit. No winner selection, causal claim, lifecycle mutation, or execution is introduced.
