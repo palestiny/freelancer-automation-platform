@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from .performance_evidence_decision_support import (\n    InferentialStatus,\n    PerformanceEvidenceDecisionSupport,\n)
+from .performance_evidence_decision_support import (
+    InferentialStatus,
+    PerformanceEvidenceDecisionSupport,
+)
 
 
 class EvidenceHandoffType(str, Enum):
