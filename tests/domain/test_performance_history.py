@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, timezone
 
 import pytest
 
@@ -21,7 +21,7 @@ def item(id: str, at: datetime) -> BusinessPerformanceObservation:
 
 
 def test_window_is_start_inclusive_and_end_exclusive():
-    start = datetime(2026, 1, 1)
+    start = datetime(2026, 1, 1, tzinfo=timezone.utc)
     window = PerformanceWindow(start=start, end=start + timedelta(days=1))
 
     assert window.contains(start)
