@@ -378,3 +378,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Allocation Decision Hardening
 
 **Status:** V1 allocation decision auditability hardening implemented and CI-verified. The decision artifact preserves deterministic allocation context; persistence and exposure enforcement remain separate boundaries.
+
+
+### Controlled Experiment Assignment Persistence
+
+**Status:** V1 authoritative assignment persistence implemented and CI-verified. Assignment identity is unique, experiment/subject assignment is stable, and later observations can reference persisted assignment identity. Exposure scheduling and provider execution remain separate boundaries.
