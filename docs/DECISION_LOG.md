@@ -1188,3 +1188,8 @@ A satisfied evidence policy review can authorize only under the exact policy ide
 ### D-171 — Action Authorization Preserves Reviewed Evidence Lineage
 
 An authorization artifact must retain the observation lineage from the policy review that produced it. This is traceability only and does not authorize additional action or mutate execution semantics.
+
+
+### D-172 — Prepared Execution Requests Preserve Authorization Evidence Lineage
+
+Preparation copies reviewed observation lineage from the authoritative authorization into the immutable prepared request. Callers cannot replace the lineage at preparation time. This is traceability only and does not authorize, execute, retry, schedule, or mutate policy.
