@@ -44,7 +44,7 @@ def create_learning_memory_entry(
         unit=handoff.unit,
         category=handoff.handoff_type,
         statement=handoff.statement,
-        source_handoff_id=entry_id,
+        source_handoff_id=handoff.handoff_id,
         observation_ids=handoff.observation_ids,
         recorded_at=recorded_at,
         evidence_quality=evidence_quality,
