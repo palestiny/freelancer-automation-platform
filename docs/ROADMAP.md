@@ -393,3 +393,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Exposure-to-Outcome Linkage
 
 **Status:** V1 temporal/provenance linkage implemented. Exposure and outcome remain distinct evidence artifacts; linkage does not establish causality or trigger experiment decisions.
+
+
+### Controlled Experiment Observation Exposure Lineage
+
+**Status:** V1 exposure-compatible observation persistence is implemented and verified. Assignment, exposure, and metric observation remain distinct evidence artifacts; causal inference and experiment decisions remain separate boundaries.
