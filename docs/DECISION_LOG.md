@@ -1178,3 +1178,8 @@ Decision-support policy is an explicit input with bounded thresholds and optiona
 ### D-122 — Evidence-to-Decision Outcomes Preserve Evidence Lineage
 
 A non-executing policy evaluation result must preserve explicit evidence identity and unique observation lineage so downstream consumers cannot detach a policy outcome from its supporting evidence. This does not authorize mutation or execution.
+
+
+### D-170 — Policy Identity Must Survive Review-to-Authorization Binding
+
+A satisfied evidence policy review can authorize only under the exact policy identity and version used for that review. Caller-supplied mismatches are explicitly rejected. This is traceability/safety hardening and does not change execution semantics.

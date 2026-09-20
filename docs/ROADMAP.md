@@ -237,3 +237,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Evidence-to-Decision Policy Lineage
 
 **Status:** V1 lineage hardening implemented and CI-verified. Policy outcomes now preserve the evidence identity and observation IDs that support them.
+
+
+### Policy Identity Binding
+
+**Status:** V1 traceability/safety hardening implemented and CI-verified. Evidence policy review and action authorization now share an explicit immutable policy identity/version contract.
