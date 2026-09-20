@@ -197,3 +197,17 @@ def test_result_rejects_empty_statistical_observation_id():
             posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
             statistical_observation_ids=("",),
         )
+
+
+def test_result_rejects_statistical_detection_without_method():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION, statistical_observation_ids=("x",), statistical_difference_direction=DescriptiveDirection.IMPROVING, current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+
+
+def test_result_rejects_non_detected_result_with_detection_posture():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError):
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.NO_STATISTICALLY_DETECTED_DIFFERENCE, posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION, statistical_observation_ids=("x",), statistical_method="welch_two_sample_t_test", statistical_difference_direction=DescriptiveDirection.IMPROVING, current_observation_ids=("c1",), baseline_observation_ids=("b1",))
