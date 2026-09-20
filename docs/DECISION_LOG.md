@@ -1073,3 +1073,8 @@ The first runtime implementation consumes at most one durable scheduled retry co
 ### D-122 — Finite Retry Runtime Observability Is an Evidence Artifact
 
 Each finite retry runtime invocation may produce an immutable observation containing explicit timestamps, outcome, command identity, dispatch status, and failure code. The observation is descriptive evidence only and does not trigger retries, alerts, policy mutation, or execution.
+
+
+### D-163 — Retry Worker Batch Invocation Is Explicitly Bounded
+
+V1 may repeat the authoritative single-command worker invocation only within an explicit positive invocation limit. IDLE, BLOCKED, and FAILED stop the batch. The batch does not introduce polling, sleeping, queues, leases, heartbeats, concurrency, or daemon lifecycle semantics.
