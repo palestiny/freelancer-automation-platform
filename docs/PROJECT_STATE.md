@@ -636,3 +636,8 @@ Performance evidence decision support is implemented and CI-verified on main. Th
 ## Performance Evidence Decision Support — Current State
 
 V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Performance Evidence Decision Support — Current State
+
+V1 now composes deterministic performance direction with the existing statistical evidence artifact. The result preserves disagreement and lineage and remains non-decisioning; it does not produce a score, recommendation, policy mutation, learning mutation, portfolio action, or execution.
