@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -15,7 +15,7 @@ from app.domain.performance_aggregation import (
 from app.domain.performance_history import PerformanceWindow
 
 
-START = datetime(2026, 1, 1)
+START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 
 
 def item(
