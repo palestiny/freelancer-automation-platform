@@ -59,6 +59,9 @@ class PerformanceEvidenceDecisionSupport:
     baseline_observation_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
+        if self.inferential_status is not InferentialStatus.UNAVAILABLE and not self.statistical_method.strip():
+            raise ValueError("statistical_method cannot be empty when inferential evidence is available")
+
         for name in ("business_id", "metric_name", "unit"):
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} cannot be empty")
