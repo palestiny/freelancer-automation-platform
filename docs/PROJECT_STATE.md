@@ -366,3 +366,8 @@ V1 now has provider-independent immutable experiment assignment and observation 
 ## Controlled Experiment Evidence Readiness
 
 V1 now has an explicit non-executing readiness boundary for controlled experiment evidence. It validates experiment/variant context and assignment-to-observation lineage, then reports whether each declared variant has sufficient usable observations under an explicit evidence-quality threshold. Readiness does not infer causality, calculate significance, select a winner, mutate experiment lifecycle, or execute experiments.
+
+
+## Controlled Experiment Outcome Summary
+
+V1 now provides a deterministic descriptive summary of ready experiment observations by variant. It preserves metric identity, per-variant counts/averages/ranges, evidence quality, and raw observation lineage. It does not infer causality, calculate statistical significance, select a winner, rank variants, mutate experiment lifecycle, or execute experiments.
