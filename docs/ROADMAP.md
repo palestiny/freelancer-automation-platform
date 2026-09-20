@@ -292,3 +292,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Metric Direction Policy
 
 **Status:** V1 explicit metric-polarity interpretation policy implemented and CI-verified. Evidence remains neutral; favorable/unfavorable interpretation requires explicit policy.
+
+
+### Metric Direction Interpretation in Evidence Decision Support
+
+**Status:** V1 explicit polarity interpretation integrated and CI-verified. Raw movement remains neutral and no action semantics are introduced.
