@@ -346,3 +346,8 @@ The next unresolved product/infrastructure boundary is intentionally not selecte
 ## Performance Evidence Persistence
 
 V1 authoritative performance observations now have a durable provider-independent application port and a reference SQLite adapter. Raw observations remain authoritative; aggregates, trends, statistical results, and learning artifacts remain derived and recomputable. Persistence does not interpret evidence or execute actions.
+
+
+## Performance Observation Application Service
+
+A provider-independent application service now sits above the performance observation repository port for recording authoritative observations and retrieving one business's history. It does not trigger derived analysis, policy evaluation, learning, authorization, or execution.
