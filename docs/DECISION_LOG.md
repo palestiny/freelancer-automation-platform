@@ -1138,3 +1138,8 @@ Provider adapters must satisfy a common runtime contract for result type, reques
 ### D-124 — Provider Resolution Is Explicit and Non-Ranking
 
 Provider adapters are resolved only by an explicit provider key. The registry does not rank providers, select fallbacks, manage credentials, perform health routing, or execute requests. Concrete provider integration remains a separate design boundary.
+
+
+### D-122 — Provider Capabilities Are Explicit Declarations
+
+Provider capability metadata is declared explicitly at registration time and looked up by provider key. The registry does not infer capabilities dynamically, rank providers, select fallbacks, manage credentials, or execute provider actions.
