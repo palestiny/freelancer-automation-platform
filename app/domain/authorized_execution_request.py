@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 from .action_authorization import ActionAuthorization, ActionAuthorizationStatus, ActionClass, AutonomyLevel
@@ -18,6 +19,7 @@ class AuthorizedExecutionRequest:
     policy_id: str
     policy_version: str
     status: ExecutionRequestStatus
+    prepared_at: datetime | None = None
     current_observation_ids: tuple[str, ...] = ()
     baseline_observation_ids: tuple[str, ...] = ()
     statistical_observation_ids: tuple[str, ...] = ()
