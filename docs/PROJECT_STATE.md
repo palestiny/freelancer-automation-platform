@@ -295,3 +295,8 @@ A provider-independent freshness assessment now provides an explicit safety prec
 ## Performance Evidence Decision Support
 
 A bounded downstream evidence-composition layer combines deterministic performance trend direction with the existing statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Freshness-Aware Provider-Authenticated Dispatch
+
+V1 authenticated provider dispatch now requires an explicit prepared-request freshness policy and explicit as-of time after capability verification and before credential resolution/provider invocation. Stale, future, missing-timestamp, and non-prepared requests are rejected without provider execution. Freshness remains a safety precondition, not authorization, retry, scheduling, or re-authorization.
