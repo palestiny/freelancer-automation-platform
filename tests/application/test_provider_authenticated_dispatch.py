@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import pytest
 
 from app.application.provider_capability_registry import ProviderCapability
+from app.domain.execution_request_freshness import ExecutionRequestFreshnessPolicy
 from app.application.execution_port import ProviderExecutionResult
 from app.application.provider_authenticated_dispatch import (
     dispatch_with_credentials,
@@ -85,6 +86,8 @@ def test_dispatch_resolves_credential_and_executes_authenticated_adapter():
         capability=ProviderCapability.SEND_MESSAGE,
         credential_reference="cred-1",
         request=_request(),
+        freshness_policy=ExecutionRequestFreshnessPolicy(),
+        as_of=datetime.now(timezone.utc),
     )
 
     assert result.status is ExecutionOutcomeStatus.SUCCEEDED
