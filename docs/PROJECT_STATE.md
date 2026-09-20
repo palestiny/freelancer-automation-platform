@@ -351,3 +351,8 @@ V1 authoritative performance observations now have a durable provider-independen
 ## Performance Observation Application Service
 
 A provider-independent application service now sits above the performance observation repository port for recording authoritative observations and retrieving one business's history. It does not trigger derived analysis, policy evaluation, learning, authorization, or execution.
+
+
+## Performance Observation Temporal Contract
+
+Authoritative performance observations now require timezone-aware timestamps. This closes an ambiguity at the temporal domain boundary used by history, windows, freshness, baseline, trend, and statistical analysis. No implicit local-time/UTC inference or normalization is performed.
