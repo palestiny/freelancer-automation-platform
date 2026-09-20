@@ -25,6 +25,13 @@ class SQLiteExperimentAssignmentRepository:
         self._connection.commit()
 
     def save(self, assignment: ExperimentAssignment) -> None:
+        existing = self._connection.execute(
+            "SELECT 1 FROM experiment_assignments WHERE id = ?",
+            (assignment.id,),
+        ).fetchone()
+        if existing is not None:
+            raise ValueError(f"assignment {assignment.id!r} already exists")
+
         try:
             self._connection.execute(
                 """
