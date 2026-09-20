@@ -373,3 +373,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Allocation
 
 **Status:** V1 deterministic allocation foundation implemented and CI-verified. Assignment persistence, scheduling/exposure enforcement, provider execution, reallocation, and optimization remain separate boundaries.
+
+
+### Controlled Experiment Allocation Decision Hardening
+
+**Status:** V1 allocation decision auditability hardening implemented and CI-verified. The decision artifact preserves deterministic allocation context; persistence and exposure enforcement remain separate boundaries.
