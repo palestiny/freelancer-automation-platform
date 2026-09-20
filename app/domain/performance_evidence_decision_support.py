@@ -13,6 +13,9 @@ from .statistical_evidence_composition import (
 class DescriptiveDirection(str, Enum):
     INCREASED = "increased"
     DECREASED = "decreased"
+    # Backward-compatible aliases for existing policy consumers. New code should use neutral names.
+    IMPROVING = "increased"
+    DECLINING = "decreased"
     NO_CHANGE = "no_change"
     UNAVAILABLE = "unavailable"
 
