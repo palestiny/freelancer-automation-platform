@@ -342,3 +342,8 @@ Next extension remains consumer-driven and requires a dedicated design gate if i
 ### Evidence Decision Support
 
 **Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
