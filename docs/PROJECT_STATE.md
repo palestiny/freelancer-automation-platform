@@ -320,3 +320,8 @@ Evidence learning handoffs now carry an explicit immutable handoff identity. Bus
 ## Performance Evidence Direction Semantics
 
 Performance evidence production now uses neutral movement semantics: INCREASED, DECREASED, and NO_CHANGE. The evidence layer does not infer whether a movement is favorable or unfavorable because metric polarity varies by metric. Existing explicit policy consumers retain compatibility with legacy IMPROVING/DECLINING values during migration.
+
+
+## Metric Direction Policy
+
+V1 now separates neutral evidence movement from favorable/unfavorable interpretation. Metric polarity is an explicit provider-independent policy; raw evidence remains unchanged and missing polarity is not inferred from metric names.
