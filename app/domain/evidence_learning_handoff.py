@@ -24,7 +24,9 @@ class EvidenceLearningHandoff:
     observation_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        if not self.handoff_id.strip() or not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
+        if not self.handoff_id.strip():
+            raise ValueError("handoff_id cannot be empty")
+        if not self.business_id.strip() or not self.metric_name.strip() or not self.unit.strip():
             raise ValueError("business_id, metric_name, and unit cannot be empty")
         if not self.target.strip() or not self.statement.strip():
             raise ValueError("target and statement cannot be empty")
