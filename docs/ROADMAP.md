@@ -297,3 +297,14 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Metric Direction Interpretation in Evidence Decision Support
 
 **Status:** V1 explicit polarity interpretation integrated and CI-verified. Raw movement remains neutral and no action semantics are introduced.
+
+
+### Canonical Current Boundary Reconciliation — 2026-09-20
+
+Earlier roadmap entries that describe retry lifecycle or crash/recovery reconciliation as the “next” boundary are historical. Those boundaries are implemented and CI-verified.
+
+The current implemented pipeline is:
+
+**Evidence → Policy Review → Authorization → Prepared Execution → Freshness → Capability/Credential Checks → Provider Execution Port → Outcome Observation → Recovery Assessment → Atomic State Application → Learning / Review Evidence**
+
+The next unresolved boundary remains deliberately unselected until a concrete requirement/design gate is established. Candidate areas include provider integrations, production persistence/API/UI, controlled experimentation infrastructure, production background runtime infrastructure, broader business-model execution, cross-domain learning, and progressive autonomy.
