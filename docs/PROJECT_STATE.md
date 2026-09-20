@@ -300,3 +300,8 @@ A bounded downstream evidence-composition layer combines deterministic performan
 ## Freshness-Aware Provider-Authenticated Dispatch
 
 V1 authenticated provider dispatch now requires an explicit prepared-request freshness policy and explicit as-of time after capability verification and before credential resolution/provider invocation. Stale, future, missing-timestamp, and non-prepared requests are rejected without provider execution. Freshness remains a safety precondition, not authorization, retry, scheduling, or re-authorization.
+
+
+## Evidence → Learning Handoff
+
+The platform now has an explicit non-executing handoff from eligible composed performance evidence to either policy review or experiment. The handoff preserves business/metric/unit identity and statistical observation lineage. It does not mutate policy, lifecycle, portfolio, or execution state.

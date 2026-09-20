@@ -267,3 +267,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Freshness-Aware Provider-Authenticated Dispatch
 
 **Status:** V1 explicit freshness safety precondition integrated into authenticated provider dispatch and CI-verified. Provider execution remains blocked for stale/ineligible prepared requests; retry, scheduling, re-authorization, and fallback remain separate boundaries.
+
+
+### Evidence → Learning Handoff
+
+**Status:** V1 explicit handoff implemented and CI-verified. Statistical evidence can now reach a controlled policy-review or experiment boundary without automatic policy mutation.

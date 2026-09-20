@@ -1208,3 +1208,8 @@ The decision-support composition layer may expose descriptive direction alongsid
 ### D-173 — Freshness Must Gate Authenticated Provider Invocation
 
 An authenticated provider dispatch may invoke the provider only after capability verification and an explicit fresh prepared-request assessment. Freshness is non-mutating and non-authorizing; stale or otherwise ineligible requests cannot reach provider execution.
+
+
+### D-122 — Evidence-to-Learning Handoff Is Explicit and Non-Executing
+
+Eligible composed performance evidence may be handed off explicitly to policy review or an experiment. The handoff preserves lineage and context and never silently changes policy, learning, lifecycle, portfolio, or execution state.
