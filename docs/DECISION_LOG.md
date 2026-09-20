@@ -1283,3 +1283,8 @@ The first inferential controlled-experiment consumer uses the existing Welch two
 ### D-122 — Controlled Experiment Evidence Synthesis Is Non-Selecting
 
 The first controlled-experiment synthesis layer combines neutral descriptive movement with the existing Welch inferential result while preserving disagreement. It must not select or rank variants, declare a business winner, mutate experiment lifecycle, optimize allocation, or execute actions.
+
+
+### D-180 — Controlled Experiment Hypothesis Evaluation Is Non-Selecting
+
+An explicit experiment hypothesis may be evaluated against eligible descriptive and inferential evidence, but the policy result must not select/rank variants, infer causality, change allocation, mutate experiment lifecycle, or execute actions.

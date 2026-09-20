@@ -386,3 +386,8 @@ V1 now provides an explicit inferential evidence artifact for exactly two declar
 ## Controlled Experiment Evidence Synthesis
 
 V1 now composes the existing neutral two-variant descriptive comparison with the existing Welch inferential comparison. The synthesis preserves experiment/metric/variant identity and observation lineage, exposes descriptive and inferential evidence separately, and explicitly represents disagreement. It does not select a winner, rank variants, mutate experiment lifecycle, change allocation, or execute actions.
+
+
+## Controlled Experiment Hypothesis Policy
+
+V1 now has an explicit non-executing policy consumer for controlled-experiment evidence synthesis. A declared directional hypothesis can be evaluated against eligible descriptive and Welch inferential evidence. The result preserves experiment/metric/observation context and reports support, non-support, insufficient evidence, or policy inapplicability. It does not select a winner, rank variants, change allocation, mutate lifecycle, or execute.

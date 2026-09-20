@@ -353,3 +353,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Evidence Synthesis
 
 **Status:** V1 descriptive + inferential evidence synthesis implemented and CI-verified. Winner selection, causal interpretation, lifecycle mutation, allocation optimization, and execution remain separate boundaries.
+
+
+### Controlled Experiment Hypothesis Policy
+
+**Status:** V1 explicit hypothesis-policy evaluation implemented and CI-verified. Winner selection, allocation changes, experiment lifecycle mutation, and execution remain separate boundaries.
