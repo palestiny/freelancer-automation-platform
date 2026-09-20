@@ -213,3 +213,8 @@ The canonical runtime boundary now includes lifecycle control and recovery coord
 ## Evidence Review Handoff — Current State
 
 V1 now has an explicit non-executing handoff from composed performance evidence to policy or human review. The handoff preserves descriptive/inferential evidence and observation lineage, but never authorizes or mutates policy or execution.
+
+
+## Evidence Review Decision — Current State
+
+V1 now represents an explicit review outcome after evidence handoff. ACCEPT, REJECT, and REQUEST_MORE_EVIDENCE are decision artifacts only; even ACCEPT is not authorization for policy mutation, provider execution, payment, capital movement, or external side effects. Reviewer identity, rationale, target, and observation lineage are preserved.
