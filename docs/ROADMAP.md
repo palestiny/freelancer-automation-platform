@@ -328,3 +328,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Controlled Experiment Evidence
 
 **Status:** V1 immutable assignment and observation evidence implemented and CI-verified. Allocation optimization, scheduling, execution, causal/statistical analysis, and automatic experiment decisions remain separate boundaries.
+
+
+### Controlled Experiment Evidence Readiness
+
+**Status:** V1 readiness assessment implemented and CI-verified. Evidence sufficiency is now a separate handoff from raw experiment evidence; analysis and experiment execution remain separate boundaries.

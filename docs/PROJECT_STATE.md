@@ -361,3 +361,8 @@ Authoritative performance observations now require timezone-aware timestamps. Th
 ## Controlled Experiment Evidence
 
 V1 now has provider-independent immutable experiment assignment and observation evidence. Assignments and observations preserve explicit experiment/subject/variant identity and timezone-aware timestamps. This boundary records evidence only; it does not randomize allocation, schedule work, execute providers, infer causality, calculate statistical significance, or mutate experiment lifecycle.
+
+
+## Controlled Experiment Evidence Readiness
+
+V1 now has an explicit non-executing readiness boundary for controlled experiment evidence. It validates experiment/variant context and assignment-to-observation lineage, then reports whether each declared variant has sufficient usable observations under an explicit evidence-quality threshold. Readiness does not infer causality, calculate significance, select a winner, mutate experiment lifecycle, or execute experiments.
