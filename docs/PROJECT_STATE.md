@@ -6,7 +6,7 @@
 
 The repository has completed provider-independent foundations for opportunity intelligence, economics, market intelligence, venture validation, revenue, communication, marketing, business operations, deterministic measurement/learning, bounded statistical inference, evidence composition, policy review, authorization, execution preparation, execution outcomes, recovery assessment, execution coordination, immutable attempt history, retry policy, durable retry persistence/scheduling, execution claims, retry outcomes, and single-command worker dispatch.
 
-The latest merged runtime work is the **retry worker runtime-loop design boundary**. A concrete background daemon/queue framework is not yet implemented.
+The latest merged runtime work is the **finite retry worker runtime invocation**. One invocation selects at most one durable scheduled command, delegates to the authoritative single-command dispatch boundary, reports an explicit runtime outcome, and stops. A background daemon/queue framework is not implemented.
 
 ## Current Product Direction
 
@@ -122,6 +122,8 @@ Implemented:
 - concrete SQLite retry persistence/scheduling adapters
 - bounded single-command worker dispatch
 - explicit runtime-loop design contract
+- finite retry worker runtime invocation
+- deterministic SQLite scheduled-work source
 
 Still outside the current boundary:
 - real marketplace/provider integrations and credentials
@@ -137,7 +139,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-Before implementing a continuous worker runtime, the approved runtime-loop contract must be reconciled against termination semantics, bounded work consumption, idle behavior, command ordering, repeated invocation, failure visibility, authorization/policy revalidation, concurrency, duplicate-claim safety, and observability.
+Before implementing a continuous worker runtime, the finite invocation must be evaluated for repeated invocation semantics, observability, and any future lifecycle/concurrency requirements. The current invocation remains externally controlled and consumes at most one command.
 
 No queue framework or daemon semantics should be introduced implicitly.
 
