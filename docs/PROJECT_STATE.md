@@ -200,3 +200,8 @@ The retry recovery pipeline now has an explicit durable-state application bounda
 ## Retry Status Reconciliation Coordination
 
 The provider-independent recovery path now has an explicit application coordinator: one status observation → deterministic assessment → atomic durable state application. Terminal commands are not re-observed; ambiguous outcomes remain unchanged; confirmed failure resolves to manual review. Polling, scheduling, automatic re-execution, and restart remain outside this boundary.
+
+
+## Performance Evidence Decision Support — Current State
+
+V1 includes a bounded downstream evidence-composition layer combining deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a score, ranking, business decision, policy mutation, learning mutation, portfolio action, or execution.
