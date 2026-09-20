@@ -330,3 +330,14 @@ V1 now separates neutral evidence movement from favorable/unfavorable interpreta
 ## Metric Direction Interpretation
 
 The existing metric-polarity policy is now explicitly consumed by performance evidence decision support. Raw movement remains neutral; favorable/unfavorable interpretation is consumer-provided policy and missing polarity remains not interpretable. No recommendation or execution semantics were added.
+
+
+## Canonical Current Boundary Reconciliation — 2026-09-20
+
+The previously labeled “Next Engineering Boundary — Retry Worker Lifecycle” and “Next Engineering Boundary — Crash / Recovery Reconciliation” sections are historical implementation notes. They are superseded by the implemented lifecycle, reconciliation, provider-status observation, atomic state application, and single-observation coordination boundaries documented above.
+
+The current implementation boundary is now:
+
+**Evidence → Policy Review → Authorization → Prepared Execution → Freshness → Capability/Credential Checks → Provider Execution Port → Outcome Observation → Recovery Assessment → Atomic State Application → Learning / Review Evidence**
+
+The next unresolved product/infrastructure boundary is intentionally not selected by this state file. Candidate future boundaries remain concrete provider integrations, production persistence/API/UI integration, controlled experimentation infrastructure, production background runtime infrastructure, broader business-model execution, cross-domain learning, and progressive autonomy. Any selected boundary requires its own design gate and TDD increment.
