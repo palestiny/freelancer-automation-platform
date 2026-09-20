@@ -323,3 +323,8 @@ The next unresolved boundary remains deliberately unselected until a concrete re
 ### Performance Observation Temporal Contract
 
 **Status:** V1 temporal validity hardening implemented and CI-verified. Naive authoritative observation timestamps are rejected; existing fixtures and temporal expectations were migrated to explicit UTC.
+
+
+### Controlled Experiment Evidence
+
+**Status:** V1 immutable assignment and observation evidence implemented and CI-verified. Allocation optimization, scheduling, execution, causal/statistical analysis, and automatic experiment decisions remain separate boundaries.
