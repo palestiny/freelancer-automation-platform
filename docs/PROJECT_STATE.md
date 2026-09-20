@@ -411,3 +411,8 @@ V1 now has a provider-independent deterministic allocation boundary. An immutabl
 ## Controlled Experiment Allocation Decision Hardening
 
 Allocation now exposes an immutable decision artifact preserving experiment identity, subject identity, selected variant, and deterministic bucket. The existing variant-returning API remains compatible. This artifact improves auditability without adding persistence, scheduling, execution, reallocation, or optimization.
+
+
+## Controlled Experiment Assignment Persistence
+
+V1 now persists authoritative experiment assignments behind a provider-independent application repository port, with a SQLite reference adapter. Allocation decisions remain deterministic inputs; persistence gives observations a stable assignment identity. The boundary does not schedule exposure, execute providers, reallocate, optimize allocation, or mutate experiment lifecycle.
