@@ -13,17 +13,17 @@ from app.domain.execution_retry import (
 from app.infrastructure.sqlite_retry_command_store import SQLiteRetryCommandStore
 
 
-def command(command_id="cmd-1"):
+def command(command_id="cmd-1", request_id="req-1", created_at=None):
     return RetryCommand(
         command_id=command_id,
-        request_id="req-1",
-        idempotency_key="idem-1",
+        request_id=request_id,
+        idempotency_key=f"idem-{request_id}",
         attempt_number=1,
         action=RetryCommandAction.RETRY,
         authorization_policy_id="policy",
         authorization_policy_version="v1",
         autonomy_bound="L3",
-        created_at=datetime(2026, 9, 20, tzinfo=timezone.utc),
+        created_at=created_at or datetime(2026, 9, 20, tzinfo=timezone.utc),
     )
 
 
@@ -250,3 +250,29 @@ def test_execution_claim_requires_scheduled_state_after_initial_claim():
     original = s.create_or_get(command())
     assert s.claim(original.command_id) is not None
     assert s.claim(original.command_id) is None
+
+
+def test_next_scheduled_returns_oldest_scheduled_command():
+    s = store()
+    first = s.create_or_get(command("cmd-1", "req-1", datetime(2026, 9, 20, 1, tzinfo=timezone.utc)))
+    second = s.create_or_get(command("cmd-2", "req-2", datetime(2026, 9, 20, 2, tzinfo=timezone.utc)))
+    for value in (first, second):
+        s.claim(value.command_id)
+        s.record_scheduler_acknowledgement(value.command_id, SchedulerAcknowledgement(command_id=value.command_id, scheduling_id=f"schedule-{value.command_id}", status=SchedulerAcknowledgementStatus.ACCEPTED, observed_at=datetime(2026, 9, 20, 3, tzinfo=timezone.utc)))
+    assert s.next_scheduled().command_id == "cmd-1"
+
+
+def test_next_scheduled_uses_command_id_as_tiebreaker():
+    s = store()
+    first = s.create_or_get(command("cmd-a", "req-a"))
+    second = s.create_or_get(command("cmd-b", "req-b"))
+    for value in (first, second):
+        s.claim(value.command_id)
+        s.record_scheduler_acknowledgement(value.command_id, SchedulerAcknowledgement(command_id=value.command_id, scheduling_id=f"schedule-{value.command_id}", status=SchedulerAcknowledgementStatus.ACCEPTED, observed_at=datetime(2026, 9, 20, 3, tzinfo=timezone.utc)))
+    assert s.next_scheduled().command_id == "cmd-a"
+
+
+def test_next_scheduled_ignores_non_scheduled_commands():
+    s = store()
+    s.create_or_get(command())
+    assert s.next_scheduled() is None
