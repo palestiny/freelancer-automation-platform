@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -124,7 +124,7 @@ def test_evidence_quality_is_bounded():
 
 
 def test_observed_at_must_be_timezone_aware():
-    from datetime import datetime
+    from datetime import datetime, timezone
     import pytest
 
     with pytest.raises(ValueError, match="timezone-aware"):
