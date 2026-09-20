@@ -170,7 +170,7 @@ def test_dispatch_result_identity_mismatch_is_failed():
 
 
 def test_invalid_dispatch_result_command_type_fails_at_runtime_boundary():
-    command = _scheduled_command()
+    command = command()
     dispatch_result = RetryWorkerDispatchResult(
         command=object(),
         status=RetryWorkerDispatchStatus.COMPLETED,
