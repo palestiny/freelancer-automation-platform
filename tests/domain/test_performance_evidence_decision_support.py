@@ -41,7 +41,6 @@ def _stat(*, interpretation, eligible=True):
         method="welch_two_sample_t_test",
         observation_ids=("b1", "b2", "c1", "c2"),
         eligible=eligible,
-        mean_difference=-10.0 if interpretation is StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE else 0.0,
         reason=(
             StatisticalEvidenceEligibilityReason.ELIGIBLE
             if eligible else StatisticalEvidenceEligibilityReason.INSUFFICIENT_EVIDENCE_QUALITY
