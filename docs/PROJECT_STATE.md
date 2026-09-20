@@ -446,3 +446,8 @@ Exposure recording now enforces the cross-entity temporal invariant that an auth
 ## Performance Evidence Decision Support
 
 A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Controlled Experiment Exposure Idempotency
+
+V1 exposure recording is now retry-safe at the authoritative persistence boundary. An identical retry returns the existing authoritative exposure; conflicting identity or assignment reuse is rejected explicitly. Idempotency prevents duplicate exposure evidence without implying delivery, causality, lifecycle mutation, reallocation, or execution.

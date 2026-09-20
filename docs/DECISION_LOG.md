@@ -1343,3 +1343,8 @@ Authoritative experiment exposure evidence must satisfy exposed_at >= assigned_a
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-187 — Controlled Experiment Exposure Recording Is Retry-Safe
+
+Exposure persistence must be idempotent for an identical retry and must reject conflicting reuse of the authoritative exposure identity/context. Idempotency is evidence-integrity behavior only and does not imply delivery or causality.
