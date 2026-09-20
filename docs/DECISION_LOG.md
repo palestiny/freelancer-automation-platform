@@ -1173,3 +1173,8 @@ Provider execution may consume explicitly resolved credential material only afte
 ### D-122 — Evidence-to-Decision Policy Must Be Explicit and Non-Executing
 
 Decision-support policy is an explicit input with bounded thresholds and optional statistical requirements. Insufficient evidence remains a distinct outcome and cannot become a positive/negative business decision. The evaluator does not mutate policy, lifecycle, portfolio, learning, or execution state.
+
+
+### D-122 — Evidence-to-Decision Outcomes Preserve Evidence Lineage
+
+A non-executing policy evaluation result must preserve explicit evidence identity and unique observation lineage so downstream consumers cannot detach a policy outcome from its supporting evidence. This does not authorize mutation or execution.

@@ -265,3 +265,8 @@ V1 now composes explicit provider capability verification with explicit credenti
 ## Evidence-to-Decision Policy Boundary
 
 A bounded provider-independent policy evaluator now sits after evidence composition. It accepts an explicit versionable policy and evidence eligibility/quality inputs and returns a decision-support outcome only: SUPPORTS, DOES_NOT_SUPPORT, INSUFFICIENT_EVIDENCE, or POLICY_INAPPLICABLE. It does not execute, mutate business lifecycle, portfolio state, learning policy, or external systems.
+
+
+## Evidence-to-Decision Policy Lineage Hardening
+
+Decision-support policy results now preserve explicit evidence identity and observation lineage alongside policy identity/version. The policy boundary remains non-executing and does not mutate policy, lifecycle, learning, portfolio, or execution state.
