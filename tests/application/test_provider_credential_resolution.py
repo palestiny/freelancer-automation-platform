@@ -77,3 +77,14 @@ def test_failed_resolution_cannot_carry_material():
     )
     assert result.success is False
     assert result.material is None
+
+
+def test_resolved_credential_material_is_hidden_from_repr():
+    result = CredentialResolutionResult.success(
+        provider_key="marketplace-a",
+        credential_reference="cred-1",
+        material="fake-secret",
+    )
+    rendered = repr(result)
+    assert "fake-secret" not in rendered
+    assert "credential_reference='cred-1'" in rendered
