@@ -1133,3 +1133,8 @@ Evidence review outcomes are explicit decision artifacts. ACCEPT records a revie
 ### D-122 — Provider Adapter Conformance Is a Non-Executing Boundary
 
 Provider adapters must satisfy a common runtime contract for result type, request identity, idempotency identity, and timezone-aware observation. Conformance validation must not authorize, retry, schedule, or mutate execution state; provider-specific integrations remain separately designed and tested.
+
+
+### D-124 — Provider Resolution Is Explicit and Non-Ranking
+
+Provider adapters are resolved only by an explicit provider key. The registry does not rank providers, select fallbacks, manage credentials, perform health routing, or execute requests. Concrete provider integration remains a separate design boundary.

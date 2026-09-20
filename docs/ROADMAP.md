@@ -192,3 +192,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Provider Adapter Conformance
 
 **Status:** V1 reusable runtime conformance boundary implemented and CI-verified. Concrete provider integrations remain separate provider-specific design and integration work.
+
+
+### Provider Adapter Registry
+
+**Status:** V1 explicit provider-key registration/resolution implemented and CI-verified. Concrete provider integrations remain separate provider-specific design and integration work.

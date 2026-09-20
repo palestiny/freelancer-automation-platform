@@ -223,3 +223,8 @@ V1 now represents an explicit review outcome after evidence handoff. ACCEPT, REJ
 ## Provider Adapter Conformance — Current State
 
 The approved provider-adapter conformance boundary is implemented. A reusable non-executing validator now verifies provider execution result type, request identity, idempotency identity, and timezone-aware observation before the existing execution dispatch converts the result into the domain outcome. No provider call, authorization, retry, scheduling, or state mutation is introduced by the conformance layer.
+
+
+## Provider Adapter Registry — Current State
+
+V1 now provides explicit provider-key registration and resolution above the existing provider-independent execution port. Duplicate keys and unknown providers are rejected explicitly. The registry performs no provider ranking, fallback, credential management, health routing, or execution.
