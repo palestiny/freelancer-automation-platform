@@ -1333,3 +1333,8 @@ Downstream experiment evidence must not treat assignment as proof of exposure. A
 ### D-185 — Controlled Experiment Exposure Must Resolve Authoritative Assignment
 
 The hardened exposure application boundary resolves the persisted assignment by identity before constructing exposure evidence. Caller-created assignment values are not treated as authoritative by this boundary. This is lineage safety only and does not imply exposure delivery or causal attribution.
+
+
+### D-186 — Controlled Experiment Exposure Cannot Precede Assignment
+
+Authoritative experiment exposure evidence must satisfy exposed_at >= assigned_at. The cross-entity temporal invariant belongs at the application boundary and is evidence-integrity validation, not proof of delivery or causality.
