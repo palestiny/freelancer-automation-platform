@@ -277,3 +277,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Business Learning Memory
 
 **Status:** V1 immutable learning-memory artifact implemented and CI-verified. Persistence, querying, retention, cross-business aggregation, and automatic policy mutation remain separate boundaries.
+
+
+### Learning Lineage Hardening
+
+**Status:** V1 handoff identity and memory source-lineage hardening implemented and CI-verified. No learning-policy or execution behavior changed.
