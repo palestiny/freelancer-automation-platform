@@ -388,3 +388,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Controlled Experiment Exposure Evidence
 
 **Status:** V1 exposure confirmation evidence implemented and CI-verified. Assignment and exposure are now distinct persisted artifacts; delivery scheduling and provider execution remain separate boundaries.
+
+
+### Controlled Experiment Observation Exposure Lineage
+
+**Status:** V1 attribution-safety lineage validation implemented, hardened, and CI-verified. Assignment, exposure, and metric observation remain distinct evidence artifacts; causal inference and experiment decisions remain separate boundaries.
