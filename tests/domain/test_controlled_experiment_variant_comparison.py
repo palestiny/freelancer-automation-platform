@@ -1,6 +1,6 @@
 import pytest
 
-from app.domain.controlled_experiment_summary import (
+from app.domain.controlled_experiment_outcome_summary import (
     ControlledExperimentOutcomeSummary,
     ExperimentVariantSummary,
 )
