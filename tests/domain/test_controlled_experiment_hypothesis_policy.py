@@ -10,6 +10,26 @@ from app.domain.controlled_experiment_hypothesis_policy import (
 )
 
 
+def _synthesis(*, direction: str, detected: bool, eligible: bool = True) -> ExperimentEvidenceSynthesis:
+    return ExperimentEvidenceSynthesis(
+        experiment_id="exp1",
+        metric_name="conversion",
+        first_variant="control",
+        second_variant="treatment",
+        descriptive_difference=1.0 if direction == "increased" else -1.0,
+        statistical_difference=1.0 if direction == "increased" else -1.0,
+        statistical_detected=detected if eligible else None,
+        status=(
+            ExperimentEvidenceSynthesisStatus.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+            if eligible and detected
+            else ExperimentEvidenceSynthesisStatus.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
+            if eligible
+            else ExperimentEvidenceSynthesisStatus.STATISTICAL_EVIDENCE_UNAVAILABLE
+        ),
+        observation_ids=("a", "b", "c", "d"),
+    )
+
+
 def test_supports_increase_hypothesis_when_evidence_aligns():
     synthesis = {
         "experiment_id": "exp1",
