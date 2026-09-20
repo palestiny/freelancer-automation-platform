@@ -185,3 +185,8 @@ Still outside this boundary: provider-status polling, automatic re-execution, au
 ## Provider Execution Status Observation
 
 The execution runtime now exposes a provider-independent, non-executing status-observation port for ambiguous execution recovery. It preserves request/idempotency identity and timezone-aware observation evidence. It does not authorize, retry, schedule, poll continuously, mutate durable retry state, or execute provider actions.
+
+
+## Retry Status Reconciliation Assessment
+
+A provider status observation can now be consumed with a durable retry command to produce a deterministic, non-mutating recovery assessment. Confirmed success can be identified as completion; confirmed failure/rejection requires manual review; unknown remains ambiguous; terminal commands are never reopened. Applying the assessment to durable state remains a separate boundary.
