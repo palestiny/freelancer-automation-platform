@@ -413,3 +413,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Evidence Decision Support
 
 **Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
+
+
+### Controlled Experiment Exposure Idempotency
+
+**Status:** V1 retry-safe exposure persistence implemented and CI-verified. Identical retries are idempotent; conflicting reuse is rejected. Scheduling, delivery, causal inference, lifecycle mutation, and execution remain separate.
