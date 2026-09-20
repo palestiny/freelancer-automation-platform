@@ -195,3 +195,8 @@ A provider status observation can now be consumed with a durable retry command t
 ## Retry Status Assessment State Application
 
 The retry recovery pipeline now has an explicit durable-state application boundary. A previously computed recovery assessment can transition a retry command only when the expected durable state still matches. The transition is atomic at the SQLite persistence boundary and preserves immutable command identity. Ambiguous and no-reconciliation assessments remain non-mutating; confirmed failure resolves to manual review rather than automatic retry.
+
+
+## Retry Status Reconciliation Coordination
+
+The provider-independent recovery path now has an explicit application coordinator: one status observation → deterministic assessment → atomic durable state application. Terminal commands are not re-observed; ambiguous outcomes remain unchanged; confirmed failure resolves to manual review. Polling, scheduling, automatic re-execution, and restart remain outside this boundary.

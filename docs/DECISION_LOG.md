@@ -1113,3 +1113,8 @@ Explicit provider status observations may produce a deterministic recovery asses
 ### D-168 — Retry Recovery Assessment Application Uses Atomic Expected-State Transition
 
 A non-mutating retry recovery assessment may be applied to durable state only through an atomic expected-state transition. Immutable command identity is preserved; ambiguous assessments remain unchanged; confirmed failure becomes manual review and never automatic retry. Concurrent state changes produce an explicit conflict rather than an overwrite.
+
+
+### D-169 — Retry Status Reconciliation Coordination Is Single-Observation and Non-Retrying
+
+The application recovery coordinator may compose one provider status observation, deterministic reconciliation assessment, and atomic durable state application. It must not poll, schedule, re-execute the provider, or convert confirmed failure into an automatic retry. Ambiguous outcomes remain unchanged and terminal commands are not reopened.
