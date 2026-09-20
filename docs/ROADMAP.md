@@ -182,3 +182,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Evidence Review Handoff
 
 **Status:** V1 non-executing review handoff implemented and CI-verified. Scheduling, notifications, persistence, authorization, and policy mutation remain separate boundaries.
+
+
+### Evidence Review Decision
+
+**Status:** V1 explicit non-executing review outcome implemented and CI-verified. Review outcomes remain separate from authorization and execution.
