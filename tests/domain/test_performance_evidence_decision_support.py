@@ -65,7 +65,7 @@ def test_statistical_detection_does_not_claim_directional_alignment():
         ),
         business_id="b1",
     )
-    assert result.descriptive_direction is DescriptiveDirection.IMPROVING
+    assert result.descriptive_direction is DescriptiveDirection.INCREASED
     assert result.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
     assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     assert result.current_observation_ids == ("c1",)
@@ -84,9 +84,9 @@ def test_descriptive_change_without_statistical_detection_is_not_suppressed():
         ),
         business_id="b1",
     )
-    assert result.descriptive_direction is DescriptiveDirection.DECLINING
+    assert result.descriptive_direction is DescriptiveDirection.DECREASED
     assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITHOUT_STATISTICAL_DETECTION
-    assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
+    assert result.statistical_difference_direction is DescriptiveDirection.INCREASED
 
 
 def test_opposite_statistical_direction_is_preserved_as_conflict():
@@ -97,8 +97,8 @@ def test_opposite_statistical_direction_is_preserved_as_conflict():
         ),
         business_id="b1",
     )
-    assert result.descriptive_direction is DescriptiveDirection.DECLINING
-    assert result.statistical_difference_direction is DescriptiveDirection.IMPROVING
+    assert result.descriptive_direction is DescriptiveDirection.DECREASED
+    assert result.statistical_difference_direction is DescriptiveDirection.INCREASED
     assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
 
 
@@ -142,7 +142,7 @@ def test_result_rejects_duplicate_statistical_observation_ids():
             business_id="b1",
             metric_name="profit",
             unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("x", "x"),
@@ -164,11 +164,11 @@ def test_result_requires_unavailable_direction_when_inferential_evidence_is_unav
             business_id="b1",
             metric_name="profit",
             unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("x",),
-            statistical_difference_direction=DescriptiveDirection.IMPROVING,
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
             current_observation_ids=("c1",),
             baseline_observation_ids=("b1",),
         )
@@ -183,7 +183,7 @@ def test_result_rejects_duplicate_current_observation_ids():
             business_id="b1",
             metric_name="profit",
             unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("x",),
@@ -211,14 +211,14 @@ def test_result_rejects_non_datetime_window_values():
     import pytest
     from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
     with pytest.raises(TypeError):
-        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start="2026-02-01", current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.INCREASED, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start="2026-02-01", current_observation_ids=("c1",), baseline_observation_ids=("b1",))
 
 
 def test_result_rejects_malformed_current_window():
     import pytest
     from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
     with pytest.raises(ValueError):
-        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.IMPROVING, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start=datetime(2026, 2, 8), current_window_end=datetime(2026, 2, 1), current_observation_ids=("c1",), baseline_observation_ids=("b1",))
+        PerformanceEvidenceDecisionSupport(business_id="b1", metric_name="profit", unit="EGP", descriptive_direction=DescriptiveDirection.INCREASED, inferential_status=InferentialStatus.UNAVAILABLE, posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE, statistical_observation_ids=("x",), current_window_start=datetime(2026, 2, 8), current_window_end=datetime(2026, 2, 1), current_observation_ids=("c1",), baseline_observation_ids=("b1",))
 
 
 def test_result_rejects_alignment_posture_when_inferential_status_is_unavailable():
@@ -227,7 +227,7 @@ def test_result_rejects_alignment_posture_when_inferential_status_is_unavailable
     with pytest.raises(ValueError):
         PerformanceEvidenceDecisionSupport(
             business_id="b1", metric_name="profit", unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x",), current_observation_ids=("c1",),
@@ -245,7 +245,7 @@ def test_result_rejects_statistical_detection_with_no_descriptive_change():
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x",),
-            statistical_difference_direction=DescriptiveDirection.IMPROVING,
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
             current_observation_ids=("c1",), baseline_observation_ids=("b1",),
         )
 
@@ -256,10 +256,21 @@ def test_result_rejects_overlapping_current_and_baseline_lineage():
     with pytest.raises(ValueError):
         PerformanceEvidenceDecisionSupport(
             business_id="b1", metric_name="profit", unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.UNAVAILABLE,
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=("shared",),
             current_observation_ids=("shared",), baseline_observation_ids=("shared",),
         )
 
+
+
+def test_direction_is_neutral_not_business_judgment():
+    result = compose_performance_evidence(
+        trend=_trend(10.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.NO_STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.INCREASED
