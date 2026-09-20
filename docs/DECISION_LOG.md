@@ -1258,3 +1258,8 @@ Performance observations must carry an explicit timezone-aware timestamp. The do
 ### D-179 — Controlled Experiment Evidence Is Provider-Independent and Non-Executing
 
 Experiment assignments and observations are explicit immutable evidence artifacts. Variant selection is caller-provided; the domain does not randomize, optimize, schedule, execute, infer causality, or calculate statistical significance. Experiment lifecycle mutation remains separate.
+
+
+### D-122 — Controlled Experiment Readiness Is Evidence Sufficiency, Not Analysis
+
+Experiment readiness validates context, lineage, per-variant usable observation counts, and evidence quality. It does not infer causality, calculate statistical significance, select a winner, mutate experiment lifecycle, or execute an experiment.
