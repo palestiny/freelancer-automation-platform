@@ -1248,3 +1248,8 @@ The first persistence boundary stores normalized BusinessPerformanceObservation 
 ### D-178 — Performance Observation Use Cases Depend on the Application Repository Port
 
 Recording and retrieval of authoritative performance observations are exposed through a provider-independent application service. Infrastructure adapters remain replaceable, and the service does not perform derived analysis or execution.
+
+
+### D-122 — Authoritative Performance Observation Timestamps Are Timezone-Aware
+
+Performance observations must carry an explicit timezone-aware timestamp. The domain rejects naive values rather than inferring a timezone. Persistence preserves the explicit timestamp representation; temporal normalization remains outside this boundary.
