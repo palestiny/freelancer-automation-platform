@@ -187,3 +187,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Evidence Review Decision
 
 **Status:** V1 explicit non-executing review outcome implemented and CI-verified. Review outcomes remain separate from authorization and execution.
+
+
+### Provider Adapter Conformance
+
+**Status:** V1 reusable runtime conformance boundary implemented and CI-verified. Concrete provider integrations remain separate provider-specific design and integration work.

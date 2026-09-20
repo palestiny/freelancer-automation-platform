@@ -218,3 +218,8 @@ V1 now has an explicit non-executing handoff from composed performance evidence 
 ## Evidence Review Decision — Current State
 
 V1 now represents an explicit review outcome after evidence handoff. ACCEPT, REJECT, and REQUEST_MORE_EVIDENCE are decision artifacts only; even ACCEPT is not authorization for policy mutation, provider execution, payment, capital movement, or external side effects. Reviewer identity, rationale, target, and observation lineage are preserved.
+
+
+## Provider Adapter Conformance — Current State
+
+The approved provider-adapter conformance boundary is implemented. A reusable non-executing validator now verifies provider execution result type, request identity, idempotency identity, and timezone-aware observation before the existing execution dispatch converts the result into the domain outcome. No provider call, authorization, retry, scheduling, or state mutation is introduced by the conformance layer.
