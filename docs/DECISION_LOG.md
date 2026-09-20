@@ -1323,3 +1323,8 @@ An assignment records deterministic allocation; exposure records explicit eviden
 ### D-122 — Exposure-to-Outcome Linkage Is Provenance, Not Causality
 
 A controlled-experiment exposure may be explicitly linked to a later outcome observation when identity and temporal constraints are satisfied. The linkage preserves provenance but must not be interpreted as causal attribution or automatically trigger experiment decisions.
+
+
+### D-122 — Experiment Observation Requires Exposure-Compatible Lineage
+
+Downstream experiment evidence must not treat assignment as proof of exposure. A metric observation is authoritative only when experiment, assignment, subject, and variant identities match an actual exposure and the observation timestamp is at or after exposure. This is lineage validation, not causal inference.
