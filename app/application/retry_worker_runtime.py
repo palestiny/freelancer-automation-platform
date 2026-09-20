@@ -71,6 +71,14 @@ def run_retry_worker_once(
             failure="invalid_dispatch_result",
         )
 
+    if not isinstance(dispatch_result.command, RetryCommand):
+        return RetryWorkerRuntimeResult(
+            outcome=RetryWorkerRuntimeOutcome.FAILED,
+            command=command,
+            dispatch_result=dispatch_result,
+            failure="invalid_dispatch_result_command",
+        )
+
     if dispatch_result.command.command_id != command.command_id:
         return RetryWorkerRuntimeResult(
             outcome=RetryWorkerRuntimeOutcome.FAILED,
