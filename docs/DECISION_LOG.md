@@ -1148,3 +1148,8 @@ Provider capability metadata is declared explicitly at registration time and loo
 ### D-123 — Provider Capability Is an Explicit Execution Precondition
 
 A provider must explicitly declare the required capability before the existing execution dispatch boundary is entered. Capability support does not authorize execution and does not imply ranking, fallback, health, credential, or policy behavior.
+
+
+### D-122 — Statistical Evidence Composition Preserves Welch Context
+
+The statistical evidence composition artifact must preserve the explicit Welch comparison windows and mean difference so downstream consumers do not reconstruct inferential context from incomplete evidence. This does not change statistical interpretation or authorization semantics.
