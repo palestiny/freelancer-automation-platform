@@ -119,3 +119,17 @@ def test_record_execution_outcome_rejects_invalid_status_at_boundary():
     request = _request()
     with pytest.raises(TypeError, match="status must be an ExecutionOutcomeStatus"):
         record_execution_outcome(request=request, status="succeeded", outcome_code="ok", observed_at=datetime(2026, 1, 1, tzinfo=timezone.utc))
+
+
+def test_execution_outcome_rejects_non_string_external_reference():
+    import pytest
+    request = _request()
+    with pytest.raises(TypeError, match="external_reference must be a string or None"):
+        record_execution_outcome(request=request, status=ExecutionOutcomeStatus.SUCCEEDED, outcome_code="ok", observed_at=datetime(2026, 1, 1, tzinfo=timezone.utc), external_reference=123)
+
+
+def test_execution_outcome_rejects_empty_external_reference():
+    import pytest
+    request = _request()
+    with pytest.raises(ValueError, match="external_reference cannot be empty"):
+        record_execution_outcome(request=request, status=ExecutionOutcomeStatus.SUCCEEDED, outcome_code="ok", observed_at=datetime(2026, 1, 1, tzinfo=timezone.utc), external_reference=" ")

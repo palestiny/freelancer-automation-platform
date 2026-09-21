@@ -30,6 +30,8 @@ class ExecutionOutcome:
             value = getattr(self, name)
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"{name} cannot be empty")
+        if self.external_reference is not None and not isinstance(self.external_reference, str):
+            raise TypeError("external_reference must be a string or None")
         if self.external_reference is not None and not self.external_reference.strip():
             raise ValueError("external_reference cannot be empty")
         if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
@@ -52,6 +54,10 @@ def record_execution_outcome(
         raise TypeError("observed_at must be a datetime")
     if observed_at.tzinfo is None or observed_at.utcoffset() is None:
         raise ValueError("observed_at must be timezone-aware")
+    if external_reference is not None and not isinstance(external_reference, str):
+        raise TypeError("external_reference must be a string or None")
+    if external_reference is not None and not external_reference.strip():
+        raise ValueError("external_reference cannot be empty")
     if request.prepared_at is not None and (
         request.prepared_at.tzinfo is None or request.prepared_at.utcoffset() is None
     ):
