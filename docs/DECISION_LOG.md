@@ -1378,3 +1378,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-122 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
 
 Execution outcome persistence is an evidence-storage boundary. It must preserve authoritative outcome identity and support exact idempotent retries while rejecting conflicting reuse. Persistence does not assess recovery, authorize, execute, or mutate execution-request state.
+
+
+### D-123 — Durable Outcome Evidence Precedes Recovery Assessment
+
+The persisted execution coordination boundary records the provider outcome durably before assessing outcome policy or creating a recovery handoff. Persistence failure therefore blocks recovery assessment rather than allowing an unrecorded outcome to drive lifecycle decisions. This does not authorize, retry, or execute work.
