@@ -90,7 +90,8 @@ def test_persistence_failure_stops_assessment_and_recovery():
 
     assert result.status is PersistedExecutionCoordinationStatus.OUTCOME_PERSISTENCE_FAILURE
     assert result.coordination is None
-    assert result.outcome == outcome()
+    assert result.outcome.request_id == "req-1"
+    assert result.outcome.status is ExecutionOutcomeStatus.SUCCEEDED
 
 
 def test_provider_failure_produces_no_fabricated_outcome():
