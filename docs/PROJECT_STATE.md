@@ -164,3 +164,8 @@ Completed lifecycle/recovery boundaries must not be reopened without a new requi
 ## Completion Rule
 
 A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
+
+
+## Persisted Execution Coordination
+
+The execution runtime now has an explicit persisted-coordination application boundary: provider outcome → durable outcome evidence → policy assessment → recovery handoff. Provider and persistence failures remain explicit and do not fabricate recovery state.
