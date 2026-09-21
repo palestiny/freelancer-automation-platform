@@ -1358,3 +1358,8 @@ The bounded retry worker runtime must validate work-source and dispatch-result s
 ### D-122 — Execution Outcomes Must Respect Preparation Time
 
 Execution outcome observations require timezone-aware timestamps and cannot precede the prepared execution request when preparation time is present. This is evidence-integrity validation only and does not imply execution policy, retry, reconciliation, or provider behavior.
+
+
+### D-188 — Execution Outcomes Reject Malformed Runtime Types
+
+Execution outcome evidence must reject non-enum status values and non-datetime observation timestamps at the domain boundary. Existing prepared-state, identity, timezone, and temporal rules remain authoritative; no execution or recovery semantics are added.
