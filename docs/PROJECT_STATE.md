@@ -471,3 +471,8 @@ The immutable execution outcome boundary now explicitly validates enum status an
 ## Execution Outcome External Reference Contract
 
 The execution outcome boundary now explicitly validates optional external references as non-empty strings. This is value-contract hardening only; no execution or retry semantics changed.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
