@@ -108,7 +108,7 @@ def test_outcome_at_prepared_time_is_valid():
 def test_record_execution_outcome_rejects_naive_observed_at_before_temporal_comparison():
     from datetime import datetime
     import pytest
-    request = _prepared_request()
+    request = _request()
     with pytest.raises(ValueError, match="observed_at must be timezone-aware"):
         record_execution_outcome(request=request, status=ExecutionOutcomeStatus.SUCCEEDED, outcome_code="ok", observed_at=datetime(2026, 1, 1))
 
