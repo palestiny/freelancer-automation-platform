@@ -22,6 +22,10 @@ class ExecutionOutcome:
     external_reference: str | None = None
 
     def __post_init__(self) -> None:
+        if not isinstance(self.status, ExecutionOutcomeStatus):
+            raise TypeError("status must be an ExecutionOutcomeStatus")
+        if not isinstance(self.observed_at, datetime):
+            raise TypeError("observed_at must be a datetime")
         for name in ("request_id", "idempotency_key", "outcome_code"):
             value = getattr(self, name)
             if not isinstance(value, str) or not value.strip():
