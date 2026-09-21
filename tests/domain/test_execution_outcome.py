@@ -116,6 +116,6 @@ def test_record_execution_outcome_rejects_naive_observed_at_before_temporal_comp
 def test_record_execution_outcome_rejects_invalid_status_at_boundary():
     from datetime import datetime, timezone
     import pytest
-    request = _prepared_request()
+    request = _request()
     with pytest.raises(TypeError, match="status must be an ExecutionOutcomeStatus"):
         record_execution_outcome(request=request, status="succeeded", outcome_code="ok", observed_at=datetime(2026, 1, 1, tzinfo=timezone.utc))
