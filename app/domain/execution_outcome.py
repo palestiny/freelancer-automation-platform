@@ -46,6 +46,16 @@ def record_execution_outcome(
 ) -> ExecutionOutcome:
     if request.status is not ExecutionRequestStatus.PREPARED:
         raise ValueError("execution outcome requires a prepared execution request")
+    if not isinstance(status, ExecutionOutcomeStatus):
+        raise TypeError("status must be an ExecutionOutcomeStatus")
+    if not isinstance(observed_at, datetime):
+        raise TypeError("observed_at must be a datetime")
+    if observed_at.tzinfo is None or observed_at.utcoffset() is None:
+        raise ValueError("observed_at must be timezone-aware")
+    if request.prepared_at is not None and (
+        request.prepared_at.tzinfo is None or request.prepared_at.utcoffset() is None
+    ):
+        raise ValueError("prepared_at must be timezone-aware")
     if request.prepared_at is not None and observed_at < request.prepared_at:
         raise ValueError("observed_at cannot precede prepared_at")
     return ExecutionOutcome(
