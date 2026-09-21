@@ -1363,3 +1363,8 @@ Execution outcome observations require timezone-aware timestamps and cannot prec
 ### D-188 — Execution Outcomes Reject Malformed Runtime Types
 
 Execution outcome evidence must reject non-enum status values and non-datetime observation timestamps at the domain boundary. Existing prepared-state, identity, timezone, and temporal rules remain authoritative; no execution or recovery semantics are added.
+
+
+### D-189 — Execution Outcome External References Have Explicit Value-Type Semantics
+
+An execution outcome external reference is optional, but when present it must be a non-empty string. The immutable outcome and recording boundary validate this explicitly before the value becomes execution evidence. This does not change execution, retry, reconciliation, authorization, or provider semantics.
