@@ -438,3 +438,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Execution Outcome External Reference Contract
 
 **Status:** V1 value-type hardening implemented and CI-verified. Optional external references are explicitly typed and non-empty; execution, retry, reconciliation, authorization, and provider behavior are unchanged.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
