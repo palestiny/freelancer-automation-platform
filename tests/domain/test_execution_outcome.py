@@ -86,3 +86,20 @@ def test_outcome_reference_must_not_be_empty():
             observed_at=datetime(2026, 9, 19, tzinfo=timezone.utc),
             external_reference="",
         )
+
+
+def test_naive_outcome_timestamp_is_rejected():
+    with pytest.raises(ValueError, match="timezone-aware"):
+        record_execution_outcome(request=_request(), status=ExecutionOutcomeStatus.SUCCEEDED, outcome_code="ok", observed_at=datetime(2026, 9, 19))
+
+
+def test_outcome_cannot_precede_prepared_at():
+    request = _request().__class__(request_id="req-3", idempotency_key="idem-3", action_class=ActionClass.REVERSIBLE_EXTERNAL, autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, policy_id="policy-1", policy_version="1", status=ExecutionRequestStatus.PREPARED, prepared_at=datetime(2026, 9, 19, 12, tzinfo=timezone.utc))
+    with pytest.raises(ValueError, match="precede prepared_at"):
+        record_execution_outcome(request=request, status=ExecutionOutcomeStatus.FAILED, outcome_code="provider_failed", observed_at=datetime(2026, 9, 19, 11, 59, tzinfo=timezone.utc))
+
+
+def test_outcome_at_prepared_time_is_valid():
+    request = _request().__class__(request_id="req-4", idempotency_key="idem-4", action_class=ActionClass.REVERSIBLE_EXTERNAL, autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, policy_id="policy-1", policy_version="1", status=ExecutionRequestStatus.PREPARED, prepared_at=datetime(2026, 9, 19, 12, tzinfo=timezone.utc))
+    result = record_execution_outcome(request=request, status=ExecutionOutcomeStatus.UNKNOWN, outcome_code="provider_timeout", observed_at=datetime(2026, 9, 19, 12, tzinfo=timezone.utc))
+    assert result.observed_at == request.prepared_at

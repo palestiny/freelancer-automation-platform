@@ -28,6 +28,8 @@ class ExecutionOutcome:
                 raise ValueError(f"{name} cannot be empty")
         if self.external_reference is not None and not self.external_reference.strip():
             raise ValueError("external_reference cannot be empty")
+        if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
+            raise ValueError("observed_at must be timezone-aware")
 
 
 def record_execution_outcome(
@@ -40,6 +42,8 @@ def record_execution_outcome(
 ) -> ExecutionOutcome:
     if request.status is not ExecutionRequestStatus.PREPARED:
         raise ValueError("execution outcome requires a prepared execution request")
+    if request.prepared_at is not None and observed_at < request.prepared_at:
+        raise ValueError("observed_at cannot precede prepared_at")
     return ExecutionOutcome(
         request_id=request.request_id,
         idempotency_key=request.idempotency_key,
