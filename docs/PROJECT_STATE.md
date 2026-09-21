@@ -461,3 +461,8 @@ The single-command worker runtime now explicitly rejects malformed work-source v
 ## Execution Outcome Temporal Contract
 
 Execution outcome evidence now requires timezone-aware observation timestamps and cannot be observed before the prepared execution request timestamp when preparation time is present. This is evidence-integrity hardening only; no retry, reconciliation, authorization, or provider behavior changed.
+
+
+## Execution Outcome Contract Hardening
+
+The immutable execution outcome boundary now explicitly validates enum status and timestamp types in addition to existing identity, outcome-code, timezone, and preparation-time rules. This is evidence-integrity hardening only; execution, retry, reconciliation, authorization, and provider behavior are unchanged.
