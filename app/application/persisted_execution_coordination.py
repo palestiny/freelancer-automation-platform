@@ -4,6 +4,8 @@ from typing import Protocol
 
 from .execution_coordinator import ExecutionCoordinationResult, coordinate_execution
 from .execution_port import ExecutionPort, dispatch_execution
+from app.domain.execution_outcome_policy import assess_execution_outcome
+from app.domain.execution_recovery import create_execution_recovery_handoff
 from app.domain.authorized_execution_request import AuthorizedExecutionRequest
 from app.domain.execution_outcome import ExecutionOutcome
 from app.domain.execution_outcome_policy import ExecutionOutcomePolicy
@@ -56,11 +58,16 @@ def coordinate_persisted_execution(
             failure="outcome_persistence_failed",
         )
 
-    coordination = coordinate_execution(
-        port=_AlreadyExecutedPort(outcome),
-        request=request,
+    assessment = assess_execution_outcome(
+        outcome=outcome,
         policy=policy,
         attempt_count=attempt_count,
+    )
+    recovery = create_execution_recovery_handoff(assessment=assessment)
+    coordination = ExecutionCoordinationResult(
+        outcome=outcome,
+        policy_assessment=assessment,
+        recovery_handoff=recovery,
     )
     return PersistedExecutionCoordinationResult(
         status=PersistedExecutionCoordinationStatus.COMPLETED,
@@ -68,10 +75,3 @@ def coordinate_persisted_execution(
         coordination=coordination,
     )
 
-
-class _AlreadyExecutedPort(ExecutionPort):
-    def __init__(self, outcome: ExecutionOutcome) -> None:
-        self._outcome = outcome
-
-    def execute(self, request):
-        return self._outcome
