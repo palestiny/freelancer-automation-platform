@@ -471,3 +471,8 @@ The immutable execution outcome boundary now explicitly validates enum status an
 ## Execution Outcome External Reference Contract
 
 The execution outcome boundary now explicitly validates optional external references as non-empty strings. This is value-contract hardening only; no execution or retry semantics changed.
+
+
+## Execution Outcome Persistence
+
+V1 execution outcomes are now durably persisted through an application repository port with a SQLite reference adapter. Exact duplicate writes are idempotent and conflicting reuse of the same request/observation identity is rejected. Persistence remains evidence storage only; recovery assessment, retry, authorization, execution, and request-state mutation remain separate boundaries.
