@@ -1373,3 +1373,8 @@ An execution outcome external reference is optional, but when present it must be
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-122 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
+
+Execution outcome persistence is an evidence-storage boundary. It must preserve authoritative outcome identity and support exact idempotent retries while rejecting conflicting reuse. Persistence does not assess recovery, authorize, execute, or mutate execution-request state.
