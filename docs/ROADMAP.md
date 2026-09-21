@@ -433,3 +433,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Execution Outcome Contract Hardening
 
 **Status:** V1 type and temporal contract hardening implemented and CI-verified. Malformed outcome values fail explicitly before becoming execution evidence.
+
+
+### Execution Outcome External Reference Contract
+
+**Status:** V1 value-type hardening implemented and CI-verified. Optional external references are explicitly typed and non-empty; execution, retry, reconciliation, authorization, and provider behavior are unchanged.
