@@ -103,3 +103,19 @@ def test_outcome_at_prepared_time_is_valid():
     request = _request().__class__(request_id="req-4", idempotency_key="idem-4", action_class=ActionClass.REVERSIBLE_EXTERNAL, autonomy_level=AutonomyLevel.L3_EXECUTE_WITH_APPROVAL, policy_id="policy-1", policy_version="1", status=ExecutionRequestStatus.PREPARED, prepared_at=datetime(2026, 9, 19, 12, tzinfo=timezone.utc))
     result = record_execution_outcome(request=request, status=ExecutionOutcomeStatus.UNKNOWN, outcome_code="provider_timeout", observed_at=datetime(2026, 9, 19, 12, tzinfo=timezone.utc))
     assert result.observed_at == request.prepared_at
+
+
+def test_record_execution_outcome_rejects_naive_observed_at_before_temporal_comparison():
+    from datetime import datetime
+    import pytest
+    request = _prepared_request()
+    with pytest.raises(ValueError, match="observed_at must be timezone-aware"):
+        record_execution_outcome(request=request, status=ExecutionOutcomeStatus.SUCCEEDED, outcome_code="ok", observed_at=datetime(2026, 1, 1))
+
+
+def test_record_execution_outcome_rejects_invalid_status_at_boundary():
+    from datetime import datetime, timezone
+    import pytest
+    request = _prepared_request()
+    with pytest.raises(TypeError, match="status must be an ExecutionOutcomeStatus"):
+        record_execution_outcome(request=request, status="succeeded", outcome_code="ok", observed_at=datetime(2026, 1, 1, tzinfo=timezone.utc))
