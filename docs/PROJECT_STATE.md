@@ -456,3 +456,8 @@ V1 exposure recording is now retry-safe at the authoritative persistence boundar
 ## Retry Worker Runtime Boundary Hardening
 
 The single-command worker runtime now explicitly rejects malformed work-source values, malformed dispatcher results, and dispatcher results whose command identity does not match the selected scheduled command. Boundary failures remain non-retrying runtime failures; this hardening does not introduce automatic re-execution or distributed worker semantics.
+
+
+## Execution Outcome Temporal Contract
+
+Execution outcome evidence now requires timezone-aware observation timestamps and cannot be observed before the prepared execution request timestamp when preparation time is present. This is evidence-integrity hardening only; no retry, reconciliation, authorization, or provider behavior changed.
