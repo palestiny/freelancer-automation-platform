@@ -1368,3 +1368,8 @@ Execution outcome evidence must reject non-enum status values and non-datetime o
 ### D-189 — Execution Outcome External References Have Explicit Value-Type Semantics
 
 An execution outcome external reference is optional, but when present it must be a non-empty string. The immutable outcome and recording boundary validate this explicitly before the value becomes execution evidence. This does not change execution, retry, reconciliation, authorization, or provider semantics.
+
+
+### D-122 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
+
+Execution outcome persistence is an evidence-storage boundary. It must preserve authoritative outcome identity and support exact idempotent retries while rejecting conflicting reuse. Persistence does not assess recovery, authorize, execute, or mutate execution-request state.
