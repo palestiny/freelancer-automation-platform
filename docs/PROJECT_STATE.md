@@ -466,3 +466,8 @@ Execution outcome evidence now requires timezone-aware observation timestamps an
 ## Execution Outcome Contract Hardening
 
 The immutable execution outcome boundary now explicitly validates enum status and timestamp types in addition to existing identity, outcome-code, timezone, and preparation-time rules. This is evidence-integrity hardening only; execution, retry, reconciliation, authorization, and provider behavior are unchanged.
+
+
+## Execution Outcome External Reference Contract
+
+The execution outcome boundary now explicitly validates optional external references as non-empty strings. This is value-contract hardening only; no execution or retry semantics changed.
