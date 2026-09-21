@@ -438,3 +438,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Execution Outcome External Reference Contract
 
 **Status:** V1 value-type hardening implemented and CI-verified. Optional external references are explicitly typed and non-empty; execution, retry, reconciliation, authorization, and provider behavior are unchanged.
+
+
+### Execution Outcome Persistence
+
+**Status:** V1 authoritative execution-outcome persistence implemented and CI-verified. Exact retries are idempotent and conflicting outcome reuse is rejected; recovery, retry, authorization, execution, and request-state mutation remain separate.
