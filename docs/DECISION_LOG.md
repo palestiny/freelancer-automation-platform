@@ -1353,3 +1353,8 @@ Exposure persistence must be idempotent for an identical retry and must reject c
 ### D-122 — Retry Worker Runtime Validates Boundary Identity
 
 The bounded retry worker runtime must validate work-source and dispatch-result shapes at its application boundary and reject dispatcher results whose command identity differs from the selected command. These failures are explicit runtime failures and do not trigger automatic re-execution.
+
+
+### D-122 — Execution Outcomes Must Respect Preparation Time
+
+Execution outcome observations require timezone-aware timestamps and cannot precede the prepared execution request when preparation time is present. This is evidence-integrity validation only and does not imply execution policy, retry, reconciliation, or provider behavior.
