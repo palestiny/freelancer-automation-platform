@@ -423,3 +423,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Retry Worker Runtime Boundary Hardening
 
 **Status:** V1 boundary validation hardened and CI-verified. Malformed source/dispatch values and dispatch identity mismatches fail explicitly without adding retry loops or distributed execution semantics.
+
+
+### Execution Outcome Temporal Contract
+
+**Status:** V1 temporal integrity hardening implemented and CI-verified. Outcome observation time must be timezone-aware and cannot precede request preparation time when available.
