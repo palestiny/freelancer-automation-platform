@@ -428,3 +428,8 @@ V1 now has an explicit non-executing handoff from experiment hypothesis-policy e
 ### Execution Outcome Temporal Contract
 
 **Status:** V1 temporal integrity hardening implemented and CI-verified. Outcome observation time must be timezone-aware and cannot precede request preparation time when available.
+
+
+### Execution Outcome Contract Hardening
+
+**Status:** V1 type and temporal contract hardening implemented and CI-verified. Malformed outcome values fail explicitly before becoming execution evidence.
