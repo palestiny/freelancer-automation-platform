@@ -1368,3 +1368,8 @@ Execution outcome evidence must reject non-enum status values and non-datetime o
 ### D-189 — Execution Outcome External References Have Explicit Value-Type Semantics
 
 An execution outcome external reference is optional, but when present it must be a non-empty string. The immutable outcome and recording boundary validate this explicitly before the value becomes execution evidence. This does not change execution, retry, reconciliation, authorization, or provider semantics.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
