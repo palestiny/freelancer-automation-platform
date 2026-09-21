@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Protocol
 
-from .execution_coordinator import ExecutionCoordinationResult, coordinate_execution
+from .execution_coordinator import ExecutionCoordinationResult
 from .execution_port import ExecutionPort, dispatch_execution
 from app.domain.execution_outcome_policy import assess_execution_outcome
 from app.domain.execution_recovery import create_execution_recovery_handoff
