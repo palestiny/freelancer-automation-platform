@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pytest
 
+from app.domain.performance_history import PerformanceWindow
 from app.domain.performance_evidence_decision_support import (
     CombinedEvidencePosture,
     DescriptiveDirection,
@@ -23,6 +24,8 @@ def evidence():
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_method="welch_two_sample_t_test",
+        statistical_first_window=PerformanceWindow(datetime(2026, 1, 1), datetime(2026, 1, 8)),
+        statistical_second_window=PerformanceWindow(datetime(2026, 1, 8), datetime(2026, 1, 15)),
         statistical_observation_ids=("s1", "s2"),
         current_observation_ids=("c1",),
         baseline_observation_ids=("b1obs",),
