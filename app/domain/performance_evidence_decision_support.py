@@ -120,6 +120,37 @@ class PerformanceEvidenceDecisionSupport:
                 "unavailable inferential evidence cannot use an inferential-result posture"
             )
 
+        if self.inferential_status is not InferentialStatus.UNAVAILABLE:
+            if not self.statistical_method.strip():
+                raise ValueError("available inferential evidence requires statistical_method")
+            if self.statistical_first_window is None or self.statistical_second_window is None:
+                raise ValueError("available inferential evidence requires statistical windows")
+            if self.statistical_difference_direction is DescriptiveDirection.UNAVAILABLE:
+                raise ValueError(
+                    "available inferential evidence requires statistical_difference_direction"
+                )
+
+        if self.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT:
+            if self.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
+                raise ValueError("conflict posture requires statistical difference detection")
+            if self.descriptive_direction is DescriptiveDirection.NO_CHANGE:
+                raise ValueError("conflict posture requires descriptive movement")
+            if (
+                self.statistical_difference_direction
+                in (DescriptiveDirection.UNAVAILABLE, DescriptiveDirection.NO_CHANGE)
+                or self.statistical_difference_direction is self.descriptive_direction
+            ):
+                raise ValueError("conflict posture requires opposite nonzero directions")
+
+        if self.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION:
+            if self.inferential_status is not InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED:
+                raise ValueError("statistical-detection posture requires detected difference")
+            if (
+                self.descriptive_direction is DescriptiveDirection.NO_CHANGE
+                or self.statistical_difference_direction is not self.descriptive_direction
+            ):
+                raise ValueError("statistical-detection posture requires aligned directions")
+
 
 
 def compose_performance_evidence(
