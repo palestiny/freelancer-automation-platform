@@ -24,6 +24,7 @@ def _support(*, inferential=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED):
         posture=(CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION if inferential is not InferentialStatus.UNAVAILABLE else CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE),
         statistical_observation_ids=("b1", "b2", "c1", "c2"),
         statistical_method="welch_two_sample_t_test",
+        statistical_difference_direction=(DescriptiveDirection.UNAVAILABLE if inferential is InferentialStatus.UNAVAILABLE else DescriptiveDirection.IMPROVING),
         statistical_first_window=PerformanceWindow(datetime(2026, 1, 1), datetime(2026, 1, 8)),
         statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
         current_window_start=datetime(2026, 2, 1),
