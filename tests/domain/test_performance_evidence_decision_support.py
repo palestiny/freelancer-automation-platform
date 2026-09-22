@@ -10,6 +10,7 @@ from app.domain.statistical_mean_comparison import (
     MeanComparisonResult,
     MeanComparisonStatus,
 )
+from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
 from app.domain.statistical_evidence_composition import (
     StatisticalEvidenceComposition,
     StatisticalEvidenceEligibilityReason,
@@ -303,6 +304,7 @@ def test_zero_change_is_no_descriptive_change():
 
 def test_result_rejects_duplicate_statistical_lineage():
     from app.domain.performance_evidence_decision_support import (
+    PerformanceEvidenceDecisionSupport,
         DescriptiveDirection,
         InferentialStatus,
         PerformanceEvidenceDecisionSupport,
@@ -346,3 +348,4 @@ def test_opposite_statistical_direction_is_explicit():
 
 _trend = trend
 _stat = stat
+
