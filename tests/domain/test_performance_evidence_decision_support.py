@@ -46,7 +46,6 @@ def _result(*, status=MeanComparisonStatus.APPLICABLE, rejects_null=False):
         degrees_of_freedom=2.0 if status is MeanComparisonStatus.APPLICABLE else None,
         p_value=0.05 if status is MeanComparisonStatus.APPLICABLE else None,
         alpha=0.05,
-        mean_difference=-10.0,
         method="welch_two_sample_t_test",
         rejects_null=rejects_null if status is MeanComparisonStatus.APPLICABLE else None,
         status=status,
@@ -153,7 +152,6 @@ def test_result_rejects_overlapping_windows():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=10.0,
             first_window=PerformanceWindow(datetime(2026, 1, 1), datetime(2026, 1, 10)),
             second_window=PerformanceWindow(datetime(2026, 1, 9), datetime(2026, 1, 15)),
             current_evidence_quality=80,
@@ -177,7 +175,6 @@ def test_result_rejects_invalid_evidence_quality():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=10.0,
             first_window=comparison.first_window,
             second_window=comparison.second_window,
             current_evidence_quality=101,
@@ -202,7 +199,6 @@ def test_result_rejects_non_finite_mean_difference():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=math.nan,
             first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80,
@@ -227,7 +223,6 @@ def test_result_rejects_blank_observation_ids():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=1.0,
             first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80,
@@ -270,7 +265,6 @@ def test_source_reliability_reason_requires_an_ineligible_source():
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=_eligible(), baseline_source_reliability=_eligible(),
-            mean_difference=10.0,
         )
 
 
