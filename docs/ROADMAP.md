@@ -108,7 +108,7 @@ The retry runtime boundary now includes bounded worker invocation, continuous si
 - persistence/API/UI integration
 - broader business-model execution
 - business memory and cross-domain learning
-- controlled experimentation infrastructure
+- controlled experimentation beyond the currently bounded assignment/exposure/evidence infrastructure
 - portfolio posture and allocation policy
 - progressive autonomy beyond the current bounded execution runtime
 
@@ -153,3 +153,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Persisted Execution Coordination
 
 **Status:** V1 application boundary implemented and CI-verified. Authoritative execution outcomes are persisted before policy assessment/recovery handoff; no new retry or execution semantics are introduced.
+
+
+### Current Evidence Interpretation
+
+**Status:** Explicit metric-polarity interpretation is implemented and bounded. Controlled-experiment evidence lineage and retry-safe exposure recording are implemented; causal attribution and automatic experiment optimization remain outside scope.
