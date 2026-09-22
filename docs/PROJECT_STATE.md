@@ -181,3 +181,8 @@ The platform now has a bounded downstream evidence-composition layer that combin
 ## Statistical Direction Provenance Hardening
 
 The performance evidence decision-support boundary now preserves the Welch mean difference explicitly and derives statistical direction from that preserved value. A statistically detected difference that conflicts with the descriptive movement is represented as an explicit conflict posture rather than being treated as aligned evidence.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
