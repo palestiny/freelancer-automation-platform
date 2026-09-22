@@ -226,7 +226,7 @@ def test_result_rejects_blank_observation_ids():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=1.0,
+            mean_difference=10.0,
             first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80,
@@ -245,14 +245,15 @@ def test_eligible_result_rejects_ineligible_source_assessment():
             method="welch_two_sample_t_test", observation_ids=("a", "b"),
             eligible=True, reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
-            alpha=0.05, first_window=_window(),
+            alpha=0.05, mean_difference=10.0,
+            first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=SourceReliabilityAssessment(
                 eligible=False, reason=SourceReliabilityReason.INSUFFICIENT_RELIABILITY,
                 minimum_reliability=40,
             ),
-            baseline_source_reliability=_eligible(), mean_difference=10.0,
+            baseline_source_reliability=_eligible(),
         )
 
 
@@ -265,11 +266,11 @@ def test_source_reliability_reason_requires_an_ineligible_source():
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
-            alpha=0.05, first_window=_window(),
+            alpha=0.05, mean_difference=10.0,
+            first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=_eligible(), baseline_source_reliability=_eligible(),
-            mean_difference=10.0,
         )
 
 
@@ -283,8 +284,8 @@ from app.domain.performance_evidence_decision_support import CombinedEvidencePos
 def trend(change=10.0):
  return PerformanceTrend(metric_name='profit',unit='EGP',current_window=PerformanceWindow(datetime(2026,2,1),datetime(2026,2,8)),baseline_window=PerformanceWindow(datetime(2026,1,25),datetime(2026,2,1)),current_average=100+change,baseline_average=100,absolute_change=change,relative_change=change/100,current_observation_ids=('c1',),baseline_observation_ids=('b1',),current_evidence_quality=80,baseline_evidence_quality=80)
 
-def stat():
- return StatisticalEvidenceComposition(business_id='b1',metric_name='profit',unit='EGP',method='welch_two_sample_t_test',observation_ids=('b1','b2','c1','c2'),eligible=True,reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,alpha=.05,first_window=PerformanceWindow(datetime(2026,1,25),datetime(2026,2,1)),second_window=PerformanceWindow(datetime(2026,2,1),datetime(2026,2,8)),current_evidence_quality=80,baseline_evidence_quality=80,current_source_reliability=SourceReliabilityAssessment(eligible=True,reason=SourceReliabilityReason.ELIGIBLE,minimum_reliability=80),baseline_source_reliability=SourceReliabilityAssessment(eligible=True,reason=SourceReliabilityReason.ELIGIBLE,minimum_reliability=80),mean_difference=10.0)
+def stat(*, interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE):
+ return StatisticalEvidenceComposition(business_id='b1',metric_name='profit',unit='EGP',method='welch_two_sample_t_test',observation_ids=('b1','b2','c1','c2'),eligible=True,reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,interpretation=interpretation,alpha=.05,first_window=PerformanceWindow(datetime(2026,1,25),datetime(2026,2,1)),second_window=PerformanceWindow(datetime(2026,2,1),datetime(2026,2,8)),current_evidence_quality=80,baseline_evidence_quality=80,current_source_reliability=SourceReliabilityAssessment(eligible=True,reason=SourceReliabilityReason.ELIGIBLE,minimum_reliability=80),baseline_source_reliability=SourceReliabilityAssessment(eligible=True,reason=SourceReliabilityReason.ELIGIBLE,minimum_reliability=80),mean_difference=10.0)
 
 def test_identity_and_lineage_are_preserved():
  r=compose_performance_evidence(trend=trend(),statistical_evidence=stat(),business_id='b1')
@@ -336,3 +337,12 @@ def test_result_rejects_empty_context():
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=(),
         )
+
+
+def test_opposite_statistical_direction_is_explicit():
+    result = compose_performance_evidence(trend=_trend(-10.0), statistical_evidence=_stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE), business_id="b1")
+    assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+
+
+_trend = trend
+_stat = stat

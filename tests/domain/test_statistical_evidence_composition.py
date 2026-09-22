@@ -226,7 +226,7 @@ def test_result_rejects_blank_observation_ids():
             reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05,
-            mean_difference=1.0,
+            mean_difference=10.0,
             first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80,
@@ -245,14 +245,14 @@ def test_eligible_result_rejects_ineligible_source_assessment():
             method="welch_two_sample_t_test", observation_ids=("a", "b"),
             eligible=True, reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
-            alpha=0.05, first_window=_window(),
+            alpha=0.05, mean_difference=10.0, first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=SourceReliabilityAssessment(
                 eligible=False, reason=SourceReliabilityReason.INSUFFICIENT_RELIABILITY,
                 minimum_reliability=40,
             ),
-            baseline_source_reliability=_eligible(), mean_difference=10.0,
+            baseline_source_reliability=_eligible(),
         )
 
 
@@ -265,9 +265,9 @@ def test_source_reliability_reason_requires_an_ineligible_source():
             eligible=False,
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
-            alpha=0.05, first_window=_window(),
+            alpha=0.05, mean_difference=10.0,
+            first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=_eligible(), baseline_source_reliability=_eligible(),
-            mean_difference=10.0,
         )

@@ -257,3 +257,4 @@ def _directions_align(
     right: DescriptiveDirection,
 ) -> bool:
     return left is right
+
