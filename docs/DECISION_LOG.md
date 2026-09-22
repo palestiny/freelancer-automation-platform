@@ -1431,3 +1431,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-122 — Performance Evidence Posture Metadata Must Be Internally Consistent
 
 When inferential evidence is available, its method and comparison windows are mandatory. A detected difference must preserve its direction. Alignment and conflict postures must agree with their respective direction semantics. These are evidence-contract invariants and do not authorize policy mutation or execution.
+
+
+### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+
+The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
