@@ -18,6 +18,9 @@ from .statistical_evidence_composition import (
 class DescriptiveDirection(str, Enum):
     INCREASED = "increased"
     DECREASED = "decreased"
+    # Backward-compatible legacy semantics; new evidence production uses neutral names.
+    IMPROVING = "improving"
+    DECLINING = "declining"
     NO_CHANGE = "no_change"
     UNAVAILABLE = "unavailable"
 
@@ -52,6 +55,18 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+
+    current_window_start: datetime | None = None
+    current_window_end: datetime | None = None
+    baseline_window_start: datetime | None = None
+    baseline_window_end: datetime | None = None
+    statistical_method: str = ""
+    statistical_first_window: PerformanceWindow | None = None
+    statistical_second_window: PerformanceWindow | None = None
+    statistical_difference_direction: DescriptiveDirection = DescriptiveDirection.UNAVAILABLE
+    current_observation_ids: tuple[str, ...] = ()
+    baseline_observation_ids: tuple[str, ...] = ()
+    metric_direction_interpretation: MetricDirectionInterpretation = MetricDirectionInterpretation.NOT_INTERPRETABLE
 
     def __post_init__(self) -> None:
         for name in ("business_id", "metric_name", "unit"):
