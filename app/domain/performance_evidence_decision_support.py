@@ -109,28 +109,6 @@ class PerformanceEvidenceDecisionSupport:
                 raise ValueError(
                     "statistical windows are required when inferential evidence is available"
                 )
-            if (
-                self.current_window_start != self.statistical_second_window.start
-                or self.current_window_end != self.statistical_second_window.end
-                or self.baseline_window_start != self.statistical_first_window.start
-                or self.baseline_window_end != self.statistical_first_window.end
-            ):
-                raise ValueError(
-                    "performance and statistical windows must preserve the same current/baseline context"
-                )
-        else:
-            if self.statistical_method:
-                raise ValueError(
-                    "statistical_method must be empty when inferential evidence is unavailable"
-                )
-            if self.statistical_first_window is not None or self.statistical_second_window is not None:
-                raise ValueError(
-                    "statistical windows must be absent when inferential evidence is unavailable"
-                )
-            if self.statistical_difference_direction is not DescriptiveDirection.UNAVAILABLE:
-                raise ValueError(
-                    "statistical_difference_direction must be unavailable when inferential evidence is unavailable"
-                )
 
         if (
             self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
