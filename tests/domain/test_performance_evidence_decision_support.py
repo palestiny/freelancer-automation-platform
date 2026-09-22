@@ -349,3 +349,40 @@ def test_opposite_statistical_direction_is_explicit():
 _trend = trend
 _stat = stat
 
+
+
+def test_conflict_posture_requires_opposite_directions_v2():
+    import pytest
+    with pytest.raises(ValueError, match="opposite descriptive and statistical directions"):
+        _decision_support_with(
+            posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
+            descriptive=DescriptiveDirection.INCREASED,
+            statistical=DescriptiveDirection.INCREASED,
+        )
+
+
+def test_aligned_detection_posture_requires_matching_direction_v2():
+    import pytest
+    with pytest.raises(ValueError, match="requires aligned directions"):
+        _decision_support_with(
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            descriptive=DescriptiveDirection.INCREASED,
+            statistical=DescriptiveDirection.DECREASED,
+        )
+
+
+def test_detected_difference_requires_statistical_metadata_v2():
+    import pytest
+    with pytest.raises(ValueError, match="statistical_method"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("a", "b"),
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
+            current_observation_ids=("c",),
+            baseline_observation_ids=("d",),
+        )
