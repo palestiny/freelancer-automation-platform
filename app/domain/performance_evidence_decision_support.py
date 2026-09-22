@@ -135,7 +135,7 @@ def compose_performance_evidence(
     business_id: str,
     metric_direction_policy: MetricDirectionPolicy | None = None,
 ) -> PerformanceEvidenceDecisionSupport:
-    if not business_id.strip():
+    if not isinstance(business_id, str) or not business_id.strip():
         raise ValueError("business_id cannot be empty")
 
     if (
