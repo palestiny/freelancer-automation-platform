@@ -341,7 +341,7 @@ def test_result_rejects_empty_context():
 
 def test_opposite_statistical_direction_is_explicit():
     result = compose_performance_evidence(trend=_trend(-10.0), statistical_evidence=_stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE), business_id="b1")
-    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_DIRECTION_CONFLICT
+    assert result.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
 
 
 _trend = trend
