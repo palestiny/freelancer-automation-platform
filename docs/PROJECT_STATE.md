@@ -186,3 +186,8 @@ The performance evidence decision-support boundary now preserves the Welch mean 
 ## Performance Evidence Decision Support
 
 The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Performance Evidence Decision Support
+
+V1 descriptive and inferential performance evidence composition is implemented and CI-verified. The layer preserves descriptive/statistical disagreement and remains non-decisioning: no universal score, ranking, recommendation, policy mutation, learning mutation, portfolio action, or execution.
