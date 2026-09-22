@@ -100,6 +100,42 @@ class PerformanceEvidenceDecisionSupport:
         if self.baseline_window_start is not None and self.baseline_window_end is not None and self.baseline_window_end <= self.baseline_window_start:
             raise ValueError("baseline window must end after it starts")
 
+        if self.inferential_status is not InferentialStatus.UNAVAILABLE:
+            if not self.statistical_method.strip():
+                raise ValueError(
+                    "statistical_method is required when inferential evidence is available"
+                )
+            if self.statistical_first_window is None or self.statistical_second_window is None:
+                raise ValueError(
+                    "statistical windows are required when inferential evidence is available"
+                )
+
+        if (
+            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+            and self.statistical_difference_direction is DescriptiveDirection.UNAVAILABLE
+        ):
+            raise ValueError(
+                "statistical difference direction is required when a difference is detected"
+            )
+
+        if (
+            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+            and self.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
+            and self.descriptive_direction is not self.statistical_difference_direction
+        ):
+            raise ValueError(
+                "descriptive and statistical directions must match for the detection posture"
+            )
+
+        if (
+            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+            and self.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT
+            and self.descriptive_direction is self.statistical_difference_direction
+        ):
+            raise ValueError(
+                "conflict posture requires opposite descriptive and statistical directions"
+            )
+
         if (
             self.inferential_status is InferentialStatus.UNAVAILABLE
             and self.statistical_difference_direction is not DescriptiveDirection.UNAVAILABLE
