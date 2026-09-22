@@ -1,3 +1,5 @@
+from app.domain.performance_history import PerformanceWindow
+from datetime import datetime
 from app.domain.action_authorization import (
     ActionAuthorizationStatus,
     ActionClass,
@@ -27,6 +29,9 @@ def _evidence() -> PerformanceEvidenceDecisionSupport:
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_observation_ids=("stat-1", "stat-2"),
+        statistical_method="welch_two_sample_t_test",
+        statistical_first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
+        statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
         statistical_difference_direction=DescriptiveDirection.INCREASED,
         current_observation_ids=("current-1", "current-2"),
         baseline_observation_ids=("baseline-1", "baseline-2"),

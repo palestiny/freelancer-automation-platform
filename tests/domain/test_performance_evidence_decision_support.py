@@ -349,3 +349,70 @@ def test_opposite_statistical_direction_is_explicit():
 _trend = trend
 _stat = stat
 
+
+
+def _decision_support_with(**overrides):
+    from app.domain.performance_evidence_decision_support import (
+        DescriptiveDirection,
+        InferentialStatus,
+        PerformanceEvidenceDecisionSupport,
+    )
+
+    values = {
+        "business_id": "b1",
+        "metric_name": "profit",
+        "unit": "EGP",
+        "descriptive_direction": DescriptiveDirection.INCREASED,
+        "inferential_status": InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+        "posture": CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+        "statistical_observation_ids": ("b1", "b2", "c1", "c2"),
+        "current_window_start": datetime(2026, 2, 1),
+        "current_window_end": datetime(2026, 2, 8),
+        "baseline_window_start": datetime(2026, 1, 25),
+        "baseline_window_end": datetime(2026, 2, 1),
+        "statistical_method": "welch_two_sample_t_test",
+        "statistical_first_window": PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
+        "statistical_second_window": PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
+        "statistical_difference_direction": DescriptiveDirection.INCREASED,
+        "current_observation_ids": ("c1", "c2"),
+        "baseline_observation_ids": ("b1", "b2"),
+    }
+    values.update(overrides)
+    return PerformanceEvidenceDecisionSupport(**values)
+
+
+def test_detected_difference_requires_statistical_metadata():
+    import pytest
+
+    with pytest.raises(ValueError, match="statistical_method"):
+        _decision_support_with(statistical_method="")
+
+
+def test_detected_difference_requires_statistical_windows():
+    import pytest
+
+    with pytest.raises(ValueError, match="statistical windows"):
+        _decision_support_with(statistical_first_window=None)
+
+
+def test_aligned_detection_requires_matching_direction():
+    import pytest
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection
+
+    with pytest.raises(ValueError, match="matching"):
+        _decision_support_with(
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            statistical_difference_direction=DescriptiveDirection.DECREASED,
+        )
+
+
+def test_conflict_posture_requires_opposite_directions():
+    import pytest
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection
+
+    with pytest.raises(ValueError, match="conflict"):
+        _decision_support_with(
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
+            posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
+        )
