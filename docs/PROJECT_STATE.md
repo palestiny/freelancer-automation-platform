@@ -192,3 +192,8 @@ The platform now has a bounded downstream evidence-composition layer that combin
 ## Performance Evidence Decision Support
 
 A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+
+
+## Performance Evidence Posture Hardening
+
+The current evidence decision-support value object now enforces that available inferential evidence preserves its statistical method and comparison windows. A detected statistical difference must preserve an explicit direction; an aligned posture requires matching descriptive and statistical directions, while a conflict posture requires opposite directions. This is contract hardening only and does not add new statistical methods or decision authority.
