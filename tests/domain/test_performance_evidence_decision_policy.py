@@ -2,7 +2,7 @@ from datetime import datetime
 from app.domain.performance_history import PerformanceWindow
 from app.domain.performance_trend import PerformanceTrend
 from app.domain.statistical_evidence_composition import StatisticalEvidenceComposition, StatisticalEvidenceEligibilityReason, StatisticalEvidenceInterpretation
-from app.domain.performance_evidence_decision_support import compose_performance_evidence
+from app.domain.performance_evidence_decision_support import CombinedEvidencePosture, compose_performance_evidence
 from app.domain.performance_reliability import SourceReliabilityAssessment, SourceReliabilityReason
 from app.domain.performance_evidence_decision_policy import PerformanceEvidenceState, derive_performance_evidence_state
 
