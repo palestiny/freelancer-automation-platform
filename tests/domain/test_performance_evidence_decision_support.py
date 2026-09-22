@@ -312,7 +312,7 @@ def test_result_rejects_duplicate_statistical_lineage():
             business_id="b1",
             metric_name="profit",
             unit="EGP",
-            descriptive_direction=DescriptiveDirection.IMPROVING,
+            descriptive_direction=DescriptiveDirection.INCREASED,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
             posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_observation_ids=("x", "x"),
