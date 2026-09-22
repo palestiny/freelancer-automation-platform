@@ -303,6 +303,7 @@ def test_zero_change_is_no_descriptive_change():
 
 def test_result_rejects_duplicate_statistical_lineage():
     from app.domain.performance_evidence_decision_support import (
+    PerformanceEvidenceDecisionSupport,
         DescriptiveDirection,
         InferentialStatus,
         PerformanceEvidenceDecisionSupport,
