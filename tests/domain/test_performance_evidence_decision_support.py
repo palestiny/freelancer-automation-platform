@@ -416,3 +416,31 @@ def test_conflict_posture_requires_opposite_directions():
             statistical_difference_direction=DescriptiveDirection.INCREASED,
             posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
         )
+
+
+
+def test_result_rejects_mismatched_statistical_windows():
+    with pytest.raises(ValueError, match="same current/baseline context"):
+        _decision_support_with(
+            statistical_second_window=PerformanceWindow(datetime(2026, 2, 2), datetime(2026, 2, 8))
+        )
+
+
+def test_unavailable_inferential_result_rejects_statistical_metadata():
+    from app.domain.performance_evidence_decision_support import (
+        DescriptiveDirection,
+        InferentialStatus,
+        PerformanceEvidenceDecisionSupport,
+    )
+
+    with pytest.raises(ValueError, match="statistical_method must be empty"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=("b1",),
+            statistical_method="welch_two_sample_t_test",
+        )
