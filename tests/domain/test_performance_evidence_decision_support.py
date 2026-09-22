@@ -46,6 +46,7 @@ def _result(*, status=MeanComparisonStatus.APPLICABLE, rejects_null=False):
         degrees_of_freedom=2.0 if status is MeanComparisonStatus.APPLICABLE else None,
         p_value=0.05 if status is MeanComparisonStatus.APPLICABLE else None,
         alpha=0.05,
+        mean_difference=-10.0,
         method="welch_two_sample_t_test",
         rejects_null=rejects_null if status is MeanComparisonStatus.APPLICABLE else None,
         status=status,
@@ -336,3 +337,8 @@ def test_result_rejects_empty_context():
             posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
             statistical_observation_ids=(),
         )
+
+
+def test_opposite_statistical_direction_is_explicit():
+    result = compose_performance_evidence(trend=_trend(-10.0), statistical_evidence=_stat(interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE), business_id="b1")
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_DIRECTION_CONFLICT
