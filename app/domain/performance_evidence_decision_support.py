@@ -124,7 +124,7 @@ class PerformanceEvidenceDecisionSupport:
             and self.descriptive_direction is not self.statistical_difference_direction
         ):
             raise ValueError(
-                "descriptive and statistical directions must match for the detection posture"
+                "descriptive and statistical directions must be matching for the detection posture"
             )
 
         if (
