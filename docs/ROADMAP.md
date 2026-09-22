@@ -158,3 +158,8 @@ No new infrastructure or policy is introduced merely because a lower-level capab
 ### Current Evidence Interpretation
 
 **Status:** Explicit metric-polarity interpretation is implemented and bounded. Controlled-experiment evidence lineage and retry-safe exposure recording are implemented; causal attribution and automatic experiment optimization remain outside scope.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.

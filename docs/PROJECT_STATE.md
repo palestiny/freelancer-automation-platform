@@ -171,3 +171,8 @@ The execution runtime now has an explicit persisted-coordination application bou
 Metric movement remains neutral evidence. Explicit metric polarity policy may interpret movement as FAVORABLE, UNFAVORABLE, or NEUTRAL; missing policy yields NOT_INTERPRETABLE. This interpretation does not create a score, recommendation, lifecycle mutation, learning mutation, portfolio action, or execution.
 
 Controlled experimentation currently preserves explicit assignment, exposure, observation, linkage, lineage, temporal, authority, and retry/idempotency boundaries. Experiment evidence does not imply causality, variant selection, allocation optimization, lifecycle mutation, authorization, or execution.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
