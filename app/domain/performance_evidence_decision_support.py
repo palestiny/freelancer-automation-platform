@@ -22,6 +22,9 @@ class DescriptiveDirection(str, Enum):
     IMPROVING = "improving"
     DECLINING = "declining"
     NO_CHANGE = "no_change"
+    # Compatibility aliases retained for existing downstream policy contracts.
+    IMPROVING = "improving"
+    DECLINING = "declining"
     UNAVAILABLE = "unavailable"
 
 
