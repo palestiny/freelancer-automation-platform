@@ -246,7 +246,8 @@ def test_eligible_result_rejects_ineligible_source_assessment():
             eligible=True, reason=StatisticalEvidenceEligibilityReason.ELIGIBLE,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05, first_window=
-            mean_difference=10.0,_window(),
+            mean_difference=10.0,
+            first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=SourceReliabilityAssessment(
@@ -267,7 +268,8 @@ def test_source_reliability_reason_requires_an_ineligible_source():
             reason=StatisticalEvidenceEligibilityReason.INSUFFICIENT_SOURCE_RELIABILITY,
             interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE,
             alpha=0.05, first_window=
-            mean_difference=10.0,_window(),
+            mean_difference=10.0,
+            first_window=_window(),
             second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
             current_evidence_quality=80, baseline_evidence_quality=80,
             current_source_reliability=_eligible(), baseline_source_reliability=_eligible(),
