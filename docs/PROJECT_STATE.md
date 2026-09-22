@@ -161,11 +161,13 @@ The canonical runtime pipeline is:
 
 Completed lifecycle/recovery boundaries must not be reopened without a new requirement. The next engineering increment must be selected from an unresolved product or infrastructure requirement and governed by a dedicated design gate.
 
-## Completion Rule
-
-A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
-
-
 ## Persisted Execution Coordination
 
 The execution runtime now has an explicit persisted-coordination application boundary: provider outcome → durable outcome evidence → policy assessment → recovery handoff. Provider and persistence failures remain explicit and do not fabricate recovery state.
+
+
+## Current Evidence Interpretation Boundaries
+
+Metric movement remains neutral evidence. Explicit metric polarity policy may interpret movement as FAVORABLE, UNFAVORABLE, or NEUTRAL; missing policy yields NOT_INTERPRETABLE. This interpretation does not create a score, recommendation, lifecycle mutation, learning mutation, portfolio action, or execution.
+
+Controlled experimentation currently preserves explicit assignment, exposure, observation, linkage, lineage, temporal, authority, and retry/idempotency boundaries. Experiment evidence does not imply causality, variant selection, allocation optimization, lifecycle mutation, authorization, or execution.
