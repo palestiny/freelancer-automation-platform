@@ -298,3 +298,48 @@ def test_empty_business_id_rejected(business_id):
 def test_zero_change_is_no_descriptive_change():
  r=compose_performance_evidence(trend=trend(0),statistical_evidence=stat(),business_id='b1')
  assert r.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_zero_change_is_explicitly_non_directional():
+    result = compose_performance_evidence(
+        trend=_trend(0.0),
+        statistical_evidence=_stat(
+            interpretation=StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+    )
+    assert result.descriptive_direction is DescriptiveDirection.NO_CHANGE
+    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_result_rejects_duplicate_statistical_lineage():
+    import pytest
+
+    with pytest.raises(ValueError, match="statistical_observation_ids must be unique"):
+        from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+            statistical_observation_ids=("x", "x"),
+        )
+
+
+def test_result_rejects_empty_context():
+    import pytest
+    from app.domain.performance_evidence_decision_support import PerformanceEvidenceDecisionSupport
+
+    with pytest.raises(ValueError, match="business_id cannot be empty"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.NO_CHANGE,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=(),
+        )
