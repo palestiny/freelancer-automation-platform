@@ -346,3 +346,4 @@ def test_opposite_statistical_direction_is_explicit():
 
 _trend = trend
 _stat = stat
+\n\ndef test_result_rejects_duplicate_statistical_observation_ids():\n    from pytest import raises\n\n    with raises(ValueError):\n        PerformanceEvidenceDecisionSupport(\n            business_id="b1",\n            metric_name="profit",\n            unit="EGP",\n            descriptive_direction=DescriptiveDirection.IMPROVING,\n            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,\n            posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,\n            statistical_observation_ids=("x", "x"),\n        )\n
