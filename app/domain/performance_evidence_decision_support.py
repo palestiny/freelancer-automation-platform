@@ -119,13 +119,6 @@ class PerformanceEvidenceDecisionSupport:
                 "unavailable inferential evidence cannot use an inferential-result posture"
             )
 
-        if (
-            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
-            and self.descriptive_direction is DescriptiveDirection.NO_CHANGE
-        ):
-            raise ValueError(
-                "statistical detection with no descriptive change must use NO_DESCRIPTIVE_CHANGE"
-            )
 
 
 def compose_performance_evidence(
@@ -135,7 +128,7 @@ def compose_performance_evidence(
     business_id: str,
     metric_direction_policy: MetricDirectionPolicy | None = None,
 ) -> PerformanceEvidenceDecisionSupport:
-    if not business_id.strip():
+    if not isinstance(business_id, str) or not business_id.strip():
         raise ValueError("business_id cannot be empty")
 
     if (

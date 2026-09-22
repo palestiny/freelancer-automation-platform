@@ -2,7 +2,7 @@ from datetime import datetime
 from app.domain.performance_history import PerformanceWindow
 from app.domain.performance_trend import PerformanceTrend
 from app.domain.statistical_evidence_composition import StatisticalEvidenceComposition, StatisticalEvidenceEligibilityReason, StatisticalEvidenceInterpretation
-from app.domain.performance_evidence_decision_support import compose_performance_evidence
+from app.domain.performance_evidence_decision_support import CombinedEvidencePosture, compose_performance_evidence
 from app.domain.performance_reliability import SourceReliabilityAssessment, SourceReliabilityReason
 from app.domain.performance_evidence_decision_policy import PerformanceEvidenceState, derive_performance_evidence_state
 
@@ -39,7 +39,6 @@ def test_preserves_change_without_detection():
 def test_ineligible_inference_not_upgraded():
     assert derive_performance_evidence_state(evidence(10, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE, False)) is PerformanceEvidenceState.INSUFFICIENT_INFERENTIAL_EVIDENCE
 
-def test_no_change_with_statistical_detection_is_rejected_by_support_contract():
-    import pytest
-    with pytest.raises(ValueError):
-        evidence(0, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)
+def test_no_change_with_statistical_detection_is_explicitly_preserved():
+    result = evidence(0, StatisticalEvidenceInterpretation.STATISTICALLY_DETECTED_DIFFERENCE)
+    assert result.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
