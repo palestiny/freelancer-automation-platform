@@ -55,6 +55,17 @@ class PerformanceEvidenceDecisionSupport:
     inferential_status: InferentialStatus
     posture: CombinedEvidencePosture
     statistical_observation_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        for name in ("business_id", "metric_name", "unit"):
+            if not getattr(self, name).strip():
+                raise ValueError(f"{name} cannot be empty")
+        if len(set(self.statistical_observation_ids)) != len(self.statistical_observation_ids):
+            raise ValueError("statistical_observation_ids must be unique")
+        if self.inferential_status is not InferentialStatus.UNAVAILABLE and not self.statistical_observation_ids:
+            raise ValueError("statistical_observation_ids cannot be empty when inferential evidence is available")
+        if self.inferential_status is InferentialStatus.UNAVAILABLE and self.posture is not CombinedEvidencePosture.CONTEXT_INVALID and self.posture is not CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE:
+            raise ValueError("unavailable inferential evidence requires an unavailable-evidence posture")
     current_window_start: datetime | None = None
     current_window_end: datetime | None = None
     baseline_window_start: datetime | None = None

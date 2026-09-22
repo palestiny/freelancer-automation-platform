@@ -298,3 +298,41 @@ def test_empty_business_id_rejected(business_id):
 def test_zero_change_is_no_descriptive_change():
  r=compose_performance_evidence(trend=trend(0),statistical_evidence=stat(),business_id='b1')
  assert r.posture is CombinedEvidencePosture.NO_DESCRIPTIVE_CHANGE
+
+
+def test_result_rejects_duplicate_statistical_lineage():
+    from app.domain.performance_evidence_decision_support import (
+        DescriptiveDirection,
+        InferentialStatus,
+        PerformanceEvidenceDecisionSupport,
+    )
+
+    with pytest.raises(ValueError, match="statistical_observation_ids must be unique"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.IMPROVING,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("x", "x"),
+        )
+
+
+def test_result_rejects_empty_context():
+    from app.domain.performance_evidence_decision_support import (
+        DescriptiveDirection,
+        InferentialStatus,
+        PerformanceEvidenceDecisionSupport,
+    )
+
+    with pytest.raises(ValueError, match="business_id cannot be empty"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="",
+            metric_name="profit",
+            unit="EGP",
+            descriptive_direction=DescriptiveDirection.NO_CHANGE,
+            inferential_status=InferentialStatus.UNAVAILABLE,
+            posture=CombinedEvidencePosture.INFERENTIAL_EVIDENCE_UNAVAILABLE,
+            statistical_observation_ids=(),
+        )
