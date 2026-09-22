@@ -349,3 +349,46 @@ def test_opposite_statistical_direction_is_explicit():
 _trend = trend
 _stat = stat
 
+
+    
+def test_conflict_posture_requires_opposite_directions():
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection, InferentialStatus, PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError, match="conflict posture requires opposite"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
+            statistical_observation_ids=("a", "b"),
+            statistical_method="welch_two_sample_t_test",
+            statistical_first_window=_window(),
+            statistical_second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
+        )
+
+def test_statistical_detection_posture_requires_aligned_direction():
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection, InferentialStatus, PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError, match="aligned directions"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("a", "b"),
+            statistical_method="welch_two_sample_t_test",
+            statistical_first_window=_window(),
+            statistical_second_window=PerformanceWindow(datetime(2026, 1, 8, tzinfo=timezone.utc), datetime(2026, 1, 15, tzinfo=timezone.utc)),
+            statistical_difference_direction=DescriptiveDirection.DECREASED,
+        )
+
+def test_available_inferential_result_requires_statistical_metadata():
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection, InferentialStatus, PerformanceEvidenceDecisionSupport
+    with pytest.raises(ValueError, match="statistical_method"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("a", "b"),
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
+        )
