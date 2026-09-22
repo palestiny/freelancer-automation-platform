@@ -21,7 +21,7 @@ def evidence():
         unit="EGP",
         descriptive_direction=DescriptiveDirection.IMPROVING,
         inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-        posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+        posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
         statistical_method="welch_two_sample_t_test",
         statistical_observation_ids=("s1", "s2"),
         current_observation_ids=("c1",),
@@ -35,7 +35,7 @@ def test_handoff_preserves_typed_posture_and_target():
         statement="Review the observed performance change.",
         target=LearningHandoffTarget.POLICY_REVIEW,
     )
-    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT
+    assert result.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION
     assert result.target is LearningHandoffTarget.POLICY_REVIEW
 
 
@@ -51,7 +51,7 @@ def test_handoff_rejects_empty_lineage_ids():
             target=LearningHandoffTarget.POLICY_REVIEW,
             descriptive_direction=DescriptiveDirection.IMPROVING,
             inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
-            posture=CombinedEvidencePosture.DESCRIPTIVE_AND_STATISTICAL_ALIGNMENT,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_method="welch_two_sample_t_test",
             statistical_observation_ids=("", "s2"),
             current_observation_ids=("c1",),
