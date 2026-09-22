@@ -25,7 +25,7 @@ def _support(posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL
         statistical_method="welch_two_sample_t_test",
         statistical_first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
         statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
-        statistical_difference_direction=DescriptiveDirection.IMPROVING,
+        statistical_difference_direction=(DescriptiveDirection.UNAVAILABLE if inferential is InferentialStatus.UNAVAILABLE else DescriptiveDirection.IMPROVING),
         current_observation_ids=("c1",),
         baseline_observation_ids=("b1",),
     )
