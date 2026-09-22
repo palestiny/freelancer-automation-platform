@@ -1065,12 +1065,12 @@ A provider exception after an execution claim must not silently leave the comman
 
 
 
-### D-124 — Finite Retry Worker Invocation Is Externally Bounded
+### D-190 — Finite Retry Worker Invocation Is Externally Bounded
 
 The first runtime implementation consumes at most one durable scheduled retry command per invocation and then stops. It delegates authorization, claim, provider dispatch, and outcome handling to existing authoritative boundaries. Runtime repetition, daemon lifecycle, queues, leases, heartbeats, and worker-pool concurrency require separate design decisions.
 
 
-### D-122 — Finite Retry Runtime Observability Is an Evidence Artifact
+### D-191 — Finite Retry Runtime Observability Is an Evidence Artifact
 
 Each finite retry runtime invocation may produce an immutable observation containing explicit timestamps, outcome, command identity, dispatch status, and failure code. The observation is descriptive evidence only and does not trigger retries, alerts, policy mutation, or execution.
 
@@ -1080,7 +1080,7 @@ Each finite retry runtime invocation may produce an immutable observation contai
 V1 may repeat the authoritative single-command worker invocation only within an explicit positive invocation limit. IDLE, BLOCKED, and FAILED stop the batch. The batch does not introduce polling, sleeping, queues, leases, heartbeats, concurrency, or daemon lifecycle semantics.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-192 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
@@ -1095,7 +1095,7 @@ The finite externally bounded retry-worker invocation must remain the authoritat
 The first continuous-runtime increment uses explicit lifecycle states and stop reasons around the existing finite invocation. Safe stop boundaries prevent new claims, failures terminate explicitly without automatic restart, and lifecycle observations remain immutable evidence. Distributed concurrency, automatic restart, and crash recovery require separate design decisions.
 
 
-### D-122 — Crash Recovery Never Authorizes Automatic Re-execution
+### D-193 — Crash Recovery Never Authorizes Automatic Re-execution
 
 When a retry worker terminates while provider execution may be in flight, reconciliation preserves the ambiguous outcome and emits an explicit manual-reconciliation boundary. Durable terminal outcomes remain terminal. Reconciliation does not schedule, authorize, or perform a new provider request.
 
@@ -1120,62 +1120,62 @@ A non-mutating retry recovery assessment may be applied to durable state only th
 The application recovery coordinator may compose one provider status observation, deterministic reconciliation assessment, and atomic durable state application. It must not poll, schedule, re-execute the provider, or convert confirmed failure into an automatic retry. Ambiguous outcomes remain unchanged and terminal commands are not reopened.
 
 
-### D-122 — Evidence Review Handoff Is Non-Authorizing
+### D-194 — Evidence Review Handoff Is Non-Authorizing
 
 The handoff from composed evidence to review is an immutable, non-executing boundary. It preserves evidence and lineage while explicitly preventing authorization or policy mutation.
 
 
-### D-122 — Review Decisions Do Not Imply Authorization
+### D-195 — Review Decisions Do Not Imply Authorization
 
 Evidence review outcomes are explicit decision artifacts. ACCEPT records a review decision but does not authorize policy mutation, provider execution, payment, capital movement, or other external side effects. Reviewer identity, rationale, review target, and evidence lineage remain preserved.
 
 
-### D-122 — Provider Adapter Conformance Is a Non-Executing Boundary
+### D-196 — Provider Adapter Conformance Is a Non-Executing Boundary
 
 Provider adapters must satisfy a common runtime contract for result type, request identity, idempotency identity, and timezone-aware observation. Conformance validation must not authorize, retry, schedule, or mutate execution state; provider-specific integrations remain separately designed and tested.
 
 
-### D-124 — Provider Resolution Is Explicit and Non-Ranking
+### D-197 — Provider Resolution Is Explicit and Non-Ranking
 
 Provider adapters are resolved only by an explicit provider key. The registry does not rank providers, select fallbacks, manage credentials, perform health routing, or execute requests. Concrete provider integration remains a separate design boundary.
 
 
-### D-122 — Provider Capabilities Are Explicit Declarations
+### D-198 — Provider Capabilities Are Explicit Declarations
 
 Provider capability metadata is declared explicitly at registration time and looked up by provider key. The registry does not infer capabilities dynamically, rank providers, select fallbacks, manage credentials, or execute provider actions.
 
 
-### D-123 — Provider Capability Is an Explicit Execution Precondition
+### D-199 — Provider Capability Is an Explicit Execution Precondition
 
 A provider must explicitly declare the required capability before the existing execution dispatch boundary is entered. Capability support does not authorize execution and does not imply ranking, fallback, health, credential, or policy behavior.
 
 
-### D-122 — Statistical Evidence Composition Preserves Welch Context
+### D-200 — Statistical Evidence Composition Preserves Welch Context
 
 The statistical evidence composition artifact must preserve the explicit Welch comparison windows and mean difference so downstream consumers do not reconstruct inferential context from incomplete evidence. This does not change statistical interpretation or authorization semantics.
 
 
-### D-125 — Provider Credentials Cross Boundaries Only as Opaque References
+### D-201 — Provider Credentials Cross Boundaries Only as Opaque References
 
 The domain may preserve provider key plus an opaque credential reference, but never raw secret material. Secret storage and resolution remain outside the domain and require separate infrastructure decisions.
 
 
-### D-122 — Provider Credential Resolution Is a Non-Authorizing Infrastructure Boundary
+### D-202 — Provider Credential Resolution Is a Non-Authorizing Infrastructure Boundary
 
 Credential references may cross the application boundary for explicit provider-bound resolution, but resolved secret material must not enter domain entities. Resolution failure is explicit; no fallback, ranking, authorization, or provider execution is implied.
 
 
-### D-122 — Provider Authentication Precedes Provider Execution Without Becoming Authorization
+### D-203 — Provider Authentication Precedes Provider Execution Without Becoming Authorization
 
 Provider execution may consume explicitly resolved credential material only after capability verification and provider/reference-bound credential resolution succeed. Authentication is not authorization; the boundary does not select fallbacks, mutate policy, retry, persist secrets, or execute credential lifecycle management.
 
 
-### D-122 — Evidence-to-Decision Policy Must Be Explicit and Non-Executing
+### D-204 — Evidence-to-Decision Policy Must Be Explicit and Non-Executing
 
 Decision-support policy is an explicit input with bounded thresholds and optional statistical requirements. Insufficient evidence remains a distinct outcome and cannot become a positive/negative business decision. The evaluator does not mutate policy, lifecycle, portfolio, learning, or execution state.
 
 
-### D-122 — Evidence-to-Decision Outcomes Preserve Evidence Lineage
+### D-205 — Evidence-to-Decision Outcomes Preserve Evidence Lineage
 
 A non-executing policy evaluation result must preserve explicit evidence identity and unique observation lineage so downstream consumers cannot detach a policy outcome from its supporting evidence. This does not authorize mutation or execution.
 
@@ -1195,12 +1195,12 @@ An authorization artifact must retain the observation lineage from the policy re
 Preparation copies reviewed observation lineage from the authoritative authorization into the immutable prepared request. Callers cannot replace the lineage at preparation time. This is traceability only and does not authorize, execute, retry, schedule, or mutate policy.
 
 
-### D-126 — Prepared Execution Freshness Is an Explicit Safety Precondition
+### D-206 — Prepared Execution Freshness Is an Explicit Safety Precondition
 
 Prepared execution requests must expose an explicit preparation timestamp when freshness is assessed. Freshness uses an explicit maximum-age policy and explicit as-of time, rejects stale/future/non-prepared requests without mutation, and never re-authorizes or executes requests.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-207 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
@@ -1210,7 +1210,7 @@ The decision-support composition layer may expose descriptive direction alongsid
 An authenticated provider dispatch may invoke the provider only after capability verification and an explicit fresh prepared-request assessment. Freshness is non-mutating and non-authorizing; stale or otherwise ineligible requests cannot reach provider execution.
 
 
-### D-122 — Evidence-to-Learning Handoff Is Explicit and Non-Executing
+### D-208 — Evidence-to-Learning Handoff Is Explicit and Non-Executing
 
 Eligible composed performance evidence may be handed off explicitly to policy review or an experiment. The handoff preserves lineage and context and never silently changes policy, learning, lifecycle, portfolio, or execution state.
 
@@ -1225,12 +1225,12 @@ Learning memory records eligible evidence handoffs as immutable business-owned a
 Evidence-to-learning handoffs require an explicit immutable identity. Learning memory must preserve that exact handoff identity as source lineage; a memory entry ID must never stand in for the source handoff identity.
 
 
-### D-122 — Performance Evidence Direction Is Neutral
+### D-209 — Performance Evidence Direction Is Neutral
 
 The evidence layer records metric movement without assuming that increases are beneficial or decreases are harmful. Metric polarity belongs to an explicit policy boundary. Legacy direction values remain compatible during migration.
 
 
-### D-122 — Metric Polarity Is Explicit Policy
+### D-210 — Metric Polarity Is Explicit Policy
 
 Performance evidence uses neutral movement semantics. Favorable/unfavorable interpretation requires an explicit metric polarity policy and must not be inferred from metric names or raw movement.
 
@@ -1250,7 +1250,7 @@ The first persistence boundary stores normalized BusinessPerformanceObservation 
 Recording and retrieval of authoritative performance observations are exposed through a provider-independent application service. Infrastructure adapters remain replaceable, and the service does not perform derived analysis or execution.
 
 
-### D-122 — Authoritative Performance Observation Timestamps Are Timezone-Aware
+### D-211 — Authoritative Performance Observation Timestamps Are Timezone-Aware
 
 Performance observations must carry an explicit timezone-aware timestamp. The domain rejects naive values rather than inferring a timezone. Persistence preserves the explicit timestamp representation; temporal normalization remains outside this boundary.
 
@@ -1260,27 +1260,27 @@ Performance observations must carry an explicit timezone-aware timestamp. The do
 Experiment assignments and observations are explicit immutable evidence artifacts. Variant selection is caller-provided; the domain does not randomize, optimize, schedule, execute, infer causality, or calculate statistical significance. Experiment lifecycle mutation remains separate.
 
 
-### D-122 — Controlled Experiment Readiness Is Evidence Sufficiency, Not Analysis
+### D-212 — Controlled Experiment Readiness Is Evidence Sufficiency, Not Analysis
 
 Experiment readiness validates context, lineage, per-variant usable observation counts, and evidence quality. It does not infer causality, calculate statistical significance, select a winner, mutate experiment lifecycle, or execute an experiment.
 
 
-### D-123 — Controlled Experiment Outcome Summaries Are Descriptive Evidence
+### D-213 — Controlled Experiment Outcome Summaries Are Descriptive Evidence
 
 Experiment outcome summaries may aggregate ready observations by variant for one metric, but must not infer causality, calculate statistical significance, rank/select variants, mutate experiment lifecycle, or execute experiments.
 
 
-### D-124 — Controlled Experiment Variant Comparisons Are Neutral Descriptive Evidence
+### D-214 — Controlled Experiment Variant Comparisons Are Neutral Descriptive Evidence
 
 Variant comparison may expose average differences between two explicitly selected variants, but must not imply better/worse, rank variants, select a winner, calculate significance, mutate experiment lifecycle, or execute actions.
 
 
-### D-122 — Controlled Experiment Statistical Comparison Reuses Welch Without Winner Selection
+### D-215 — Controlled Experiment Statistical Comparison Reuses Welch Without Winner Selection
 
 The first inferential controlled-experiment consumer uses the existing Welch two-sample method for exactly two declared variants. The result remains an evidence artifact with explicit applicability and lineage. Statistical significance does not select a winner, establish causality, mutate experiment lifecycle, or authorize execution.
 
 
-### D-122 — Controlled Experiment Evidence Synthesis Is Non-Selecting
+### D-216 — Controlled Experiment Evidence Synthesis Is Non-Selecting
 
 The first controlled-experiment synthesis layer combines neutral descriptive movement with the existing Welch inferential result while preserving disagreement. It must not select or rank variants, declare a business winner, mutate experiment lifecycle, optimize allocation, or execute actions.
 
@@ -1295,12 +1295,12 @@ An explicit experiment hypothesis may be evaluated against eligible descriptive 
 Controlled-experiment hypothesis-policy results may be wrapped in an immutable review handoff with explicit identity and preserved observation lineage. The handoff is non-executing and must not select winners, change allocation, mutate lifecycle, or authorize execution.
 
 
-### D-122 — Controlled Experiment Review Acceptance Does Not Imply Authorization
+### D-217 — Controlled Experiment Review Acceptance Does Not Imply Authorization
 
 An accepted experiment review may produce an explicit authorization-preparation artifact, but authorization remains a separate policy boundary. Requested action class and autonomy are caller-declared, not inferred from experiment evidence, and the preparation artifact never authorizes or executes.
 
 
-### D-124 — Controlled Experiment Allocation Is Explicit and Reproducible
+### D-218 — Controlled Experiment Allocation Is Explicit and Reproducible
 
 V1 experiment allocation uses an immutable explicit-weight plan and deterministic SHA-256 bucketing. The allocator produces a variant decision only; it does not persist assignments, execute providers, optimize allocation, or mutate experiment lifecycle.
 
@@ -1320,12 +1320,12 @@ Persisted experiment assignments provide the stable identity required by later o
 An assignment records deterministic allocation; exposure records explicit evidence that the assigned variant was exposed. Exposure persistence preserves assignment context but does not imply delivery execution, lifecycle mutation, reallocation, or optimization.
 
 
-### D-122 — Exposure-to-Outcome Linkage Is Provenance, Not Causality
+### D-219 — Exposure-to-Outcome Linkage Is Provenance, Not Causality
 
 A controlled-experiment exposure may be explicitly linked to a later outcome observation when identity and temporal constraints are satisfied. The linkage preserves provenance but must not be interpreted as causal attribution or automatically trigger experiment decisions.
 
 
-### D-122 — Experiment Observation Requires Exposure-Compatible Lineage
+### D-220 — Experiment Observation Requires Exposure-Compatible Lineage
 
 Downstream experiment evidence must not treat assignment as proof of exposure. A metric observation is authoritative only when experiment, assignment, subject, and variant identities match an actual exposure and the observation timestamp is at or after exposure. This is lineage validation, not causal inference.
 
@@ -1340,7 +1340,7 @@ The hardened exposure application boundary resolves the persisted assignment by 
 Authoritative experiment exposure evidence must satisfy exposed_at >= assigned_at. The cross-entity temporal invariant belongs at the application boundary and is evidence-integrity validation, not proof of delivery or causality.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-221 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
@@ -1350,12 +1350,12 @@ The first decision-support composition layer may expose descriptive direction al
 Exposure persistence must be idempotent for an identical retry and must reject conflicting reuse of the authoritative exposure identity/context. Idempotency is evidence-integrity behavior only and does not imply delivery or causality.
 
 
-### D-122 — Retry Worker Runtime Validates Boundary Identity
+### D-222 — Retry Worker Runtime Validates Boundary Identity
 
 The bounded retry worker runtime must validate work-source and dispatch-result shapes at its application boundary and reject dispatcher results whose command identity differs from the selected command. These failures are explicit runtime failures and do not trigger automatic re-execution.
 
 
-### D-122 — Execution Outcomes Must Respect Preparation Time
+### D-223 — Execution Outcomes Must Respect Preparation Time
 
 Execution outcome observations require timezone-aware timestamps and cannot precede the prepared execution request when preparation time is present. This is evidence-integrity validation only and does not imply execution policy, retry, reconciliation, or provider behavior.
 
@@ -1370,26 +1370,26 @@ Execution outcome evidence must reject non-enum status values and non-datetime o
 An execution outcome external reference is optional, but when present it must be a non-empty string. The immutable outcome and recording boundary validate this explicitly before the value becomes execution evidence. This does not change execution, retry, reconciliation, authorization, or provider semantics.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-224 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
 
-### D-122 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
+### D-225 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
 
 Execution outcome persistence is an evidence-storage boundary. It must preserve authoritative outcome identity and support exact idempotent retries while rejecting conflicting reuse. Persistence does not assess recovery, authorize, execute, or mutate execution-request state.
 
 
-### D-123 — Durable Outcome Evidence Precedes Recovery Assessment
+### D-226 — Durable Outcome Evidence Precedes Recovery Assessment
 
 The persisted execution coordination boundary records the provider outcome durably before assessing outcome policy or creating a recovery handoff. Persistence failure therefore blocks recovery assessment rather than allowing an unrecorded outcome to drive lifecycle decisions. This does not authorize, retry, or execute work.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-227 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
+### D-228 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
