@@ -349,3 +349,33 @@ def test_opposite_statistical_direction_is_explicit():
 _trend = trend
 _stat = stat
 
+
+
+def test_explicit_conflict_posture_requires_opposite_direction_metadata():
+    import pytest
+    with pytest.raises(ValueError, match="opposite descriptive and statistical directions"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
+            statistical_observation_ids=("a", "b"),
+            statistical_difference_direction=DescriptiveDirection.INCREASED,
+            current_observation_ids=("c",),
+            baseline_observation_ids=("d",),
+        )
+
+
+def test_explicit_detection_posture_requires_aligned_direction_metadata():
+    import pytest
+    with pytest.raises(ValueError, match="requires aligned directions"):
+        PerformanceEvidenceDecisionSupport(
+            business_id="b1", metric_name="profit", unit="EGP",
+            descriptive_direction=DescriptiveDirection.INCREASED,
+            inferential_status=InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED,
+            posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
+            statistical_observation_ids=("a", "b"),
+            statistical_difference_direction=DescriptiveDirection.DECREASED,
+            current_observation_ids=("c",),
+            baseline_observation_ids=("d",),
+        )
