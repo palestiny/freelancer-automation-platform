@@ -257,3 +257,13 @@ def _directions_align(
     right: DescriptiveDirection,
 ) -> bool:
     return left is right
+
+
+def _directions_align(trend: PerformanceTrend, evidence: StatisticalEvidenceComposition) -> bool:
+    if evidence.mean_difference is None:
+        return False
+    if trend.absolute_change > 0:
+        return evidence.mean_difference < 0
+    if trend.absolute_change < 0:
+        return evidence.mean_difference > 0
+    return False
