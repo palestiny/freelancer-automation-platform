@@ -120,6 +120,32 @@ class PerformanceEvidenceDecisionSupport:
                 "unavailable inferential evidence cannot use an inferential-result posture"
             )
 
+        if (
+            self.inferential_status is InferentialStatus.STATISTICAL_DIFFERENCE_DETECTED
+            and self.statistical_difference_direction is not DescriptiveDirection.UNAVAILABLE
+        ):
+            if self.posture is CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT:
+                if (
+                    self.descriptive_direction
+                    not in (DescriptiveDirection.INCREASED, DescriptiveDirection.DECREASED)
+                    or self.statistical_difference_direction
+                    not in (DescriptiveDirection.INCREASED, DescriptiveDirection.DECREASED)
+                    or self.descriptive_direction is self.statistical_difference_direction
+                ):
+                    raise ValueError(
+                        "conflict posture requires opposite descriptive and statistical directions"
+                    )
+
+            if self.posture is CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION:
+                if (
+                    self.descriptive_direction
+                    not in (DescriptiveDirection.INCREASED, DescriptiveDirection.DECREASED)
+                    or self.statistical_difference_direction is not self.descriptive_direction
+                ):
+                    raise ValueError(
+                        "statistical detection posture requires aligned directions"
+                    )
+
 
 
 def compose_performance_evidence(
