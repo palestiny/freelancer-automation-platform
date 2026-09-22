@@ -1,3 +1,4 @@
+from datetime import datetime
 import pytest
 
 from app.domain.performance_history import PerformanceWindow
@@ -24,6 +25,10 @@ def _support():
         posture=CombinedEvidencePosture.DESCRIPTIVE_CHANGE_WITH_STATISTICAL_DETECTION,
             statistical_difference_direction=DescriptiveDirection.IMPROVING,
         statistical_observation_ids=("a", "b", "c", "d"),
+        statistical_method="welch_two_sample_t_test",
+        statistical_first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
+        statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
+        statistical_difference_direction=DescriptiveDirection.IMPROVING,
         current_observation_ids=("c1", "c2"),
         baseline_observation_ids=("b1", "b2"),
     )
