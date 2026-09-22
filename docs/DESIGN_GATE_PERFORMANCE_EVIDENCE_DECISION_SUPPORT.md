@@ -45,10 +45,10 @@ Combined posture:
 3. Descriptive direction is derived only from the supplied trend absolute change.
 4. Inferential status is copied from the existing statistical evidence artifact; p-values are not reinterpreted.
 5. Statistical detection does not establish directional alignment with the descriptive trend.
-5. Statistical evidence eligibility remains distinct from statistical interpretation.
-6. Context must match on business, metric, and unit.
-7. Source observation lineage is preserved from the statistical evidence artifact.
-8. A statistically detected difference does not establish directional agreement with the descriptive trend. A nonzero descriptive change plus statistical detection is represented as evidence of change, not directional alignment.
+6. Statistical evidence eligibility remains distinct from statistical interpretation.
+7. Context must match on business, metric, and unit.
+8. Source observation lineage is preserved from the statistical evidence artifact.
+9. A statistically detected difference does not establish directional agreement with the descriptive trend. A nonzero descriptive change plus statistical detection is represented as evidence of change, not directional alignment.
 
 
 ## Semantic Hardening
