@@ -32,7 +32,6 @@ def _evidence() -> PerformanceEvidenceDecisionSupport:
         statistical_method="welch_two_sample_t_test",
         statistical_first_window=PerformanceWindow(datetime(2026, 1, 25), datetime(2026, 2, 1)),
         statistical_second_window=PerformanceWindow(datetime(2026, 2, 1), datetime(2026, 2, 8)),
-        statistical_difference_direction=DescriptiveDirection.IMPROVING,
         statistical_difference_direction=DescriptiveDirection.INCREASED,
         current_observation_ids=("current-1", "current-2"),
         baseline_observation_ids=("baseline-1", "baseline-2"),
