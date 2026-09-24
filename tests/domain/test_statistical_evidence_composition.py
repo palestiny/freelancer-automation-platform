@@ -46,7 +46,6 @@ def _result(*, status=MeanComparisonStatus.APPLICABLE, rejects_null=False):
         degrees_of_freedom=2.0 if status is MeanComparisonStatus.APPLICABLE else None,
         p_value=0.05 if status is MeanComparisonStatus.APPLICABLE else None,
         alpha=0.05,
-        mean_difference=10.0 if eligible else None,
         method="welch_two_sample_t_test",
         rejects_null=rejects_null if status is MeanComparisonStatus.APPLICABLE else None,
         status=status,
