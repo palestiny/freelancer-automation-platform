@@ -88,3 +88,37 @@ def test_provider_failure_does_not_become_an_execution_or_retry_command():
     assert isinstance(failure, ProviderFailure)
     assert not hasattr(failure, "retry")
     assert not hasattr(failure, "execute")
+
+
+def test_observation_rejects_naive_timestamp():
+    with pytest.raises(ValueError, match="timezone-aware"):
+        ExternalOpportunityObservation(
+            provider_key="fake_marketplace",
+            external_opportunity_id="opp-2",
+            observed_at=datetime.now(),
+        )
+
+
+def test_result_rejects_provider_mismatch():
+    observation = ExternalOpportunityObservation(
+        provider_key="other_marketplace",
+        external_opportunity_id="opp-3",
+        observed_at=datetime.now(timezone.utc),
+    )
+    with pytest.raises(ValueError, match="provider_key"):
+        OpportunityDiscoveryResult(
+            provider_key="fake_marketplace",
+            observed_at=datetime.now(timezone.utc),
+            observations=(observation,),
+        )
+
+
+def test_complete_result_cannot_hide_continuation():
+    with pytest.raises(ValueError, match="next_cursor"):
+        OpportunityDiscoveryResult(
+            provider_key="fake_marketplace",
+            observed_at=datetime.now(timezone.utc),
+            observations=(),
+            next_cursor="page-2",
+            complete=True,
+        )
