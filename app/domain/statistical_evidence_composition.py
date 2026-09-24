@@ -210,7 +210,6 @@ def _compose(
         interpretation=interpretation,
         alpha=comparison.alpha,
         mean_difference=comparison.mean_difference,
-        mean_difference=comparison.mean_difference,
         first_window=comparison.first_window,
         second_window=comparison.second_window,
         current_evidence_quality=current_evidence_quality,
