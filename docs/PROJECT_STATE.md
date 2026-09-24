@@ -87,11 +87,13 @@ No additional statistical method is currently authorized without a concrete cons
 
 The current evidence pipeline is:
 
-**Descriptive Evidence + Statistical Evidence → Evidence Composition → Evidence Handoff → Policy Review → Authorization → Execution Preparation → Execution → Outcome / Recovery Evidence**
+**Descriptive Evidence + Statistical Evidence → Evidence Composition → Evidence Review Handoff → Policy Review → Authorization → Execution Preparation → Execution → Outcome / Recovery Evidence**
 
 Decision-support remains non-executing. It does not create universal scores, rankings, automatic portfolio actions, policy mutation, or external side effects.
 
-Descriptive direction and inferential detection remain separate. Disagreement is preserved rather than hidden.
+Descriptive change, metric favorability, and statistical detection remain separate. Favorability requires explicit metric-direction policy; statistical detection does not establish whether a change is favorable. Disagreement is preserved rather than hidden.
+
+The evidence review handoff is an explicit non-authorizing boundary: eligible composed evidence may be handed to policy review, while unavailable or context-invalid evidence remains not ready.
 
 ## Execution & Retry Surface
 
@@ -155,16 +157,14 @@ A meaningful increment is complete only after applicable design, RED/GREEN TDD, 
 This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
 
 
-## Performance Evidence Direction Hardening
+## Documentation Integrity Rule
 
-The performance evidence decision-support boundary now explicitly separates increase/decrease from favorable/unfavorable interpretation. Metric polarity is consumer policy, and statistical detection does not establish favorability or directional meaning by itself.
+This file is the canonical current-state summary. Historical implementation details belong in the decision log and dedicated design gates, not as repeated chronological appendices here.
 
+## Completion Rule
 
-## Performance Evidence Decision Support
+A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
 
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+## Canonical Current-State Rule
 
-
-## Performance Evidence Decision Support
-
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
