@@ -21,8 +21,8 @@ Outputs:
 - preserved business/metric/unit context and source lineage
 
 Descriptive direction:
-- IMPROVING
-- DECLINING
+- INCREASED
+- DECREASED
 - NO_CHANGE
 - UNAVAILABLE
 
@@ -42,7 +42,7 @@ Combined posture:
 
 1. This is evidence composition, not business decision-making.
 2. No universal score, ranking, recommendation, policy mutation, learning mutation, portfolio action, or execution.
-3. Descriptive direction is derived only from the supplied trend absolute change.
+3. Descriptive direction is metric-neutral: it reports whether the metric increased, decreased, or did not change. It does not infer whether an increase is desirable, because metric polarity is not part of this V1 boundary.
 4. Inferential status is copied from the existing statistical evidence artifact; p-values are not reinterpreted.
 5. Statistical detection does not establish directional alignment with the descriptive trend.
 6. Statistical evidence eligibility remains distinct from statistical interpretation.

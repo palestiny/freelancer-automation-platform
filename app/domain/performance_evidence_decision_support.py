@@ -18,7 +18,7 @@ from .statistical_evidence_composition import (
 class DescriptiveDirection(str, Enum):
     INCREASED = "increased"
     DECREASED = "decreased"
-    # Backward-compatible legacy semantics; new evidence production uses neutral names.
+    # Legacy business-semantic values retained for existing consumers.
     IMPROVING = "improving"
     DECLINING = "declining"
     NO_CHANGE = "no_change"
