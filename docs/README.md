@@ -1,109 +1,68 @@
 # Documentation Map
 
-This directory is the engineering source of truth for product direction, architecture, decisions, domain design, and current implementation state.
+This directory is the engineering source of truth for product direction, architecture, decisions, design gates, and current implementation state.
 
 ## Start Here
 
-1. ../README.md — project overview.
+1. ../README.md — product overview and architecture boundary.
 2. ../KHALED_ENGINEERING_WORKING_RULES.md — engineering collaboration contract.
-3. PROJECT_STATE.md — current phase and active implementation boundary.
-4. PRODUCT_VISION.md — product goal and lifecycle.
+3. PROJECT_STATE.md — canonical current state.
+4. PRODUCT_VISION.md — product direction and lifecycle.
 5. DOMAIN_MAP.md — domain responsibilities and boundaries.
-6. ROADMAP.md — phased delivery roadmap.
-7. ARCHITECTURE.md — architectural direction.
-8. DECISION_LOG.md — committed architectural/product decisions.
-9. DESIGN_GATE_OPPORTUNITY_INTELLIGENCE.md — Opportunity Intelligence gate.
-10. DESIGN_GATE_BUSINESS_ECONOMICS_AND_GROWTH.md — economics/growth gate.
-11. DESIGN_GATE_ECONOMIC_OPPORTUNITY_OS.md — broader Economic Opportunity OS expansion gate.
-12. DESIGN_GATE_ECONOMIC_HEALTH_AND_PORTFOLIO_POLICY.md — economic health, stability, safety, and portfolio-posture gate.
-13. DESIGN_GATE_RESOURCE_ECONOMICS_AND_CAPACITY.md — resource consumption and human-time capacity gate.
-14. PROPOSED_OPPORTUNITY_EVALUATION_POLICY.md — committed V1 evaluation behavior.
-15. OPPORTUNITY_INTELLIGENCE_DECISION_MATRIX.md — Opportunity Intelligence decisions.
-16. TDD_OPPORTUNITY_INTELLIGENCE_PLAN.md — active Opportunity Intelligence TDD sequence.
+6. ROADMAP.md — authoritative delivery roadmap.
+7. ARCHITECTURE.md — architectural direction and runtime boundaries.
+8. DECISION_LOG.md — canonical committed decision register.
 
 ## Source-of-Truth Rules
 
-- PROJECT_STATE.md describes where the project currently is.
-- DECISION_LOG.md contains committed decisions only.
-- Design Gate documents define approved boundaries and implementation intent.
-- Documents explicitly marked PROPOSED remain proposals unless a decision is recorded in DECISION_LOG.md.
-- Open questions remain visible until resolved.
-- Implementation must follow the active Design Gate rather than silently redefining it.
-- Economic scoring formulas and portfolio posture rules remain changeable policy until separately committed.
-- After meaningful implementation, update project state and decision documentation as appropriate.
+- PROJECT_STATE.md contains one current-state summary; it is not a chronological implementation log.
+- ROADMAP.md contains one authoritative status for each phase and the current cross-phase pipeline.
+- DECISION_LOG.md contains committed decisions only. Each decision identifier is unique.
+- Design Gates define approved or proposed boundaries. A PROPOSED gate is not an implementation authorization.
+- Historical implementation detail belongs in the relevant Design Gate and Decision Log, not repeated in the current-state documents.
+- New implementation must start from a concrete unresolved requirement and the applicable Design Gate.
+- Economic scoring formulas, thresholds, baselines, and portfolio posture rules remain changeable policy unless explicitly committed.
+- Meaningful increments require applicable TDD, hardening, documentation reconciliation, CI verification, and merge.
 
-## Current Gates
+## Current Product / Domain Gates
 
-- Opportunity Intelligence: approved; domain TDD continues.
-- Business Economics & Growth: approved; economic estimate foundation implemented.
-- Economic Opportunity OS expansion: approved; domain foundations implemented.
-- Economic Health & Portfolio Policy: approved; Economic Profile foundation implemented.
-- Resource Economics / Capacity: approved; resource and human-time capacity foundations implemented.
-- Market Intelligence / Demand Discovery: approved; provider-independent observation and demand-signal foundation implemented.
-- Venture Validation / Experimentation: approved; provider-independent validation experiment foundation implemented.
-- Portfolio / Capital Allocation: future policy gate building on the Economic Health and Capacity models.
-- Revenue Engine / Recurring Revenue: future.
+- Opportunity Intelligence — approved; domain foundation implemented.
+- Business Economics & Growth — approved; economics foundation implemented.
+- Economic Opportunity OS — approved; broader domain foundations implemented.
+- Economic Health & Portfolio Policy — approved; multidimensional Economic Profile foundation implemented.
+- Resource Economics & Capacity — approved; resource and human-time capacity foundations implemented.
+- Market Intelligence & Demand Discovery — approved; provider-independent observation/demand-signal foundation implemented.
+- Venture Validation & Experimentation — approved; provider-independent validation foundation implemented.
+- Revenue Engine & Recurring Revenue — approved; revenue contract/event foundation implemented.
+- Social Presence & Customer Communication — approved; provider-independent communication foundation implemented.
+- Marketing & Growth Automation — approved; campaign foundation implemented.
+- Business Operations & Multi-Business Execution — approved; business/operations foundation implemented.
+- Campaign Optimization & Budget Policy — approved; bounded recommendation foundation implemented.
+- Operational Measurement & Learning — approved; deterministic measurement/learning surface implemented and hardened.
+- Phase 17 Statistical Learning & Inference — current V1 statistical-method surface closed; Student's t mean uncertainty and Welch historical mean comparison implemented and hardened.
+- Statistical Evidence Composition — approved; downstream statistical evidence consumer implemented.
+- Performance Evidence Decision Support — approved; descriptive/inferential composition implemented and hardened.
+- Evidence Handoff / Policy Review / Authorization — approved boundaries implemented as separate non-executing stages.
+- Execution Runtime / Recovery / Retry — bounded single-worker runtime foundations implemented; distributed/background infrastructure remains outside the current boundary.
 
-## Current Implementation Rule
+## Canonical Performance Evidence Flow
 
-Do not introduce marketplace SDKs, persistence, HTTP/API, UI, AI-provider dependencies, financial execution, or automatic capital movement into the current domain-only slices.
+Performance History → Baseline/Comparison Eligibility → Descriptive Trend + Statistical Evidence → Evidence Composition → Evidence Handoff → Policy Review → Authorization → Execution Preparation → Provider Execution → Outcome / Recovery Evidence
 
+The stages remain semantically separate. Statistical evidence does not become a universal score or automatic decision.
 
-17. DESIGN_GATE_MARKETING_AND_GROWTH_AUTOMATION.md — marketing, existing-market opportunity, campaign, and growth-automation gate.
+## Explicit Decision Records
 
-## Additional Current Gate
+DESIGN_GATE_EXPLICIT_EVIDENCE_DECISION_RECORDS.md is the canonical V1 design gate for recording explicit human/authorized decisions against evidence. The retired singular duplicate gate has been removed.
 
-- Marketing & Growth Automation: approved; provider-independent campaign foundation implemented.
+## Historical Gates
 
-The platform may evaluate and build businesses in existing markets. Competition is not a hard rejection rule.
+Historical Design Gates remain available when they document an implemented decision or its rationale. Their presence does not imply that the capability is still the active next boundary.
 
-The growth path is now explicitly:
+In particular, DESIGN_GATE_PHASE_17_NEXT_STATISTICAL_USE_CASE.md documents the already-implemented Welch use case; it is historical evidence of the design decision, not authorization to add another statistical method.
 
-**Discover → Evaluate → Validate → Build → Market → Sell → Operate → Measure → Learn → Experiment → Scale / Kill → Portfolio**
+## Current Engineering Boundary
 
-External ad/social execution remains outside the current domain-only boundary.
+The current product remains a modular monolith. Domain semantics stay independent from HTTP, UI, concrete marketplace/provider SDKs, AI providers, payment execution, and financial capital movement.
 
-17. DESIGN_GATE_MARKETING_AND_GROWTH_AUTOMATION.md — marketing, existing-market opportunity, campaign, and growth-automation gate.
-18. DESIGN_GATE_MARKET_INTELLIGENCE_AND_DEMAND_DISCOVERY.md — market observations, demand signals, provenance, and demand-discovery boundaries.
-19. DESIGN_GATE_VENTURE_VALIDATION_AND_EXPERIMENTATION.md — measurable validation experiments, variants, outcomes, and explicit decisions.
-
-## Current Gate Status
-
-- Market Intelligence / Demand Discovery: approved; provider-independent observation and demand-signal foundation implemented.
-- Marketing & Growth Automation: approved; provider-independent campaign foundation implemented.
-
-## Venture Validation / Experimentation
-
-- Approved design gate.
-- Provider-independent ValidationExperiment and ExperimentResult implemented.
-- Controlled variants and explicit experiment decisions implemented.
-- External execution and statistical methodology remain future work.
-
-
-## Revenue Engine / Recurring Revenue
-
-- Approved design gate.
-- Provider-independent RevenueContract and RevenueEvent implemented.
-- Recurring revenue requires an explicit period.
-- Payment execution and reconciliation remain outside the domain.
-
-
-## Social Presence & Customer Communication
-
-- Approved design gate.
-- Provider-independent presence and communication models implemented.
-- Draft, authorization, escalation, and sent-message boundaries are explicit.
-- Provider credentials and external sending remain outside the domain.
-
-
-20. DESIGN_GATE_CAMPAIGN_OPTIMIZATION_AND_BUDGET_POLICY.md — campaign optimization, budget constraints, evidence sufficiency, and authorization boundaries.
-
-## Campaign Optimization / Budget Policy
-
-- Approved design gate.
-- Provider-independent optimization recommendation foundation implemented.
-- Budget limits and evidence sufficiency are explicit.
-- Automatic ad spend remains outside the domain.
-
-
-21. DESIGN_GATE_BUSINESS_OPERATIONS_AND_MULTI_BUSINESS_EXECUTION.md — business lifecycle, operational cycles, work items, and multi-business isolation.
+The implemented runtime extends beyond pure domain objects through explicit application ports, provider-independent execution contracts, bounded retry persistence/scheduling, single-worker dispatch, outcome observation, recovery coordination, and safety checks. Distributed workers, queue infrastructure, production daemonization, unrestricted automatic re-execution, payment execution, and automatic capital movement remain outside the committed boundary.
