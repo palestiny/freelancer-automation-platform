@@ -152,11 +152,6 @@ The roadmap contains one authoritative status for each phase and one current cro
 
 The canonical cross-phase pipeline includes evidence composition and an explicit evidence review handoff. Descriptive change, metric favorability, and statistical detection remain separate; favorability requires explicit metric-direction policy. The handoff is non-authorizing and does not itself select policy, authorize execution, or execute external actions.
 
-## Documentation Integrity Rule
-
-The roadmap contains one authoritative status for each phase and one current cross-phase pipeline. Historical implementation chronology belongs in dedicated design gates and the decision log.
-
-
 ### Evidence Decision Support
 
 **Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
