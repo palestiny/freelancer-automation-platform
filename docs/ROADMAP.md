@@ -143,44 +143,6 @@ These are not invitations to reopen completed slices. New work must start from a
 
 The system remains provider-independent at the domain boundary. Distributed workers, queue frameworks, automatic restart, continuous provider polling, unrestricted automatic re-execution, payment execution, automatic capital movement, and portfolio allocation execution remain outside the current boundary.
 
-## Engineering Rule
+## Documentation Integrity Rule
 
-**UNDERSTAND → MAP → DESIGN → TRADE-OFFS → DECIDE → RED → GREEN → HARDEN → DOCUMENT → CI → MERGE → RECONCILE**
-
-No new infrastructure or policy is introduced merely because a lower-level capability exists.
-
-
-### Persisted Execution Coordination
-
-**Status:** V1 application boundary implemented and CI-verified. Authoritative execution outcomes are persisted before policy assessment/recovery handoff; no new retry or execution semantics are introduced.
-
-
-### Current Evidence Interpretation
-
-**Status:** Explicit metric-polarity interpretation is implemented and bounded. Controlled-experiment evidence lineage and retry-safe exposure recording are implemented; causal attribution and automatic experiment optimization remain outside scope.
-
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
-
-
-### Statistical Direction Provenance
-
-**Status:** Hardened and CI-verified. Inferential direction is preserved from the Welch mean difference and descriptive/inferential disagreement remains explicit.
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. Future automation requires an explicit policy/design gate.
-
-
-
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
-
-
-### Evidence Decision Support
-
-**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
+The roadmap contains one authoritative status for each phase and one current cross-phase pipeline. Historical implementation chronology belongs in dedicated design gates and the decision log.
