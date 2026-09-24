@@ -158,3 +158,8 @@ This document intentionally contains one current-state summary. Historical slice
 ## Performance Evidence Direction Hardening
 
 The performance evidence decision-support boundary now explicitly separates increase/decrease from favorable/unfavorable interpretation. Metric polarity is consumer policy, and statistical detection does not establish favorability or directional meaning by itself.
+
+
+## Performance Evidence Decision Support
+
+The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
