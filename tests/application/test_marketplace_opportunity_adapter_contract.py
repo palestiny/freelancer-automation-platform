@@ -14,7 +14,21 @@ from app.application.marketplace_opportunity_adapter import (
 
 class FakeMarketplaceAdapter(MarketplaceOpportunityAdapter):
     def discover_opportunities(self, criteria, cursor=None):
-        raise NotImplementedError
+        now = datetime.now(timezone.utc)
+        observation = ExternalOpportunityObservation(
+            provider_key="fake_marketplace",
+            external_opportunity_id="opp-1",
+            observed_at=now,
+            title=criteria.query or "Example opportunity",
+            description="Deterministic fake opportunity",
+        )
+        return OpportunityDiscoveryResult(
+            provider_key="fake_marketplace",
+            observed_at=now,
+            observations=(observation,),
+            next_cursor=None,
+            complete=True,
+        )
 
 
 def test_discovery_contract_requires_provider_neutral_result():
