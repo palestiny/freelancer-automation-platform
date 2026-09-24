@@ -18,9 +18,9 @@ from .statistical_evidence_composition import (
 class DescriptiveDirection(str, Enum):
     INCREASED = "increased"
     DECREASED = "decreased"
-    # Compatibility aliases for existing decision-support consumers.
-    IMPROVING = INCREASED
-    DECLINING = DECREASED
+    # Legacy business-semantic values retained for existing consumers.
+    IMPROVING = "improving"
+    DECLINING = "declining"
     NO_CHANGE = "no_change"
     UNAVAILABLE = "unavailable"
 
