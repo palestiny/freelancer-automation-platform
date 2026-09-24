@@ -416,3 +416,72 @@ def test_conflict_posture_requires_opposite_directions():
             statistical_difference_direction=DescriptiveDirection.INCREASED,
             posture=CombinedEvidencePosture.STATISTICAL_AND_DESCRIPTIVE_DIRECTION_CONFLICT,
         )
+
+
+def test_metric_direction_policy_marks_higher_is_favorable_increase():
+    from app.domain.metric_direction_policy import MetricDirectionPolicy, MetricPolarity
+    from app.domain.performance_evidence_decision_support import DescriptiveDirection
+
+    result = compose_performance_evidence(
+        trend=trend(10.0),
+        statistical_evidence=stat(),
+        business_id="b1",
+        metric_direction_policy=MetricDirectionPolicy(
+            polarity=MetricPolarity.HIGHER_IS_FAVORABLE
+        ),
+    )
+    assert result.metric_direction_interpretation.value == "favorable"
+    assert result.descriptive_direction is DescriptiveDirection.INCREASED
+
+
+def test_metric_direction_policy_marks_lower_is_favorable_decrease():
+    from app.domain.metric_direction_policy import MetricDirectionPolicy, MetricPolarity
+
+    result = compose_performance_evidence(
+        trend=trend(-10.0),
+        statistical_evidence=stat(
+            interpretation=StatisticalEvidenceInterpretation.NO_STATISTICALLY_DETECTED_DIFFERENCE
+        ),
+        business_id="b1",
+        metric_direction_policy=MetricDirectionPolicy(
+            polarity=MetricPolarity.LOWER_IS_FAVORABLE
+        ),
+    )
+    assert result.metric_direction_interpretation.value == "favorable"
+
+
+def test_missing_metric_direction_policy_does_not_infer_favorability():
+    from app.domain.metric_direction_policy import MetricDirectionInterpretation
+
+    result = compose_performance_evidence(
+        trend=trend(10.0),
+        statistical_evidence=stat(),
+        business_id="b1",
+    )
+    assert result.metric_direction_interpretation is MetricDirectionInterpretation.NOT_INTERPRETABLE
+
+
+def test_direction_neutral_policy_does_not_call_change_favorable():
+    from app.domain.metric_direction_policy import MetricDirectionPolicy, MetricPolarity
+    from app.domain.metric_direction_policy import MetricDirectionInterpretation
+
+    result = compose_performance_evidence(
+        trend=trend(-10.0),
+        statistical_evidence=stat(),
+        business_id="b1",
+        metric_direction_policy=MetricDirectionPolicy(
+            polarity=MetricPolarity.DIRECTION_NEUTRAL
+        ),
+    )
+    assert result.metric_direction_interpretation is MetricDirectionInterpretation.NEUTRAL
+
+
+def test_statistical_detection_does_not_become_directional_without_mean_difference():
+    from dataclasses import replace
+
+    result = compose_performance_evidence(
+        trend=trend(10.0),
+        statistical_evidence=replace(stat(), mean_difference=None),
+        business_id="b1",
+    )
+    assert result.statistical_difference_direction.value == "unavailable"
