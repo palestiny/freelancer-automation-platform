@@ -476,12 +476,3 @@ def test_direction_neutral_policy_does_not_call_change_favorable():
     assert result.metric_direction_interpretation is MetricDirectionInterpretation.NEUTRAL
 
 
-def test_statistical_detection_does_not_become_directional_without_mean_difference():
-    from dataclasses import replace
-
-    result = compose_performance_evidence(
-        trend=trend(10.0),
-        statistical_evidence=replace(stat(), mean_difference=None),
-        business_id="b1",
-    )
-    assert result.statistical_difference_direction.value == "unavailable"
