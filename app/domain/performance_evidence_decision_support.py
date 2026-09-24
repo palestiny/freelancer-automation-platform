@@ -19,8 +19,8 @@ class DescriptiveDirection(str, Enum):
     INCREASED = "increased"
     DECREASED = "decreased"
     # Backward-compatible legacy semantics; new evidence production uses neutral names.
-    IMPROVING = "improving"
-    DECLINING = "declining"
+    INCREASED = "increased"
+    DECREASED = "decreased"
     NO_CHANGE = "no_change"
     UNAVAILABLE = "unavailable"
 
