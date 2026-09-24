@@ -1340,11 +1340,6 @@ The hardened exposure application boundary resolves the persisted assignment by 
 Authoritative experiment exposure evidence must satisfy exposed_at >= assigned_at. The cross-entity temporal invariant belongs at the application boundary and is evidence-integrity validation, not proof of delivery or causality.
 
 
-### D-221 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
 ### D-187 — Controlled Experiment Exposure Recording Is Retry-Safe
 
 Exposure persistence must be idempotent for an identical retry and must reject conflicting reuse of the authoritative exposure identity/context. Idempotency is evidence-integrity behavior only and does not imply delivery or causality.
@@ -1370,11 +1365,6 @@ Execution outcome evidence must reject non-enum status values and non-datetime o
 An execution outcome external reference is optional, but when present it must be a non-empty string. The immutable outcome and recording boundary validate this explicitly before the value becomes execution evidence. This does not change execution, retry, reconciliation, authorization, or provider semantics.
 
 
-### D-224 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
 ### D-225 — Execution Outcomes Are Persisted as Evidence Before Recovery Decisions
 
 Execution outcome persistence is an evidence-storage boundary. It must preserve authoritative outcome identity and support exact idempotent retries while rejecting conflicting reuse. Persistence does not assess recovery, authorize, execute, or mutate execution-request state.
@@ -1383,21 +1373,6 @@ Execution outcome persistence is an evidence-storage boundary. It must preserve 
 ### D-226 — Durable Outcome Evidence Precedes Recovery Assessment
 
 The persisted execution coordination boundary records the provider outcome durably before assessing outcome policy or creating a recovery handoff. Persistence failure therefore blocks recovery assessment rather than allowing an unrecorded outcome to drive lifecycle decisions. This does not authorize, retry, or execute work.
-
-
-### D-227 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-228 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
 
 ### D-229 — Statistical Direction Must Preserve Inferential Sign
@@ -1418,29 +1393,9 @@ When inferential evidence is available, its method and comparison windows are ma
 
 
 
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-122 — Performance Direction Interpretation Is Explicitly Policy-Dependent
+### D-230 — Performance Direction Interpretation Is Explicitly Policy-Dependent
 
 Descriptive increase/decrease remains neutral evidence. Favorability requires an explicit metric direction policy; absent that policy, the platform must not infer that an increase or decrease is favorable. Statistical detection remains separate from directional interpretation.
-
-
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
-
-
-### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
-
-The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
 
 
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
