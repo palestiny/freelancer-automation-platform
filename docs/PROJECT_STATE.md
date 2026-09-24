@@ -157,19 +157,6 @@ A meaningful increment is complete only after applicable design, RED/GREEN TDD, 
 This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
 
 
-## Documentation Integrity Rule
-
-This file is the canonical current-state summary. Historical implementation details belong in the decision log and dedicated design gates, not as repeated chronological appendices here.
-
-## Completion Rule
-
-A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
-
-## Canonical Current-State Rule
-
-This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
-
-
 ## Performance Evidence Decision Support
 
 The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
