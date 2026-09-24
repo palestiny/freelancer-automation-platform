@@ -150,65 +150,6 @@ This file is the canonical current-state summary. Historical implementation deta
 
 A meaningful increment is complete only after applicable design, RED/GREEN TDD, hardening/refactoring, documentation reconciliation, passing CI, commit/merge, and verified project state.
 
+## Canonical Current-State Rule
 
-## Canonical Implemented Cross-Cutting Boundaries
-
-The current state is summarized by the sections above. Completed cross-cutting slices include evidence composition/review, policy evaluation and authorization lineage, prepared-request freshness, provider adapter/capability/credential boundaries, performance observation persistence, controlled-experiment evidence persistence/idempotency, execution outcome persistence, and the bounded retry/recovery runtime.
-
-The canonical runtime pipeline is:
-
-**Evidence → Policy Review → Authorization → Preparation → Freshness → Capability/Credential Checks → Provider Execution Port → Outcome Observation → Recovery Assessment → Atomic State Application → Learning / Review Evidence**
-
-Completed lifecycle/recovery boundaries must not be reopened without a new requirement. The next engineering increment must be selected from an unresolved product or infrastructure requirement and governed by a dedicated design gate.
-
-## Persisted Execution Coordination
-
-The execution runtime now has an explicit persisted-coordination application boundary: provider outcome → durable outcome evidence → policy assessment → recovery handoff. Provider and persistence failures remain explicit and do not fabricate recovery state.
-
-
-## Current Evidence Interpretation Boundaries
-
-Metric movement remains neutral evidence. Explicit metric polarity policy may interpret movement as FAVORABLE, UNFAVORABLE, or NEUTRAL; missing policy yields NOT_INTERPRETABLE. This interpretation does not create a score, recommendation, lifecycle mutation, learning mutation, portfolio action, or execution.
-
-Controlled experimentation currently preserves explicit assignment, exposure, observation, linkage, lineage, temporal, authority, and retry/idempotency boundaries. Experiment evidence does not imply causality, variant selection, allocation optimization, lifecycle mutation, authorization, or execution.
-
-
-## Performance Evidence Decision Support
-
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Statistical Direction Provenance Hardening
-
-The performance evidence decision-support boundary now preserves the Welch mean difference explicitly and derives statistical direction from that preserved value. A statistically detected difference that conflicts with the descriptive movement is represented as an explicit conflict posture rather than being treated as aligned evidence.
-## Performance Evidence Decision Support
-
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Performance Evidence Decision Support
-
-
-## Performance Evidence Decision Support
-
-A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Performance Evidence Posture Hardening
-
-The current evidence decision-support value object now enforces that available inferential evidence preserves its statistical method and comparison windows. A detected statistical difference must preserve an explicit direction; an aligned posture requires matching descriptive and statistical directions, while a conflict posture requires opposite directions. This is contract hardening only and does not add new statistical methods or decision authority.
-
-
-## Performance Evidence Decision Support
-
-A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Performance Evidence Decision Support
-
-The platform now has a bounded downstream evidence-composition layer that combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
-
-
-## Performance Evidence Decision Support
-
-A bounded downstream evidence-composition layer now combines deterministic performance trend direction with the existing eligible statistical evidence artifact. It preserves disagreement explicitly and does not produce a business decision, score, ranking, policy mutation, learning mutation, portfolio action, or execution.
+This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
