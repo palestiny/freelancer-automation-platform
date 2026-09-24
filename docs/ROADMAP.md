@@ -155,3 +155,8 @@ The canonical cross-phase pipeline includes evidence composition and an explicit
 ## Documentation Integrity Rule
 
 The roadmap contains one authoritative status for each phase and one current cross-phase pipeline. Historical implementation chronology belongs in dedicated design gates and the decision log.
+
+
+### Evidence Decision Support
+
+**Status:** V1 descriptive + inferential evidence composition implemented and CI-verified. The boundary remains non-decisioning; future automation requires an explicit policy/design gate.
