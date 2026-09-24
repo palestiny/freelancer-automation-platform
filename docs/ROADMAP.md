@@ -146,3 +146,8 @@ The system remains provider-independent at the domain boundary. Distributed work
 ## Documentation Integrity Rule
 
 The roadmap contains one authoritative status for each phase and one current cross-phase pipeline. Historical implementation chronology belongs in dedicated design gates and the decision log.
+
+
+### Performance Evidence Direction Hardening
+
+**Status:** Hardened and CI-verified. Descriptive change, metric favorability, and statistical detection remain separate; favorability requires explicit metric direction policy.

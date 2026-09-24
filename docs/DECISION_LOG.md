@@ -1426,3 +1426,8 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-122 — Performance Direction Interpretation Is Explicitly Policy-Dependent
+
+Descriptive increase/decrease remains neutral evidence. Favorability requires an explicit metric direction policy; absent that policy, the platform must not infer that an increase or decrease is favorable. Statistical detection remains separate from directional interpretation.
