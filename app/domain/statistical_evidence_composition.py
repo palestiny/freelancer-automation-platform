@@ -69,8 +69,6 @@ class StatisticalEvidenceComposition:
 
         if not self.observation_ids:
             raise ValueError("observation_ids cannot be empty")
-        if self.eligible and self.mean_difference is None:
-            raise ValueError("eligible evidence must preserve mean_difference")
         if any(not isinstance(value, str) or not value.strip() for value in self.observation_ids):
             raise ValueError("observation_ids must contain non-empty strings")
         if len(set(self.observation_ids)) != len(self.observation_ids):

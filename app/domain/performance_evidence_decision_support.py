@@ -294,3 +294,9 @@ def _directions_align(
 ) -> bool:
     return left is right
 
+
+
+def _sign(value: float | None) -> int:
+    if value is None or value == 0:
+        return 0
+    return 1 if value > 0 else -1
