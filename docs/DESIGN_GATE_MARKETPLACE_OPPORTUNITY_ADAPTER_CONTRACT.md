@@ -86,7 +86,7 @@ The fake adapter contains no marketplace-specific semantics.
 
 The selection is intentionally limited to the engineering integration boundary. It is not approval for production dependency or commercial use.
 
-Current official Freelancer developer material documents API versioning, a Sandbox environment, and SDK support. Exact authentication, endpoint, pagination, and response behavior must be verified from the current official API documentation before implementation; no endpoint shape is assumed from this design gate.
+Current official Freelancer material and the official Python SDK document OAuth2 sessions, the Sandbox base URL, project search, project details, and offset/limit search parameters. citeturn0search0turn1search0 The adapter implementation uses those SDK contracts and keeps provider-specific types inside infrastructure.
 
 ## Trade-offs Accepted
 - Prefer a real Sandbox integration over a mock-only first integration so the adapter boundary is tested against real provider constraints.
@@ -126,10 +126,11 @@ Failure of this gate must not require redesign of the provider-neutral contract.
 4. Domain tests remain independent of Freelancer SDKs.
 5. No raw credentials or provider payload types cross into the domain.
 6. Pagination/completeness semantics are test-covered.
-7. Sandbox integration tests pass where deterministic and supported.
-8. CI passes.
-9. TDD/design/roadmap documentation is reconciled.
-10. Production/Terms validation remains a separate gate.
+7. Provider mapping, pagination, malformed payload, credential-boundary, and provider-failure tests pass.
+8. Sandbox integration execution remains credential/environment dependent and is not treated as a CI prerequisite.
+9. CI passes.
+10. TDD/design/roadmap documentation is reconciled.
+11. Production/Terms validation remains a separate gate.
 
 ## Decision Record
 **Owner decision — 2026-09-25: APPROVED.**
