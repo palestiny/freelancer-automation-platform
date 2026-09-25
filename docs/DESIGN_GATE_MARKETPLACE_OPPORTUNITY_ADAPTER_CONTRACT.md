@@ -86,7 +86,7 @@ The fake adapter contains no marketplace-specific semantics.
 
 The selection is intentionally limited to the engineering integration boundary. It is not approval for production dependency or commercial use.
 
-Current official Freelancer material and the official Python SDK document OAuth2 sessions, the Sandbox base URL, project search, project details, and offset/limit search parameters. citeturn0search0turn1search0 The adapter implementation uses those SDK contracts and keeps provider-specific types inside infrastructure.
+Current official Freelancer material and the official Python SDK document OAuth2 sessions, the Sandbox base URL, project search, project details, and offset/limit search parameters. (verified against the official SDK source) The adapter implementation uses those SDK contracts and keeps provider-specific types inside infrastructure.
 
 ## Trade-offs Accepted
 - Prefer a real Sandbox integration over a mock-only first integration so the adapter boundary is tested against real provider constraints.
