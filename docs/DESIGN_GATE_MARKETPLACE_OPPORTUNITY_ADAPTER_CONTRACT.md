@@ -1,7 +1,7 @@
 # Design Gate — Marketplace Opportunity Adapter Contract
 
 ## Status
-**APPROVED FOR PROVIDER-NEUTRAL CONTRACT IMPLEMENTATION — real marketplace selection remains open.**
+**APPROVED FOR FREELANCER SANDBOX V1 — read-only discovery + normalized opportunity detail**
 
 ## Purpose
 Define the first boundary between the platform and marketplace opportunity discovery without coupling the domain to a marketplace SDK, HTTP client, credential format, or provider response model.
@@ -78,16 +78,41 @@ Evaluation → OpportunityEvaluation.
 No layer may skip directly from provider payload to qualification.
 
 ## Fake Provider Requirement
-Before a real marketplace integration, a deterministic fake adapter must satisfy the same contract and support tests for successful multi-item discovery, stable provider/external identity, missing optional fields, pagination/continuation, partial retrieval, rate limiting, authentication failure, malformed response, provider unavailability, and timezone-aware observation timestamps.
-The fake adapter must contain no marketplace-specific semantics.
+A deterministic fake adapter must satisfy the same contract and support tests for successful multi-item discovery, stable provider/external identity, missing optional fields, pagination/continuation, partial retrieval, rate limiting, authentication failure, malformed response, provider unavailability, and timezone-aware observation timestamps.
+The fake adapter contains no marketplace-specific semantics.
+
+## Approved First Real Provider
+**Freelancer.com Sandbox** is the approved engineering integration target for V1.
+
+The selection is intentionally limited to the engineering integration boundary. It is not approval for production dependency or commercial use.
+
+Current official Freelancer material and the official Python SDK document OAuth2 sessions, the Sandbox base URL, project search, project details, and offset/limit search parameters. (verified against the official SDK source) The adapter implementation uses those SDK contracts and keeps provider-specific types inside infrastructure.
+
+## Trade-offs Accepted
+- Prefer a real Sandbox integration over a mock-only first integration so the adapter boundary is tested against real provider constraints.
+- Prefer read-only discovery/detail over proposal execution to avoid prematurely coupling the platform to authorization and execution semantics.
+- Prefer normalized provider-neutral observations over provider-specific domain models, accepting mapping complexity in exchange for replaceability.
+- Prefer a fake provider for deterministic contract tests plus Sandbox tests for integration verification.
+- Prefer an opaque credential boundary, accepting additional infrastructure work instead of exposing secrets to domain/application objects.
+
+## Production / Terms Gate
+Before production dependency or commercial use, perform a separate validation gate covering:
+- API access eligibility and approval;
+- current API Terms and permitted use;
+- authentication/credential requirements;
+- rate limits and operational constraints;
+- data retention/cache requirements;
+- production environment behavior;
+- whether the intended product use is permitted.
+
+Failure of this gate must not require redesign of the provider-neutral contract.
 
 ## Non-goals
-- choosing the first real marketplace;
-- scraping;
 - proposal submission;
 - automatic bidding;
 - messaging;
 - payment;
+- financial execution;
 - credential storage;
 - provider ranking/fallback;
 - AI provider selection;
@@ -95,18 +120,22 @@ The fake adapter must contain no marketplace-specific semantics.
 - UI.
 
 ## Exit Criteria
-1. Contract is represented by provider-neutral types/interfaces.
-2. Fake adapter passes the contract tests.
-3. Provider-specific failures map deterministically to the neutral failure model.
-4. Domain tests remain independent of marketplace SDKs.
+1. Provider-neutral contract remains stable.
+2. Fake provider passes contract tests.
+3. Freelancer-specific failures map deterministically to the neutral failure model.
+4. Domain tests remain independent of Freelancer SDKs.
 5. No raw credentials or provider payload types cross into the domain.
 6. Pagination/completeness semantics are test-covered.
-7. CI passes.
-8. Documentation and roadmap are reconciled.
-9. Real marketplace selection remains a separate explicit decision.
+7. Provider mapping, pagination, malformed payload, credential-boundary, and provider-failure tests pass.
+8. Sandbox integration execution remains credential/environment dependent and is not treated as a CI prerequisite.
+9. CI passes.
+10. TDD/design/roadmap documentation is reconciled.
+11. Production/Terms validation remains a separate gate.
 
 ## Decision Record
-This gate intentionally does not choose Upwork, Freelancer.com, or another real marketplace. That choice depends on current external API/access constraints and remains an owner decision under Issue #442.
+**Owner decision — 2026-09-25: APPROVED.**
+The first real marketplace adapter is Freelancer.com Sandbox, V1 read-only discovery + normalized opportunity detail.
+The decision does not authorize proposal submission, bidding, payment, production dependency, or commercial use.
 
 ## Related
 - Issue #441 — Design Gate: First Marketplace Adapter
