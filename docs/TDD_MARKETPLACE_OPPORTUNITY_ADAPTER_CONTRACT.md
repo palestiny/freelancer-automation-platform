@@ -1,7 +1,19 @@
 # TDD Plan — Marketplace Opportunity Adapter Contract
 
 ## Status
-READY FOR RED
+**GREEN/HARDENED FOR PROVIDER-NEUTRAL CONTRACT — REAL MARKETPLACE INTEGRATION STILL OPEN**
+
+## Completed RED → GREEN boundary
+The provider-neutral adapter contract has been implemented and merged to `main`. The implementation establishes:
+- provider-neutral discovery criteria and result types;
+- provider/external opportunity identity;
+- timezone-aware observation timestamps;
+- explicit pagination/completeness;
+- neutral provider failure taxonomy;
+- domain-independent adapter abstraction;
+- deterministic contract and invariant coverage.
+
+This closes the contract-level RED/GREEN slice. It does **not** select or implement a real marketplace.
 
 ## Test Layers
 ### Contract tests
@@ -25,7 +37,7 @@ READY FOR RED
 - first page exposes continuation;
 - subsequent page preserves provider identity;
 - end-of-results is explicit;
-- partial page does not masquerade as complete retrieval.
+- a complete result cannot also expose a continuation cursor.
 
 ### Domain isolation tests
 - domain imports do not require marketplace SDKs;
@@ -33,14 +45,43 @@ READY FOR RED
 - external identity requires provider plus external id;
 - missing optional provider fields remain missing.
 
-## RED Boundary
-Create tests against a provider-neutral adapter protocol and deterministic fake adapter before implementing real marketplace integration.
+## HARDENED invariants
+The merged contract rejects:
+- timezone-naive observation/result timestamps;
+- empty provider keys or external opportunity identifiers;
+- provider identity mismatch between result and observations;
+- non-tuple observation collections;
+- complete results that contain a continuation cursor;
+- invalid failure codes/messages.
 
-## GREEN Boundary
-Implement only the smallest contract required to satisfy the tests. Do not add proposal submission, bidding, provider fallback, queues, credentials storage, or UI.
+## Remaining RED boundary
+The next RED slice begins only after the first real marketplace is explicitly selected.
 
-## HARDEN
-Verify invalid inputs, duplicate identities, timezone-naive timestamps, malformed provider mappings, partial retrieval, and secret leakage into errors/logs.
+That slice must cover:
+- provider-specific request/response mapping;
+- provider authentication boundary using opaque credential references;
+- provider pagination semantics;
+- provider rate-limit/error translation;
+- missing-field preservation;
+- provenance;
+- provider conformance against the existing neutral contract.
+
+## GREEN Boundary for real adapter
+Implement only the smallest read-only discovery + normalized detail capability required by the selected provider. Do not add proposal submission, bidding, provider fallback, queues, credential storage, or UI.
+
+## HARDEN for real adapter
+Verify:
+- malformed provider payloads;
+- partial retrieval;
+- pagination continuation/end-of-results;
+- authentication/authorization failures;
+- rate limiting;
+- provider outage;
+- secret leakage into errors/logs;
+- domain isolation from provider SDK/transport types;
+- deterministic mapping of provider observations into the neutral contract.
 
 ## Completion
-All contract tests pass, existing suite remains green, design gate is reconciled, and the real marketplace decision remains explicitly open.
+The provider-neutral contract slice is complete after implementation, tests, CI, and documentation reconciliation.
+
+The real marketplace adapter remains a separate design/implementation slice and requires an explicit owner decision under Issue #442 before provider-specific code is introduced.
