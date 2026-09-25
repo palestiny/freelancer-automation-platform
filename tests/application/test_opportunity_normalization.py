@@ -1,5 +1,7 @@
 from datetime import datetime, timezone
 
+import pytest
+
 from app.application.marketplace_opportunity_adapter import (
     ExternalOpportunityObservation,
 )
@@ -31,7 +33,7 @@ def test_normalizes_provider_observation_into_domain_opportunity():
     )
 
 
-def test_normalization_does_not_invent_missing_provider_fields():
+def test_normalization_rejects_missing_required_domain_content():
     observation = ExternalOpportunityObservation(
         provider_key="freelancer_sandbox",
         external_opportunity_id="456",
@@ -40,11 +42,5 @@ def test_normalization_does_not_invent_missing_provider_fields():
         description=None,
     )
 
-    result = normalize_opportunity_observation(observation)
-
-    assert result.title == ""
-    assert result.description == ""
-    assert result.project_type is None
-    assert result.required_capabilities == frozenset()
-    assert result.budget_min is None
-    assert result.budget_max is None
+    with pytest.raises(ValueError, match="title and description"):
+        normalize_opportunity_observation(observation)
