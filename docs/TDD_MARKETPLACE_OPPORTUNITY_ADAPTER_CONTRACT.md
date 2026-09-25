@@ -1,10 +1,10 @@
 # TDD Plan — Marketplace Opportunity Adapter Contract
 
 ## Status
-**GREEN/HARDENED FOR PROVIDER-NEUTRAL CONTRACT — REAL MARKETPLACE INTEGRATION STILL OPEN**
+**IMPLEMENTED — FREELANCER SANDBOX V1 GREEN/HARDEN PENDING CI**
 
 ## Completed RED → GREEN boundary
-The provider-neutral adapter contract has been implemented and merged to `main`. The implementation establishes:
+The provider-neutral adapter contract is implemented on `main`. The current branch adds the first real provider adapter boundary for Freelancer.com Sandbox. The implementation establishes:
 - provider-neutral discovery criteria and result types;
 - provider/external opportunity identity;
 - timezone-aware observation timestamps;
@@ -13,7 +13,7 @@ The provider-neutral adapter contract has been implemented and merged to `main`.
 - domain-independent adapter abstraction;
 - deterministic contract and invariant coverage.
 
-This closes the contract-level RED/GREEN slice. It does **not** select or implement a real marketplace.
+This closes the provider-neutral contract slice and enters the provider-specific RED → GREEN implementation slice.
 
 ## Test Layers
 ### Contract tests
@@ -54,10 +54,8 @@ The merged contract rejects:
 - complete results that contain a continuation cursor;
 - invalid failure codes/messages.
 
-## Remaining RED boundary
-The next RED slice begins only after the first real marketplace is explicitly selected.
-
-That slice must cover:
+## Provider-specific RED → GREEN slice
+The selected provider is Freelancer.com Sandbox. The implementation covers:
 - provider-specific request/response mapping;
 - provider authentication boundary using opaque credential references;
 - provider pagination semantics;
@@ -67,7 +65,7 @@ That slice must cover:
 - provider conformance against the existing neutral contract.
 
 ## GREEN Boundary for real adapter
-Implement only the smallest read-only discovery + normalized detail capability required by the selected provider. Do not add proposal submission, bidding, provider fallback, queues, credential storage, or UI.
+Implemented the smallest read-only discovery + normalized detail capability using the official Python SDK and Sandbox URL. OAuth credentials enter only through an opaque credential reference resolver. No proposal submission, bidding, provider fallback, queues, credential storage, or UI were added.
 
 ## HARDEN for real adapter
 Verify:
@@ -81,7 +79,7 @@ Verify:
 - domain isolation from provider SDK/transport types;
 - deterministic mapping of provider observations into the neutral contract.
 
-## Completion
-The provider-neutral contract slice is complete after implementation, tests, CI, and documentation reconciliation.
+## Current completion state
+Provider-specific code and deterministic tests are implemented on the feature branch. CI is the remaining completion gate, followed by final documentation reconciliation and merge.
 
-The real marketplace adapter remains a separate design/implementation slice and requires an explicit owner decision under Issue #442 before provider-specific code is introduced.
+Provider-specific error classification is intentionally conservative because the official SDK exposes project-search failures through a generic `ProjectsNotFoundException`; the adapter does not invent unsupported rate-limit or authorization semantics.
