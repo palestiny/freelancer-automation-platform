@@ -156,3 +156,15 @@ Rejected because it couples business meaning to provider SDK schemas.
 Owner approval is required for the semantic expansion before implementation.
 
 **Current recommendation:** approve the boundary/categories, while making live/fixture response verification a mandatory prerequisite for the concrete field subset.
+## Additional SDK-schema evidence (not Sandbox payload evidence)
+
+A direct inspection of the official SDK source adds useful schema-level evidence without changing the implementation boundary:
+
+- The SDK `Project` type is a thin wrapper over the API result dictionary; it does not define a stable typed field schema in the SDK itself.
+- The SDK defines `ProjectType.FIXED = 0` and `ProjectType.HOURLY = 1`.
+- The SDK request helpers expose project-detail projections for full description, job details, qualification details, and location details.
+- The SDK request helpers expose user-detail projections including basic user details, country details, reputation, and employer reputation.
+- SDK helper constructors show project budget data with `minimum`, optional `maximum`, and optional `currency_id`; currency data can contain `id`, `code`, `sign`, `name`, and related metadata; job data can contain `id`, `name`, category, and related metadata.
+- The official SDK search implementation returns the provider's `result` payload directly; it does not normalize or validate the response shape for us.
+
+This evidence strengthens the candidate mapping categories, but it does **not** prove that a particular Sandbox search/detail response contains every field, with the same path, type, or semantic meaning. Concrete mapping remains blocked on captured provider response evidence.
