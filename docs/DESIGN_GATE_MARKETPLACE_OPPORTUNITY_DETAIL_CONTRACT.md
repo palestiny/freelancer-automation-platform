@@ -17,7 +17,7 @@ Official Freelancer SDK material verifies that the integration can:
 - request jobs/qualifications;
 - request basic/profile/reputation user details.
 
-The SDK's project-creation example also demonstrates project budget, currency, and jobs as first-class project data. citeturn0search0turn0search1turn0search2
+The SDK's project-creation example also demonstrates project budget, currency, and jobs as first-class project data. See the official Freelancer SDK repository and its `get_projects.py` and `create_project.py` examples for this capability evidence.
 
 **Important limitation:** this is SDK capability evidence, not evidence of the exact Sandbox response received by our adapter. We do not have a verified live Sandbox payload in CI or in the repository. Therefore no new field should be mapped until its actual response path/type is captured and verified.
 
