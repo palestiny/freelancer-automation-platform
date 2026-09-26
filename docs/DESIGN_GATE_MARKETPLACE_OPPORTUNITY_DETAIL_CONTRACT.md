@@ -181,6 +181,6 @@ This evidence strengthens the candidate mapping categories, but it does **not** 
 
 ## Evidence checkpoint — 2026-09-26
 
-Official SDK evidence was rechecked. The SDK supports Sandbox via `FLN_URL=https://www.freelancer-sandbox.com`, project search, project retrieval, and detail projections including full description, jobs, qualifications, and user details. This remains capability/schema evidence only; it is not a captured Sandbox payload. cite references must not be stored in project documentation. 
+Official SDK evidence was rechecked. The SDK supports Sandbox via `FLN_URL=https://www.freelancer-sandbox.com`, project search, project retrieval, and detail projections including full description, jobs, qualifications, and user details. This remains capability/schema evidence only; it is not a captured Sandbox payload. 
 
 No new concrete provider mapping is approved until a real or explicitly supplied sanitized Sandbox response is available.
