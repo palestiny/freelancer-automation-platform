@@ -2,7 +2,7 @@
 
 ## Status
 
-**PROPOSED — awaiting owner decision**
+**APPROVED — semantic boundary accepted; concrete mappings gated by provider-response evidence**
 
 Issue: #448
 
@@ -150,6 +150,16 @@ Rejected because it couples business meaning to provider SDK schemas.
 - client-domain redesign;
 - persistence/UI;
 - automatic policy mutation.
+
+## Decision record
+
+Owner decision: **approved** on 2026-09-26.
+
+Approved boundary: evidence-driven provider-neutral expansion covering classification, economics, required capabilities, source provenance, and minimal client evidence. Reputation fields remain deferred until their exact provider semantics are verified.
+
+Approval does not authorize inventing provider fields, implementing unverified mappings, proposal/bidding execution, payment, production dependency, or automatic policy mutation.
+
+The concrete field subset remains conditional on captured/verified Freelancer Sandbox response evidence.
 
 ## Decision request
 
