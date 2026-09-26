@@ -161,11 +161,11 @@ Approval does not authorize inventing provider fields, implementing unverified m
 
 The concrete field subset remains conditional on captured/verified Freelancer Sandbox response evidence.
 
-## Decision request
+## Implementation gate
 
-Owner approval is required for the semantic expansion before implementation.
+Owner approval is complete. The remaining gate is provider-response evidence.
 
-**Current recommendation:** approve the boundary/categories, while making live/fixture response verification a mandatory prerequisite for the concrete field subset.
+A concrete field mapping may enter RED only after a representative Freelancer Sandbox response (search and, if needed, detail) is captured and its paths, types, and semantics are verified.
 ## Additional SDK-schema evidence (not Sandbox payload evidence)
 
 A direct inspection of the official SDK source adds useful schema-level evidence without changing the implementation boundary:
