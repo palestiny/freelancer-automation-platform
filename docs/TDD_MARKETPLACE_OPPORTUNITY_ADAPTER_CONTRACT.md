@@ -1,85 +1,51 @@
 # TDD Plan — Marketplace Opportunity Adapter Contract
 
 ## Status
-**IMPLEMENTED — FREELANCER SANDBOX V1 GREEN/HARDEN PENDING CI**
 
-## Completed RED → GREEN boundary
-The provider-neutral adapter contract is implemented on `main`. The current branch adds the first real provider adapter boundary for Freelancer.com Sandbox. The implementation establishes:
-- provider-neutral discovery criteria and result types;
+**COMPLETED — PROVIDER-NEUTRAL CONTRACT + FREELANCER SANDBOX V1 MERGED**
+
+The provider-neutral adapter contract, Freelancer.com Sandbox read-only adapter, and observation-to-domain normalization boundary are merged into `main`.
+
+## Verified implementation boundary
+
+- provider-neutral discovery criteria/result types;
 - provider/external opportunity identity;
 - timezone-aware observation timestamps;
 - explicit pagination/completeness;
 - neutral provider failure taxonomy;
 - domain-independent adapter abstraction;
-- deterministic contract and invariant coverage.
+- Freelancer Sandbox credential-reference boundary;
+- provider response mapping;
+- pagination mapping;
+- malformed payload handling;
+- credential-resolution failure mapping;
+- provider-unavailability mapping;
+- domain isolation from provider SDK types;
+- application normalization from `ExternalOpportunityObservation` to `Opportunity`.
 
-This closes the provider-neutral contract slice and enters the provider-specific RED → GREEN implementation slice.
+## Normalization rules
 
-## Test Layers
-### Contract tests
-- accepts a valid provider key and discovery criteria;
-- returns provider-neutral opportunity observations;
-- preserves provider/external identity;
-- preserves timezone-aware observation time;
-- exposes completeness and continuation explicitly;
-- never exposes raw provider SDK objects.
+- provider identity is preserved as `source_platform`;
+- external identity is preserved as `source_opportunity_id`;
+- verified title/description are preserved;
+- missing required domain content is rejected rather than fabricated;
+- fields not present in the current observation contract are not inferred.
 
-### Failure mapping tests
-- authentication failure maps to AUTHENTICATION_FAILURE;
-- authorization failure maps to AUTHORIZATION_FAILURE;
-- rate limit maps to RATE_LIMITED;
-- provider outage maps to PROVIDER_UNAVAILABLE;
-- invalid request maps to INVALID_REQUEST;
-- malformed provider payload maps to MALFORMED_RESPONSE;
-- mixed success/failure retrieval maps to PARTIAL_RESULT when applicable.
+## Remaining provider-detail expansion
 
-### Pagination tests
-- first page exposes continuation;
-- subsequent page preserves provider identity;
-- end-of-results is explicit;
-- a complete result cannot also expose a continuation cursor.
+The current observation contract is intentionally minimal. The design gate describes richer optional detail such as project type, budget, required capabilities, source URL, client reference, and provenance metadata.
 
-### Domain isolation tests
-- domain imports do not require marketplace SDKs;
-- normalized Opportunity contains no provider transport object;
-- external identity requires provider plus external id;
-- missing optional provider fields remain missing.
-
-## HARDENED invariants
-The merged contract rejects:
-- timezone-naive observation/result timestamps;
-- empty provider keys or external opportunity identifiers;
-- provider identity mismatch between result and observations;
-- non-tuple observation collections;
-- complete results that contain a continuation cursor;
-- invalid failure codes/messages.
-
-## Provider-specific RED → GREEN slice
-The selected provider is Freelancer.com Sandbox. The implementation covers:
-- provider-specific request/response mapping;
-- provider authentication boundary using opaque credential references;
-- provider pagination semantics;
-- provider rate-limit/error translation;
-- missing-field preservation;
-- provenance;
-- provider conformance against the existing neutral contract.
-
-## GREEN Boundary for real adapter
-Implemented the smallest read-only discovery + normalized detail capability using the official Python SDK and Sandbox URL. OAuth credentials enter only through an opaque credential reference resolver. No proposal submission, bidding, provider fallback, queues, credential storage, or UI were added.
-
-## HARDEN for real adapter
-Verify:
-- malformed provider payloads;
-- partial retrieval;
-- pagination continuation/end-of-results;
-- authentication/authorization failures;
-- rate limiting;
-- provider outage;
-- secret leakage into errors/logs;
-- domain isolation from provider SDK/transport types;
-- deterministic mapping of provider observations into the neutral contract.
+Those fields require a dedicated design/test slice after verification against the real Freelancer response contract. No provider-specific assumptions are promoted into the domain.
 
 ## Current completion state
-Provider-specific code and deterministic tests are implemented on the feature branch. CI is the remaining completion gate, followed by final documentation reconciliation and merge.
 
-Provider-specific error classification is intentionally conservative because the official SDK exposes project-search failures through a generic `ProjectsNotFoundException`; the adapter does not invent unsupported rate-limit or authorization semantics.
+- Provider-neutral contract: complete.
+- Freelancer Sandbox adapter V1: complete and merged.
+- Observation → Opportunity normalization: complete and merged.
+- Sandbox integration execution remains credential/environment dependent and is not a CI prerequisite.
+- Production/Terms validation remains a separate open gate (#445).
+- Proposal/bid execution, payment, UI, and production marketplace dependency remain outside scope.
+
+## Next gate
+
+Define the minimum provider-detail contract required to support the committed Opportunity Intelligence dimensions without inventing data or coupling the domain to Freelancer-specific fields.
