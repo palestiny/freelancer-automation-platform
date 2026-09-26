@@ -178,3 +178,9 @@ A direct inspection of the official SDK source adds useful schema-level evidence
 - The official SDK search implementation returns the provider's `result` payload directly; it does not normalize or validate the response shape for us.
 
 This evidence strengthens the candidate mapping categories, but it does **not** prove that a particular Sandbox search/detail response contains every field, with the same path, type, or semantic meaning. Concrete mapping remains blocked on captured provider response evidence.
+
+## Evidence checkpoint — 2026-09-26
+
+Official SDK evidence was rechecked. The SDK supports Sandbox via `FLN_URL=https://www.freelancer-sandbox.com`, project search, project retrieval, and detail projections including full description, jobs, qualifications, and user details. This remains capability/schema evidence only; it is not a captured Sandbox payload. cite references must not be stored in project documentation. 
+
+No new concrete provider mapping is approved until a real or explicitly supplied sanitized Sandbox response is available.
