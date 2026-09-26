@@ -6,39 +6,43 @@
 
 Issue: #448
 
-This document proposes the minimum provider-neutral detail contract required to begin V1 Opportunity Intelligence without inventing provider data.
+This document defines the proposed minimum provider-neutral detail contract for V1 Opportunity Intelligence.
 
 ## Evidence boundary
 
-The official Freelancer Python SDK documents project search and project-detail retrieval and exposes request options for full description, jobs, qualifications, and user details. Its examples also demonstrate project budget/currency/jobs as first-class project data. The current adapter already requests full description, jobs, qualifications, and basic user details.
+Official Freelancer SDK material verifies that the integration can:
+- search projects;
+- retrieve project details;
+- request full descriptions;
+- request jobs/qualifications;
+- request basic/profile/reputation user details.
 
-However, the current adapter deliberately maps only title/description into `ExternalOpportunityObservation`. We should not add domain fields merely because the SDK can request them: the exact response-field mapping must be verified against the real Sandbox response before implementation.
+The SDK's project-creation example also demonstrates project budget, currency, and jobs as first-class project data. citeturn0search0turn0search1turn0search2
 
-## Proposed V1 observation contract
+**Important limitation:** this is SDK capability evidence, not evidence of the exact Sandbox response received by our adapter. We do not have a verified live Sandbox payload in CI or in the repository. Therefore no new field should be mapped until its actual response path/type is captured and verified.
 
-Keep the existing required identity/timestamp fields:
+## Current adapter boundary
+
+The adapter currently requests full description, jobs, qualifications, and basic user details, but intentionally maps only:
 
 - `provider_key`
 - `external_opportunity_id`
 - `observed_at`
+- `title`
+- `description`
 
-Keep the existing content fields:
+This conservative boundary is correct until response evidence is available.
 
-- `title: str | None`
-- `description: str | None`
-
-Add only these provider-neutral semantic groups after provider-response verification:
+## Proposed V1 observation contract
 
 ### 1. Opportunity classification
 
 - `project_type: str | None`
 - `status: str | None`
 
-Purpose: support Eligibility and distinguish incompatible/closed opportunity types without embedding Freelancer enums in the domain.
+Use only verified provider facts. Do not expose Freelancer SDK enums.
 
 ### 2. Economics
-
-A provider-neutral budget value:
 
 - `budget_min: Decimal | None`
 - `budget_max: Decimal | None`
@@ -46,105 +50,99 @@ A provider-neutral budget value:
 - `pricing_model: str | None`
 
 Rules:
-- preserve missing bounds as missing;
-- preserve missing currency as missing;
-- do not convert currencies in the marketplace adapter;
-- do not infer a budget from description text;
-- do not calculate profitability here.
-
-Economic Fit can therefore return INSUFFICIENT_DATA when the required budget facts are absent.
+- preserve missing bounds/currency;
+- no currency conversion in the marketplace adapter;
+- no budget inference from free text;
+- no profitability calculation here.
 
 ### 3. Required capabilities
 
 - `required_capabilities: tuple[str, ...]`
 
-These represent provider-reported job/skill facts only.
+Only provider-reported job/skill facts.
 
-Rules:
-- no AI extraction in this gate;
-- no synonym expansion;
-- no capability inference from title/description;
-- preserve an empty collection only when the provider explicitly reports no required capabilities; otherwise distinguish unavailable data from an explicit empty set.
+No AI extraction, synonym expansion, or inference in this gate.
 
 ### 4. Source reference
 
 - `source_url: str | None`
 
-This is provider evidence for traceability/navigation, not a decision signal.
+Used for provenance/traceability, not qualification.
 
-### 5. Client evidence
+### 5. Minimal client evidence
 
-Do not create a rich Client domain model in this gate.
-
-Use a minimal provider-neutral observation group only if the verified response contains it:
+Only if verified in the actual provider response:
 
 - `client_external_id: str | None`
 - `client_country: str | None`
-- `client_reputation: ... | None` only after exact response semantics are verified
+- reputation fields only after their exact semantics are verified.
 
-The client group is evidence for Client / Project Risk. Missing client evidence must remain missing and produce INSUFFICIENT_DATA where required.
+Do not introduce a rich Client domain model in this gate.
+
+## Missing-data semantics
+
+Missing is a valid state and must remain distinguishable from a provider-reported empty value.
+
+Examples:
+- no budget returned → budget is unavailable;
+- no skills field returned → capabilities unavailable;
+- explicit empty skills list → provider reported no skills;
+- ambiguous provider field → do not map it.
+
+No mapper may fabricate values.
 
 ## Provenance
 
-Every newly mapped field is still part of the External Opportunity Observation and inherits:
+Every mapped field remains part of `ExternalOpportunityObservation` and is associated with:
 
 - provider identity;
 - external opportunity identity;
 - observation timestamp.
 
-The normalization step converts verified observations into the existing Opportunity fields. Provider SDK objects and raw provider response models remain infrastructure-only.
-
-For fields whose provider meaning is ambiguous, the mapping must remain absent rather than guessing.
+Provider SDK objects remain infrastructure-only.
 
 ## Intelligence coverage
 
-| Intelligence dimension | Minimum useful evidence | If absent |
+| Dimension | Evidence | Missing-data behavior |
 |---|---|---|
-| Eligibility | verified project type/status | INSUFFICIENT_DATA where policy requires it |
-| Requirement Fit | description + provider-reported capabilities | partial/INSUFFICIENT_DATA |
-| Estimated Effort | description + capabilities; estimate remains derived | do not invent effort |
+| Eligibility | verified type/status | INSUFFICIENT_DATA when policy requires it |
+| Requirement Fit | description + provider skills | INSUFFICIENT_DATA/partial |
+| Estimated Effort | description + capabilities | derived estimate only; never fabricated |
 | Economic Fit | budget + currency + pricing model | INSUFFICIENT_DATA |
 | Client / Project Risk | verified client/project evidence | INSUFFICIENT_DATA |
-| Success Confidence | evidence from the other dimensions + data quality | INSUFFICIENT_DATA / REVIEW_REQUIRED |
+| Success Confidence | quality of evidence across dimensions | INSUFFICIENT_DATA / REVIEW_REQUIRED |
 
-This does not introduce scoring or ranking.
+No scoring or ranking is introduced by this gate.
 
-## Alternatives considered
+## Decision alternatives
 
-### A. Expand only title/description
+### A — Keep title/description only
 
-Pros: minimal code.
+Smallest implementation, but Economic Fit and provider-reported capability analysis remain structurally unavailable.
 
-Cons: Economic Fit and capability-based Requirement Fit remain structurally unavailable.
+### B — Put Freelancer response objects into the domain
 
-### B. Add the full Freelancer response model to the domain
+Rejected because it couples business meaning to provider SDK schemas.
 
-Rejected.
+### C — Evidence-driven provider-neutral expansion
 
-It couples the domain to provider terminology and SDK evolution.
+**Recommended:** approve the semantic categories above, but implement only the subset whose exact Sandbox response fields are verified.
 
-### C. Add a broad provider-neutral contract now
+## Verification gate before RED
 
-Not recommended.
-
-It creates fields whose semantics have not yet been verified against the real provider response.
-
-### Proposed decision
-
-Use a **small, evidence-driven expansion**: budget/economics, project classification, required capabilities, source URL, and minimal client evidence, but implement only fields whose exact Freelancer response semantics are verified first.
-
-## Required verification before RED
-
-1. Capture a representative Freelancer Sandbox project-search response.
-2. Verify exact response paths/types for each proposed field.
-3. Record provider field → neutral field mappings.
-4. Mark unavailable/ambiguous fields explicitly.
-5. Then write RED tests for the agreed subset.
-6. Keep provider SDK types outside application/domain code.
+1. Obtain a representative Sandbox project-search response.
+2. Obtain a representative project-detail response if search does not contain all required facts.
+3. Record exact provider response paths, types, and semantics.
+4. Build a field mapping matrix:
+   `provider field → observation field → normalization field → intelligence dimension`.
+5. Explicitly mark unavailable/ambiguous fields.
+6. Write RED tests only for verified mappings.
+7. Implement mapping without leaking provider SDK types.
+8. Harden missing/ambiguous-field behavior.
 
 ## Non-goals
 
-- ranking or scoring;
+- ranking/scoring;
 - AI extraction;
 - proposal/bidding;
 - payment;
@@ -155,6 +153,6 @@ Use a **small, evidence-driven expansion**: budget/economics, project classifica
 
 ## Decision request
 
-Owner approval is required for the proposed semantic expansion before implementation.
+Owner approval is required for the semantic expansion before implementation.
 
-Recommended path: approve the **field categories and boundary**, while requiring exact provider-response verification to determine the concrete mapped subset.
+**Current recommendation:** approve the boundary/categories, while making live/fixture response verification a mandatory prerequisite for the concrete field subset.
