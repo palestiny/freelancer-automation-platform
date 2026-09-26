@@ -155,10 +155,10 @@ Rejected because business rules, integrations, reasoning, and execution become c
 
 ## Open Decisions
 
-- First marketplace.
+- Advanced marketplace/provider expansion beyond the approved Freelancer Sandbox V1 boundary.
 - Persistence/API/UI technology.
 - Opportunity identity behavior for source identifier changes and republishing.
 - Client representation.
 - Advanced numeric ranking.
 
-These remain separate from the committed V1 evaluation dimensions.
+These remain separate from the committed V1 evaluation dimensions. The first real marketplace decision is resolved separately: Freelancer Sandbox V1, read-only discovery + normalized opportunity detail. The concrete detail-field subset remains gated by the Marketplace Opportunity Detail Contract (#448).
