@@ -174,6 +174,19 @@ class FreelancerSandboxOpportunityAdapter(MarketplaceOpportunityAdapter):
                     observed_at,
                     "project description must be a string or null",
                 )
+
+            project_type, error = self._extract_project_type(project)
+            if error is not None:
+                return self._malformed_result(observed_at, error)
+
+            budget_min, budget_max, error = self._extract_budget(project)
+            if error is not None:
+                return self._malformed_result(observed_at, error)
+
+            required_capabilities, error = self._extract_required_capabilities(project)
+            if error is not None:
+                return self._malformed_result(observed_at, error)
+
             observations.append(
                 ExternalOpportunityObservation(
                     provider_key=self.provider_key,
@@ -181,6 +194,10 @@ class FreelancerSandboxOpportunityAdapter(MarketplaceOpportunityAdapter):
                     observed_at=observed_at,
                     title=title,
                     description=description,
+                    project_type=project_type,
+                    budget_min=budget_min,
+                    budget_max=budget_max,
+                    required_capabilities=required_capabilities,
                 )
             )
 
@@ -194,6 +211,48 @@ class FreelancerSandboxOpportunityAdapter(MarketplaceOpportunityAdapter):
             next_cursor=next_cursor,
             complete=complete,
         )
+
+    @staticmethod
+    def _extract_project_type(project: dict) -> tuple[str | None, str | None]:
+        project_type = project.get("type")
+        if project_type is None:
+            return None, None
+        if not isinstance(project_type, str):
+            return None, "project type must be a string or null"
+        return project_type, None
+
+    @staticmethod
+    def _extract_budget(project: dict) -> tuple[float | None, float | None, str | None]:
+        budget = project.get("budget")
+        if budget is None:
+            return None, None, None
+        if not isinstance(budget, dict):
+            return None, None, "project budget must be an object or null"
+
+        minimum = budget.get("minimum")
+        maximum = budget.get("maximum")
+        for value in (minimum, maximum):
+            if value is not None and not isinstance(value, (int, float)):
+                return None, None, "project budget minimum/maximum must be numbers or null"
+        return minimum, maximum, None
+
+    @staticmethod
+    def _extract_required_capabilities(project: dict) -> tuple[frozenset[str], str | None]:
+        jobs = project.get("jobs")
+        if jobs is None:
+            return frozenset(), None
+        if not isinstance(jobs, list):
+            return frozenset(), "project jobs must be a list or null"
+
+        capabilities: set[str] = set()
+        for job in jobs:
+            if not isinstance(job, dict):
+                return frozenset(), "project job entry must be an object"
+            name = job.get("name")
+            if not isinstance(name, str) or not name.strip():
+                return frozenset(), "project job entry must have a non-empty name"
+            capabilities.add(name)
+        return frozenset(capabilities), None
 
     @staticmethod
     def _parse_cursor(cursor: str | None) -> int:

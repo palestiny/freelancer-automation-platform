@@ -49,6 +49,10 @@ class ExternalOpportunityObservation:
     observed_at: datetime
     title: str | None = None
     description: str | None = None
+    project_type: str | None = None
+    budget_min: float | None = None
+    budget_max: float | None = None
+    required_capabilities: frozenset[str] = frozenset()
 
     def __post_init__(self) -> None:
         for name in ("provider_key", "external_opportunity_id"):
@@ -59,6 +63,23 @@ class ExternalOpportunityObservation:
             raise TypeError("observed_at must be a datetime")
         if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
             raise ValueError("observed_at must be timezone-aware")
+        if self.project_type is not None and not isinstance(self.project_type, str):
+            raise TypeError("project_type must be a string or None")
+        for name in ("budget_min", "budget_max"):
+            value = getattr(self, name)
+            if value is not None and not isinstance(value, (int, float)):
+                raise TypeError(f"{name} must be a number or None")
+        if (
+            self.budget_min is not None
+            and self.budget_max is not None
+            and self.budget_min > self.budget_max
+        ):
+            raise ValueError("budget_min cannot exceed budget_max")
+        if not isinstance(self.required_capabilities, frozenset):
+            raise TypeError("required_capabilities must be a frozenset")
+        for capability in self.required_capabilities:
+            if not isinstance(capability, str) or not capability.strip():
+                raise ValueError("required_capabilities entries cannot be empty")
 
 
 @dataclass(frozen=True)

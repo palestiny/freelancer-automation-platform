@@ -18,5 +18,9 @@ def normalize_opportunity_observation(
         source_opportunity_id=observation.external_opportunity_id,
         title=observation.title,
         description=observation.description,
+        project_type=observation.project_type,
+        required_capabilities=observation.required_capabilities,
+        budget_min=observation.budget_min,
+        budget_max=observation.budget_max,
         opportunity_type=OpportunityType.FREELANCE,
     )

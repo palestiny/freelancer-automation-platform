@@ -33,6 +33,27 @@ def test_normalizes_provider_observation_into_domain_opportunity():
     )
 
 
+def test_normalizes_project_type_budget_and_required_capabilities():
+    observation = ExternalOpportunityObservation(
+        provider_key="freelancer_sandbox",
+        external_opportunity_id="789",
+        observed_at=datetime(2026, 9, 25, 10, 0, tzinfo=timezone.utc),
+        title="Build a React dashboard",
+        description="Create a responsive dashboard.",
+        project_type="fixed",
+        budget_min=100,
+        budget_max=500,
+        required_capabilities=frozenset({"React", "CSS"}),
+    )
+
+    result = normalize_opportunity_observation(observation)
+
+    assert result.project_type == "fixed"
+    assert result.budget_min == 100
+    assert result.budget_max == 500
+    assert result.required_capabilities == frozenset({"React", "CSS"})
+
+
 def test_normalization_rejects_missing_required_domain_content():
     observation = ExternalOpportunityObservation(
         provider_key="freelancer_sandbox",
