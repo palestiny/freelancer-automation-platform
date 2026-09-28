@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 
 
@@ -49,6 +50,16 @@ class ExternalOpportunityObservation:
     observed_at: datetime
     title: str | None = None
     description: str | None = None
+    project_type: str | None = None
+    status: str | None = None
+    budget_min: Decimal | None = None
+    budget_max: Decimal | None = None
+    budget_currency: str | None = None
+    pricing_model: str | None = None
+    required_capabilities: tuple[str, ...] = ()
+    source_url: str | None = None
+    client_external_id: str | None = None
+    client_country: str | None = None
 
     def __post_init__(self) -> None:
         for name in ("provider_key", "external_opportunity_id"):
@@ -59,6 +70,18 @@ class ExternalOpportunityObservation:
             raise TypeError("observed_at must be a datetime")
         if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
             raise ValueError("observed_at must be timezone-aware")
+        for name in ("project_type", "status", "budget_currency", "pricing_model", "source_url", "client_external_id", "client_country"):
+            value = getattr(self, name)
+            if value is not None and not isinstance(value, str):
+                raise TypeError(f"{name} must be a string or None")
+        for name in ("budget_min", "budget_max"):
+            value = getattr(self, name)
+            if value is not None and not isinstance(value, Decimal):
+                raise TypeError(f"{name} must be a Decimal or None")
+        if not isinstance(self.required_capabilities, tuple):
+            raise TypeError("required_capabilities must be a tuple")
+        if any(not isinstance(item, str) or not item.strip() for item in self.required_capabilities):
+            raise ValueError("required_capabilities must contain non-empty strings")
 
 
 @dataclass(frozen=True)

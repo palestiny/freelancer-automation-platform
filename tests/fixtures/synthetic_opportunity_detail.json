@@ -1,0 +1,20 @@
+{
+  "fixture_kind": "synthetic_provider_neutral",
+  "note": "This fixture is not a Freelancer Sandbox response. It exists only to test the approved provider-neutral semantic contract before provider evidence is available.",
+  "observation": {
+    "provider_key": "example_marketplace",
+    "external_opportunity_id": "synthetic-001",
+    "title": "Build a React dashboard",
+    "description": "Create a responsive analytics dashboard.",
+    "project_type": "FIXED",
+    "status": "OPEN",
+    "budget_min": "100.00",
+    "budget_max": "250.00",
+    "budget_currency": "USD",
+    "pricing_model": "FIXED",
+    "required_capabilities": ["react", "javascript"],
+    "source_url": "https://example.test/opportunities/synthetic-001",
+    "client_external_id": "client-synthetic-001",
+    "client_country": "EG"
+  }
+}
