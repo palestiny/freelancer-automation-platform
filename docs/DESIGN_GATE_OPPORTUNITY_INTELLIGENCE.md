@@ -2,7 +2,7 @@
 
 ## Status
 
-**APPROVED — V1 domain direction committed; domain TDD in progress.**
+**APPROVED — V1 domain direction and generic evaluation contract implemented and merged on 2026-09-28.**
 
 ## Concept
 
@@ -153,12 +153,26 @@ Rejected because it mixes immutable opportunity identity with policy-driven deri
 
 Rejected because business rules, integrations, reasoning, and execution become coupled.
 
+## Current implementation boundary
+
+The generic V1 evaluation contract is implemented and merged:
+
+- immutable policy/result contracts;
+- pluggable criterion evaluator boundary;
+- deterministic categorical overall composition;
+- explicit missing-evidence support;
+- policy identity/version validation;
+- no marketplace-specific or provider SDK dependency.
+
+Concrete business semantics for the six criteria are intentionally still outside this slice. They must be defined explicitly before criterion-specific evaluators are implemented.
+
 ## Open Decisions
 
+- Concrete evidence requirements and semantic rules for each of the six criteria.
 - Advanced marketplace/provider expansion beyond the approved Freelancer Sandbox V1 boundary.
 - Persistence/API/UI technology.
 - Opportunity identity behavior for source identifier changes and republishing.
 - Client representation.
 - Advanced numeric ranking.
 
-These remain separate from the committed V1 evaluation dimensions. The first real marketplace decision is resolved separately: Freelancer Sandbox V1, read-only discovery + normalized opportunity detail. The concrete detail-field subset remains gated by the Marketplace Opportunity Detail Contract (#448).
+These remain separate from the committed generic V1 evaluation contract. The first real marketplace decision is resolved separately: Freelancer Sandbox V1, read-only discovery + normalized opportunity detail. The concrete detail-field subset remains gated by the Marketplace Opportunity Detail Contract (#448).
