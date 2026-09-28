@@ -2,9 +2,9 @@
 
 ## Status
 
-**PROPOSED — semantic boundary prepared for owner approval.**
+**APPROVED — semantic boundary accepted on 2026-09-28.**
 
-This document defines the proposed V1 semantic boundary for the Requirement Fit criterion. It does not authorize implementation until the semantic decisions below are explicitly approved.
+This document defines the proposed V1 semantic boundary for the Requirement Fit criterion. Owner approval is recorded on Issue #464. The semantic decisions below are now committed for V1 implementation.
 
 ## Decision Target
 
