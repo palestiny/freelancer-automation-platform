@@ -336,14 +336,14 @@ Cons:
 
 ## 12. Exit criteria for this design gate
 
-The gate is ready for owner approval when:
+The design gate exit criteria were satisfied on 2026-09-28:
 
-- the context boundary is accepted or explicitly rejected;
-- evidence metadata requirements are accepted;
-- applicability semantics are accepted;
-- all six criterion semantics are accepted/revised;
-- cross-criterion dependency rules are accepted;
-- trade-offs are recorded;
-- implementation issues can be split without inventing new semantics during coding.
+- the context boundary was approved;
+- evidence metadata requirements were approved;
+- applicability semantics were approved;
+- all six criterion semantics were approved;
+- cross-criterion dependency rules were approved;
+- trade-offs were recorded;
+- implementation was split into Issue #459 and completed without introducing new semantic policy.
 
-**No implementation should begin from this document until the owner approves the semantic contract.**
+The semantic foundation is now implemented. Future criterion-specific implementation must remain within this approved boundary; semantic expansion requires a new design decision.
