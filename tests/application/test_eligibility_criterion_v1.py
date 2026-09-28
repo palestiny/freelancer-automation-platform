@@ -216,3 +216,50 @@ def test_identical_snapshot_is_deterministic():
     second = EligibilityEvaluator().evaluate(make_opportunity(), selected_policy, context)
 
     assert first == second
+
+
+def test_context_for_different_opportunity_is_rejected():
+    context = make_context(evidence("opportunity.status", "OPEN"))
+    other = Opportunity(
+        source_platform="example_marketplace",
+        source_opportunity_id="different",
+        title="Different opportunity",
+        description="Different description.",
+    )
+
+    try:
+        EligibilityEvaluator().evaluate(
+            other,
+            policy(constraint("status-open", "opportunity.status")),
+            context,
+        )
+    except ValueError as exc:
+        assert "subject" in str(exc)
+    else:
+        raise AssertionError("mismatched evaluation subject must be rejected")
+
+
+def test_constraint_rejects_duplicate_evidence_references():
+    try:
+        EligibilityConstraint(
+            constraint_id="invalid",
+            evidence_refs=("status", "status"),
+            allowed_values=("OPEN",),
+        )
+    except ValueError as exc:
+        assert "duplicates" in str(exc)
+    else:
+        raise AssertionError("duplicate evidence references must be rejected")
+
+
+def test_constraint_rejects_empty_allowed_values():
+    try:
+        EligibilityConstraint(
+            constraint_id="invalid",
+            evidence_refs=("status",),
+            allowed_values=(),
+        )
+    except ValueError as exc:
+        assert "allowed values" in str(exc)
+    else:
+        raise AssertionError("empty allowed values must be rejected")
