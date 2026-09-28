@@ -66,7 +66,7 @@ class EconomicConstraint:
         ):
             raise ValueError("evidence_refs must contain non-empty strings")
         if len(set(self.evidence_refs)) != len(self.evidence_refs):
-            raise ValueError("evidence_refs must contain unique references")
+            raise ValueError("evidence_refs must not contain duplicates")
 
         object.__setattr__(self, "metric", metric)
         object.__setattr__(self, "operator", operator)
