@@ -3,6 +3,7 @@ from enum import Enum
 
 from app.domain.eligibility import EligibilityConstraint
 from app.domain.estimated_effort import EffortConstraint
+from app.domain.economic_fit import EconomicConstraint
 from app.domain.requirement_fit import CapabilityRequirement
 
 
@@ -36,6 +37,7 @@ class EvaluationPolicy:
     eligibility_constraints: tuple[EligibilityConstraint, ...] = ()
     requirement_fit_requirements: tuple[CapabilityRequirement, ...] = ()
     estimated_effort_constraints: tuple[EffortConstraint, ...] = ()
+    economic_fit_constraints: tuple[EconomicConstraint, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -63,6 +65,20 @@ class EvaluationPolicy:
         effort_constraint_ids = [item.constraint_id for item in self.estimated_effort_constraints]
         if len(set(effort_constraint_ids)) != len(effort_constraint_ids):
             raise ValueError("estimated_effort_constraints must not contain duplicate ids")
+        if any(
+            not isinstance(item, EconomicConstraint)
+            for item in self.economic_fit_constraints
+        ):
+            raise TypeError(
+                "economic_fit_constraints must contain EconomicConstraint values"
+            )
+        economic_constraint_ids = [
+            item.constraint_id for item in self.economic_fit_constraints
+        ]
+        if len(set(economic_constraint_ids)) != len(economic_constraint_ids):
+            raise ValueError(
+                "economic_fit_constraints must not contain duplicate ids"
+            )
 
 
 @dataclass(frozen=True)
