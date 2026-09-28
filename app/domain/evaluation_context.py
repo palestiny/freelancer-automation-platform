@@ -67,6 +67,8 @@ class Evidence:
 
         if len(set(self.derivation_refs)) != len(self.derivation_refs):
             raise ValueError("derivation_refs must contain unique references")
+        if self.evidence_id in self.derivation_refs:
+            raise ValueError("derivation_refs cannot reference the evidence itself")
 
 
 @dataclass(frozen=True)
@@ -86,6 +88,13 @@ class EvaluationContext:
         evidence_ids = [item.evidence_id for item in self.evidence]
         if len(set(evidence_ids)) != len(evidence_ids):
             raise ValueError("evidence identities must be unique")
+        evidence_id_set = set(evidence_ids)
+        for item in self.evidence:
+            unknown_refs = set(item.derivation_refs) - evidence_id_set
+            if unknown_refs:
+                raise ValueError(
+                    "derivation references must point to evidence in the context"
+                )
 
         if self.evaluation_time.tzinfo is None or self.evaluation_time.utcoffset() is None:
             raise ValueError("evaluation_time must be timezone-aware")
