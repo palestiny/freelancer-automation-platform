@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from app.domain.eligibility import EligibilityConstraint
+from app.domain.requirement_fit import CapabilityRequirement
 
 
 class CriterionId(Enum):
@@ -32,6 +33,7 @@ class EvaluationPolicy:
     policy_version: str
     required_criteria: tuple[CriterionId, ...]
     eligibility_constraints: tuple[EligibilityConstraint, ...] = ()
+    requirement_fit_requirements: tuple[CapabilityRequirement, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -54,6 +56,11 @@ class EvaluationPolicy:
         constraint_ids = [item.constraint_id for item in self.eligibility_constraints]
         if len(set(constraint_ids)) != len(constraint_ids):
             raise ValueError("eligibility_constraints must not contain duplicate ids")
+        if any(not isinstance(item, CapabilityRequirement) for item in self.requirement_fit_requirements):
+            raise TypeError("requirement_fit_requirements must contain CapabilityRequirement values")
+        requirement_ids = [item.requirement_id for item in self.requirement_fit_requirements]
+        if len(set(requirement_ids)) != len(requirement_ids):
+            raise ValueError("requirement_fit_requirements must not contain duplicate ids")
 
 
 @dataclass(frozen=True)
