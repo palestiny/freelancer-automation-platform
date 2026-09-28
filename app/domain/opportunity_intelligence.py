@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from app.domain.eligibility import EligibilityConstraint
+
 
 class CriterionId(Enum):
     ELIGIBILITY = "ELIGIBILITY"
@@ -29,6 +31,7 @@ class EvaluationPolicy:
     policy_id: str
     policy_version: str
     required_criteria: tuple[CriterionId, ...]
+    eligibility_constraints: tuple[EligibilityConstraint, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -41,6 +44,16 @@ class EvaluationPolicy:
             raise TypeError("required_criteria must contain CriterionId values")
         if len(set(self.required_criteria)) != len(self.required_criteria):
             raise ValueError("required_criteria must not contain duplicates")
+        if any(
+            not isinstance(item, EligibilityConstraint)
+            for item in self.eligibility_constraints
+        ):
+            raise TypeError(
+                "eligibility_constraints must contain EligibilityConstraint values"
+            )
+        constraint_ids = [item.constraint_id for item in self.eligibility_constraints]
+        if len(set(constraint_ids)) != len(constraint_ids):
+            raise ValueError("eligibility_constraints must not contain duplicate ids")
 
 
 @dataclass(frozen=True)
