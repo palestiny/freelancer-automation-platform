@@ -142,7 +142,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-The continuous single-worker lifecycle and crash/recovery reconciliation boundaries are implemented and observable. Provider-status observation, deterministic assessment, atomic state application, and single-observation coordination are also implemented. No distributed worker, automatic restart, polling loop, or automatic re-execution semantics are implied.
+The approved Opportunity Intelligence semantic foundation is now implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. The next engineering boundary is **concrete criterion evaluators**, implemented one criterion at a time with criterion-specific semantic tests. No scoring, weighting, ranking, automatic selection, policy mutation, or autonomous execution is implied.
 
 ## Documentation Integrity Rule
 
