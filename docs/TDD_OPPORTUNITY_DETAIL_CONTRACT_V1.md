@@ -2,11 +2,11 @@
 
 ## Status
 
-**IN PROGRESS — provider-neutral contract implementation**
+**COMPLETED — provider-neutral contract implementation merged**
 
 ## Scope
 
-Implement the owner-approved semantic boundary for opportunity detail without claiming that any field is verified against a live Freelancer Sandbox payload.
+The owner-approved provider-neutral semantic boundary for opportunity detail is implemented and merged without claiming that any field is verified against a live Freelancer Sandbox payload.
 
 The implementation currently establishes:
 - provider-neutral observation fields for classification, economics, capabilities, provenance, and minimal client evidence;
@@ -21,6 +21,13 @@ The fixture under `tests/fixtures/` is explicitly synthetic and provider-neutral
 No Freelancer-specific response path is encoded in the domain/application contract.
 
 Actual Freelancer mappings remain a separate provider-validation task and require a captured response before adapter mapping tests are added.
+
+## Completion evidence
+
+- PR #452 merged by squash into `main`.
+- CI passed on head SHA `516cbae4a195b62f028b7fc05a84c3138a6b13d4` before merge.
+- Synthetic fixture remains explicitly non-provider evidence.
+- Concrete Freelancer mapping remains deferred until verified Sandbox response evidence is available.
 
 ## TDD boundary
 
