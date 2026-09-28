@@ -2,7 +2,7 @@
 
 ## Status
 
-**IN PROGRESS — implementation and hardening complete on branch; merge reconciliation pending.**
+**COMPLETED — merged into main on 2026-09-28.**
 
 ## Design reference
 
