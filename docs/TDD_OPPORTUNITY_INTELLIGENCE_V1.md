@@ -63,8 +63,6 @@ Verified before merge:
 - PR #456 merged squash to `main`;
 - merge commit: `40ce2473b09e15aa89e6ed5d7e9ada501c871249`.
 
-GitHub's status-check model requires required checks to pass on the latest PR commit; a separate workflow run on the merge commit itself is not required for an already validated, up-to-date PR. citeturn0search1
-
 ## Boundary after completion
 
 This slice establishes the generic Opportunity Intelligence evaluation contract only.
