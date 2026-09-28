@@ -1,6 +1,6 @@
 # Design Gate: Opportunity Evaluation Policy Contract V1
 
-**Status:** PROPOSED — OWNER DECISION REQUIRED
+**Status:** APPROVED — V1 policy contract committed on 2026-09-28
 
 ## Purpose
 
@@ -28,7 +28,7 @@ Overall outcomes:
 - NOT_QUALIFIED
 - REVIEW_REQUIRED
 
-The semantic dimensions are approved, but their concrete evaluation policy semantics are not yet approved.
+The semantic dimensions and the concrete V1 evaluation policy semantics were approved by the owner on 2026-09-28.
 
 ## Decision 1 — Policy shape
 
@@ -37,6 +37,12 @@ The semantic dimensions are approved, but their concrete evaluation policy seman
 | A | Fixed built-in rules | Smallest initial surface; simple deterministic implementation | Couples domain behavior to one policy; changing rules requires code changes; poor fit for different users/business contexts |
 | B | Configurable threshold/rule policy | Policy can vary without changing evaluator code; explicit configuration | Risks growing into a generic rules engine; thresholds alone do not model every criterion cleanly |
 | C | Pluggable criterion evaluators behind a stable policy contract | Separates stable evaluation contract from criterion-specific logic; supports deterministic domain evolution; policy can remain explicit and versioned | More abstraction up front; requires disciplined contracts to avoid over-engineering |
+
+### Approved Decision
+
+The owner approved **Option C — a small stable policy contract with pluggable criterion evaluators**.
+
+The owner also approved the criterion result contract, explicit missing-evidence semantics, deterministic categorical overall composition, reusable Business Economics boundary, and policy identity/versioning.
 
 ### Recommendation
 
@@ -140,15 +146,6 @@ Historical evaluation results must remain interpretable against the policy versi
 - automatic policy mutation;
 - generic arbitrary-code rules engine.
 
-## Approval required
+## Decision Record
 
-The owner must explicitly approve or modify:
-
-1. Option C as the policy shape.
-2. The criterion result contract.
-3. The missing-evidence semantics.
-4. The deterministic overall composition.
-5. The economic boundary.
-6. Policy identity/versioning.
-
-Until approved, Issue #453 remains gated and no evaluator behavior should be implemented.
+Owner approval recorded on 2026-09-28. Issue #453 may now proceed to RED/GREEN/HARDEN implementation against this contract.
