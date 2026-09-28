@@ -2,7 +2,7 @@
 
 ## Status
 
-**APPROVED — V1 semantic boundary accepted by owner on 2026-09-28.**
+**APPROVED — semantic boundary accepted and evidence/context foundation implemented and merged on 2026-09-28.**
 
 This document records the approved V1 semantic boundary for Issue #457. Concrete implementation must remain within these semantics; any semantic expansion requires a new design decision.
 
@@ -321,14 +321,14 @@ Cons:
 - automatic policy mutation;
 - autonomous execution.
 
-## 11. Proposed implementation sequence after approval
+## 11. Implementation sequence and current boundary
 
 1. Approve/revise this semantic gate.
-2. Commit the `EvaluationContext` boundary if approved.
-3. Define the minimal evidence types required by V1.
-4. RED tests for context and evidence invariants.
-5. GREEN implementation.
-6. Implement one criterion at a time with criterion-specific tests.
+2. Commit the `EvaluationContext` boundary if approved. **Completed in Issue #459 / PR #460.**
+3. Define the minimal evidence types required by V1. **Completed in Issue #459 / PR #460.**
+4. RED tests for context and evidence invariants. **Completed in PR #460.**
+5. GREEN implementation. **Completed in PR #460.**
+6. Implement one criterion at a time with criterion-specific tests. **This is the next implementation boundary.**
 7. Hardening for missing, ambiguous, stale, contradictory, and provenance-breaking evidence.
 8. Reconcile design/TDD/project-state documentation.
 9. Run CI on the PR head and verify merge readiness.
