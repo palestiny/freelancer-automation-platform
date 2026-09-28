@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from app.domain.eligibility import EligibilityConstraint
+from app.domain.estimated_effort import EffortConstraint
 from app.domain.requirement_fit import CapabilityRequirement
 
 
@@ -34,6 +35,7 @@ class EvaluationPolicy:
     required_criteria: tuple[CriterionId, ...]
     eligibility_constraints: tuple[EligibilityConstraint, ...] = ()
     requirement_fit_requirements: tuple[CapabilityRequirement, ...] = ()
+    estimated_effort_constraints: tuple[EffortConstraint, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -46,13 +48,8 @@ class EvaluationPolicy:
             raise TypeError("required_criteria must contain CriterionId values")
         if len(set(self.required_criteria)) != len(self.required_criteria):
             raise ValueError("required_criteria must not contain duplicates")
-        if any(
-            not isinstance(item, EligibilityConstraint)
-            for item in self.eligibility_constraints
-        ):
-            raise TypeError(
-                "eligibility_constraints must contain EligibilityConstraint values"
-            )
+        if any(not isinstance(item, EligibilityConstraint) for item in self.eligibility_constraints):
+            raise TypeError("eligibility_constraints must contain EligibilityConstraint values")
         constraint_ids = [item.constraint_id for item in self.eligibility_constraints]
         if len(set(constraint_ids)) != len(constraint_ids):
             raise ValueError("eligibility_constraints must not contain duplicate ids")
@@ -61,6 +58,11 @@ class EvaluationPolicy:
         requirement_ids = [item.requirement_id for item in self.requirement_fit_requirements]
         if len(set(requirement_ids)) != len(requirement_ids):
             raise ValueError("requirement_fit_requirements must not contain duplicate ids")
+        if any(not isinstance(item, EffortConstraint) for item in self.estimated_effort_constraints):
+            raise TypeError("estimated_effort_constraints must contain EffortConstraint values")
+        effort_constraint_ids = [item.constraint_id for item in self.estimated_effort_constraints]
+        if len(set(effort_constraint_ids)) != len(effort_constraint_ids):
+            raise ValueError("estimated_effort_constraints must not contain duplicate ids")
 
 
 @dataclass(frozen=True)
@@ -106,11 +108,7 @@ class OpportunityEvaluation:
     def __post_init__(self) -> None:
         if not self.criteria:
             raise ValueError("opportunity evaluation must contain criterion results")
-        if any(
-            item.policy_id != self.policy_id
-            or item.policy_version != self.policy_version
-            for item in self.criteria
-        ):
+        if any(item.policy_id != self.policy_id or item.policy_version != self.policy_version for item in self.criteria):
             raise ValueError("criterion result policy identity does not match evaluation")
         criterion_ids = [item.criterion_id for item in self.criteria]
         if len(set(criterion_ids)) != len(criterion_ids):
@@ -119,12 +117,9 @@ class OpportunityEvaluation:
             raise TypeError("overall_outcome must be an OverallOutcome")
 
 
-def compose_overall_outcome(
-    criteria: tuple[CriterionEvaluation, ...],
-) -> OverallOutcome:
+def compose_overall_outcome(criteria: tuple[CriterionEvaluation, ...]) -> OverallOutcome:
     if not criteria:
         raise ValueError("at least one criterion result is required")
-
     outcomes = {item.outcome for item in criteria}
     if CriterionOutcome.FAIL in outcomes:
         return OverallOutcome.NOT_QUALIFIED
