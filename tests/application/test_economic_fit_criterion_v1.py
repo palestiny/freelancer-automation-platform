@@ -42,7 +42,17 @@ def make_context(*evidence: Evidence, applicable=True) -> EvaluationContext:
     )
 
 
-def policy(*constraints: EconomicConstraint) -> EvaluationPolicy:
+def policy(
+    *constraints: EconomicConstraint,
+    evidence_refs: tuple[str, ...] | None = None,
+) -> EvaluationPolicy:
+    if evidence_refs is not None:
+        if constraints:
+            raise ValueError("provide constraints or evidence_refs, not both")
+        constraints = (constraint(evidence_refs=evidence_refs),)
+    elif not constraints:
+        constraints = (constraint(),)
+
     return EvaluationPolicy(
         policy_id="economic-fit-v1",
         policy_version="1",
@@ -120,7 +130,7 @@ def test_each_v1_metric_can_be_evaluated_from_matching_evidence(
             currency=currency,
         )
     )
-    threshold = value if metric != "expected_cost" else value
+    threshold = value
     operator = "MAXIMUM" if metric == "expected_cost" else "MINIMUM"
 
     result = EconomicFitEvaluator().evaluate(
