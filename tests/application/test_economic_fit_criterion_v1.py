@@ -497,3 +497,70 @@ def test_non_estimate_expected_economic_value_is_not_promoted_implicitly():
     )
 
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
+
+
+def test_constraint_rejects_unknown_metric():
+    with pytest.raises(ValueError, match="supported EconomicMetric"):
+        EconomicConstraint(
+            constraint_id="invalid-metric",
+            metric="unknown_metric",
+            operator="MINIMUM",
+            threshold=100,
+            unit="USD",
+            currency="USD",
+            evidence_refs=("economic.estimate",),
+        )
+
+
+def test_constraint_rejects_unknown_operator():
+    with pytest.raises(ValueError, match="MINIMUM or MAXIMUM"):
+        EconomicConstraint(
+            constraint_id="invalid-operator",
+            metric="expected_profit",
+            operator="EQUALS",
+            threshold=100,
+            unit="USD",
+            currency="USD",
+            evidence_refs=("economic.estimate",),
+        )
+
+
+def test_constraint_rejects_non_finite_threshold():
+    with pytest.raises(ValueError, match="finite"):
+        EconomicConstraint(
+            constraint_id="invalid-threshold",
+            metric="expected_profit",
+            operator="MINIMUM",
+            threshold=float("inf"),
+            unit="USD",
+            currency="USD",
+            evidence_refs=("economic.estimate",),
+        )
+
+
+def test_economic_fit_does_not_recompute_from_revenue_and_cost_components():
+    context = make_context(
+        economic_evidence(
+            "economic.revenue",
+            "expected_revenue",
+            250,
+            unit="USD",
+            currency="USD",
+        ),
+        economic_evidence(
+            "economic.profit",
+            "expected_profit",
+            100,
+            unit="USD",
+            currency="USD",
+        ),
+    )
+
+    result = EconomicFitEvaluator().evaluate(
+        make_opportunity(),
+        policy(evidence_refs=("economic.revenue",)),
+        context,
+    )
+
+    assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
+    assert result.evidence_refs == ("economic.revenue",)
