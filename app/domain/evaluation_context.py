@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from types import MappingProxyType
@@ -74,7 +74,7 @@ class EvaluationContext:
     subject: Opportunity
     evidence: tuple[Evidence, ...]
     evaluation_time: datetime
-    applicability: Mapping[CriterionId, CriterionApplicability] = ()
+    applicability: Mapping[CriterionId, CriterionApplicability] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not isinstance(self.subject, Opportunity):
