@@ -41,7 +41,7 @@ The applicable six dimensions remain:
 5. Client / Project Risk
 6. Success Confidence
 
-Criterion-level evidence and uncertainty are preserved. Overall outcomes are QUALIFIED, NOT_QUALIFIED, or REVIEW_REQUIRED.
+Criterion-level evidence and uncertainty are preserved. Overall outcomes are QUALIFIED, NOT_QUALIFIED, or REVIEW_REQUIRED. The obsolete parallel opportunity-evaluation semantic owner has been removed; the canonical Opportunity Intelligence contracts are the sole evaluation surface.
 
 ## Economic Model
 
