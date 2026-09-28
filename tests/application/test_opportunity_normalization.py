@@ -21,6 +21,16 @@ def test_normalizes_provider_observation_into_domain_opportunity():
         observed_at=observed_at,
         title="Build a React dashboard",
         description="Create a responsive dashboard.",
+        project_type="FIXED",
+        required_capabilities=("react", "javascript"),
+        budget_min=Decimal("100"),
+        budget_max=Decimal("250"),
+        budget_currency="USD",
+        pricing_model="FIXED",
+        status="OPEN",
+        source_url="https://example.test/opportunity/123",
+        client_external_id="client-9",
+        client_country="EG",
     )
 
     result = normalize_opportunity_observation(observation)
