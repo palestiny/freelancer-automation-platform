@@ -322,3 +322,67 @@ def test_requirement_rejects_duplicate_evidence_references():
         assert "duplicates" in str(exc)
     else:
         raise AssertionError("duplicate evidence references must be rejected")
+
+
+def test_unsupported_capability_assertion_returns_insufficient_data():
+    context = make_context(
+        capability_evidence(
+            "cap-react",
+            "react",
+            compatibility="UNKNOWN",
+        ),
+    )
+
+    result = RequirementFitEvaluator().evaluate(
+        make_opportunity(),
+        policy(requirement("req-react", "react", "cap-react")),
+        context,
+    )
+
+    assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
+
+
+def test_policy_rejects_duplicate_requirement_ids():
+    try:
+        policy(
+            requirement("duplicate", "react", "cap-react"),
+            requirement("duplicate", "typescript", "cap-typescript"),
+        )
+    except ValueError as exc:
+        assert "duplicate ids" in str(exc)
+    else:
+        raise AssertionError("duplicate requirement ids must be rejected")
+
+
+def test_capability_identity_mismatch_is_not_treated_as_support():
+    context = make_context(
+        capability_evidence("cap-react", "vue"),
+    )
+
+    result = RequirementFitEvaluator().evaluate(
+        make_opportunity(),
+        policy(requirement("req-react", "react", "cap-react")),
+        context,
+    )
+
+    assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
+
+
+def test_supported_evidence_alone_cannot_cancel_incompatible_evidence():
+    context = make_context(
+        capability_evidence("cap-supported", "react", compatibility="SUPPORTED"),
+        capability_evidence("cap-incompatible", "react", compatibility="INCOMPATIBLE"),
+    )
+
+    result = RequirementFitEvaluator().evaluate(
+        make_opportunity(),
+        policy(requirement(
+            "req-react",
+            "react",
+            "cap-supported",
+            "cap-incompatible",
+        )),
+        context,
+    )
+
+    assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
