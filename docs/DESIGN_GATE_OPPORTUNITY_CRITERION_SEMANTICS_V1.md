@@ -2,9 +2,9 @@
 
 ## Status
 
-**PROPOSED — design review required. No criterion-specific evaluator implementation is authorized by this document.**
+**APPROVED — V1 semantic boundary accepted by owner on 2026-09-28.**
 
-This document resolves the next design questions for Issue #457. It intentionally proposes semantics and architecture; owner approval is required before these become committed behavior.
+This document records the approved V1 semantic boundary for Issue #457. Concrete implementation must remain within these semantics; any semantic expansion requires a new design decision.
 
 ## 1. Design objective
 
