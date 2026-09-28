@@ -1,6 +1,6 @@
 # TDD: Estimated Effort Criterion V1
 
-**Status: IMPLEMENTATION IN PROGRESS — GREEN/HARDEN committed; CI verification pending.**
+**Status: COMPLETED — merged into main on 2026-09-28.**
 
 ## Approved boundary
 
@@ -49,11 +49,15 @@ The evaluator is provider-independent and deterministic. It validates evidence q
 
 ## Verification
 
-Latest implementation commits are on `feat/estimated-effort-criterion-v1`. CI verification must pass on the latest head before merge. GitHub requires required checks to pass against the latest commit SHA.
+Latest implementation head: `541696453ffbd4cce70dcb273e9795efaa8fc7e1`.
+
+GitHub Actions CI run #1416 completed successfully on that exact head, with the `pytest` job successful.
+
+## Merge
+
+PR #471 was merged squash into `main` after latest-head CI verification.
 
 ## Completion criteria
-
-This slice is not complete until:
 
 **RED → GREEN → HARDEN → DOCUMENT → CI success → MERGE → project-state reconciliation**
 
