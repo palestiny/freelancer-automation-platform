@@ -41,9 +41,7 @@ def make_context(*evidence: Evidence, applicable=True) -> EvaluationContext:
     )
 
 
-def policy(
-    *constraints: EffortConstraint,
-) -> EvaluationPolicy:
+def policy(*constraints: EffortConstraint) -> EvaluationPolicy:
     return EvaluationPolicy(
         policy_id="estimated-effort-v1",
         policy_version="1",
@@ -65,11 +63,7 @@ def effort_evidence(
     return Evidence(
         evidence_id=evidence_id,
         kind=kind,
-        value={
-            "value": value,
-            "unit": unit,
-            "scope_refs": scope_refs,
-        },
+        value={"value": value, "unit": unit, "scope_refs": scope_refs},
         provenance="synthetic:test",
         observed_at=datetime(2026, 9, 28, 11, tzinfo=timezone.utc),
         quality=quality,
@@ -96,181 +90,85 @@ def constraint(
 
 def test_usable_estimate_within_explicit_policy_constraint_returns_pass():
     context = make_context(effort_evidence("effort.estimate", 20))
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.PASS
     assert result.evidence_refs == ("effort.estimate",)
 
 
 def test_explicit_effort_constraint_violation_returns_fail():
     context = make_context(effort_evidence("effort.estimate", 50))
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint(maximum_value=40)),
-        context,
-    )
-
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.FAIL
 
 
 def test_missing_required_effort_evidence_returns_insufficient_data():
-    context = make_context()
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), make_context())
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
     assert result.missing_evidence == ("effort.estimate",)
 
 
 def test_missing_scope_does_not_allow_estimate_to_pass():
-    context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            scope_refs=(),
-        ),
-    )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    context = make_context(effort_evidence("effort.estimate", 20, scope_refs=()))
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_ambiguous_estimate_returns_insufficient_data():
-    context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            quality=EvidenceQuality.PRESENT_BUT_AMBIGUOUS,
-        ),
-    )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    context = make_context(effort_evidence("effort.estimate", 20, quality=EvidenceQuality.PRESENT_BUT_AMBIGUOUS))
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_stale_estimate_returns_insufficient_data():
-    context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            quality=EvidenceQuality.PRESENT_BUT_STALE,
-        ),
-    )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    context = make_context(effort_evidence("effort.estimate", 20, quality=EvidenceQuality.PRESENT_BUT_STALE))
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_low_quality_estimate_returns_insufficient_data():
-    context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            quality=EvidenceQuality.PRESENT_BUT_LOW_QUALITY,
-        ),
-    )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    context = make_context(effort_evidence("effort.estimate", 20, quality=EvidenceQuality.PRESENT_BUT_LOW_QUALITY))
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_conflicting_usable_estimates_without_policy_precedence_return_insufficient_data():
-    context = make_context(
-        effort_evidence("effort-a", 20),
-        effort_evidence("effort-b", 50),
-    )
-
+    context = make_context(effort_evidence("effort-a", 20), effort_evidence("effort-b", 50))
     result = EstimatedEffortEvaluator().evaluate(
         make_opportunity(),
-        policy(
-            constraint(
-                evidence_refs=("effort-a", "effort-b"),
-            )
-        ),
+        policy(constraint(evidence_refs=("effort-a", "effort-b"))),
         context,
     )
-
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
     assert result.evidence_refs == ("effort-a", "effort-b")
 
 
 def test_assumption_is_not_treated_as_effort_estimate():
-    context = make_context(
-        effort_evidence(
-            "effort.assumption",
-            20,
-            kind=EvidenceKind.ASSUMPTION,
-        ),
-    )
-
+    context = make_context(effort_evidence("effort.assumption", 20, kind=EvidenceKind.ASSUMPTION))
     result = EstimatedEffortEvaluator().evaluate(
         make_opportunity(),
         policy(constraint(evidence_refs=("effort.assumption",))),
         context,
     )
-
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_uncertainty_is_preserved_and_not_converted_to_a_score():
     context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            uncertainty=("requirements ambiguity",),
-        ),
+        effort_evidence("effort.estimate", 20, uncertainty=("requirements ambiguity",))
     )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
-    assert result.uncertainty == ()
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
+    assert result.outcome is CriterionOutcome.PASS
+    assert result.uncertainty == ("requirements ambiguity",)
     assert not hasattr(result, "score")
     assert not hasattr(result, "confidence")
 
 
 def test_not_applicable_requires_explicit_context():
-    context = make_context(applicable=False)
-
     result = EstimatedEffortEvaluator().evaluate(
         make_opportunity(),
         policy(constraint()),
-        context,
+        make_context(applicable=False),
     )
-
     assert result.outcome is CriterionOutcome.NOT_APPLICABLE
 
 
@@ -286,31 +184,15 @@ def test_estimated_effort_does_not_infer_from_opportunity_fields():
         evidence=(),
         evaluation_time=datetime(2026, 9, 28, 12, tzinfo=timezone.utc),
     )
-
-    result = EstimatedEffortEvaluator().evaluate(
-        opportunity,
-        policy(constraint()),
-        context,
-    )
-
+    result = EstimatedEffortEvaluator().evaluate(opportunity, policy(constraint()), context)
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
 def test_estimate_unit_mismatch_is_not_silently_converted():
-    context = make_context(
-        effort_evidence(
-            "effort.estimate",
-            20,
-            unit="DAYS",
-        ),
-    )
-
+    context = make_context(effort_evidence("effort.estimate", 20, unit="DAYS"))
     result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint(unit="HOURS")),
-        context,
+        make_opportunity(), policy(constraint(unit="HOURS")), context
     )
-
     assert result.outcome is CriterionOutcome.INSUFFICIENT_DATA
 
 
@@ -322,13 +204,8 @@ def test_context_for_different_opportunity_is_rejected():
         title="Different opportunity",
         description="Different description.",
     )
-
     try:
-        EstimatedEffortEvaluator().evaluate(
-            other,
-            policy(constraint()),
-            context,
-        )
+        EstimatedEffortEvaluator().evaluate(other, policy(constraint()), context)
     except ValueError as exc:
         assert "subject" in str(exc)
     else:
@@ -337,12 +214,6 @@ def test_context_for_different_opportunity_is_rejected():
 
 def test_policy_identity_is_preserved():
     context = make_context(effort_evidence("effort.estimate", 20))
-
-    result = EstimatedEffortEvaluator().evaluate(
-        make_opportunity(),
-        policy(constraint()),
-        context,
-    )
-
+    result = EstimatedEffortEvaluator().evaluate(make_opportunity(), policy(constraint()), context)
     assert result.policy_id == "estimated-effort-v1"
     assert result.policy_version == "1"
