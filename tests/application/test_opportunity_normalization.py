@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from decimal import Decimal
 
 import pytest
 
@@ -29,6 +30,16 @@ def test_normalizes_provider_observation_into_domain_opportunity():
         source_opportunity_id="123",
         title="Build a React dashboard",
         description="Create a responsive dashboard.",
+        project_type="FIXED",
+        required_capabilities=frozenset({"react", "javascript"}),
+        budget_min=Decimal("100"),
+        budget_max=Decimal("250"),
+        budget_currency="USD",
+        pricing_model="FIXED",
+        status="OPEN",
+        source_url="https://example.test/opportunity/123",
+        client_external_id="client-9",
+        client_country="EG",
         opportunity_type=OpportunityType.FREELANCE,
     )
 
