@@ -142,7 +142,7 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-The approved Opportunity Intelligence semantic foundation is implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. **Eligibility V1, Requirement Fit V1, and Estimated Effort V1 are implemented and merged**, using explicit policy-defined constraints/requirements and deterministic evidence-based evaluation. The next engineering boundary is **Economic Fit**, which requires its own semantic design gate before implementation. No scoring, weighting, ranking, automatic selection, policy mutation, or autonomous execution is implied.
+The Opportunity Intelligence semantic foundation is implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. **Eligibility V1, Requirement Fit V1, and Estimated Effort V1 are implemented and merged. Economic Fit V1 semantic design is now approved and merged; its implementation has not started.** The next engineering increment is the **Economic Fit V1 RED/TDD implementation**, using explicit policy-defined economic constraints and deterministic evidence-based evaluation. No scoring, weighting, ranking, automatic selection, policy mutation, or autonomous execution is implied.
 
 ## Documentation Integrity Rule
 
@@ -155,7 +155,6 @@ A meaningful increment is complete only after applicable design, RED/GREEN TDD, 
 ## Canonical Current-State Rule
 
 This document intentionally contains one current-state summary. Historical slices, duplicate reconciliation notes, and implementation chronology belong in the decision log and dedicated design gates.
-
 
 ## Performance Evidence Decision Support
 
