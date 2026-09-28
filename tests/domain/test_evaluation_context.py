@@ -95,8 +95,35 @@ def test_evaluation_context_is_immutable_snapshot():
         is CriterionApplicability.APPLICABLE
     )
 
+    with pytest.raises(TypeError):
+        context.applicability[CriterionId.ELIGIBILITY] = (
+            CriterionApplicability.NOT_APPLICABLE
+        )
+
     with pytest.raises((AttributeError, TypeError)):
         context.evaluation_time = datetime.now(timezone.utc)
+
+
+def test_evaluation_context_rejects_unknown_derivation_reference():
+    derived = make_evidence(
+        evidence_id="derived-001",
+        derivation_refs=("missing-source",),
+    )
+
+    with pytest.raises(ValueError, match="derivation"):
+        EvaluationContext(
+            subject=make_opportunity(),
+            evidence=(derived,),
+            evaluation_time=datetime(2026, 9, 28, 12, 30, tzinfo=timezone.utc),
+        )
+
+
+def test_evidence_rejects_self_referential_lineage():
+    with pytest.raises(ValueError, match="derivation_refs"):
+        make_evidence(
+            evidence_id="self-derived",
+            derivation_refs=("self-derived",),
+        )
 
 
 def test_evaluation_context_rejects_duplicate_evidence_identity():
