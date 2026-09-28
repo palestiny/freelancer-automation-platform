@@ -108,7 +108,10 @@ class EstimatedEffortEvaluator:
                     constraint_uncertain = True
                     continue
 
-                estimates.append((estimate_value, tuple(scope_refs), evidence.uncertainty))
+                if evidence.uncertainty:
+                    uncertainty.extend(evidence.uncertainty)
+
+                estimates.append((estimate_value, tuple(scope_refs)))
 
             if len({item[0] for item in estimates}) > 1:
                 has_uncertainty = True
@@ -140,7 +143,7 @@ class EstimatedEffortEvaluator:
             outcome,
             evidence_refs=tuple(evidence_refs),
             missing_evidence=tuple(dict.fromkeys(missing_evidence)),
-            uncertainty=tuple(uncertainty),
+            uncertainty=tuple(dict.fromkeys(uncertainty)),
         )
 
     @staticmethod
