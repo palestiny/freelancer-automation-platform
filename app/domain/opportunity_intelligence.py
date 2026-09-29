@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from app.domain.client_project_risk import RiskConstraint
 from app.domain.eligibility import EligibilityConstraint
 from app.domain.estimated_effort import EffortConstraint
 from app.domain.economic_fit import EconomicConstraint
@@ -38,6 +39,7 @@ class EvaluationPolicy:
     requirement_fit_requirements: tuple[CapabilityRequirement, ...] = ()
     estimated_effort_constraints: tuple[EffortConstraint, ...] = ()
     economic_fit_constraints: tuple[EconomicConstraint, ...] = ()
+    client_project_risk_constraints: tuple[RiskConstraint, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -78,6 +80,20 @@ class EvaluationPolicy:
         if len(set(economic_constraint_ids)) != len(economic_constraint_ids):
             raise ValueError(
                 "economic_fit_constraints must not contain duplicate ids"
+            )
+        if any(
+            not isinstance(item, RiskConstraint)
+            for item in self.client_project_risk_constraints
+        ):
+            raise TypeError(
+                "client_project_risk_constraints must contain RiskConstraint values"
+            )
+        risk_constraint_ids = [
+            item.constraint_id for item in self.client_project_risk_constraints
+        ]
+        if len(set(risk_constraint_ids)) != len(risk_constraint_ids):
+            raise ValueError(
+                "client_project_risk_constraints must not contain duplicate ids"
             )
 
 
