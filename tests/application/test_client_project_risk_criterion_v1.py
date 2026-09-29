@@ -421,7 +421,9 @@ def test_derived_risk_evidence_requires_lineage_and_explicit_kind():
     )
 
     result = ClientProjectRiskEvaluator().evaluate(
-        make_opportunity(), policy(), context
+        make_opportunity(),
+        policy(constraint(evidence_refs=("risk.derived",))),
+        context,
     )
 
     assert result.outcome is CriterionOutcome.PASS
