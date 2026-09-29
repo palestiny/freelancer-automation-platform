@@ -2,7 +2,7 @@
 
 ## Status
 
-**IMPLEMENTED — TDD completion pending final CI/merge verification.**
+**COMPLETED — implementation, hardening, CI, and merge gate ready.**
 
 Design authority: Issue #478 / `docs/DESIGN_GATE_CLIENT_PROJECT_RISK_CRITERION_V1.md`.
 
