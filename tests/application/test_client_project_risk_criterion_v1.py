@@ -463,3 +463,40 @@ def test_risk_constraint_rejects_unknown_scope():
             expected_values=("STABLE",),
             evidence_refs=("risk.evidence",),
         )
+
+
+def test_no_risk_constraints_returns_not_applicable():
+    context = make_context()
+    empty_policy = EvaluationPolicy(
+        policy_id="client-project-risk-v1",
+        policy_version="1",
+        required_criteria=(CriterionId.CLIENT_PROJECT_RISK,),
+        client_project_risk_constraints=(),
+    )
+
+    result = ClientProjectRiskEvaluator().evaluate(
+        make_opportunity(), empty_policy, context
+    )
+
+    assert result.outcome is CriterionOutcome.NOT_APPLICABLE
+
+
+def test_identical_snapshot_is_deterministic():
+    context = make_context(
+        evidence(
+            "risk.evidence",
+            scope=RiskScope.PROJECT,
+            signal="scope_stability",
+            value="STABLE",
+        )
+    )
+    selected_policy = policy()
+
+    first = ClientProjectRiskEvaluator().evaluate(
+        make_opportunity(), selected_policy, context
+    )
+    second = ClientProjectRiskEvaluator().evaluate(
+        make_opportunity(), selected_policy, context
+    )
+
+    assert first == second
