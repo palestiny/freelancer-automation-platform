@@ -2,7 +2,7 @@
 
 ## Status
 
-**IN PROGRESS — RED verified; GREEN implementation added; final CI/hardening pending.**
+**COMPLETION-READY — RED/GREEN/HARDEN and PR-head CI verified; merge pending.**
 
 Design authority: Issue #482 / `docs/DESIGN_GATE_SUCCESS_CONFIDENCE_CRITERION_V1.md`.
 
@@ -73,7 +73,7 @@ No numeric confidence, score, probability, ranking, prediction, AI invocation, h
 
 ## HARDEN
 
-Hardening must verify:
+Hardening verification covers:
 
 - deterministic repeatability;
 - all scope boundaries;
@@ -87,6 +87,8 @@ Hardening must verify:
 - subject identity validation;
 - non-applicability semantics;
 - no numeric confidence surface.
+
+The final PR-head CI run passed with **997 tests**.
 
 ## CI Gate
 
