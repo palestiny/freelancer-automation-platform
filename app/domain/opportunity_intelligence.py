@@ -6,6 +6,7 @@ from app.domain.eligibility import EligibilityConstraint
 from app.domain.estimated_effort import EffortConstraint
 from app.domain.economic_fit import EconomicConstraint
 from app.domain.requirement_fit import CapabilityRequirement
+from app.domain.success_confidence import SuccessCondition
 
 
 class CriterionId(Enum):
@@ -40,6 +41,7 @@ class EvaluationPolicy:
     estimated_effort_constraints: tuple[EffortConstraint, ...] = ()
     economic_fit_constraints: tuple[EconomicConstraint, ...] = ()
     client_project_risk_constraints: tuple[RiskConstraint, ...] = ()
+    success_confidence_conditions: tuple[SuccessCondition, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.policy_id.strip():
@@ -94,6 +96,20 @@ class EvaluationPolicy:
         if len(set(risk_constraint_ids)) != len(risk_constraint_ids):
             raise ValueError(
                 "client_project_risk_constraints must not contain duplicate ids"
+            )
+        if any(
+            not isinstance(item, SuccessCondition)
+            for item in self.success_confidence_conditions
+        ):
+            raise TypeError(
+                "success_confidence_conditions must contain SuccessCondition values"
+            )
+        condition_ids = [
+            item.condition_id for item in self.success_confidence_conditions
+        ]
+        if len(set(condition_ids)) != len(condition_ids):
+            raise ValueError(
+                "success_confidence_conditions must not contain duplicate ids"
             )
 
 
