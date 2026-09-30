@@ -2,11 +2,11 @@
 
 ## Status
 
-**DESIGN PROPOSED — owner approval required before TDD/implementation.**
+**APPROVED — semantic boundary accepted on 2026-09-30.**
 
 Issue #482 records the approved high-level direction: **Option B — Evidence Sufficiency**.
 
-This document turns that direction into a concrete provider-independent semantic contract. It does not authorize implementation until the owner approves the remaining design decisions.
+This document turns that direction into the concrete provider-independent semantic contract. Owner approval is recorded on Issue #482. TDD/implementation may now proceed only within the boundary defined here.
 
 ## Purpose
 
@@ -331,21 +331,21 @@ It gives “Success Confidence” a concrete domain meaning without pretending e
 
 Model confidence is not automatically domain evidence and would create an alternative semantic owner outside the versioned evidence/policy model.
 
-## Remaining Owner Decisions Before TDD
+## Approved V1 Decisions
 
-The following concrete decisions are proposed for approval:
+The owner approved the following concrete decisions on Issue #482:
 
-1. `condition_id + scope + signal + expected_values + evidence_refs` as the condition contract.
-2. Scopes: `DELIVERY`, `REQUIREMENT`, `DEADLINE`, `DEPENDENCY`, `ACCEPTANCE`.
-3. `ALLOWED_VALUES` only in V1.
-4. Allowed evidence kinds: `FACT`, `OBSERVATION`, `ESTIMATE`, `EXPERIMENT_RESULT`.
+1. `condition_id + scope + signal + expected_values + evidence_refs` is the condition contract.
+2. Scopes are `DELIVERY`, `REQUIREMENT`, `DEADLINE`, `DEPENDENCY`, and `ACCEPTANCE`.
+3. `ALLOWED_VALUES` is the only V1 operator.
+4. Allowed evidence kinds are `FACT`, `OBSERVATION`, `ESTIMATE`, and `EXPERIMENT_RESULT`.
 5. `ASSUMPTION`, `HYPOTHESIS`, and `FORECAST` do not establish PASS.
-6. No contradiction precedence in V1; conflicting usable values → `INSUFFICIENT_DATA`.
+6. V1 has no contradiction precedence; conflicting usable values produce `INSUFFICIENT_DATA`.
 7. Criterion outcomes are not evidence.
 8. Derived evidence is allowed only when explicitly represented with lineage before evaluation.
-9. No hidden deadline/effort/economic/risk calculations.
-10. Empty condition set → `NOT_APPLICABLE`, consistent with existing criteria.
-11. No numeric confidence, probability, score, ranking, weighting, prediction, or autonomous execution.
+9. Success Confidence performs no hidden deadline, effort, economic, or risk calculations.
+10. Empty condition set produces `NOT_APPLICABLE`, consistent with the existing criterion pattern.
+11. V1 introduces no numeric confidence, probability, score, ranking, weighting, prediction, or autonomous execution.
 
 ## Proposed TDD Boundary
 
@@ -376,5 +376,6 @@ Provider integration, AI integration, statistical modeling, ranking, and executi
 - empty-condition behavior is explicit;
 - no numeric confidence/probability semantics exist;
 - owner approval is recorded on Issue #482.
+- TDD issue is created as the next implementation slice.
 
-Only after these conditions are approved should the TDD issue and RED tests be created.
+Implementation remains limited to the approved TDD boundary.
