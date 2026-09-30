@@ -2,7 +2,7 @@
 
 ## Status
 
-**COMPLETION-READY — RED/GREEN/HARDEN and PR-head CI verified; merge pending.**
+**COMPLETED — RED/GREEN/HARDEN, CI, merge, and main verification completed on 2026-09-30.**
 
 Design authority: Issue #482 / `docs/DESIGN_GATE_SUCCESS_CONFIDENCE_CRITERION_V1.md`.
 
@@ -100,6 +100,8 @@ After final CI success and merge:
 - close Issue #484 as completed;
 - update `docs/PROJECT_STATE.md`;
 - verify `main` contains the canonical Success Confidence implementation and no duplicate semantic owner.
+
+Completion verification: PR #485 merged as `f967b93f8b2b27e381107ad200f6b967ce136360`; final PR-head pytest passed with 997 tests.
 
 ## Non-goals
 
