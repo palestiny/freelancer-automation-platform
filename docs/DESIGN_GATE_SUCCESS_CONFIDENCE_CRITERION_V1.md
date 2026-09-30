@@ -2,99 +2,139 @@
 
 ## Status
 
-**DESIGN COMPLETE — owner approval required before TDD.**
+**DESIGN PROPOSED — owner approval required before TDD/implementation.**
 
 Issue #482 records the approved high-level direction: **Option B — Evidence Sufficiency**.
 
+This document turns that direction into a concrete provider-independent semantic contract. It does not authorize implementation until the owner approves the remaining design decisions.
+
 ## Purpose
 
-Success Confidence V1 determines whether available evidence is sufficient to establish explicitly defined success conditions for an opportunity under a selected evaluation policy and immutable evidence snapshot.
+Success Confidence V1 determines whether the immutable evidence snapshot is sufficient to establish explicit success conditions under a versioned evaluation policy.
 
-Despite its name, V1 does **not** calculate a confidence percentage, probability, score, or prediction.
+The word **confidence** is retained as the criterion name, but V1 does **not** assign a numeric confidence value, probability, model score, or prediction.
 
-The semantic pipeline is:
+Semantic question:
 
-`explicit success conditions → evidence requirements → immutable EvaluationContext → deterministic sufficiency evaluation → CriterionEvaluation`
+> Does the available evidence establish that the policy-defined success conditions are satisfied?
 
-It answers: “Do we have sufficient admissible evidence to establish the policy-defined success conditions?” It does not answer: “What is the probability that this opportunity will succeed?”
+The answer is categorical:
 
-## Ownership Boundary
+- `PASS`
+- `FAIL`
+- `INSUFFICIENT_DATA`
+- `NOT_APPLICABLE`
 
-**Evidence / EvaluationContext** owns normalized evidence identity, provenance, quality, timing, derivation lineage, and uncertainty.
+## Semantic Boundary
 
-**Success Confidence** owns interpretation of explicit success conditions under a versioned policy.
+`External observations → normalized evidence → immutable EvaluationContext → Success Policy → deterministic Success Evaluation → CriterionEvaluation`
 
-**Business Economics** owns economic calculations. Success Confidence does not recreate them.
+Success Confidence consumes evidence already present in `EvaluationContext`.
 
-**Experiment / learning domains** own historical experiment observation and statistical analysis. Success Confidence may consume explicitly represented experiment-result evidence but does not perform statistical inference.
+It does not:
+- fetch provider data;
+- inspect mutable provider objects;
+- calculate effort, economics, risk, or capability compatibility;
+- generate hidden evidence;
+- invoke an AI model;
+- predict future success;
+- mutate policy;
+- authorize or execute an opportunity.
 
-**AI providers** may produce evidence through the normal evidence pipeline, but an AI assertion is not evidence merely because AI produced it.
+## Ownership Boundaries
+
+**External adapters** own provider-specific observations and transport semantics.
+
+**Evidence / EvaluationContext** owns:
+- evidence identity;
+- provenance;
+- quality;
+- observation time;
+- derivation lineage;
+- uncertainty.
+
+**Existing specialized criteria** retain their semantic ownership:
+- Eligibility owns eligibility constraints.
+- Requirement Fit owns exact capability compatibility.
+- Estimated Effort owns effort estimates and effort constraints.
+- Economic Fit owns economic calculations/constraints.
+- Client / Project Risk owns risk constraints.
+
+**Success Confidence** owns only the interpretation of explicit success conditions.
+
+It may consume specialized outputs only when they are represented as explicit evidence under the existing evidence model and explicitly permitted by policy. A criterion outcome itself is never automatically evidence.
 
 ## V1 Success-Condition Model
 
-V1 introduces an explicit policy-side success-condition contract. Each condition identifies:
+V1 uses explicit success-condition constraints rather than a generalized expression language or numeric scoring system.
+
+Each condition identifies:
 
 - stable `condition_id`;
-- stable success signal identity;
-- deterministic comparison/operator semantics;
-- expected/allowed value(s);
-- explicit evidence references.
+- explicit semantic scope;
+- signal identity;
+- expected/allowed state values;
+- evidence references.
 
-V1 deliberately keeps the operator vocabulary small. The initial operator is:
+### Success Condition Scopes
 
-- `ALLOWED_VALUES` — evidence value must be one of the explicitly permitted values.
+V1 uses explicit scopes to prevent semantic ambiguity:
 
-Future threshold/range operators require a separate design decision.
+- `DELIVERY`
+- `REQUIREMENT`
+- `DEADLINE`
+- `DEPENDENCY`
+- `ACCEPTANCE`
 
-## Success Signal Scope
+Historical/experimental evidence is **not** a separate scope. It is an evidence-kind/provenance characteristic that may support a condition when policy explicitly permits it.
 
-V1 does not define one universal success formula.
+### Operator vocabulary
 
-A policy may explicitly require evidence for signals such as:
+V1 exposes only:
 
-- requirement completion / acceptance state;
-- delivery feasibility state;
-- deadline feasibility state;
-- dependency or blocker resolution state;
-- explicit client/project acceptance condition;
-- relevant historical or experiment outcome state.
+`ALLOWED_VALUES`
 
-These are admissible semantic examples, not mandatory fields on every opportunity.
+Evidence value must be one of the explicitly permitted values.
+
+Numeric thresholds/ranges remain owned by specialized criteria such as Estimated Effort and Economic Fit. Success Confidence consumes an explicit categorical feasibility/state result instead of independently recomputing it.
+
+A generalized boolean/expression language is out of scope.
 
 ## Evidence Contract
 
-Success evidence must already exist in immutable `EvaluationContext` before evaluation and preserve:
+Success-condition evidence must exist in immutable `EvaluationContext` and preserve:
 
 - stable evidence identity;
-- signal identity and applicable scope in the value contract;
-- `EvidenceKind`;
+- semantic value;
 - provenance;
-- observed/derived time where applicable;
+- `EvidenceKind`;
 - quality;
+- observed/derived time where applicable;
 - derivation references;
 - uncertainty.
 
 The evaluator must not create hidden evidence.
 
-### Admissible Evidence Kinds
+### Evidence kinds allowed to establish V1 success conditions
 
-V1 may establish success conditions from:
+The evaluator may use:
 
-- `FACT`;
-- `OBSERVATION`;
-- `ESTIMATE`, only when policy explicitly defines the condition in terms of an estimate/feasibility state;
-- `EXPERIMENT_RESULT`, when explicitly represented as evidence relevant to the condition.
+- `FACT`
+- `OBSERVATION`
+- `ESTIMATE`
+- `EXPERIMENT_RESULT`
 
-These do not establish a V1 success condition by themselves:
+The following do not establish V1 success conditions:
 
-- `ASSUMPTION`;
-- `HYPOTHESIS`;
-- `FORECAST`;
-- unsupported AI assertions.
+- `ASSUMPTION`
+- `HYPOTHESIS`
+- `FORECAST`
 
-The evaluator must not silently promote one evidence kind into another.
+An AI-generated assertion is not evidence merely because an AI system produced it.
 
-## Evidence Quality
+If a future policy permits another evidence kind, that is a new semantic decision and must preserve provenance, quality, lineage, uncertainty, and policy identity.
+
+### Evidence quality
 
 For required evidence:
 
@@ -106,65 +146,131 @@ For required evidence:
 
 Evidence quality is not itself a success outcome.
 
-## Contradictory Evidence
+## Condition Evaluation Semantics
 
-If multiple usable evidence items referenced by the same condition establish incompatible values and policy defines no explicit precedence:
+For each required condition:
 
-**→ `INSUFFICIENT_DATA`**
-
-Do not resolve contradictions by source reputation, recency alone, AI confidence, hidden provider preference, or arbitrary ordering.
-
-Any future precedence rule must be explicit and versioned.
-
-## Condition and Criterion Outcomes
-
-For each applicable required condition:
-
-1. Explicit unacceptable/violating evidence with no unresolved required evidence → violated.
-2. Any unresolved required evidence → unresolved.
-3. All required evidence establishes the expected success state → satisfied.
+1. Resolve only evidence explicitly referenced by the condition.
+2. Evidence must match the condition's scope and signal identity.
+3. Referenced evidence must exist in the immutable context.
+4. Evidence must have an allowed kind.
+5. Evidence must be `PRESENT_AND_USABLE`.
+6. Evidence value must establish one of the condition's expected values.
+7. Multiple incompatible usable values without explicit precedence produce unresolved evidence.
 
 At criterion level:
 
-- explicit violation with no unresolved required evidence → `FAIL`;
-- violation plus unresolved required evidence → `INSUFFICIENT_DATA`;
-- no violation but unresolved required evidence → `INSUFFICIENT_DATA`;
-- all required conditions satisfied → `PASS`;
-- explicit policy/context non-applicability → `NOT_APPLICABLE`.
+1. Explicit violation with no unresolved required evidence → **FAIL**.
+2. Violation plus unresolved required evidence → **INSUFFICIENT_DATA**.
+3. No violation but unresolved required evidence → **INSUFFICIENT_DATA**.
+4. All required conditions satisfied → **PASS**.
+5. Explicit policy/context non-applicability → **NOT_APPLICABLE**.
 
-“Not proven” is not silently treated as “failed”.
+Conservative rule:
 
-### Missing Evidence
+> Unresolved required evidence never becomes PASS through inference.
 
-Missing required evidence means `INSUFFICIENT_DATA`, not failure.
+Missing evidence is insufficient data, not failure.
 
-Example: if policy requires `deadline_feasibility = FEASIBLE` and no such evidence exists, the result is `INSUFFICIENT_DATA`.
+## Contradictory Evidence
 
-### Violation Plus Unresolved Evidence
+If multiple usable evidence items for the same condition establish incompatible states and no explicit precedence rule exists:
 
-If one usable evidence item establishes a violation but another required referenced evidence item is unresolved, the result is `INSUFFICIENT_DATA`.
+**→ `INSUFFICIENT_DATA`**
 
-## Cross-Criterion Isolation
+The evaluator must not resolve contradictions using:
+- recency alone;
+- source popularity;
+- implicit provider trust;
+- AI confidence;
+- hidden heuristics.
 
-A criterion outcome is not automatically evidence for Success Confidence.
+V1 has no precedence mechanism.
 
-- Eligibility = PASS does not prove successful delivery.
-- Requirement Fit = PASS does not prove acceptance.
-- Estimated Effort = PASS does not prove deadline feasibility.
-- Economic Fit = PASS does not prove client acceptance.
-- Client / Project Risk = PASS does not prove successful completion.
+If precedence is introduced later, it must be explicit and versioned as part of the policy contract.
+
+## Scope / Signal Isolation
+
+Success Confidence must not infer success from unrelated fields.
+
+Examples:
+
+- A populated `Opportunity.required_capabilities` does not prove requirement completion.
+- Requirement Fit = `PASS` does not automatically prove delivery success.
+- Estimated Effort = `PASS` does not automatically prove deadline success.
+- Economic Fit = `PASS` does not prove client acceptance.
+- Client / Project Risk = `PASS` does not prove successful completion.
 
 If future policy needs cross-criterion information, it must first be represented as explicit derived evidence with its own identity, derivation references, kind, provenance, quality, uncertainty, and policy permission.
 
 No circular derivation is permitted. Success Confidence cannot consume evidence whose derivation ultimately depends on the Success Confidence result being evaluated.
 
-## Historical and Experiment Evidence
+## Derived Evidence
 
-Historical or experiment evidence may support a success condition only when already represented as explicit evidence with provenance and an applicable `EvidenceKind`.
+V1 permits derived evidence when it is explicitly represented in `EvaluationContext` before evaluation.
 
-Success Confidence does not calculate historical success rates, estimate probabilities, perform statistical tests, extrapolate sample results, or generalize a historical result without an explicit evidence contract.
+A derived success-condition signal must:
+- have its own evidence identity;
+- reference source evidence through `derivation_refs`;
+- preserve uncertainty;
+- carry explicit evidence kind and quality;
+- be permitted by the selected policy.
 
-An `EXPERIMENT_RESULT` is an evidence input, not an automatic probability of future success.
+The evaluator must never manufacture hidden derived evidence.
+
+## Temporal Semantics
+
+`observed_at` is provenance metadata, not an implicit freshness algorithm.
+
+V1 does not infer freshness or validity from timestamps alone.
+
+If evidence is stale, that state must be represented through `EvidenceQuality.PRESENT_BUT_STALE` or an explicitly modeled future evidence policy.
+
+The evaluator must not silently prefer the newest source.
+
+## Deadline and Delivery Semantics
+
+Success Confidence does not calculate deadline feasibility.
+
+For example, a condition may expect:
+
+- `WITHIN_DEADLINE`
+- `DELIVERABLE`
+- `BLOCKERS_RESOLVED`
+
+Those states must come from explicit evidence.
+
+If a separate component calculates deadline feasibility, that calculation belongs to its own semantic owner. The resulting value can enter `EvaluationContext` as `ESTIMATE` or another explicitly appropriate evidence kind with provenance and lineage.
+
+This avoids duplicating:
+- effort calculations;
+- calendar calculations;
+- scheduling algorithms;
+- dependency resolution logic.
+
+## Requirement / Acceptance Semantics
+
+Success Confidence does not duplicate Requirement Fit.
+
+Requirement Fit answers whether required capabilities are compatible/supported.
+
+Success Confidence may evaluate an explicit success condition such as:
+- `ACCEPTANCE_CRITERIA_COMPLETE`;
+- `REQUIREMENT_ACCEPTANCE_STATE`;
+
+when such evidence exists and is explicitly referenced by policy.
+
+It must not infer acceptance from capability matching.
+
+## Historical / Experiment Evidence
+
+`EXPERIMENT_RESULT` may be accepted when a policy explicitly defines a success condition whose evidence is an experiment result.
+
+A historical result does not automatically become a prediction of current success.
+
+Past evidence may establish the condition only when the condition itself explicitly defines that historical/experimental result as sufficient evidence.
+
+No implicit temporal generalization is allowed.
 
 ## AI Evidence Boundary
 
@@ -174,18 +280,19 @@ If future policy permits AI-derived evidence, it must enter the same evidence mo
 
 V1 creates no special AI-confidence pathway.
 
-## NOT_APPLICABLE
+## NOT_APPLICABLE and Empty Conditions
 
 Success Confidence is `NOT_APPLICABLE` only when policy/context explicitly establishes that the criterion does not apply.
 
 The following are not sufficient:
-
 - no evidence available;
 - incomplete opportunity data;
 - provider retrieval failure;
 - absence of a known success condition.
 
-If a policy supplies no success conditions, that absence must be an explicit policy decision; otherwise the policy is invalid or evaluation must reject it rather than infer non-applicability.
+For consistency with the existing criterion implementations, an empty configured success-condition set is treated as `NOT_APPLICABLE`.
+
+This is a policy-shape convention, not an inference that success is irrelevant. Explicit context `NOT_APPLICABLE` remains authoritative.
 
 ## Determinism and Result Preservation
 
@@ -193,43 +300,52 @@ Given the same Opportunity, immutable EvaluationContext, and versioned Evaluatio
 
 No wall-clock lookup, external provider call, AI invocation, random sampling, or mutable state participates in V1.
 
-The result preserves policy identity, criterion identity, outcome, relevant evidence refs, missing evidence, uncertainty, and rationale where implemented.
+The result preserves:
+- policy identity;
+- criterion identity;
+- outcome;
+- relevant evidence refs;
+- missing evidence;
+- uncertainty;
+- rationale where implemented.
 
 V1 introduces no `score`, numeric confidence, probability, ranking, weight, or calibration value.
 
-## Trade-offs
+## Design Trade-offs
 
 ### Option A — Numeric confidence / probability
 
-**Rejected for V1.** It requires a statistical/predictive definition, calibration semantics, population assumptions, uncertainty model, and validation strategy outside this deterministic boundary.
+**Rejected for V1.**
+
+It requires statistical meaning, calibration semantics, population assumptions, uncertainty modeling, and validation strategy outside this deterministic boundary.
 
 ### Option B — Evidence Sufficiency
 
-**Selected and owner-approved.** It gives “Success Confidence” a concrete domain meaning without pretending evidence availability is a calibrated probability. It is deterministic, explainable, and testable.
+**Selected and owner-approved.**
+
+It gives “Success Confidence” a concrete domain meaning without pretending evidence availability is a calibrated probability. It is deterministic, explainable, and testable.
 
 ### Option C — AI-generated confidence
 
-**Rejected for V1.** Model confidence is not automatically domain evidence and would create an alternative semantic owner outside the versioned evidence/policy model.
+**Rejected for V1.**
 
-## Non-goals
+Model confidence is not automatically domain evidence and would create an alternative semantic owner outside the versioned evidence/policy model.
 
-V1 does not introduce:
+## Remaining Owner Decisions Before TDD
 
-- numeric confidence;
-- probability of success;
-- machine-learning prediction;
-- universal success formula;
-- scoring or weighting;
-- ranking;
-- automatic selection/rejection;
-- bidding;
-- payment;
-- execution;
-- portfolio decisions;
-- automatic policy mutation;
-- statistical inference;
-- hidden cross-criterion dependencies;
-- hidden evidence generation.
+The following concrete decisions are proposed for approval:
+
+1. `condition_id + scope + signal + expected_values + evidence_refs` as the condition contract.
+2. Scopes: `DELIVERY`, `REQUIREMENT`, `DEADLINE`, `DEPENDENCY`, `ACCEPTANCE`.
+3. `ALLOWED_VALUES` only in V1.
+4. Allowed evidence kinds: `FACT`, `OBSERVATION`, `ESTIMATE`, `EXPERIMENT_RESULT`.
+5. `ASSUMPTION`, `HYPOTHESIS`, and `FORECAST` do not establish PASS.
+6. No contradiction precedence in V1; conflicting usable values → `INSUFFICIENT_DATA`.
+7. Criterion outcomes are not evidence.
+8. Derived evidence is allowed only when explicitly represented with lineage before evaluation.
+9. No hidden deadline/effort/economic/risk calculations.
+10. Empty condition set → `NOT_APPLICABLE`, consistent with existing criteria.
+11. No numeric confidence, probability, score, ranking, weighting, prediction, or autonomous execution.
 
 ## Proposed TDD Boundary
 
@@ -239,7 +355,7 @@ After owner approval, TDD implements only:
 2. `EvaluationPolicy.success_confidence_conditions`;
 3. deterministic `SuccessConfidenceEvaluator`;
 4. EvaluationContext integration;
-5. validation for condition identity, evidence references, supported operators, and duplicate IDs;
+5. validation for condition identity, scope, evidence references, supported operators, and duplicate IDs;
 6. tests for admissible/unadmissible evidence kinds;
 7. tests for quality, missing evidence, contradictions, violation/unresolved composition, and explicit non-applicability;
 8. tests for context subject mismatch and deterministic repeatability;
@@ -250,14 +366,15 @@ Provider integration, AI integration, statistical modeling, ranking, and executi
 
 ## Exit Criteria
 
-- Option B semantics remain owner-approved;
-- success-condition identity/operator semantics are explicit;
-- evidence kind/quality/provenance/lineage rules are explicit;
-- contradiction/unresolved semantics are explicit;
-- historical/experiment evidence boundary is explicit;
-- cross-criterion and circular-dependency boundaries are explicit;
-- `NOT_APPLICABLE` semantics are explicit;
-- deterministic behavior is explicit;
-- no score/probability/prediction/ranking is introduced;
-- owner approval is recorded on Issue #482;
-- implementation begins only through a separate TDD issue.
+- Option B remains approved;
+- condition identity and scopes are approved;
+- operator semantics are explicit;
+- evidence-kind rules are explicit;
+- quality/contradiction semantics are explicit;
+- temporal and derived-evidence boundaries are explicit;
+- cross-criterion isolation is explicit;
+- empty-condition behavior is explicit;
+- no numeric confidence/probability semantics exist;
+- owner approval is recorded on Issue #482.
+
+Only after these conditions are approved should the TDD issue and RED tests be created.
