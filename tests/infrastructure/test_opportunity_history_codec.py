@@ -4,6 +4,18 @@ from decimal import Decimal
 
 import pytest
 
+from app.domain.client_project_risk import (
+    RiskComparisonOperator,
+    RiskConstraint,
+    RiskScope,
+)
+from app.domain.economic_fit import (
+    EconomicComparisonOperator,
+    EconomicConstraint,
+    EconomicMetric,
+)
+from app.domain.eligibility import EligibilityConstraint
+from app.domain.estimated_effort import EffortConstraint
 from app.domain.opportunity import Opportunity
 from app.domain.opportunity_intelligence import (
     CriterionEvaluation,
@@ -20,6 +32,12 @@ from app.domain.opportunity_prioritization import (
     PriorityTierRule,
 )
 from app.domain.opportunity_type import OpportunityType
+from app.domain.requirement_fit import CapabilityRequirement
+from app.domain.success_confidence import (
+    SuccessComparisonOperator,
+    SuccessCondition,
+    SuccessConditionScope,
+)
 from app.infrastructure.persistence.opportunity_history_codec import (
     OpportunityHistoryCodecV1,
     UnsupportedCanonicalValue,
@@ -45,6 +63,50 @@ def sample_domain_values():
         policy_id="evaluation-policy",
         policy_version="3",
         required_criteria=(CriterionId.ELIGIBILITY,),
+        eligibility_constraints=(
+            EligibilityConstraint(
+                "eligible", ("eligibility.status",), ("eligible",)
+            ),
+        ),
+        requirement_fit_requirements=(
+            CapabilityRequirement("react", "react", ("requirements.react",)),
+        ),
+        estimated_effort_constraints=(
+            EffortConstraint(
+                "effort", 10.5, "hours", ("effort.estimate",), ("scope.deliverables",)
+            ),
+        ),
+        economic_fit_constraints=(
+            EconomicConstraint(
+                "profit",
+                EconomicMetric.EXPECTED_PROFIT,
+                EconomicComparisonOperator.MINIMUM,
+                100,
+                "USD",
+                "USD",
+                ("economic.profit",),
+            ),
+        ),
+        client_project_risk_constraints=(
+            RiskConstraint(
+                "risk",
+                RiskScope.CLIENT,
+                "client.verified",
+                RiskComparisonOperator.ALLOWED_VALUES,
+                ("true",),
+                ("client.verified",),
+            ),
+        ),
+        success_confidence_conditions=(
+            SuccessCondition(
+                "delivery",
+                SuccessConditionScope.DELIVERY,
+                "delivery.acceptance",
+                SuccessComparisonOperator.ALLOWED_VALUES,
+                ("accepted",),
+                ("delivery.acceptance",),
+            ),
+        ),
     )
     prioritization_policy = PrioritizationPolicy(
         policy_id="priority-policy",
