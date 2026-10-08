@@ -1,6 +1,6 @@
 # Opportunity Prioritization V1 — Design Gate
 
-**Status: PROPOSED — design review required before implementation**  
+**Status: ACCEPTED FOR V1 IMPLEMENTATION — owner approved Option C on 2026-10-09**  
 **Scope:** Provider-independent, non-executing prioritization of already evaluated opportunities.  
 **Parent capability:** Opportunity Intelligence V1  
 **Out of scope:** Marketplace integration, ranking by AI, proposal generation, authorization, execution, portfolio/capital allocation, policy mutation.
@@ -94,7 +94,7 @@ Exact module ownership, value-object shape, rule expression language, persistenc
 
 ## 7. Acceptance criteria
 
-- [ ] Product owner confirms Option C or records an alternative.
+- [x] Product owner confirmed Option C (policy-gated tiers) on 2026-10-09.
 - [ ] Existing Opportunity Intelligence contracts and module conventions are inspected before choosing exact implementation shape.
 - [ ] Domain/application ownership is explicit; no duplicate evaluator or hidden global ranker.
 - [ ] RED tests prove the safety and determinism requirements above.
@@ -109,4 +109,4 @@ No 0–100 master score, weighted ranking, global list ordering, recommendation 
 
 ## 9. Current recommendation
 
-Proceed with Option C as a **proposed design**, then implement only after the product owner confirms the policy semantics. If continuing without an explicit confirmation, keep work to documentation and contract discovery; do not silently turn this proposal into production behavior.
+**Decision:** Option C — policy-gated tiers is approved for V1. Implementation may proceed within this gate. Approval does not authorize a weighted/master score, hidden ordering, autonomous selection, authorization, or execution. Exact contracts must follow repository conventions discovered during implementation; any material semantic change requires a new gate.
