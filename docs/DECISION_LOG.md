@@ -1407,3 +1407,13 @@ The first decision-support composition layer may expose descriptive direction al
 ### D-231 — Opportunity Prioritization Uses Explicit Policy-Gated Tiers
 
 V1 opportunity prioritization consumes the canonical Opportunity Intelligence evaluation and applies an explicit, immutable, versioned prioritization policy. It must not introduce a universal master score or implicit weighted ranking. `NOT_QUALIFIED` evaluations are blocked; `REVIEW_REQUIRED` evaluations remain in review; only qualified evaluations that satisfy mandatory evidence and exactly one valid tier rule may receive a priority tier. Qualified evaluations with no applicable tier remain unprioritized. Decisions preserve evaluation identity, policy identity/version, rule identity, rationale, evidence lineage/quality, and evaluation time. Prioritization is deterministic and non-executing: it does not authorize, bid, message, execute, mutate policy, or trigger learning. Within-tier ordering is excluded from V1 unless separately designed and approved.
+
+
+## D-232 — Opportunity Decision Pipeline V1 composition boundary
+
+- **Status:** Accepted
+- **Date:** 2026-10-09
+- **Decision:** Adopt Option B: a small application-level `OpportunityDecisionPipeline` that consumes an already normalized domain Opportunity, explicit evaluation/prioritization policies, existing evaluator/prioritizer services, caller-supplied identity references, and an aware timestamp; it returns an immutable combined result with both evaluation and priority decision.
+- **Rationale:** Establish one reusable, testable sequence without duplicating evaluation/prioritization logic or prematurely introducing persistence, API, provider polling, or execution.
+- **Constraints:** Single opportunity per call; no global ranking or within-tier ordering; no implicit policies, generated identity references, persistence, provider I/O, authorization, bidding, messaging, or execution. `NOT_QUALIFIED` remains `BLOCKED`; `REVIEW_REQUIRED` remains review-only. Reference freshness is not asserted until an authoritative registry contract exists.
+- **Verification required:** RED/GREEN tests for sequencing, identity and policy lineage, outcome pass-through, evidence snapshot preservation, invalid references/naive timestamps, deterministic behavior, and absence of side effects.
