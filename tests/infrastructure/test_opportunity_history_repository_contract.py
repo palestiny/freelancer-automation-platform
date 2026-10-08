@@ -292,3 +292,39 @@ def test_history_queries_return_explicit_not_found_for_missing_records():
         repository.get_latest_opportunity_revision("missing")
     with pytest.raises(RecordNotFound):
         repository.get_decision("missing")
+
+
+def test_equal_recorded_timestamps_use_identity_only_as_deterministic_tiebreaker():
+    repository = InMemoryOpportunityHistoryRepository(clock=Clock(T0))
+    z_record = repository.save_opportunity_revision(
+        "opp-17", "rev-z", make_opportunity("Z")
+    )
+    a_record = repository.save_opportunity_revision(
+        "opp-17", "rev-a", make_opportunity("A")
+    )
+
+    assert repository.list_opportunity_revisions("opp-17") == (a_record, z_record)
+    assert repository.get_latest_opportunity_revision("opp-17") == z_record
+
+
+def test_decision_retry_preserves_recorded_at_and_history_is_ordered():
+    clock = Clock(T0)
+    repository = InMemoryOpportunityHistoryRepository(clock=clock)
+    repository.save_opportunity_revision("opp-17", "rev-1", make_opportunity())
+    evaluation_policy, prioritization_policy, result = make_result()
+    first = repository.save_decision(
+        "decision-z", "opp-17", "rev-1", evaluation_policy, prioritization_policy, result
+    )
+    clock.value = T0 + timedelta(minutes=1)
+    second_result = make_result(evaluation_ref="eval-18")[2]
+    second = repository.save_decision(
+        "decision-a", "opp-17", "rev-1", evaluation_policy, prioritization_policy, second_result
+    )
+    clock.value = T0 + timedelta(hours=1)
+    replay = repository.save_decision(
+        "decision-z", "opp-17", "rev-1", evaluation_policy, prioritization_policy, result
+    )
+
+    assert replay == first
+    assert replay.recorded_at == T0
+    assert repository.list_decisions("opp-17") == (first, second)
