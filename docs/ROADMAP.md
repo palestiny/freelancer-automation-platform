@@ -31,9 +31,9 @@ Business-model hypotheses, venture evaluation/lifecycle, and recurring-revenue/a
 Validation experiments, explicit variants, measurable results, and explicit promotion/rejection decisions exist. External experiment execution remains future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
-**Status: OPPORTUNITY PRIORITIZATION V1 IMPLEMENTED AND HARDENED; CI PASSED; CONSUMER INTEGRATION REMAINS**
+**Status: OPPORTUNITY DECISION PIPELINE V1 IMPLEMENTED AND CI-VERIFIED; PROVIDER / PERSISTENCE INTEGRATION REMAINS**
 
-Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Next proposed boundary is Opportunity Decision Pipeline V1 (draft PR #489): a non-persisted single-opportunity composition service, pending owner approval. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
+Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Opportunity Decision Pipeline V1 is implemented and merged via PR #489, with CI passing on the final PR head. The non-persisted service composes one normalized opportunity's canonical evaluation and prioritization into an immutable result. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 
 ## Phase 7 — Revenue Engine
 **Status: FOUNDATION IMPLEMENTED**
