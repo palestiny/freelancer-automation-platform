@@ -165,7 +165,7 @@ def test_priority_decision_preserves_criterion_evidence_context():
                 rationale="profit estimate is not yet reliable",
             ),
         ),
-        overall_outcome=OverallOutcome.QUALIFIED,
+        overall_outcome=OverallOutcome.REVIEW_REQUIRED,
     )
     result = decide(
         evaluation_value=source,
