@@ -31,9 +31,9 @@ Business-model hypotheses, venture evaluation/lifecycle, and recurring-revenue/a
 Validation experiments, explicit variants, measurable results, and explicit promotion/rejection decisions exist. External experiment execution remains future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
-**Status: STRATEGIC DESIGN ONLY**
+**Status: STRATEGIC DESIGN; OPPORTUNITY PRIORITIZATION V1 APPROVED FOR IMPLEMENTATION**
 
-Portfolio posture, allocation policy, opportunity prioritization, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
+Opportunity Prioritization V1 has an approved design gate for explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231). Implementation, tests, hardening, and CI verification remain pending. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 
 ## Phase 7 — Revenue Engine
 **Status: FOUNDATION IMPLEMENTED**
