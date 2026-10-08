@@ -188,6 +188,11 @@ class OpportunityHistoryCodecV1:
             if not math.isfinite(value):
                 raise UnsupportedCanonicalValue("non-finite floats are not supported")
             return {"$type": "float", "value": value.hex()}
+        if isinstance(value, Enum):
+            enum_name = _ENUM_NAMES.get(type(value))
+            if enum_name is None:
+                raise UnsupportedCanonicalValue(f"unregistered enum type: {type(value).__name__}")
+            return {"$type": "enum", "enum": enum_name, "value": value.value}
         if isinstance(value, str):
             return {"$type": "str", "value": value}
         if isinstance(value, Decimal):
@@ -200,11 +205,6 @@ class OpportunityHistoryCodecV1:
                 raise UnsupportedCanonicalValue("naive datetime is not supported")
             normalized = value.astimezone(timezone.utc).isoformat(timespec="microseconds")
             return {"$type": "datetime", "value": normalized.replace("+00:00", "Z")}
-        if isinstance(value, Enum):
-            enum_name = _ENUM_NAMES.get(type(value))
-            if enum_name is None:
-                raise UnsupportedCanonicalValue(f"unregistered enum type: {type(value).__name__}")
-            return {"$type": "enum", "enum": enum_name, "value": value.value}
         if isinstance(value, tuple):
             return {"$type": "tuple", "items": [self._encode(item) for item in value]}
         if isinstance(value, list):
