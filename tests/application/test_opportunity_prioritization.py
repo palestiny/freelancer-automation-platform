@@ -87,7 +87,7 @@ def test_review_required_evaluation_never_gets_tier():
 def test_missing_mandatory_evidence_requires_review():
     result = decide(
         evaluation_value=evaluation(evidence=("eligibility.status",)),
-        policy_value=policy(rule(evidence=("eligibility.status",)), mandatory=("eligibility.status", "economic.profit")),
+        policy_value=policy(rule(evidence=("eligibility.status", "economic.profit")), mandatory=("eligibility.status", "economic.profit")),
     )
     assert result.outcome is PrioritizationOutcome.REVIEW_REQUIRED
     assert result.tier_id is None
