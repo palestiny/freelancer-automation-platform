@@ -1,6 +1,6 @@
 # Opportunity Decision Pipeline V1 — Design Gate
 
-**Status: ACCEPTED FOR V1 IMPLEMENTATION — Option B approved 2026-10-09**  
+**Status: IMPLEMENTED — CI VERIFICATION PENDING**  
 **Scope:** Compose existing Opportunity Intelligence evaluation and Opportunity Prioritization into one explicit application-level use case.  
 **Prerequisites:** Opportunity Intelligence V1 and Opportunity Prioritization V1.  
 **Out of scope:** Persistence, APIs, background jobs, marketplace polling, production Freelancer mapping, automatic selection, bidding, messaging, execution, policy mutation, portfolio/capital allocation.
@@ -70,9 +70,9 @@ The pipeline should:
 ## 6. Acceptance criteria
 
 - [x] Product owner approved Option B: non-persisted, single-opportunity application composition.
-- [ ] Existing service contracts and constructors are rechecked before implementation.
-- [ ] RED tests cover sequencing, identity lineage, outcome pass-through, and no side effects.
-- [ ] Implementation reuses existing services and does not duplicate evaluation or prioritization logic.
+- [x] Existing service contracts and constructors are rechecked before implementation.
+- [x] Tests cover sequencing, identity lineage, outcome pass-through, invalid references/timestamps, and absence of pipeline side effects.
+- [x] Implementation reuses existing services and does not duplicate evaluation or prioritization logic.
 - [ ] Canonical project state and roadmap are updated after implementation.
 - [ ] CI passes and the change is reviewed and merged.
 
