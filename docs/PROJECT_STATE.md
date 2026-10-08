@@ -144,7 +144,7 @@ Still outside the current boundary:
 
 The Opportunity Intelligence semantic foundation is implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. **Eligibility V1, Requirement Fit V1, Estimated Effort V1, Economic Fit V1, Client / Project Risk V1, and Success Confidence V1 are implemented, merged, and completion-verified.**
 
-**Opportunity Prioritization V1 design gate is approved** (Decision D-231): implement explicit policy-gated tiers over canonical evaluations, preserving policy/evaluation/evidence lineage. No universal score, implicit weighted ranking, within-tier ordering, automatic selection, policy mutation, authorization, or execution is implied. Implemented and merged via PR #487; GitHub Actions CI passed on the merged PR head. Follow-up hardening and integration into a consuming workflow remain. Production provider mapping remains deferred.
+**Opportunity Prioritization V1 design gate is approved** (Decision D-231): implement explicit policy-gated tiers over canonical evaluations, preserving policy/evaluation/evidence lineage. No universal score, implicit weighted ranking, within-tier ordering, automatic selection, policy mutation, authorization, or execution is implied. Implemented via PR #487 and hardened via PR #488; GitHub Actions CI passed for both PR heads. Priority decisions preserve immutable per-criterion outcomes, evidence refs, missing evidence, uncertainty, and rationale. Integration into a consuming workflow remains. Reference freshness validation is deferred until an authoritative registry contract exists; production provider mapping remains deferred.
 
 ## Documentation Integrity Rule
 
