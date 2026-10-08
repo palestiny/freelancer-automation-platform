@@ -71,7 +71,7 @@ The persistence boundary assigns `recorded_at` once, on first successful accepta
 
 Preserve `OpportunityPriorityDecision.evaluated_at` as decision time. Never replace it with `recorded_at`. Revisions and decisions each have their own recorded-at timestamp.
 
-Revision history order is ascending by (`recorded_at` UTC instant, revision ID). Decision history order is ascending by (`recorded_at` UTC instant, decision ID). The corresponding latest-recorded view is the final item in that deterministic order. IDs are tie-breakers only: if timestamps tie, ordering is deterministic but does not claim which event happened causally later. Do not use database row order, insertion order without a persisted timestamp, or lexicographic ID as the primary chronological signal.
+Revision history order is ascending by (`recorded_at` UTC instant, revision ID). Decision history order is ascending by (`recorded_at` UTC instant, decision ID). The corresponding latest-recorded view is the final item in that deterministic order. `get_latest_opportunity_revision` and any latest-decision projection use these same rules; “latest” means latest accepted by this repository, not source-current, freshest, or causally latest. IDs are tie-breakers only: if timestamps tie, ordering is deterministic but does not claim which event happened causally later. Do not use database row order, insertion order without a persisted timestamp, or lexicographic ID as the primary chronological signal.
 
 ## 6. Minimum repository operations
 
@@ -80,6 +80,7 @@ The provider-neutral repository port must expose behavior equivalent to:
 - `save_opportunity_revision(opportunity_id, revision_id, opportunity)`
 - `get_opportunity_revision(opportunity_id, revision_id)`
 - `list_opportunity_revisions(opportunity_id)`
+- `get_latest_opportunity_revision(opportunity_id)` — returns the final revision under the deterministic recorded-at ordering above, or an explicit not-found result when no revision exists; this means latest-recorded, not necessarily latest at the provider/source
 - `save_decision(decision_id, opportunity_id, revision_id, evaluation_policy, prioritization_policy, result)`
 - `get_decision(decision_id)`
 - `list_decisions(opportunity_id)`
@@ -100,7 +101,7 @@ Evidence references remain references. Persisting a reference or a historical qu
 
 Tests must establish:
 
-1. Canonical equivalence is stable under mapping key order and insensitive to incidental whitespace.
+1. Canonical equivalence is stable under mapping key order and canonical JSON formatting whitespace; whitespace inside string values remains significant and is not trimmed.
 2. Tuple order remains significant; set/frozenset order does not.
 3. Decimal, exact finite-float, and aware-datetime canonicalization follows the rules above; naive timestamps, datetimes without a valid UTC offset, non-finite floats, unsupported values, and malformed decimals fail closed.
 4. Exact retry returns the original record and original `recorded_at`; conflicting identity reuse raises without mutation.
