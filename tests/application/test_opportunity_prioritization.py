@@ -140,6 +140,7 @@ def test_decision_requires_timezone_aware_timestamp():
             matched_rule_ids=(),
             reasons=("no tier rule matched",),
             evidence_refs=(),
+            criterion_snapshots=(),
             evaluated_at=datetime(2026, 10, 9),
         )
 
