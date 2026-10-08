@@ -142,7 +142,9 @@ Still outside the current boundary:
 
 ## Current Next Engineering Boundary
 
-The Opportunity Intelligence semantic foundation is implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. **Eligibility V1, Requirement Fit V1, Estimated Effort V1, Economic Fit V1, Client / Project Risk V1, and Success Confidence V1 are implemented, merged, and completion-verified.** No scoring, weighting, ranking, automatic selection, policy mutation, or autonomous execution is implied.
+The Opportunity Intelligence semantic foundation is implemented: immutable `EvaluationContext`, provider-independent evidence metadata and quality states, explicit applicability, and lineage-preserving evidence snapshots. **Eligibility V1, Requirement Fit V1, Estimated Effort V1, Economic Fit V1, Client / Project Risk V1, and Success Confidence V1 are implemented, merged, and completion-verified.**
+
+**Opportunity Prioritization V1 design gate is approved** (Decision D-231): implement explicit policy-gated tiers over canonical evaluations, preserving policy/evaluation/evidence lineage. No universal score, implicit weighted ranking, within-tier ordering, automatic selection, policy mutation, authorization, or execution is implied. Current status: implementation is present on PR #487 and the latest GitHub Actions CI run passed. Merge/reconciliation is the next integration step; production provider mapping remains deferred.
 
 ## Documentation Integrity Rule
 

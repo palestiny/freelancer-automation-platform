@@ -1402,3 +1402,8 @@ Descriptive increase/decrease remains neutral evidence. Favorability requires an
 ### D-121 — Descriptive and Inferential Performance Evidence Remain Separate
 
 The first decision-support composition layer may expose descriptive direction alongside statistical evidence status, but must preserve disagreement and must not convert the combination into a score, recommendation, policy mutation, or execution action.
+
+
+### D-231 — Opportunity Prioritization Uses Explicit Policy-Gated Tiers
+
+V1 opportunity prioritization consumes the canonical Opportunity Intelligence evaluation and applies an explicit, immutable, versioned prioritization policy. It must not introduce a universal master score or implicit weighted ranking. `NOT_QUALIFIED` evaluations are blocked; `REVIEW_REQUIRED` evaluations remain in review; only qualified evaluations that satisfy mandatory evidence and exactly one valid tier rule may receive a priority tier. Qualified evaluations with no applicable tier remain unprioritized. Decisions preserve evaluation identity, policy identity/version, rule identity, rationale, evidence lineage/quality, and evaluation time. Prioritization is deterministic and non-executing: it does not authorize, bid, message, execute, mutate policy, or trigger learning. Within-tier ordering is excluded from V1 unless separately designed and approved.
