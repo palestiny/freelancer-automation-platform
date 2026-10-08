@@ -1,6 +1,6 @@
 # Opportunity Decision Pipeline V1 — Design Gate
 
-**Status: PROPOSED — owner decision required**  
+**Status: ACCEPTED FOR V1 IMPLEMENTATION — Option B approved 2026-10-09**  
 **Scope:** Compose existing Opportunity Intelligence evaluation and Opportunity Prioritization into one explicit application-level use case.  
 **Prerequisites:** Opportunity Intelligence V1 and Opportunity Prioritization V1.  
 **Out of scope:** Persistence, APIs, background jobs, marketplace polling, production Freelancer mapping, automatic selection, bidding, messaging, execution, policy mutation, portfolio/capital allocation.
@@ -69,7 +69,7 @@ The pipeline should:
 
 ## 6. Acceptance criteria
 
-- [ ] Product owner approved the recommended composition boundary.
+- [x] Product owner approved Option B: non-persisted, single-opportunity application composition.
 - [ ] Existing service contracts and constructors are rechecked before implementation.
 - [ ] RED tests cover sequencing, identity lineage, outcome pass-through, and no side effects.
 - [ ] Implementation reuses existing services and does not duplicate evaluation or prioritization logic.
