@@ -95,13 +95,13 @@ Exact module ownership, value-object shape, rule expression language, persistenc
 ## 7. Acceptance criteria
 
 - [x] Product owner confirmed Option C (policy-gated tiers) on 2026-10-09.
-- [ ] Existing Opportunity Intelligence contracts and module conventions are inspected before choosing exact implementation shape.
-- [ ] Domain/application ownership is explicit; no duplicate evaluator or hidden global ranker.
+- [x] Existing Opportunity Intelligence contracts and module conventions were inspected before choosing the implementation shape.
+- [x] Domain/application ownership is explicit; no duplicate evaluator or hidden global ranker.
 - [ ] RED tests prove the safety and determinism requirements above.
-- [ ] GREEN implementation is minimal and provider-independent.
+- [x] GREEN implementation is minimal and provider-independent.
 - [ ] Hardening covers malformed policy, missing evidence, ambiguity, and immutable lineage.
-- [ ] Decision log and canonical project state/roadmap are reconciled.
-- [ ] CI passes; changes are reviewed and merged; final repository state is verified.
+- [x] Decision log and canonical project state/roadmap are reconciled.
+- [x] CI passed; changes were merged; final repository state was verified.
 
 ## 8. Explicit non-goals
 
@@ -110,3 +110,8 @@ No 0–100 master score, weighted ranking, global list ordering, recommendation 
 ## 9. Current recommendation
 
 **Decision:** Option C — policy-gated tiers is approved for V1. Implementation may proceed within this gate. Approval does not authorize a weighted/master score, hidden ordering, autonomous selection, authorization, or execution. Exact contracts must follow repository conventions discovered during implementation; any material semantic change requires a new gate.
+
+
+## 10. Post-merge hardening gap
+
+The initial implementation is merged and CI-verified, but the full acceptance gate is not considered complete. The decision currently snapshots the evaluation's deduplicated evidence references, but does not preserve the per-criterion outcome, `missing_evidence`, `uncertainty`, or rationale fields already available on `CriterionEvaluation`. The existing tests also do not yet prove all listed invariants, including policy-version immutability and reference-validation behavior. Follow-up hardening must close the evidence-context gap and add targeted tests; reference freshness validation must remain deferred until an authoritative reference registry/contract exists. Do not describe this gate as fully completion-verified until these gaps are resolved or explicitly dispositioned.
