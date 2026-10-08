@@ -1,3 +1,4 @@
+from dataclasses import FrozenInstanceError
 from datetime import datetime, timezone
 
 import pytest
@@ -140,9 +141,70 @@ def test_decision_requires_timezone_aware_timestamp():
             matched_rule_ids=(),
             reasons=("no tier rule matched",),
             evidence_refs=(),
+            criterion_snapshots=(),
             evaluated_at=datetime(2026, 10, 9),
         )
 
 
 def test_same_semantic_inputs_produce_same_decision():
     assert decide() == decide()
+
+
+
+def test_priority_decision_preserves_criterion_evidence_context():
+    source = OpportunityEvaluation(
+        policy_id="evaluation-policy",
+        policy_version="3",
+        criteria=(
+            CriterionEvaluation(
+                policy_id="evaluation-policy",
+                policy_version="3",
+                criterion_id=CriterionId.ECONOMIC_FIT,
+                outcome=CriterionOutcome.INSUFFICIENT_DATA,
+                evidence_refs=("economic.quote",),
+                missing_evidence=("current delivery fee",),
+                uncertainty=("client scope may change",),
+                rationale="profit estimate is not yet reliable",
+            ),
+        ),
+        overall_outcome=OverallOutcome.REVIEW_REQUIRED,
+    )
+    result = decide(
+        evaluation_value=source,
+        policy_value=policy(
+            rule(evidence=("eligibility.status", "economic.quote")),
+            mandatory=("eligibility.status",),
+        ),
+    )
+
+    snapshot = result.criterion_snapshots[0]
+    assert snapshot.criterion_id is CriterionId.ECONOMIC_FIT
+    assert snapshot.outcome is CriterionOutcome.INSUFFICIENT_DATA
+    assert snapshot.evidence_refs == ("economic.quote",)
+    assert snapshot.missing_evidence == ("current delivery fee",)
+    assert snapshot.uncertainty == ("client scope may change",)
+    assert snapshot.rationale == "profit estimate is not yet reliable"
+
+
+
+def test_policy_version_change_does_not_mutate_prior_decision():
+    first = decide()
+    next_policy = PrioritizationPolicy(
+        policy_id="priority-policy",
+        policy_version="2",
+        mandatory_evidence_refs=("eligibility.status",),
+        tier_rules=(rule(),),
+    )
+    second = decide(policy_value=next_policy)
+
+    assert first.prioritization_policy_version == "1"
+    assert second.prioritization_policy_version == "2"
+    assert first.prioritization_policy_version == "1"
+
+
+def test_criterion_evidence_snapshot_is_immutable():
+    result = decide()
+    snapshot = result.criterion_snapshots[0]
+
+    with pytest.raises(FrozenInstanceError):
+        snapshot.rationale = "mutated"

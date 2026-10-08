@@ -2,7 +2,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
-from app.domain.opportunity_intelligence import OpportunityEvaluation, OverallOutcome
+from app.domain.opportunity_intelligence import (
+    CriterionId,
+    CriterionOutcome,
+    OpportunityEvaluation,
+    OverallOutcome,
+)
 
 
 class PrioritizationOutcome(str, Enum):
@@ -10,6 +15,33 @@ class PrioritizationOutcome(str, Enum):
     REVIEW_REQUIRED = "REVIEW_REQUIRED"
     PRIORITIZED = "PRIORITIZED"
     UNPRIORITIZED = "UNPRIORITIZED"
+
+
+@dataclass(frozen=True)
+class CriterionEvidenceSnapshot:
+    criterion_id: CriterionId
+    outcome: CriterionOutcome
+    evidence_refs: tuple[str, ...]
+    missing_evidence: tuple[str, ...]
+    uncertainty: tuple[str, ...]
+    rationale: str | None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.criterion_id, CriterionId):
+            raise TypeError("criterion_id must be a CriterionId")
+        if not isinstance(self.outcome, CriterionOutcome):
+            raise TypeError("outcome must be a CriterionOutcome")
+        for name, values in (
+            ("evidence_refs", self.evidence_refs),
+            ("missing_evidence", self.missing_evidence),
+            ("uncertainty", self.uncertainty),
+        ):
+            if not isinstance(values, tuple):
+                raise TypeError(f"{name} must be a tuple")
+            if any(not isinstance(value, str) or not value.strip() for value in values):
+                raise ValueError(f"{name} must contain non-empty strings")
+        if self.rationale is not None and not isinstance(self.rationale, str):
+            raise TypeError("rationale must be a string or None")
 
 
 @dataclass(frozen=True)
@@ -80,6 +112,7 @@ class OpportunityPriorityDecision:
     matched_rule_ids: tuple[str, ...]
     reasons: tuple[str, ...]
     evidence_refs: tuple[str, ...]
+    criterion_snapshots: tuple[CriterionEvidenceSnapshot, ...]
     evaluated_at: datetime
 
     def __post_init__(self) -> None:
@@ -100,6 +133,10 @@ class OpportunityPriorityDecision:
             raise ValueError("only PRIORITIZED decisions may have a tier")
         if not isinstance(self.evaluated_at, datetime) or self.evaluated_at.tzinfo is None:
             raise ValueError("evaluated_at must be a timezone-aware datetime")
+        if not isinstance(self.criterion_snapshots, tuple):
+            raise TypeError("criterion_snapshots must be a tuple")
+        if any(not isinstance(item, CriterionEvidenceSnapshot) for item in self.criterion_snapshots):
+            raise TypeError("criterion_snapshots must contain CriterionEvidenceSnapshot values")
         for name, values in (
             ("matched_rule_ids", self.matched_rule_ids),
             ("reasons", self.reasons),
@@ -127,6 +164,17 @@ def prioritize_opportunity(
         raise ValueError("evaluated_at must be a timezone-aware datetime")
 
     evidence_refs = tuple(sorted({ref for item in evaluation.criteria for ref in item.evidence_refs}))
+    criterion_snapshots = tuple(
+        CriterionEvidenceSnapshot(
+            criterion_id=item.criterion_id,
+            outcome=item.outcome,
+            evidence_refs=item.evidence_refs,
+            missing_evidence=item.missing_evidence,
+            uncertainty=item.uncertainty,
+            rationale=item.rationale,
+        )
+        for item in evaluation.criteria
+    )
     evidence_set = set(evidence_refs)
 
     common = dict(
@@ -138,6 +186,7 @@ def prioritize_opportunity(
         prioritization_policy_version=policy.policy_version,
         matched_rule_ids=(),
         evidence_refs=evidence_refs,
+        criterion_snapshots=criterion_snapshots,
         evaluated_at=evaluated_at,
     )
     if evaluation.overall_outcome is OverallOutcome.NOT_QUALIFIED:
