@@ -1,6 +1,6 @@
 # Opportunity Decision Pipeline V1 — Design Gate
 
-**Status: IMPLEMENTED — CI VERIFICATION PENDING**  
+**Status: IMPLEMENTED, CI-VERIFIED, AND MERGED — PR #489**  
 **Scope:** Compose existing Opportunity Intelligence evaluation and Opportunity Prioritization into one explicit application-level use case.  
 **Prerequisites:** Opportunity Intelligence V1 and Opportunity Prioritization V1.  
 **Out of scope:** Persistence, APIs, background jobs, marketplace polling, production Freelancer mapping, automatic selection, bidding, messaging, execution, policy mutation, portfolio/capital allocation.
@@ -73,10 +73,10 @@ The pipeline should:
 - [x] Existing service contracts and constructors are rechecked before implementation.
 - [x] Tests cover sequencing, identity lineage, outcome pass-through, invalid references/timestamps, and absence of pipeline side effects.
 - [x] Implementation reuses existing services and does not duplicate evaluation or prioritization logic.
-- [ ] Canonical project state and roadmap are updated after implementation.
-- [ ] CI passes and the change is reviewed and merged.
+- [x] Canonical project state and roadmap are updated after implementation.
+- [x] CI passed on the final PR head; the change was reviewed and merged.
 
 ## 7. Owner decision
 
-**Recommended: Option B — small application-level composition service.**  
+**Accepted: Option B — small application-level composition service.**  
 Approval of this gate authorizes only the non-persisted, single-opportunity composition described above. API, persistence, provider integration, batch ranking, and execution require separate decisions.
