@@ -216,3 +216,27 @@ def test_pipeline_returns_canonical_evaluation_and_immutable_combined_result():
     )
     with pytest.raises(FrozenInstanceError):
         result.evaluation_ref = "mutated"
+
+
+
+def test_pipeline_rejects_evaluator_result_for_a_different_policy_version():
+    source = evaluation()
+    mismatched = OpportunityEvaluation(
+        policy_id=source.policy_id,
+        policy_version="older-version",
+        criteria=source.criteria,
+        overall_outcome=source.overall_outcome,
+    )
+    evaluator = StubEvaluator(mismatched)
+    pipeline = OpportunityDecisionPipeline(evaluator, StubPrioritizer())
+
+    with pytest.raises(ValueError, match="policy identity/version"):
+        pipeline.run(
+            opportunity=make_opportunity(),
+            evaluation_policy=evaluation_policy(),
+            prioritization_policy=prioritization_policy(),
+            opportunity_ref="synthetic:job-17",
+            evaluation_ref="evaluation:job-17:3",
+            evaluated_at=NOW,
+        )
+    assert evaluator.calls
