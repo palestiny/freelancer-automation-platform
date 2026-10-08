@@ -57,10 +57,11 @@ class InMemoryOpportunityHistoryRepository:
         self._validate_identity("revision_id", revision_id)
         if not isinstance(opportunity, Opportunity):
             raise TypeError("opportunity must be an Opportunity")
+        canonical_opportunity = self._codec.dumps(opportunity)
         key = (opportunity_id, revision_id)
         existing = self._revisions.get(key)
         if existing is not None:
-            if self._codec.dumps(existing.opportunity) != self._codec.dumps(opportunity):
+            if self._codec.dumps(existing.opportunity) != canonical_opportunity:
                 raise RecordConflict(
                     "revision identity already exists with different canonical content"
                 )
@@ -141,7 +142,6 @@ class InMemoryOpportunityHistoryRepository:
         ):
             raise ValueError("prioritization policy identity/version mismatch")
 
-        self.get_opportunity_revision(opportunity_id, revision_id)
         logical_content = {
             "decision_id": decision_id,
             "opportunity_id": opportunity_id,
@@ -150,6 +150,7 @@ class InMemoryOpportunityHistoryRepository:
             "prioritization_policy": prioritization_policy,
             "result": result,
         }
+        canonical_content = self._codec.dumps(logical_content)
         existing = self._decisions.get(decision_id)
         if existing is not None:
             existing_content = {
@@ -160,12 +161,13 @@ class InMemoryOpportunityHistoryRepository:
                 "prioritization_policy": existing.prioritization_policy,
                 "result": existing.result,
             }
-            if self._codec.dumps(existing_content) != self._codec.dumps(logical_content):
+            if self._codec.dumps(existing_content) != canonical_content:
                 raise RecordConflict(
                     "decision identity already exists with different canonical content"
                 )
             return existing
 
+        self.get_opportunity_revision(opportunity_id, revision_id)
         record = OpportunityDecisionRecord(
             decision_id=decision_id,
             opportunity_id=opportunity_id,
