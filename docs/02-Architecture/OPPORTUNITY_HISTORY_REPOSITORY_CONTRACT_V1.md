@@ -33,12 +33,12 @@ Canonicalization V1 rules:
 1. Serialize a typed, versioned envelope; do not serialize Python objects with pickle or depend on Python `repr()`, object identity, or incidental dataclass field traversal.
 2. Use explicit stable type tags for supported domain types and an explicit serializer version. Unknown type tags or unsupported schema versions fail closed; they are not silently coerced.
 3. Encode enums by their declared string value and preserve the enum type tag.
-4. Encode dataclasses by explicit type tag and named fields. Object/map keys are emitted in lexicographic Unicode code-point order; object key order therefore does not affect equivalence.
+4. Encode dataclasses only through an explicit, versioned serializer registry that enumerates the allowed type tag and exact field names for each supported domain type. Do not derive the persisted field manifest dynamically from dataclass reflection. Unknown domain types or fields fail closed. Object/map keys are emitted in lexicographic Unicode code-point order; object key order therefore does not affect equivalence.
 5. Preserve tuple/list order because policy criteria, constraints, criterion results, rationale lists, and snapshots can carry meaningful sequence order.
 6. Canonicalize `frozenset` values by canonicalizing each element and sorting by its canonical encoded representation. Duplicates are invalid where the domain type already defines uniqueness.
 7. Encode `Decimal` values as normalized base-10 strings without exponent notation or insignificant trailing fractional zeros; normalize all signed zero forms to `"0"`. Do not pass Decimal values through binary floating point.
-8. Encode aware datetimes as UTC ISO-8601 with fixed microsecond precision and a `Z` suffix. Equivalent instants with different UTC offsets are equivalent; naive datetimes and datetimes with no valid UTC offset are rejected.
-9. Encode `None`, booleans, strings, and integers as distinct JSON types. Floats are permitted only when finite; NaN and infinities are rejected. String values are not trimmed or case-folded for equality.
+8. Encode aware datetimes as UTC ISO-8601 with fixed microsecond precision and a `Z` suffix. Equivalent instants with different UTC offsets are equivalent; naive datetimes and datetimes whose `utcoffset()` is `None` are rejected.
+9. Encode `None`, booleans, strings, integers, and floats with distinct type tags so values such as integer `1` and float `1.0` cannot collide. Encode finite floats as their exact hexadecimal representation using the language's standardized float-hex conversion; reject NaN and infinities. String values are not trimmed or case-folded for equality.
 10. For `Evidence.value` or any other `Any`-typed field, support only recursively JSON-compatible primitives, finite floats, lists/tuples, and string-keyed mappings under these rules. Unsupported runtime objects fail explicitly rather than being stringified or dropped.
 11. Use UTF-8 canonical JSON with compact separators and no insignificant whitespace. Unicode strings are preserved as provided; no implicit Unicode normalization is applied.
 
@@ -96,7 +96,7 @@ Tests must establish:
 
 1. Canonical equivalence is stable under mapping key order and insensitive to incidental whitespace.
 2. Tuple order remains significant; set/frozenset order does not.
-3. Decimal and aware-datetime canonicalization follows the rules above; naive timestamps, non-finite floats, unsupported values, and malformed decimals fail closed.
+3. Decimal, exact finite-float, and aware-datetime canonicalization follows the rules above; naive timestamps, datetimes without a valid UTC offset, non-finite floats, unsupported values, and malformed decimals fail closed.
 4. Exact retry returns the original record and original `recorded_at`; conflicting identity reuse raises without mutation.
 5. Revisions are immutable and scoped to opportunity identity.
 6. A decision cannot be saved before its referenced revision exists; mismatched opportunity/evaluation lineage is rejected.
