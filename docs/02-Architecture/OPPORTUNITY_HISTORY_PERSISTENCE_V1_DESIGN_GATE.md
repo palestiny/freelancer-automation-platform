@@ -57,7 +57,7 @@ If Option B is approved, the first implementation should introduce provider-neut
 2. **Opportunity revision:** immutable snapshot of the canonical normalized `Opportunity`, with a stable revision identifier and explicit recorded-at timestamp.
 3. **Decision record:** immutable combined `OpportunityDecisionResult`, with its own stable identity, the exact opportunity/revision identity, evaluation policy identity/version, prioritization policy identity/version, and the result's evidence lineage.
 4. **Policy definitions:** each immutable decision record stores the exact immutable evaluation-policy and prioritization-policy snapshots (including IDs and versions) used to produce it. Retrieval must not resolve historical decisions against mutable current policy definitions.
-5. **Evidence references:** preserve exact references and quality/applicability metadata already carried by evaluation/priority artifacts. Do not rewrite or invent evidence references during persistence.
+5. **Evidence lineage:** preserve exact evidence references, missing-evidence entries, uncertainty, rationale, criterion outcomes, and priority snapshots that are actually present in the pipeline result. The current result does not carry full evidence quality/provenance/value or the EvaluationContext applicability map; do not invent or claim to preserve absent fields. See the detailed repository contract.
 
 The repository contract must not assume that a provider URL is globally unique or stable. Provider-specific external identity belongs to a future adapter/mapping contract.
 
@@ -115,7 +115,7 @@ After the owner approves the gate and the detailed contract is finalized, tests 
 4. Identical retry is idempotent; conflicting reuse of identity fails explicitly.
 5. A decision referencing a missing or mismatched revision is rejected.
 6. Historical retrieval is deterministic and clearly distinguishes historical from latest-recorded decisions.
-7. Policy IDs/versions, evidence references, quality/applicability, and decision timestamps survive round-trip unchanged.
+7. Policy definitions/IDs/versions, evidence references, criterion snapshots, priority outcomes, and decision timestamps survive round-trip under the documented canonicalization rules; absent EvaluationContext/Evidence fields are not fabricated.
 8. Naive timestamps and malformed identities fail closed.
 9. Historical records are not silently re-evaluated under current policies.
 10. The repository port does not perform provider I/O, authorize, rank batches, or execute actions.
