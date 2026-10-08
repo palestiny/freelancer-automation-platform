@@ -74,7 +74,7 @@ The contract should support, at minimum:
 
 - save a new opportunity revision without mutating earlier revisions;
 - save a decision record that references an existing, exact revision;
-- retrieve an opportunity by stable identity;
+- retrieve an opportunity's revision history and latest-recorded revision projection by stable identity;
 - retrieve revisions for one opportunity in deterministic order;
 - retrieve one decision by identity;
 - retrieve decision history for one opportunity;
@@ -95,7 +95,7 @@ The contract should support, at minimum:
 - Persisted timestamps must be timezone-aware; naive timestamps are rejected rather than assigned an assumed timezone.
 - Preserve the original decision/evaluation time and the persistence-recorded time as distinct concepts if both are present. Storage time must not replace the time at which the decision was made.
 - Historical records remain immutable when a policy changes. Re-evaluation creates a new decision record; it does not rewrite the previous result.
-- Reference freshness validation remains **unresolved** until an authoritative evidence-reference registry/contract exists. Persistence must preserve references and their recorded quality, but must not claim that a reference is currently resolvable, fresh, or authoritative.
+- Reference freshness validation remains **unresolved** until an authoritative evidence-reference registry/contract exists. Persist evidence references and quality metadata only where those fields are actually present in the supplied pipeline artifacts. The current `OpportunityDecisionResult` preserves criterion outcomes and evidence references but does not carry evidence quality/provenance/value; persistence must not invent those fields or claim that a reference is currently resolvable, fresh, or authoritative.
 - Retrieval must not silently re-evaluate an old decision or substitute current policy/evidence into a historical result.
 
 ## 4. Explicit non-goals and safety boundaries
