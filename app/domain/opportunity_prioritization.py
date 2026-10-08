@@ -3,7 +3,6 @@ from datetime import datetime
 from enum import Enum
 
 from app.domain.opportunity_intelligence import (
-    CriterionEvaluation,
     CriterionId,
     CriterionOutcome,
     OpportunityEvaluation,
