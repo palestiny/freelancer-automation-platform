@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
+import json
 from decimal import Decimal
 
 import pytest
@@ -184,6 +185,19 @@ def test_schema_version_mismatch_is_not_silently_coerced():
     codec = OpportunityHistoryCodecV1()
     opportunity, *_ = sample_domain_values()
     encoded = codec.dumps(opportunity)
+    envelope = json.loads(encoded)
+    envelope["schema_version"] = 999
 
     with pytest.raises(UnsupportedCanonicalValue):
+        codec.loads(json.dumps(envelope), expected_type=Opportunity)
+    with pytest.raises(UnsupportedCanonicalValue):
         codec.loads(encoded, expected_type=Opportunity, schema_version=999)
+
+
+def test_typed_envelopes_reject_unexpected_fields():
+    codec = OpportunityHistoryCodecV1()
+    envelope = json.loads(codec.dumps("value"))
+    envelope["unexpected"] = "must fail closed"
+
+    with pytest.raises(UnsupportedCanonicalValue):
+        codec.loads(json.dumps(envelope))
