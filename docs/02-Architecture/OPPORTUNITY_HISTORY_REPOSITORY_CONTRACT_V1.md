@@ -1,6 +1,6 @@
 # Opportunity History Repository Contract V1
 
-**Status:** Detailed contract proposal grounded in current domain models; no storage adapter or database selected.
+**Status:** OWNER-APPROVED 2026-10-09; RED contract tests in progress. No production database selected.
 **Parent gate:** [Opportunity History & Persistence V1 Design Gate](OPPORTUNITY_HISTORY_PERSISTENCE_V1_DESIGN_GATE.md)
 **Decision context:** D-233 approved versioned opportunity revisions and immutable decision records, caller-owned identities, and embedded policy snapshots.
 
