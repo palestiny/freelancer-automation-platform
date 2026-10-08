@@ -125,6 +125,10 @@ def test_decimal_normalization_and_signed_zero_are_deterministic():
 
     assert codec.dumps(Decimal("1.2300")) == codec.dumps(Decimal("1.23"))
     assert codec.dumps(Decimal("-0.000")) == codec.dumps(Decimal("0"))
+    very_precise = Decimal("123456789012345678901234567890.123450000")
+    assert codec.dumps(very_precise) == codec.dumps(
+        Decimal("123456789012345678901234567890.12345")
+    )
 
 
 def test_finite_float_encoding_is_exact_and_non_finite_values_fail_closed():
