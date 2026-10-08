@@ -1,3 +1,4 @@
+from dataclasses import FrozenInstanceError
 from datetime import datetime, timezone
 
 import pytest
@@ -183,3 +184,27 @@ def test_priority_decision_preserves_criterion_evidence_context():
     assert snapshot.missing_evidence == ("current delivery fee",)
     assert snapshot.uncertainty == ("client scope may change",)
     assert snapshot.rationale == "profit estimate is not yet reliable"
+
+
+
+def test_policy_version_change_does_not_mutate_prior_decision():
+    first = decide()
+    next_policy = PrioritizationPolicy(
+        policy_id="priority-policy",
+        policy_version="2",
+        mandatory_evidence_refs=("eligibility.status",),
+        tier_rules=(rule(),),
+    )
+    second = decide(policy_value=next_policy)
+
+    assert first.prioritization_policy_version == "1"
+    assert second.prioritization_policy_version == "2"
+    assert first.prioritization_policy_version == "1"
+
+
+def test_criterion_evidence_snapshot_is_immutable():
+    result = decide()
+    snapshot = result.criterion_snapshots[0]
+
+    with pytest.raises(FrozenInstanceError):
+        snapshot.rationale = "mutated"
