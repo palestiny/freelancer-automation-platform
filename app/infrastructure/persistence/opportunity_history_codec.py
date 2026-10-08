@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import math
-from dataclasses import dataclass
+from collections.abc import Mapping
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from enum import Enum
@@ -198,7 +198,9 @@ class OpportunityHistoryCodecV1:
         if isinstance(value, Decimal):
             if not value.is_finite():
                 raise UnsupportedCanonicalValue("non-finite Decimal values are not supported")
-            normalized = "0" if value == 0 else format(value.normalize(), "f")
+            normalized = "0" if value == 0 else format(value, "f")
+            if normalized != "0" and "." in normalized:
+                normalized = normalized.rstrip("0").rstrip(".")
             return {"$type": "decimal", "value": normalized}
         if isinstance(value, datetime):
             if value.tzinfo is None or value.utcoffset() is None:
@@ -213,7 +215,7 @@ class OpportunityHistoryCodecV1:
             items = [self._encode(item) for item in value]
             items.sort(key=self._json_sort_key)
             return {"$type": "frozenset", "items": items}
-        if isinstance(value, dict):
+        if isinstance(value, Mapping):
             if any(not isinstance(key, str) for key in value):
                 raise UnsupportedCanonicalValue("mapping keys must be strings")
             return {
