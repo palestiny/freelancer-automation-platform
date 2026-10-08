@@ -241,15 +241,21 @@ class OpportunityHistoryCodecV1:
             raise UnsupportedCanonicalValue("invalid typed value envelope")
         tag = value["$type"]
         if tag == "none":
+            self._require_keys(value, {"$type"})
             return None
-        if tag == "bool" and type(value.get("value")) is bool:
+        if tag == "bool":
+            self._require_keys(value, {"$type", "value"})
+            if type(value.get("value")) is not bool:
+                raise UnsupportedCanonicalValue("invalid boolean encoding")
             return value["value"]
         if tag == "int":
+            self._require_keys(value, {"$type", "value"})
             try:
                 return int(value["value"])
             except (KeyError, TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid integer encoding") from exc
         if tag == "float":
+            self._require_keys(value, {"$type", "value"})
             try:
                 result = float.fromhex(value["value"])
             except (KeyError, TypeError, ValueError) as exc:
@@ -257,9 +263,13 @@ class OpportunityHistoryCodecV1:
             if not math.isfinite(result):
                 raise UnsupportedCanonicalValue("non-finite float encoding")
             return result
-        if tag == "str" and isinstance(value.get("value"), str):
+        if tag == "str":
+            self._require_keys(value, {"$type", "value"})
+            if not isinstance(value.get("value"), str):
+                raise UnsupportedCanonicalValue("invalid string encoding")
             return value["value"]
         if tag == "decimal":
+            self._require_keys(value, {"$type", "value"})
             try:
                 result = Decimal(value["value"])
             except (KeyError, InvalidOperation, TypeError, ValueError) as exc:
@@ -268,6 +278,7 @@ class OpportunityHistoryCodecV1:
                 raise UnsupportedCanonicalValue("non-finite Decimal encoding")
             return result
         if tag == "datetime":
+            self._require_keys(value, {"$type", "value"})
             try:
                 encoded = value["value"]
                 if not isinstance(encoded, str) or not encoded.endswith("Z"):
@@ -277,6 +288,7 @@ class OpportunityHistoryCodecV1:
                 raise UnsupportedCanonicalValue("invalid datetime encoding") from exc
             return result
         if tag == "enum":
+            self._require_keys(value, {"$type", "enum", "value"})
             enum_type = _ENUM_TYPES.get(value.get("enum"))
             if enum_type is None:
                 raise UnsupportedCanonicalValue("unknown enum type")
@@ -285,6 +297,7 @@ class OpportunityHistoryCodecV1:
             except (KeyError, TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid enum value") from exc
         if tag in ("tuple", "list", "frozenset"):
+            self._require_keys(value, {"$type", "items"})
             items = value.get("items")
             if not isinstance(items, list):
                 raise UnsupportedCanonicalValue("collection items must be a list")
@@ -298,6 +311,7 @@ class OpportunityHistoryCodecV1:
             except TypeError as exc:
                 raise UnsupportedCanonicalValue("unhashable frozenset member") from exc
         if tag == "mapping":
+            self._require_keys(value, {"$type", "items"})
             items = value.get("items")
             if not isinstance(items, list):
                 raise UnsupportedCanonicalValue("mapping items must be a list")
@@ -310,6 +324,7 @@ class OpportunityHistoryCodecV1:
                 result[pair[0]] = self._decode(pair[1])
             return result
         if tag == "record":
+            self._require_keys(value, {"$type", "record_type", "schema_version", "fields"})
             type_name = value.get("record_type")
             entry = _RECORD_TYPES.get(type_name)
             if entry is None:
@@ -326,6 +341,11 @@ class OpportunityHistoryCodecV1:
             except (TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid domain record payload") from exc
         raise UnsupportedCanonicalValue(f"unknown canonical type tag: {tag}")
+
+    @staticmethod
+    def _require_keys(value: dict[str, Any], expected: set[str]) -> None:
+        if set(value) != expected:
+            raise UnsupportedCanonicalValue("typed envelope has unexpected or missing fields")
 
     @staticmethod
     def _json_sort_key(value: Any) -> str:
