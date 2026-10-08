@@ -146,3 +146,39 @@ def test_decision_requires_timezone_aware_timestamp():
 
 def test_same_semantic_inputs_produce_same_decision():
     assert decide() == decide()
+
+
+
+def test_priority_decision_preserves_criterion_evidence_context():
+    source = OpportunityEvaluation(
+        policy_id="evaluation-policy",
+        policy_version="3",
+        criteria=(
+            CriterionEvaluation(
+                policy_id="evaluation-policy",
+                policy_version="3",
+                criterion_id=CriterionId.ECONOMIC_FIT,
+                outcome=CriterionOutcome.INSUFFICIENT_DATA,
+                evidence_refs=("economic.quote",),
+                missing_evidence=("current delivery fee",),
+                uncertainty=("client scope may change",),
+                rationale="profit estimate is not yet reliable",
+            ),
+        ),
+        overall_outcome=OverallOutcome.QUALIFIED,
+    )
+    result = decide(
+        evaluation_value=source,
+        policy_value=policy(
+            rule(evidence=("eligibility.status", "economic.quote")),
+            mandatory=("eligibility.status",),
+        ),
+    )
+
+    snapshot = result.criterion_snapshots[0]
+    assert snapshot.criterion_id is CriterionId.ECONOMIC_FIT
+    assert snapshot.outcome is CriterionOutcome.INSUFFICIENT_DATA
+    assert snapshot.evidence_refs == ("economic.quote",)
+    assert snapshot.missing_evidence == ("current delivery fee",)
+    assert snapshot.uncertainty == ("client scope may change",)
+    assert snapshot.rationale == "profit estimate is not yet reliable"
