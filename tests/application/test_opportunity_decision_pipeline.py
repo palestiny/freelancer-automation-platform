@@ -86,10 +86,13 @@ class StubEvaluator:
 class StubPrioritizer:
     def __init__(self):
         self.calls = []
-        self.result = object()
+        self.result = None
 
     def prioritize(self, **kwargs):
+        from app.application.opportunity_prioritizer import OpportunityPrioritizer
+
         self.calls.append(kwargs)
+        self.result = OpportunityPrioritizer().prioritize(**kwargs)
         return self.result
 
 
