@@ -61,6 +61,13 @@ If Option B is approved, the first implementation should introduce provider-neut
 
 The repository contract must not assume that a provider URL is globally unique or stable. Provider-specific external identity belongs to a future adapter/mapping contract.
 
+### Additional lineage invariants found during contract review
+
+- Reject whitespace-only caller identities, but preserve accepted identity strings exactly; do not silently trim or case-normalize them.
+- Verify that the complete evaluation and prioritization policy snapshots passed for persistence match the policy IDs and versions embedded in the combined pipeline result.
+- A decision must reference the exact normalized opportunity revision that was evaluated. Since `OpportunityDecisionResult` does not contain the input `Opportunity`, the application use case must evaluate the loaded persisted revision itself or verify a canonical fingerprint of the evaluated input against that revision before saving. Matching identity strings alone is insufficient proof of snapshot lineage.
+
+
 ### History and retrieval
 
 The contract should support, at minimum:
