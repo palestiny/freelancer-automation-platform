@@ -10,6 +10,7 @@ from decimal import Decimal, InvalidOperation
 from enum import Enum
 from typing import Any, TypeVar
 
+from app.application.opportunity_decision_pipeline import OpportunityDecisionResult
 from app.domain.client_project_risk import (
     RiskComparisonOperator,
     RiskConstraint,
@@ -55,6 +56,9 @@ class UnsupportedCanonicalValue(ValueError):
 
 # Explicit manifests are deliberately independent of dataclass reflection.
 _RECORD_TYPES: dict[str, tuple[type, tuple[str, ...]]] = {
+    "opportunity_decision_result": (OpportunityDecisionResult, (
+        "opportunity_ref", "evaluation_ref", "evaluation", "priority_decision",
+    )),
     "opportunity": (Opportunity, (
         "source_platform", "source_opportunity_id", "title", "description",
         "project_type", "required_capabilities", "budget_min", "budget_max",
