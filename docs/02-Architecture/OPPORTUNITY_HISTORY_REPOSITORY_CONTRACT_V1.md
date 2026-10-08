@@ -22,6 +22,12 @@ All identity values are caller-supplied, non-empty strings. The repository must 
 
 The repository must reject a decision whose referenced revision does not exist. The record must also reject identity/lineage mismatches: the result's `priority_decision.opportunity_ref` must equal the record's opportunity identity, and the stored evaluation reference must equal the result's `priority_decision.evaluation_ref`.
 
+Identity validation is **non-blank but non-normalizing**: reject strings whose `strip()` result is empty, while preserving every accepted identifier exactly as supplied. Do not silently trim, case-fold, or Unicode-normalize identities.
+
+The repository/use-case boundary must also verify that the supplied policy snapshots match the identities and versions embedded in the result: evaluation policy ID/version must match both the evaluation and priority decision; prioritization policy ID/version must match the priority decision. A mismatch is a validation error before persistence.
+
+A decision's revision link must mean the exact normalized `Opportunity` snapshot passed to evaluation—not merely an unrelated revision sharing the same caller-supplied ID. The repository alone cannot prove this from `OpportunityDecisionResult`, because that result does not contain the input `Opportunity`. Therefore the application use case must load the referenced persisted revision and pass that exact stored snapshot to `OpportunityDecisionPipeline`, or otherwise compare an explicit canonical fingerprint of the evaluated input with the revision before saving. Do not claim exact revision lineage if neither verification path is used. This orchestration remains outside the pure pipeline and does not add provider I/O or side effects to it.
+
 Revision IDs are scoped to their parent opportunity identity. Reusing a revision ID under the same parent with equivalent canonical content is idempotent; reusing it with different canonical content is a conflict. A revision ID under another parent is a distinct scoped identity. Decision IDs are global; reusing one for a different opportunity, revision, result, or policy snapshot is a conflict.
 
 ## 3. Canonical content equivalence and idempotency
