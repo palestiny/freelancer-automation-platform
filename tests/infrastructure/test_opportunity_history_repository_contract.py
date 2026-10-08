@@ -24,6 +24,7 @@ from app.infrastructure.persistence.in_memory_opportunity_history_repository imp
     RecordConflict,
     RecordNotFound,
 )
+from app.infrastructure.persistence.opportunity_history_codec import UnsupportedCanonicalValue
 
 UTC = timezone.utc
 T0 = datetime(2026, 10, 9, 10, 0, tzinfo=UTC)
@@ -328,3 +329,17 @@ def test_decision_retry_preserves_recorded_at_and_history_is_ordered():
     assert replay == first
     assert replay.recorded_at == T0
     assert repository.list_decisions("opp-17") == (first, second)
+
+def test_canonicalization_failure_does_not_commit_a_revision():
+    repository = InMemoryOpportunityHistoryRepository(clock=Clock(T0))
+    invalid_opportunity = Opportunity(
+        source_platform=object(),
+        source_opportunity_id="job-17",
+        title="Invalid runtime value",
+        description="Must be rejected before storage",
+    )
+
+    with pytest.raises(UnsupportedCanonicalValue):
+        repository.save_opportunity_revision("opp-17", "rev-invalid", invalid_opportunity)
+
+    assert repository.list_opportunity_revisions("opp-17") == ()
