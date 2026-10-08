@@ -102,6 +102,17 @@ The pipeline deliberately separates evidence, policy, authorization, and executi
 
 The retry runtime boundary now includes bounded worker invocation, continuous single-worker lifecycle, crash/recovery reconciliation, provider status observation, deterministic assessment, atomic expected-state application, and single-observation coordination. Distributed workers, queue frameworks, automatic restart, polling, and automatic re-execution remain outside scope.
 
+## Opportunity History & Persistence V1
+
+**Status: OWNER-APPROVED MODEL; DETAILED CONTRACT DOCUMENTED, REVIEW REQUIRED BEFORE IMPLEMENTATION**
+
+- Design gate: `docs/02-Architecture/OPPORTUNITY_HISTORY_PERSISTENCE_V1_DESIGN_GATE.md`
+- Repository contract: `docs/02-Architecture/OPPORTUNITY_HISTORY_REPOSITORY_CONTRACT_V1.md`
+- Decision: D-233 in `docs/DECISION_LOG.md`
+- PR #490 is open; its latest observed CI run passed, but the change is not merged.
+- Next: review/approve the detailed contract, then implement RED tests for canonical serialization, immutable/idempotent revision and decision records, referential integrity, deterministic ordering, and fail-closed schema compatibility.
+- Explicitly deferred: production database selection, API/UI, provider integrations, evidence registry/freshness, and persistence of full Evidence/EvaluationContext payloads absent from the current pipeline result.
+
 ## Future Strategic Work
 
 - production marketplace/provider adapters
