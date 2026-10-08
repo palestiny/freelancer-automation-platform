@@ -179,13 +179,12 @@ def test_revision_history_is_deterministic_and_latest_means_latest_recorded():
     clock = Clock(T0)
     repository = InMemoryOpportunityHistoryRepository(clock=clock)
     first = repository.save_opportunity_revision("opp-17", "rev-z", make_opportunity())
+    clock.value = T0 + timedelta(minutes=1)
     second = repository.save_opportunity_revision(
         "opp-17", "rev-a", make_opportunity("Second")
     )
 
-    assert repository.list_opportunity_revisions("opp-17") == (second, first) or (
-        repository.list_opportunity_revisions("opp-17") == (first, second)
-    )
+    assert repository.list_opportunity_revisions("opp-17") == (first, second)
     assert repository.get_latest_opportunity_revision("opp-17") == second
 
 
@@ -256,7 +255,8 @@ def test_decision_policy_or_lineage_mismatch_is_rejected_before_persistence():
             prioritization_policy,
             result,
         )
-    assert repository.get_decision("decision-1") is None if hasattr(repository, "get_decision") else True
+    with pytest.raises(RecordNotFound):
+        repository.get_decision("decision-1")
 
 
 def test_decision_identity_collision_conflicts_and_history_is_immutable():
