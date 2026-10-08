@@ -1,6 +1,6 @@
 # Opportunity History & Persistence V1 — Design Gate
 
-**Status: PROPOSED — OWNER DECISION REQUIRED**  
+**Status: OWNER-APPROVED DESIGN — IMPLEMENTATION CONTRACT DETAILING REQUIRED**  
 **Scope:** Provider-independent persistence and retrieval contract for normalized opportunities and their immutable evaluation/prioritization history.  
 **Parent capability:** Opportunity Intelligence V1 + Opportunity Decision Pipeline V1  
 **Current baseline:** Decision pipeline is implemented and merged via PR #489. It evaluates and prioritizes one already-normalized `Opportunity` in memory; it does not persist records.  
@@ -56,7 +56,7 @@ If Option B is approved, the first implementation should introduce provider-neut
 1. **Opportunity identity:** stable, non-empty caller-supplied identifier; not inferred from title, URL, provider name, or mutable content.
 2. **Opportunity revision:** immutable snapshot of the canonical normalized `Opportunity`, with a stable revision identifier and explicit recorded-at timestamp.
 3. **Decision record:** immutable combined `OpportunityDecisionResult`, with its own stable identity, the exact opportunity/revision identity, evaluation policy identity/version, prioritization policy identity/version, and the result's evidence lineage.
-4. **Policy definitions:** decision records retain the exact policy IDs and versions used. V1 need not duplicate entire policy definitions into every record if policy-version resolution is authoritative and durable; if it is not, the persistence gate must decide whether a policy snapshot is required before implementation.
+4. **Policy definitions:** each immutable decision record stores the exact immutable evaluation-policy and prioritization-policy snapshots (including IDs and versions) used to produce it. Retrieval must not resolve historical decisions against mutable current policy definitions.
 5. **Evidence references:** preserve exact references and quality/applicability metadata already carried by evaluation/priority artifacts. Do not rewrite or invent evidence references during persistence.
 
 The repository contract must not assume that a provider URL is globally unique or stable. Provider-specific external identity belongs to a future adapter/mapping contract.
@@ -123,13 +123,15 @@ After the owner approves the gate and the detailed contract is finalized, tests 
 
 ## 6. Owner choices
 
-**Recommendation: Option B.** Before implementation, confirm or change these choices:
+**Owner decision: APPROVED on 2026-10-09 (Decision D-233).**
 
-- [ ] **Persistence model:** A — decision snapshots only / B — versioned opportunity history + immutable decisions / C — full event sourcing.
-- [ ] **Identity ownership:** caller supplies opportunity, revision, and decision identities / propose a different explicit rule.
-- [ ] **Policy history:** store policy IDs/versions and require a durable policy-version registry / embed immutable policy snapshots in each decision record.
-- [ ] **Reference adapter:** defer technology choice until the repository contract is approved / approve a named reference adapter in a separate decision.
+- [x] **Persistence model:** Option B — versioned opportunity history + immutable decision records.
+- [x] **Identity ownership:** caller supplies stable opportunity, revision, and decision identities; identity conflicts fail explicitly.
+- [x] **Policy history:** embed immutable evaluation-policy and prioritization-policy snapshots in each decision record.
+- [x] **Reference adapter:** defer technology selection until the repository contract is approved; no production database is selected.
+
+The detailed implementation contract must still define canonical content equivalence, deterministic ordering/tie-breaking for history, and exact snapshot serialization/compatibility semantics. These details must be resolved before implementation, not guessed by an adapter.
 
 ## 7. Approval boundary
 
-Approval authorizes only the selected persistence contract and follow-up implementation design. It does not authorize a production database choice, API/UI, marketplace integration, evidence registry, automatic ranking, or execution. No implementation should begin until the owner selects the options above and unresolved identity, ordering, and policy-history semantics are recorded.
+Approval authorizes only the selected persistence contract and follow-up implementation design. It does not authorize a production database choice, API/UI, marketplace integration, evidence registry, automatic ranking, or execution. The owner choices above are approved. Before implementation, document the detailed canonical-equivalence and ordering rules and confirm the exact domain snapshot shapes. This approval does not authorize selecting a database, implementing an evidence registry, or adding API/UI/provider integration.
