@@ -224,7 +224,15 @@ def test_pipeline_rejects_evaluator_result_for_a_different_policy_version():
     mismatched = OpportunityEvaluation(
         policy_id=source.policy_id,
         policy_version="older-version",
-        criteria=source.criteria,
+        criteria=(
+            CriterionEvaluation(
+                policy_id=source.policy_id,
+                policy_version="older-version",
+                criterion_id=CriterionId.ELIGIBILITY,
+                outcome=CriterionOutcome.PASS,
+                evidence_refs=("eligibility.status", "economic.profit"),
+            ),
+        ),
         overall_outcome=source.overall_outcome,
     )
     evaluator = StubEvaluator(mismatched)
