@@ -1417,3 +1417,15 @@ V1 opportunity prioritization consumes the canonical Opportunity Intelligence ev
 - **Rationale:** Establish one reusable, testable sequence without duplicating evaluation/prioritization logic or prematurely introducing persistence, API, provider polling, or execution.
 - **Constraints:** Single opportunity per call; no global ranking or within-tier ordering; no implicit policies, generated identity references, persistence, provider I/O, authorization, bidding, messaging, or execution. `NOT_QUALIFIED` remains `BLOCKED`; `REVIEW_REQUIRED` remains review-only. Reference freshness is not asserted until an authoritative registry contract exists.
 - **Verification required:** RED/GREEN tests for sequencing, identity and policy lineage, outcome pass-through, evidence snapshot preservation, invalid references/naive timestamps, deterministic behavior, and absence of side effects.
+
+
+## D-233 — Opportunity History Persistence Uses Versioned Revisions and Immutable Decisions
+
+- **Status:** COMMITTED
+- **Date:** 2026-10-09
+- **Decision:** Approve Option B for Opportunity History & Persistence V1: a stable opportunity identity, append-only immutable normalized opportunity revisions, and immutable decision records referencing the exact revision used by the evaluation/prioritization pipeline.
+- **Identity:** The caller supplies explicit stable opportunity, revision, and decision identities. Identical retries with equivalent canonical content are idempotent; conflicting reuse of an identity must fail without overwriting history.
+- **Policy history:** Each decision record embeds immutable snapshots of the exact evaluation and prioritization policy versions used. Historical retrieval must not substitute current policies or silently re-evaluate old decisions.
+- **Storage:** Defer reference-adapter and production database selection until the repository contract is approved. No database vendor is selected by this decision.
+- **Constraints:** Preserve decision/evaluation time separately from persistence-recorded time; require timezone-aware timestamps; retain evidence references and recorded quality metadata without claiming reference freshness or authoritative resolution. Persistence remains separate from `OpportunityDecisionPipeline` and does not authorize API/UI, provider integration, batch ranking, authorization, bidding, messaging, execution, payment, or policy mutation.
+- **Follow-up required:** Define canonical-content equivalence, deterministic history ordering/tie-breaking, and exact domain snapshot serialization/compatibility semantics before implementation.
