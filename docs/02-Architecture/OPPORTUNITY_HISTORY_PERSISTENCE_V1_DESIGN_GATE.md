@@ -1,6 +1,6 @@
 # Opportunity History & Persistence V1 — Design Gate
 
-**Status: OWNER-APPROVED MODEL — DETAILED V1 CONTRACT DOCUMENTED; CONTRACT REVIEW REQUIRED BEFORE ADAPTER IMPLEMENTATION**  
+**Status: OWNER-APPROVED MODEL AND DETAILED V1 CONTRACT — RED CONTRACT TESTS IN PROGRESS**  
 **Scope:** Provider-independent persistence and retrieval contract for normalized opportunities and their immutable evaluation/prioritization history.  
 **Parent capability:** Opportunity Intelligence V1 + Opportunity Decision Pipeline V1  
 **Current baseline:** Decision pipeline is implemented and merged via PR #489. It evaluates and prioritizes one already-normalized `Opportunity` in memory; it does not persist records.  
@@ -141,4 +141,4 @@ The detailed implementation contract must still define canonical content equival
 
 ## 7. Approval boundary
 
-Approval authorizes only the selected persistence contract and follow-up implementation design. It does not authorize a production database choice, API/UI, marketplace integration, evidence registry, automatic ranking, or execution. The owner choices above are approved. The detailed repository contract has been documented in the linked companion file; adapter implementation remains gated on review of that contract. This approval does not authorize selecting a production database, implementing an evidence registry, or adding API/UI/provider integration.
+Approval authorizes only the selected persistence contract and follow-up implementation design. It does not authorize a production database choice, API/UI, marketplace integration, evidence registry, automatic ranking, or execution. The owner choices above are approved. The owner explicitly approved the detailed repository contract on 2026-10-09. The next increment is RED contract tests for canonical serialization and repository invariants, followed by a provider-neutral port and a replaceable in-memory reference adapter. This does not select a production database or authorize an evidence registry, API/UI, or provider integration.
