@@ -31,9 +31,9 @@ Business-model hypotheses, venture evaluation/lifecycle, and recurring-revenue/a
 Validation experiments, explicit variants, measurable results, and explicit promotion/rejection decisions exist. External experiment execution remains future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
-**Status: OPPORTUNITY PRIORITIZATION V1 IMPLEMENTED; INITIAL CI PASSED; FOLLOW-UP HARDENING REMAINS**
+**Status: OPPORTUNITY PRIORITIZATION V1 IMPLEMENTED AND HARDENED; CI PASSED; CONSUMER INTEGRATION REMAINS**
 
-Opportunity Prioritization V1 is implemented and merged via PR #487, with CI passing on the merged PR head. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231). Follow-up hardening and integration into a consuming workflow remain. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
+Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Integration into a consuming workflow remains. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 
 ## Phase 7 — Revenue Engine
 **Status: FOUNDATION IMPLEMENTED**
