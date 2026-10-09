@@ -269,6 +269,23 @@ def assert_decision_history_is_ordered_and_missing_records_are_explicit(
         history, key=lambda record: (record.recorded_at, record.decision_id)
     )
 
+    # Decision history is scoped to its opportunity; records for another
+    # opportunity must not leak into this query.
+    repository.save_opportunity_revision(
+        "contract-opp-2", "revision-1", make_opportunity("other opportunity")
+    )
+    other_result = make_result(opportunity_id="contract-opp-2")
+    other = repository.save_decision(
+        "contract-decision-other",
+        "contract-opp-2",
+        "revision-1",
+        evaluation_policy,
+        prioritization_policy,
+        other_result,
+    )
+    assert repository.list_decisions("contract-opp-1") == (first, second)
+    assert repository.list_decisions("contract-opp-2") == (other,)
+
 def assert_identity_validation_and_preservation(
     repository_factory: RepositoryFactory,
 ) -> None:
