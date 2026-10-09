@@ -166,7 +166,10 @@ class OpportunityHistoryCodecV1:
                 f"unsupported requested schema version: {schema_version}"
             )
         try:
-            raw = json.loads(payload.decode("utf-8") if isinstance(payload, bytes) else payload)
+            raw = json.loads(
+                payload.decode("utf-8") if isinstance(payload, bytes) else payload,
+                object_pairs_hook=self._reject_duplicate_json_keys,
+            )
         except (UnicodeDecodeError, json.JSONDecodeError, TypeError) as exc:
             raise UnsupportedCanonicalValue("invalid canonical JSON payload") from exc
         restored = self._decode(raw)
@@ -250,18 +253,29 @@ class OpportunityHistoryCodecV1:
             return value["value"]
         if tag == "int":
             self._require_keys(value, {"$type", "value"})
+            encoded = value.get("value")
+            if not isinstance(encoded, str):
+                raise UnsupportedCanonicalValue("invalid integer encoding")
             try:
-                return int(value["value"])
-            except (KeyError, TypeError, ValueError) as exc:
+                result = int(encoded)
+            except (TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid integer encoding") from exc
+            if str(result) != encoded:
+                raise UnsupportedCanonicalValue("non-canonical integer encoding")
+            return result
         if tag == "float":
             self._require_keys(value, {"$type", "value"})
+            encoded = value.get("value")
+            if not isinstance(encoded, str):
+                raise UnsupportedCanonicalValue("invalid float encoding")
             try:
-                result = float.fromhex(value["value"])
-            except (KeyError, TypeError, ValueError) as exc:
+                result = float.fromhex(encoded)
+            except (TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid float encoding") from exc
             if not math.isfinite(result):
                 raise UnsupportedCanonicalValue("non-finite float encoding")
+            if result.hex() != encoded:
+                raise UnsupportedCanonicalValue("non-canonical float encoding")
             return result
         if tag == "str":
             self._require_keys(value, {"$type", "value"})
@@ -270,12 +284,20 @@ class OpportunityHistoryCodecV1:
             return value["value"]
         if tag == "decimal":
             self._require_keys(value, {"$type", "value"})
+            encoded = value.get("value")
+            if not isinstance(encoded, str):
+                raise UnsupportedCanonicalValue("invalid Decimal encoding")
             try:
-                result = Decimal(value["value"])
-            except (KeyError, InvalidOperation, TypeError, ValueError) as exc:
+                result = Decimal(encoded)
+            except (InvalidOperation, TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid Decimal encoding") from exc
             if not result.is_finite():
                 raise UnsupportedCanonicalValue("non-finite Decimal encoding")
+            normalized = "0" if result == 0 else format(result, "f")
+            if normalized != "0" and "." in normalized:
+                normalized = normalized.rstrip("0").rstrip(".")
+            if normalized != encoded:
+                raise UnsupportedCanonicalValue("non-canonical Decimal encoding")
             return result
         if tag == "datetime":
             self._require_keys(value, {"$type", "value"})
@@ -284,6 +306,9 @@ class OpportunityHistoryCodecV1:
                 if not isinstance(encoded, str) or not encoded.endswith("Z"):
                     raise ValueError("datetime must end in Z")
                 result = datetime.fromisoformat(encoded[:-1] + "+00:00")
+                canonical = result.astimezone(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
+                if canonical != encoded:
+                    raise ValueError("datetime must use canonical UTC microsecond format")
             except (KeyError, TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid datetime encoding") from exc
             return result
@@ -341,6 +366,15 @@ class OpportunityHistoryCodecV1:
             except (TypeError, ValueError) as exc:
                 raise UnsupportedCanonicalValue("invalid domain record payload") from exc
         raise UnsupportedCanonicalValue(f"unknown canonical type tag: {tag}")
+
+    @staticmethod
+    def _reject_duplicate_json_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, item in pairs:
+            if key in result:
+                raise UnsupportedCanonicalValue("duplicate JSON object key")
+            result[key] = item
+        return result
 
     @staticmethod
     def _require_keys(value: dict[str, Any], expected: set[str]) -> None:
