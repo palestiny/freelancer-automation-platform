@@ -1,4 +1,6 @@
 """Run the shared opportunity-history contract against the reference adapter."""
+from datetime import datetime, timezone
+
 import pytest
 
 from app.infrastructure.persistence.in_memory_opportunity_history_repository import (
@@ -10,6 +12,8 @@ from tests.contracts.opportunity_history_repository_contract_cases import (
     assert_revision_identity_idempotency_conflict_and_history,
     assert_identity_validation_and_preservation,
     assert_decision_policy_and_lineage_are_validated,
+    assert_equal_timestamp_ordering_tiebreaker,
+    make_opportunity,
 )
 
 
@@ -35,3 +39,28 @@ class TestInMemoryOpportunityHistoryRepositorySharedContract:
 
     def test_decision_policy_and_lineage_contract(self, repository_factory):
         assert_decision_policy_and_lineage_are_validated(repository_factory)
+
+
+@pytest.fixture
+def equal_timestamp_repository_factory():
+    # Separate deterministic fixture: not every production adapter can inject
+    # a clock, so its equivalent fixture may seed equal persisted timestamps.
+    fixed_time = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
+    return lambda: InMemoryOpportunityHistoryRepository(clock=lambda: fixed_time)
+
+
+def seed_equal_timestamp_revisions(repository):
+    repository.save_opportunity_revision(
+        "contract-opp-1", "rev-z", make_opportunity("Z")
+    )
+    repository.save_opportunity_revision(
+        "contract-opp-1", "rev-a", make_opportunity("A")
+    )
+
+
+def test_equal_timestamp_ordering_tiebreaker_contract(
+    equal_timestamp_repository_factory,
+):
+    assert_equal_timestamp_ordering_tiebreaker(
+        equal_timestamp_repository_factory, seed_equal_timestamp_revisions
+    )
