@@ -31,10 +31,9 @@ Business-model hypotheses, venture evaluation/lifecycle, and recurring-revenue/a
 Validation experiments, explicit variants, measurable results, and explicit promotion/rejection decisions exist. External experiment execution remains future work.
 
 ## Phase 6 — Decision, Portfolio & Capital Allocation
-**Status: OPPORTUNITY DECISION PIPELINE V1 IMPLEMENTED; OPPORTUNITY HISTORY V1 CONTRACT APPROVED AND REFERENCE IMPLEMENTATION IN REVIEW**
+**Status: OPPORTUNITY DECISION PIPELINE V1 AND OPPORTUNITY HISTORY V1 REFERENCE IMPLEMENTATION MERGED**
 
-Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Opportunity Decision Pipeline V1 is implemented and merged via PR #489, with CI passing on the final PR head. The non-persisted service composes one normalized opportunity's canonical evaluation and prioritization into an immutable result. Opportunity History & Persistence V1 is owner-approved at both model and detailed-contract levels (D-233); PR #491 adds the versioned canonical codec, provider-neutral repository port, in-memory reference adapter, and application service that evaluates the exact persisted opportunity revision. The adapter is a reference/conformance implementation only, not production storage; no database vendor is selected. CI passed on the latest PR #491 head `168780df8d2c045495e6c40114d72deacf281b8c` (run 37862818124); merge/reconciliation remains pending explicit owner authorization. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
-
+Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (D-231) and preserves immutable per-criterion evidence context. Opportunity Decision Pipeline V1 is implemented and merged via PR #489. Opportunity History & Persistence V1 (D-233) is now merged: PR #490 records the approved contract and PR #491 implements the versioned canonical codec, provider-neutral repository port, in-memory reference adapter, and service that evaluates the exact persisted opportunity revision. CI passed on PR #491's final head `c35184b4b28e3cb1ae67c3d31e6119131eb06d2c` (run [37864333083](https://github.com/palestiny/freelancer-automation-platform/actions/runs/37864333083)); a separate post-merge workflow run has not been confirmed. The adapter is a reference/conformance implementation, not production storage; no database vendor is selected. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 ## Phase 7 — Revenue Engine
 **Status: FOUNDATION IMPLEMENTED**
 
@@ -104,16 +103,16 @@ The retry runtime boundary now includes bounded worker invocation, continuous si
 
 ## Opportunity History & Persistence V1
 
-**Status: DETAILED CONTRACT OWNER-APPROVED; REFERENCE IMPLEMENTATION CI-VERIFIED, PR REVIEW / MERGE PENDING**
+**Status: CONTRACT APPROVED; REFERENCE IMPLEMENTATION MERGED; PRODUCTION STORAGE DEFERRED**
 
 - Design gate: `docs/02-Architecture/OPPORTUNITY_HISTORY_PERSISTENCE_V1_DESIGN_GATE.md`
 - Repository contract: `docs/02-Architecture/OPPORTUNITY_HISTORY_REPOSITORY_CONTRACT_V1.md`
 - Decision: D-233 in `docs/DECISION_LOG.md`
-- PR #490 records the approved contract and has passing CI on head `13b6033e4ed16db251834ae4719fb8d1884deb62`; it remains open and unmerged.
-- PR #491 implements the canonical codec, repository port, in-memory reference adapter, and exact-persisted-revision application service. CI passed on head `168780df8d2c045495e6c40114d72deacf281b8c` (run 37862818124). The reference adapter proves only in-process contract behavior, not production durability or cross-process concurrency.
-- Next: after explicit owner authorization to merge PR #490, retarget/review PR #491 against `main`, verify the resulting diff and CI, then wait for separate merge authorization.
+- PR #490 merged the contract documentation (merge commit `3f7eeed5428f881491be67567300693d9865c186`).
+- PR #491 merged the canonical codec, repository port, in-memory reference adapter, and exact-persisted-revision application service (merge commit `c16eb2cecb833c58447da0facf7528d7100aad68`). CI passed on PR head `c35184b4b28e3cb1ae67c3d31e6119131eb06d2c` (run [37864333083](https://github.com/palestiny/freelancer-automation-platform/actions/runs/37864333083)); post-merge CI is not yet confirmed.
+- The adapter proves single-process contract behavior only; it does not claim crash durability, cross-process linearizability, or distributed locking.
 - Explicitly deferred: production database selection, API/UI, provider integrations, evidence registry/freshness, and persistence of full Evidence/EvaluationContext payloads absent from the current pipeline result.
-
+- Next: verify the merged `main` state and tests, then design the next concrete persistence increment. Do not select a production database until its operational, transaction, concurrency, migration, and deployment requirements are reviewed.
 ## Future Strategic Work
 
 - production marketplace/provider adapters
