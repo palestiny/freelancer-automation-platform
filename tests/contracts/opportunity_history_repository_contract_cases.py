@@ -135,6 +135,10 @@ def assert_revision_identity_idempotency_conflict_and_history(
         )
     assert repository.get_opportunity_revision("contract-opp-1", "revision-1") == first
 
+    second = repository.save_opportunity_revision(
+        "contract-opp-1", "revision-0", make_opportunity("second revision")
+    )
+
     # Revision identity is scoped to its parent opportunity.
     other = repository.save_opportunity_revision(
         "contract-opp-2", "revision-1", make_opportunity("other opportunity")
@@ -143,8 +147,13 @@ def assert_revision_identity_idempotency_conflict_and_history(
     assert other.opportunity_id != first.opportunity_id
 
     history = repository.list_opportunity_revisions("contract-opp-1")
-    assert first in history
+    assert first in history and second in history
     assert list(history) == sorted(
+        history, key=lambda record: (record.recorded_at, record.revision_id)
+    )
+    # "Latest" follows the documented ordering tuple; an ID is only a
+    # deterministic tie-breaker when recorded timestamps are equal.
+    assert repository.get_latest_opportunity_revision("contract-opp-1") == max(
         history, key=lambda record: (record.recorded_at, record.revision_id)
     )
 
