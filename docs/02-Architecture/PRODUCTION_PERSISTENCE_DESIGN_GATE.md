@@ -37,6 +37,8 @@ Evaluate candidates against the approved requirements, not familiarity alone.
 Potential fit: local-first, single-host pilot with modest write concurrency and simple operations.
 Risks to validate: write serialization/locking under expected concurrency, backup consistency, multi-process deployment constraints, filesystem assumptions, and future hosted scaling.
 
+**Existing repository precedent is not production proof.** The codebase already contains SQLite-backed retry command/scheduler adapters, but they serve different contracts. Their presence does not establish that their connection lifecycle, transaction boundaries, race handling, backup behavior, or concurrency characteristics satisfy Opportunity History invariants. In particular, `check_same_thread=False` only disables sqlite3's thread-affinity check; it is not itself a synchronization strategy. Review any reuse candidate against its full call paths and test cross-thread/process behavior under the intended topology. Do not copy an adapter or claim concurrency safety based solely on successful unit tests.
+
 ### Candidate B — PostgreSQL
 Potential fit: hosted multi-process deployment, stronger concurrent writer support, centralized operations, and transactional constraints.
 Risks to validate: operational/hosting cost, deployment and backup ownership, connection management, migrations, and local-development parity.
