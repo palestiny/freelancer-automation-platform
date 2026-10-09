@@ -263,3 +263,41 @@ def test_typed_envelopes_reject_unexpected_fields():
 
     with pytest.raises(UnsupportedCanonicalValue):
         codec.loads(json.dumps(envelope))
+
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        '{"$type":"int","value":1}',
+        '{"$type":"int","value":true}',
+        '{"$type":"int","value":"01"}',
+        '{"$type":"int","value":"+1"}',
+        '{"$type":"int","value":"-0"}',
+    ],
+)
+def test_integer_decoder_rejects_noncanonical_or_wrongly_typed_values(payload):
+    with pytest.raises(UnsupportedCanonicalValue):
+        OpportunityHistoryCodecV1().loads(payload)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        '{"$type":"float","value":1.0}',
+        '{"$type":"float","value":"1.0"}',
+        '{"$type":"decimal","value":1.0}',
+        '{"$type":"decimal","value":"1.00"}',
+        '{"$type":"datetime","value":"2026-10-09T12:30:00Z"}',
+    ],
+)
+def test_scalar_decoder_rejects_noncanonical_encodings(payload):
+    with pytest.raises(UnsupportedCanonicalValue):
+        OpportunityHistoryCodecV1().loads(payload)
+
+
+def test_decoder_rejects_duplicate_json_object_keys():
+    payload = '{"$type":"str","$type":"int","value":"1"}'
+
+    with pytest.raises(UnsupportedCanonicalValue, match="duplicate"):
+        OpportunityHistoryCodecV1().loads(payload)
