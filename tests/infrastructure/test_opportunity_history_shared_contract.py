@@ -174,7 +174,9 @@ def seed_equal_timestamp_decisions(repository):
 
 def test_equal_timestamp_decision_ordering_tiebreaker_contract():
     fixed_time = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
-    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: fixed_time)
+    def factory():
+        return InMemoryOpportunityHistoryRepository(clock=lambda: fixed_time)
+
     assert_equal_timestamp_decision_ordering_tiebreaker(
         factory, seed_equal_timestamp_decisions
     )
