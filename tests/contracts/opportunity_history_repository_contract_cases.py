@@ -114,7 +114,7 @@ def make_result(
     )
 
 
-def test_revision_identity_idempotency_conflict_and_history(
+def assert_revision_identity_idempotency_conflict_and_history(
     repository_factory: RepositoryFactory,
 ) -> None:
     repository = repository_factory()
@@ -147,7 +147,7 @@ def test_revision_identity_idempotency_conflict_and_history(
     )
 
 
-def test_decision_requires_revision_and_is_idempotent_but_immutable(
+def assert_decision_requires_revision_and_is_idempotent_but_immutable(
     repository_factory: RepositoryFactory,
 ) -> None:
     repository = repository_factory()
@@ -198,7 +198,7 @@ def test_decision_requires_revision_and_is_idempotent_but_immutable(
     assert repository.get_decision("contract-decision-1") == first
 
 
-def test_decision_history_is_ordered_and_missing_records_are_explicit(
+def assert_decision_history_is_ordered_and_missing_records_are_explicit(
     repository_factory: RepositoryFactory,
 ) -> None:
     repository = repository_factory()
