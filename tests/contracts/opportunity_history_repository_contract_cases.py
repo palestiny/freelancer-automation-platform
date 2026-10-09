@@ -126,6 +126,8 @@ def assert_revision_identity_idempotency_conflict_and_history(
     )
     assert replay == first
     assert replay.recorded_at == first.recorded_at
+    assert first.recorded_at.tzinfo is not None
+    assert first.recorded_at.utcoffset() is not None
 
     with pytest.raises(RecordConflict):
         repository.save_opportunity_revision(
@@ -185,6 +187,8 @@ def assert_decision_requires_revision_and_is_idempotent_but_immutable(
     )
     assert replay == first
     assert replay.recorded_at == first.recorded_at
+    assert first.recorded_at.tzinfo is not None
+    assert first.recorded_at.utcoffset() is not None
 
     with pytest.raises(RecordConflict):
         repository.save_decision(
