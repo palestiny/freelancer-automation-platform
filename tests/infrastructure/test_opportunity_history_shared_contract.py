@@ -87,7 +87,6 @@ def test_revision_latest_uses_recorded_time_contract():
 
 
 def seed_timestamped_decisions(repository):
-    start = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
     # The repository factory supplies revision time, then the two decision times.
     repository.save_opportunity_revision(
         "contract-opp-1", "revision-1", make_opportunity()
@@ -112,5 +111,7 @@ def test_decision_history_uses_recorded_time_contract():
         start + timedelta(minutes=1),
         start + timedelta(minutes=2),
     ))
-    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+    def factory():
+        return InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+
     assert_decision_history_uses_recorded_time(factory, seed_timestamped_decisions)
