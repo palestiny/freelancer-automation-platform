@@ -8,6 +8,8 @@ from tests.contracts.opportunity_history_repository_contract_cases import (
     assert_decision_history_is_ordered_and_missing_records_are_explicit,
     assert_decision_requires_revision_and_is_idempotent_but_immutable,
     assert_revision_identity_idempotency_conflict_and_history,
+    assert_identity_validation_and_preservation,
+    assert_decision_policy_and_lineage_are_validated,
 )
 
 
