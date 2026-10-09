@@ -33,7 +33,7 @@ Validation experiments, explicit variants, measurable results, and explicit prom
 ## Phase 6 — Decision, Portfolio & Capital Allocation
 **Status: OPPORTUNITY DECISION PIPELINE V1 IMPLEMENTED; OPPORTUNITY HISTORY V1 CONTRACT APPROVED AND REFERENCE IMPLEMENTATION IN REVIEW**
 
-Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Opportunity Decision Pipeline V1 is implemented and merged via PR #489, with CI passing on the final PR head. The non-persisted service composes one normalized opportunity's canonical evaluation and prioritization into an immutable result. Opportunity History & Persistence V1 is owner-approved at both model and detailed-contract levels (D-233); PR #491 adds the versioned canonical codec, provider-neutral repository port, in-memory reference adapter, and application service that evaluates the exact persisted opportunity revision. The adapter is a reference/conformance implementation only, not production storage; no database vendor is selected. Current CI verification for the latest hardening commits and merge/reconciliation remain pending. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
+Opportunity Prioritization V1 is implemented via PR #487 and hardened via PR #488, with CI passing on both PR heads. It applies explicit policy-gated tiers over canonical Opportunity Intelligence evaluations (Decision D-231) and preserves immutable per-criterion evidence context. Opportunity Decision Pipeline V1 is implemented and merged via PR #489, with CI passing on the final PR head. The non-persisted service composes one normalized opportunity's canonical evaluation and prioritization into an immutable result. Opportunity History & Persistence V1 is owner-approved at both model and detailed-contract levels (D-233); PR #491 adds the versioned canonical codec, provider-neutral repository port, in-memory reference adapter, and application service that evaluates the exact persisted opportunity revision. The adapter is a reference/conformance implementation only, not production storage; no database vendor is selected. CI passed on the latest PR #491 head `168780df8d2c045495e6c40114d72deacf281b8c` (run 37862818124); merge/reconciliation remains pending explicit owner authorization. Reference freshness validation is deferred until an authoritative registry contract exists. Portfolio posture, capital-allocation policy, and capital constraints remain future policy slices. Automatic capital movement is explicitly outside the current boundary.
 
 ## Phase 7 — Revenue Engine
 **Status: FOUNDATION IMPLEMENTED**
@@ -104,13 +104,14 @@ The retry runtime boundary now includes bounded worker invocation, continuous si
 
 ## Opportunity History & Persistence V1
 
-**Status: OWNER-APPROVED MODEL; DETAILED CONTRACT DOCUMENTED, REVIEW REQUIRED BEFORE IMPLEMENTATION**
+**Status: DETAILED CONTRACT OWNER-APPROVED; REFERENCE IMPLEMENTATION CI-VERIFIED, PR REVIEW / MERGE PENDING**
 
 - Design gate: `docs/02-Architecture/OPPORTUNITY_HISTORY_PERSISTENCE_V1_DESIGN_GATE.md`
 - Repository contract: `docs/02-Architecture/OPPORTUNITY_HISTORY_REPOSITORY_CONTRACT_V1.md`
 - Decision: D-233 in `docs/DECISION_LOG.md`
-- PR #490 is open; its latest observed CI run passed, but the change is not merged.
-- Next: review/approve the detailed contract, then implement RED tests for canonical serialization, immutable/idempotent revision and decision records, referential integrity, deterministic ordering, and fail-closed schema compatibility.
+- PR #490 records the approved contract and has passing CI on head `13b6033e4ed16db251834ae4719fb8d1884deb62`; it remains open and unmerged.
+- PR #491 implements the canonical codec, repository port, in-memory reference adapter, and exact-persisted-revision application service. CI passed on head `168780df8d2c045495e6c40114d72deacf281b8c` (run 37862818124). The reference adapter proves only in-process contract behavior, not production durability or cross-process concurrency.
+- Next: after explicit owner authorization to merge PR #490, retarget/review PR #491 against `main`, verify the resulting diff and CI, then wait for separate merge authorization.
 - Explicitly deferred: production database selection, API/UI, provider integrations, evidence registry/freshness, and persistence of full Evidence/EvaluationContext payloads absent from the current pipeline result.
 
 ## Future Strategic Work
