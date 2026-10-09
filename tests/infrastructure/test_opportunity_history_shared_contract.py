@@ -1,5 +1,5 @@
 """Run the shared opportunity-history contract against the reference adapter."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -13,7 +13,11 @@ from tests.contracts.opportunity_history_repository_contract_cases import (
     assert_identity_validation_and_preservation,
     assert_decision_policy_and_lineage_are_validated,
     assert_equal_timestamp_ordering_tiebreaker,
+    assert_revision_latest_uses_recorded_time,
+    assert_decision_history_uses_recorded_time,
     make_opportunity,
+    make_policies,
+    make_result,
 )
 
 
@@ -64,3 +68,49 @@ def test_equal_timestamp_ordering_tiebreaker_contract(
     assert_equal_timestamp_ordering_tiebreaker(
         equal_timestamp_repository_factory, seed_equal_timestamp_revisions
     )
+
+
+def seed_timestamped_revisions(repository):
+    repository.save_opportunity_revision(
+        "contract-opp-1", "rev-z", make_opportunity("Earlier")
+    )
+    repository.save_opportunity_revision(
+        "contract-opp-1", "rev-a", make_opportunity("Later")
+    )
+
+
+def test_revision_latest_uses_recorded_time_contract():
+    start = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
+    times = iter((start, start + timedelta(minutes=1)))
+    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+    assert_revision_latest_uses_recorded_time(factory, seed_timestamped_revisions)
+
+
+def seed_timestamped_decisions(repository):
+    start = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
+    # The repository factory supplies revision time, then the two decision times.
+    repository.save_opportunity_revision(
+        "contract-opp-1", "revision-1", make_opportunity()
+    )
+    evaluation_policy, prioritization_policy = make_policies()
+    repository.save_decision(
+        "decision-z", "contract-opp-1", "revision-1",
+        evaluation_policy, prioritization_policy,
+        make_result(evaluation_ref="evaluation-z"),
+    )
+    repository.save_decision(
+        "decision-a", "contract-opp-1", "revision-1",
+        evaluation_policy, prioritization_policy,
+        make_result(evaluation_ref="evaluation-a"),
+    )
+
+
+def test_decision_history_uses_recorded_time_contract():
+    start = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
+    times = iter((
+        start,
+        start + timedelta(minutes=1),
+        start + timedelta(minutes=2),
+    ))
+    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+    assert_decision_history_uses_recorded_time(factory, seed_timestamped_decisions)
