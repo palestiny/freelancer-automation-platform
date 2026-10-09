@@ -189,6 +189,10 @@ def assert_decision_requires_revision_and_is_idempotent_but_immutable(
     assert replay.recorded_at == first.recorded_at
     assert first.recorded_at.tzinfo is not None
     assert first.recorded_at.utcoffset() is not None
+    # The persisted decision is a snapshot, not merely a pointer to live policies.
+    assert first.evaluation_policy == evaluation_policy
+    assert first.prioritization_policy == prioritization_policy
+    assert first.result == result
 
     with pytest.raises(RecordConflict):
         repository.save_decision(
