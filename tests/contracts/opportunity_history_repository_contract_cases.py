@@ -203,6 +203,21 @@ def assert_decision_requires_revision_and_is_idempotent_but_immutable(
     assert first.prioritization_policy == prioritization_policy
     assert first.result == result
 
+    # Decision IDs are global, even when another opportunity/revision exists.
+    repository.save_opportunity_revision(
+        "contract-opp-2", "revision-1", make_opportunity("other opportunity")
+    )
+    with pytest.raises(RecordConflict):
+        repository.save_decision(
+            "contract-decision-1",
+            "contract-opp-2",
+            "revision-1",
+            evaluation_policy,
+            prioritization_policy,
+            make_result(opportunity_id="contract-opp-2"),
+        )
+    assert repository.get_decision("contract-decision-1") == first
+
     with pytest.raises(RecordConflict):
         repository.save_decision(
             "contract-decision-1",
