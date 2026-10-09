@@ -301,6 +301,19 @@ def assert_identity_validation_and_preservation(
     assert record.opportunity_id == " contract-opp-1 "
     assert record.revision_id == "Revision-A"
 
+    # Identity validation applies consistently to read and history operations,
+    # not only to writes.
+    for operation in (
+        lambda: repository.get_opportunity_revision("", "Revision-A"),
+        lambda: repository.get_opportunity_revision(" contract-opp-1 ", " "),
+        lambda: repository.list_opportunity_revisions("  "),
+        lambda: repository.get_latest_opportunity_revision(""),
+        lambda: repository.get_decision(" "),
+        lambda: repository.list_decisions(""),
+    ):
+        with pytest.raises(ValueError):
+            operation()
+
     # Decision identity inputs follow the same non-blank, non-normalizing rule.
     repository.save_opportunity_revision(
         "contract-opp-1", "revision-1", make_opportunity()
