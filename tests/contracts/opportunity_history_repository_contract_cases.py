@@ -502,3 +502,19 @@ def assert_decision_retry_preserves_recorded_at_after_time_advances(
     assert replay == first
     assert replay.recorded_at == first.recorded_at
 
+def assert_equal_timestamp_decision_ordering_tiebreaker(
+    repository_factory: RepositoryFactory,
+    seed_equal_timestamp_decisions: Callable[[OpportunityHistoryRepository], None],
+) -> None:
+    """Verify decision history uses decision identity only for equal timestamps."""
+    repository = repository_factory()
+    seed_equal_timestamp_decisions(repository)
+
+    history = repository.list_decisions("contract-opp-1")
+    assert len(history) == 2
+    assert history[0].recorded_at == history[1].recorded_at
+    assert tuple(record.decision_id for record in history) == (
+        "decision-a",
+        "decision-z",
+    )
+
