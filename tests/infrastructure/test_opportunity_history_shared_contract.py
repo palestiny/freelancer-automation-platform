@@ -15,6 +15,8 @@ from tests.contracts.opportunity_history_repository_contract_cases import (
     assert_equal_timestamp_ordering_tiebreaker,
     assert_revision_latest_uses_recorded_time,
     assert_decision_history_uses_recorded_time,
+    assert_revision_retry_preserves_recorded_at_after_time_advances,
+    assert_decision_retry_preserves_recorded_at_after_time_advances,
     make_opportunity,
     make_policies,
     make_result,
@@ -118,3 +120,30 @@ def test_decision_history_uses_recorded_time_contract():
         return InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
 
     assert_decision_history_uses_recorded_time(factory, seed_timestamped_decisions)
+
+
+class MutableClock:
+    def __init__(self, value):
+        self.value = value
+
+    def __call__(self):
+        return self.value
+
+    def advance(self):
+        self.value += timedelta(minutes=5)
+
+
+def test_revision_retry_preserves_original_recorded_at_contract():
+    clock = MutableClock(datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc))
+    repository = InMemoryOpportunityHistoryRepository(clock=clock)
+    assert_revision_retry_preserves_recorded_at_after_time_advances(
+        repository, clock.advance
+    )
+
+
+def test_decision_retry_preserves_original_recorded_at_contract():
+    clock = MutableClock(datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc))
+    repository = InMemoryOpportunityHistoryRepository(clock=clock)
+    assert_decision_retry_preserves_recorded_at_after_time_advances(
+        repository, clock.advance
+    )
