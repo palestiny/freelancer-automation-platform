@@ -1,6 +1,6 @@
 # Opportunity History Repository Contract V1
 
-**Status:** OWNER-APPROVED 2026-10-09; RED contract tests in progress. No production database selected.
+**Status:** OWNER-APPROVED 2026-10-09; provider-neutral reference implementation and contract tests are in PR #491, with CI passing on head `168780df8d2c045495e6c40114d72deacf281b8c`. No production database selected.
 **Parent gate:** [Opportunity History & Persistence V1 Design Gate](OPPORTUNITY_HISTORY_PERSISTENCE_V1_DESIGN_GATE.md)
 **Decision context:** D-233 approved versioned opportunity revisions and immutable decision records, caller-owned identities, and embedded policy snapshots.
 
@@ -115,4 +115,4 @@ Tests must establish:
 
 ## 9. Implementation boundary
 
-After this contract is accepted, implement RED tests for the repository port and canonical codec first, then the smallest provider-neutral repository port and a replaceable reference adapter selected explicitly in a separate decision. Keep persistence separate from `OpportunityDecisionPipeline`. Do not choose a production database or add API/UI/provider integration as part of this increment.
+The approved contract is implemented in PR #491 with RED-first tests, a versioned canonical codec, a provider-neutral repository port, an in-memory reference adapter, and an application service that evaluates the exact persisted revision. CI passed on the latest PR head cited above. Keep persistence separate from `OpportunityDecisionPipeline`. The in-memory adapter is not a production storage decision and makes no crash-durability, multi-process linearizability, or distributed-locking claim. Do not add API/UI/provider integration or choose a production database as part of this increment.
