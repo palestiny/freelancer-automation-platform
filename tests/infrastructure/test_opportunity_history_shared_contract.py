@@ -82,7 +82,9 @@ def seed_timestamped_revisions(repository):
 def test_revision_latest_uses_recorded_time_contract():
     start = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
     times = iter((start, start + timedelta(minutes=1)))
-    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+    def factory():
+        return InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
+
     assert_revision_latest_uses_recorded_time(factory, seed_timestamped_revisions)
 
 
@@ -111,6 +113,7 @@ def test_decision_history_uses_recorded_time_contract():
         start + timedelta(minutes=1),
         start + timedelta(minutes=2),
     ))
+
     def factory():
         return InMemoryOpportunityHistoryRepository(clock=lambda: next(times))
 
