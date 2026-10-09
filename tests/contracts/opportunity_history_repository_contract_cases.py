@@ -236,3 +236,66 @@ def assert_decision_history_is_ordered_and_missing_records_are_explicit(
     assert list(history) == sorted(
         history, key=lambda record: (record.recorded_at, record.decision_id)
     )
+
+def assert_identity_validation_and_preservation(
+    repository_factory: RepositoryFactory,
+) -> None:
+    repository = repository_factory()
+    with pytest.raises(ValueError):
+        repository.save_opportunity_revision("", "revision-1", make_opportunity())
+    with pytest.raises(ValueError):
+        repository.save_opportunity_revision("contract-opp-1", "  ", make_opportunity())
+
+    record = repository.save_opportunity_revision(
+        " contract-opp-1 ", "Revision-A", make_opportunity()
+    )
+    assert record.opportunity_id == " contract-opp-1 "
+    assert record.revision_id == "Revision-A"
+
+
+def assert_decision_policy_and_lineage_are_validated(
+    repository_factory: RepositoryFactory,
+) -> None:
+    repository = repository_factory()
+    repository.save_opportunity_revision(
+        "contract-opp-1", "revision-1", make_opportunity()
+    )
+    evaluation_policy, prioritization_policy = make_policies()
+    result = make_result()
+
+    wrong_policy = PrioritizationPolicy(
+        policy_id="different-policy",
+        policy_version="99",
+        mandatory_evidence_refs=("eligibility.status",),
+        tier_rules=(
+            PriorityTierRule(
+                rule_id="eligible",
+                tier_id="P1",
+                required_evidence_refs=("eligibility.status",),
+            ),
+        ),
+    )
+    with pytest.raises(ValueError, match="policy"):
+        repository.save_decision(
+            "contract-decision-policy-mismatch",
+            "contract-opp-1",
+            "revision-1",
+            evaluation_policy,
+            wrong_policy,
+            result,
+        )
+
+    with pytest.raises(ValueError, match="lineage|opportunity"):
+        repository.save_decision(
+            "contract-decision-lineage-mismatch",
+            "different-opportunity",
+            "revision-1",
+            evaluation_policy,
+            prioritization_policy,
+            result,
+        )
+
+    with pytest.raises(RecordNotFound):
+        repository.get_decision("contract-decision-policy-mismatch")
+    with pytest.raises(RecordNotFound):
+        repository.get_decision("contract-decision-lineage-mismatch")
