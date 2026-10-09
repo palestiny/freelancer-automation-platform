@@ -13,6 +13,7 @@ from tests.contracts.opportunity_history_repository_contract_cases import (
     assert_identity_validation_and_preservation,
     assert_decision_policy_and_lineage_are_validated,
     assert_equal_timestamp_ordering_tiebreaker,
+    assert_equal_timestamp_decision_ordering_tiebreaker,
     assert_revision_latest_uses_recorded_time,
     assert_decision_history_uses_recorded_time,
     assert_revision_retry_preserves_recorded_at_after_time_advances,
@@ -146,4 +147,34 @@ def test_decision_retry_preserves_original_recorded_at_contract():
     repository = InMemoryOpportunityHistoryRepository(clock=clock)
     assert_decision_retry_preserves_recorded_at_after_time_advances(
         repository, clock.advance
+    )
+
+
+
+def seed_equal_timestamp_decisions(repository):
+    repository.save_opportunity_revision(
+        "contract-opp-1", "revision-1", make_opportunity()
+    )
+    evaluation_policy, prioritization_policy = make_policies()
+    # Deliberately insert reverse lexical order; persisted history must use ID
+    # as a deterministic tie-breaker only because recorded_at is equal.
+    for decision_id, evaluation_ref in (
+        ("decision-z", "evaluation-z"),
+        ("decision-a", "evaluation-a"),
+    ):
+        repository.save_decision(
+            decision_id,
+            "contract-opp-1",
+            "revision-1",
+            evaluation_policy,
+            prioritization_policy,
+            make_result(evaluation_ref=evaluation_ref),
+        )
+
+
+def test_equal_timestamp_decision_ordering_tiebreaker_contract():
+    fixed_time = datetime(2026, 10, 9, 10, 0, tzinfo=timezone.utc)
+    factory = lambda: InMemoryOpportunityHistoryRepository(clock=lambda: fixed_time)
+    assert_equal_timestamp_decision_ordering_tiebreaker(
+        factory, seed_equal_timestamp_decisions
     )
