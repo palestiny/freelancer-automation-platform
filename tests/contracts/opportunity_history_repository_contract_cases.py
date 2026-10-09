@@ -290,10 +290,15 @@ def assert_identity_validation_and_preservation(
     repository_factory: RepositoryFactory,
 ) -> None:
     repository = repository_factory()
-    with pytest.raises(ValueError):
-        repository.save_opportunity_revision("", "revision-1", make_opportunity())
-    with pytest.raises(ValueError):
-        repository.save_opportunity_revision("contract-opp-1", "  ", make_opportunity())
+    for blank_identity in ("", " ", "\\t", "\\n"):
+        with pytest.raises(ValueError):
+            repository.save_opportunity_revision(
+                blank_identity, "revision-1", make_opportunity()
+            )
+        with pytest.raises(ValueError):
+            repository.save_opportunity_revision(
+                "contract-opp-1", blank_identity, make_opportunity()
+            )
 
     record = repository.save_opportunity_revision(
         " contract-opp-1 ", "Revision-A", make_opportunity()
@@ -303,16 +308,21 @@ def assert_identity_validation_and_preservation(
 
     # Identity validation applies consistently to read and history operations,
     # not only to writes.
-    for operation in (
-        lambda: repository.get_opportunity_revision("", "Revision-A"),
-        lambda: repository.get_opportunity_revision(" contract-opp-1 ", " "),
-        lambda: repository.list_opportunity_revisions("  "),
-        lambda: repository.get_latest_opportunity_revision(""),
-        lambda: repository.get_decision(" "),
-        lambda: repository.list_decisions(""),
-    ):
-        with pytest.raises(ValueError):
-            operation()
+    for blank_identity in ("", " ", "\\t", "\\n"):
+        for operation in (
+            lambda value=blank_identity: repository.get_opportunity_revision(
+                value, "Revision-A"
+            ),
+            lambda value=blank_identity: repository.get_opportunity_revision(
+                " contract-opp-1 ", value
+            ),
+            lambda value=blank_identity: repository.list_opportunity_revisions(value),
+            lambda value=blank_identity: repository.get_latest_opportunity_revision(value),
+            lambda value=blank_identity: repository.get_decision(value),
+            lambda value=blank_identity: repository.list_decisions(value),
+        ):
+            with pytest.raises(ValueError):
+                operation()
 
     # Decision identity inputs follow the same non-blank, non-normalizing rule.
     repository.save_opportunity_revision(
@@ -320,20 +330,21 @@ def assert_identity_validation_and_preservation(
     )
     evaluation_policy, prioritization_policy = make_policies()
     valid_result = make_result()
-    for invalid_decision_id, invalid_opportunity_id, invalid_revision_id in (
-        ("", "contract-opp-1", "revision-1"),
-        ("decision-blank-opportunity", "  ", "revision-1"),
-        ("decision-blank-revision", "contract-opp-1", " "),
-    ):
-        with pytest.raises(ValueError):
-            repository.save_decision(
-                invalid_decision_id,
-                invalid_opportunity_id,
-                invalid_revision_id,
-                evaluation_policy,
-                prioritization_policy,
-                valid_result,
-            )
+    for blank_identity in ("", " ", "\\t", "\\n"):
+        for invalid_decision_id, invalid_opportunity_id, invalid_revision_id in (
+            (blank_identity, "contract-opp-1", "revision-1"),
+            ("decision-blank-opportunity", blank_identity, "revision-1"),
+            ("decision-blank-revision", "contract-opp-1", blank_identity),
+        ):
+            with pytest.raises(ValueError):
+                repository.save_decision(
+                    invalid_decision_id,
+                    invalid_opportunity_id,
+                    invalid_revision_id,
+                    evaluation_policy,
+                    prioritization_policy,
+                    valid_result,
+                )
     assert repository.list_decisions("contract-opp-1") == ()
 
     # Accepted decision IDs and parent IDs are preserved exactly.
