@@ -434,3 +434,32 @@ def assert_equal_timestamp_ordering_tiebreaker(
     assert tuple(record.revision_id for record in history) == ("rev-a", "rev-z")
     assert repository.get_latest_opportunity_revision("contract-opp-1") == history[-1]
 
+def assert_revision_latest_uses_recorded_time(
+    repository_factory: RepositoryFactory,
+    seed_timestamped_revisions: Callable[[OpportunityHistoryRepository], None],
+) -> None:
+    """Ensure chronology outranks revision ID when timestamps differ."""
+    repository = repository_factory()
+    seed_timestamped_revisions(repository)
+    history = repository.list_opportunity_revisions("contract-opp-1")
+
+    assert tuple(record.revision_id for record in history) == ("rev-z", "rev-a")
+    assert history[0].recorded_at < history[1].recorded_at
+    assert repository.get_latest_opportunity_revision("contract-opp-1") == history[1]
+
+
+def assert_decision_history_uses_recorded_time(
+    repository_factory: RepositoryFactory,
+    seed_timestamped_decisions: Callable[[OpportunityHistoryRepository], None],
+) -> None:
+    """Ensure decision history orders by time before using identity tie-breaks."""
+    repository = repository_factory()
+    seed_timestamped_decisions(repository)
+    history = repository.list_decisions("contract-opp-1")
+
+    assert tuple(record.decision_id for record in history) == (
+        "decision-z",
+        "decision-a",
+    )
+    assert history[0].recorded_at < history[1].recorded_at
+
