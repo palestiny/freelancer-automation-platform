@@ -310,7 +310,7 @@ def assert_identity_validation_and_preservation(
     for invalid_decision_id, invalid_opportunity_id, invalid_revision_id in (
         ("", "contract-opp-1", "revision-1"),
         ("decision-blank-opportunity", "  ", "revision-1"),
-        ("decision-blank-revision", "contract-opp-1", "\\t"),
+        ("decision-blank-revision", "contract-opp-1", " "),
     ):
         with pytest.raises(ValueError):
             repository.save_decision(
