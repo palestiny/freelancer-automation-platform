@@ -301,6 +301,47 @@ def assert_identity_validation_and_preservation(
     assert record.opportunity_id == " contract-opp-1 "
     assert record.revision_id == "Revision-A"
 
+    # Decision identity inputs follow the same non-blank, non-normalizing rule.
+    repository.save_opportunity_revision(
+        "contract-opp-1", "revision-1", make_opportunity()
+    )
+    evaluation_policy, prioritization_policy = make_policies()
+    valid_result = make_result()
+    for invalid_decision_id, invalid_opportunity_id, invalid_revision_id in (
+        ("", "contract-opp-1", "revision-1"),
+        ("decision-blank-opportunity", "  ", "revision-1"),
+        ("decision-blank-revision", "contract-opp-1", "\\t"),
+    ):
+        with pytest.raises(ValueError):
+            repository.save_decision(
+                invalid_decision_id,
+                invalid_opportunity_id,
+                invalid_revision_id,
+                evaluation_policy,
+                prioritization_policy,
+                valid_result,
+            )
+    assert repository.list_decisions("contract-opp-1") == ()
+
+    # Accepted decision IDs and parent IDs are preserved exactly.
+    spaced_opportunity_id = " contract-opp-spaced "
+    spaced_revision_id = "Revision-A"
+    repository.save_opportunity_revision(
+        spaced_opportunity_id, spaced_revision_id, make_opportunity()
+    )
+    spaced_result = make_result(opportunity_id=spaced_opportunity_id)
+    decision = repository.save_decision(
+        " Decision-A ",
+        spaced_opportunity_id,
+        spaced_revision_id,
+        evaluation_policy,
+        prioritization_policy,
+        spaced_result,
+    )
+    assert decision.decision_id == " Decision-A "
+    assert decision.opportunity_id == spaced_opportunity_id
+    assert decision.revision_id == spaced_revision_id
+
 
 def assert_decision_policy_and_lineage_are_validated(
     repository_factory: RepositoryFactory,
