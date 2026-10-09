@@ -290,7 +290,7 @@ def assert_identity_validation_and_preservation(
     repository_factory: RepositoryFactory,
 ) -> None:
     repository = repository_factory()
-    for blank_identity in ("", " ", "\\t", "\\n"):
+    for blank_identity in ("", " ", "\t", "\n"):
         with pytest.raises(ValueError):
             repository.save_opportunity_revision(
                 blank_identity, "revision-1", make_opportunity()
@@ -308,7 +308,7 @@ def assert_identity_validation_and_preservation(
 
     # Identity validation applies consistently to read and history operations,
     # not only to writes.
-    for blank_identity in ("", " ", "\\t", "\\n"):
+    for blank_identity in ("", " ", "\t", "\n"):
         for operation in (
             lambda value=blank_identity: repository.get_opportunity_revision(
                 value, "Revision-A"
@@ -330,7 +330,7 @@ def assert_identity_validation_and_preservation(
     )
     evaluation_policy, prioritization_policy = make_policies()
     valid_result = make_result()
-    for blank_identity in ("", " ", "\\t", "\\n"):
+    for blank_identity in ("", " ", "\t", "\n"):
         for invalid_decision_id, invalid_opportunity_id, invalid_revision_id in (
             (blank_identity, "contract-opp-1", "revision-1"),
             ("decision-blank-opportunity", blank_identity, "revision-1"),
