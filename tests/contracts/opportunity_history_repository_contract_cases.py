@@ -463,3 +463,42 @@ def assert_decision_history_uses_recorded_time(
     )
     assert history[0].recorded_at < history[1].recorded_at
 
+def assert_revision_retry_preserves_recorded_at_after_time_advances(
+    repository: OpportunityHistoryRepository,
+    advance_clock: Callable[[], None],
+) -> None:
+    """An equivalent retry must retain the first persisted timestamp."""
+    opportunity = make_opportunity()
+    first = repository.save_opportunity_revision(
+        "contract-opp-1", "retry-revision", opportunity
+    )
+    advance_clock()
+    replay = repository.save_opportunity_revision(
+        "contract-opp-1", "retry-revision", opportunity
+    )
+    assert replay == first
+    assert replay.recorded_at == first.recorded_at
+
+
+def assert_decision_retry_preserves_recorded_at_after_time_advances(
+    repository: OpportunityHistoryRepository,
+    advance_clock: Callable[[], None],
+) -> None:
+    """An equivalent decision retry must retain its original timestamp."""
+    repository.save_opportunity_revision(
+        "contract-opp-1", "retry-revision", make_opportunity()
+    )
+    evaluation_policy, prioritization_policy = make_policies()
+    result = make_result()
+    first = repository.save_decision(
+        "retry-decision", "contract-opp-1", "retry-revision",
+        evaluation_policy, prioritization_policy, result,
+    )
+    advance_clock()
+    replay = repository.save_decision(
+        "retry-decision", "contract-opp-1", "retry-revision",
+        evaluation_policy, prioritization_policy, result,
+    )
+    assert replay == first
+    assert replay.recorded_at == first.recorded_at
+
