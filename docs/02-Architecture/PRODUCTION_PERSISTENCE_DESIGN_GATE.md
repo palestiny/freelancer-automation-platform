@@ -69,6 +69,7 @@ Any production adapter must pass the same provider-neutral repository contract t
 
 ### Contract and concurrency
 - Run the complete shared repository conformance suite against every adapter.
+- **Current test-suite gap:** the existing `tests/infrastructure/test_opportunity_history_repository_contract.py` constructs `InMemoryOpportunityHistoryRepository` directly. It verifies useful V1 semantics, but it is not yet a reusable adapter-agnostic conformance suite. Before adding a production adapter, extract reusable contract cases behind an adapter fixture/factory, then run those same cases against both the reference adapter and the selected production adapter. Keep adapter-specific failure, transaction, concurrency, backup, and recovery tests separate.
 - Test duplicate identical writes and conflicting writes under concurrent calls and, where supported by the deployment, across independent processes.
 - Test decision/revision races, foreign-key/lineage violations, transaction rollback, and uniqueness enforcement.
 - Test interruption or simulated storage failure before, during, and after commit; document what callers may safely retry.
