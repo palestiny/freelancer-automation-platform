@@ -402,3 +402,24 @@ def assert_decision_policy_and_lineage_are_validated(
         repository.get_decision("contract-decision-policy-mismatch")
     with pytest.raises(RecordNotFound):
         repository.get_decision("contract-decision-lineage-mismatch")
+
+
+def assert_equal_timestamp_ordering_tiebreaker(
+    repository_factory: RepositoryFactory,
+    seed_equal_timestamp_records: Callable[[OpportunityHistoryRepository], None],
+) -> None:
+    """Verify identity tie-breaking using adapter-controlled equal-time fixtures.
+
+    The seeder is adapter-specific: in-memory adapters can freeze their clock,
+    while database adapters may need a transaction or direct fixture setup to
+    create records with the same persisted timestamp.
+    """
+    repository = repository_factory()
+    seed_equal_timestamp_records(repository)
+
+    history = repository.list_opportunity_revisions("contract-opp-1")
+    assert len(history) == 2
+    assert history[0].recorded_at == history[1].recorded_at
+    assert tuple(record.revision_id for record in history) == ("rev-a", "rev-z")
+    assert repository.get_latest_opportunity_revision("contract-opp-1") == history[-1]
+
