@@ -27,3 +27,9 @@ class TestInMemoryOpportunityHistoryRepositorySharedContract:
 
     def test_decision_history_and_not_found_contract(self, repository_factory):
         assert_decision_history_is_ordered_and_missing_records_are_explicit(repository_factory)
+
+    def test_identity_validation_and_preservation_contract(self, repository_factory):
+        assert_identity_validation_and_preservation(repository_factory)
+
+    def test_decision_policy_and_lineage_contract(self, repository_factory):
+        assert_decision_policy_and_lineage_are_validated(repository_factory)
